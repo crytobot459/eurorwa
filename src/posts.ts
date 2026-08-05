@@ -86,32 +86,58 @@ Repo (attestation code): https://github.com/crytobot459/eurorwa
 
 Happy to add funds I missed — suggestions welcome.`
 
-const linkedin = `Tokenized money market funds just reached ${fmt(total)} in TVL across the 15 EU + US funds I track daily.
-
-Leaders by AUM: ${byTvl
+const liTop = byTvl
   .slice(0, 5)
-  .map((f) => `${f.ticker} (${fmt(f.tvl)})`)
-  .join(" · ")}.
+  .map((f) => `• ${f.ticker} — ${fmt(f.tvl)}${f.yield > 0 ? ` (yield ${f.yield.toFixed(2)}%)` : ""}`)
+  .join("\n")
 
-Top yields right now: ${byYld
-  .slice(0, 4)
+const liYld = byYld
+  .slice(0, 5)
   .map((f) => `${f.ticker} ${f.yield.toFixed(2)}%`)
-  .join(" · ")}.
+  .join(" · ")
+
+const linkedin = `$10.6 billion is now sitting in tokenized money market funds — and most people still can't tell you what's inside them.
+
+I built a dashboard to fix that. Here's the full story.
+
+THE NUMBERS (${date})
+
+${fmt(total)} across 15 EU + US funds. Where the money is:
+${liTop}
+
+Top yields today: ${liYld}
+
+WHY THIS MATTERS
+
+Tokenized MMFs are quietly becoming the "risk-free rate on-chain" — treasury funds like BlackRock's BUIDL and Circle USYC pay daily yield, settle 24/7, and now hold billions. For corporate treasuries and DeFi alike, this is the new default parking spot for cash.
+
+THE PART I COULDN'T GET ANYWHERE ELSE
+
+I wanted numbers I could actually verify. So every snapshot my agent takes is:
+
+1. Hashed (keccak-256) with the full 15-fund payload
+2. Signed by the agent wallet
+3. Published to a smart contract on Sepolia — public, permanent, tamper-proof
+
+Anyone can re-hash the data and check the on-chain signature. No "trust me bro" dashboards.
 
 ${
-  gainer ? `The fastest-growing fund over 7 days is ${gainer.ticker} at ${pct(gainer.chg_7d_pct)}.` : ""
-}${loser ? ` ${loser.ticker} saw the biggest dip (${pct(loser.chg_7d_pct)}).` : ""}
+  gainer
+    ? `WHAT THE DATA SAYS RIGHT NOW\n\n${gainer.ticker} is the 7-day mover (+${gainer.chg_7d_pct.toFixed(2)}%)`
+    : ""
+}${loser ? `, while ${loser.ticker} cooled off (${pct(loser.chg_7d_pct)}).` : ""}
 
-Every daily snapshot is hashed and signed on-chain, so the numbers are verifiable — no "trust me bro" dashboards.
+Live dashboard: ${url}
+Open source: https://github.com/crytobot459/eurorwa
 
-Live: ${url}
-Source: https://github.com/crytobot459/eurorwa
+What's the one fund you'd add to this list?
 
-#RWA #Tokenization #FixedIncome #DigitalAssets`
+#RWA #Tokenization #FixedIncome #DigitalAssets #DeFi #MoneyMarketFunds`
 
 const out = `# Bài đăng sẵn sàng — ${date}
 
-> Sinh tự động từ snapshot ${date}. Copy-paste từng mục là đăng được. Chụp screenshot dashboard kèm theo.
+> Sinh tự động từ snapshot ${date}. Copy-paste từng mục là đăng được.
+> 📸 **Đính kèm ảnh (LinkedIn/X):** \`docs/posts/visual-${date}.png\` (chart 1200x630, chạy \`bun run visual\` để sinh). Có thể chụp thêm screenshot dashboard.
 
 ## X (Twitter)
 

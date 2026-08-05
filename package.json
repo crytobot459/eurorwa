@@ -11,6 +11,7 @@
     "deploy": "bun run src/agent/deploy.ts",
     "publish": "bun run src/agent/publish.ts",
     "posts": "bun run src/posts.ts",
+    "visual": "bun run src/visual.ts",
     "frontend": "cd src/frontend && bun run dev",
     "typecheck": "bunx tsc --noEmit"
   },
