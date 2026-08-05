@@ -11,7 +11,8 @@
   - **Contract**: `0xcb03f6390ef54aaa1a39ef9f71448a23ccca3b7f` (Sepolia) — deploy tx `0x807e...a60565`.
   - **Attestation onchain**: date `2026-08-05`, tx `0x6f8e...fb72c` (block 11421710). Verify đọc lại `getHash()` khớp `0x3fda...869c`, owner = ví agent. Xem: https://sepolia.etherscan.io/tx/0x6f8ec37095093d9097eae89265e9f086eec09b754c7d0120eff288fe9e2fb72c
   - **Bug đã fix**: `deployContract` (viem) trả về **tx hash** chứ không phải địa chỉ → `deploy.ts` giờ `waitForTransactionReceipt` + lấy `contractAddress`. (Contract đầu orphaned vô hại.)
-- **Cron 12h CÀI XONG**: thêm job crontab `0 */12 * * *` chạy `scripts/run.sh` (fetch + ingest) → log vào `data/cron.log`. Verify chạy tay OK (15 funds, upsert idempotent). Backup crontab cũ ở `/tmp/crontab.backup.*`.
+- **HỆ THỐNG SINH BÀI ĐĂNG TỰ ĐỘNG**: `src/posts.ts` + script `bun run posts` — đọc snapshot mới nhất, tính tổng TVL / top quỹ / top yield / 7d mover, sinh sẵn 3 bài (X ≤280 ký tự, Reddit title+table, LinkedIn) → `docs/posts/ready-<date>.md`. **User chỉ cần mở file, copy-paste, đăng.** Đã nối vào cron (mỗi 12h sinh lại theo data mới). Ví dụ: `docs/posts/ready-2026-08-05.md` (X post 248/280).
+- **Cron 12h CÀI XONG**: thêm job crontab `0 */12 * * *` chạy `scripts/run.sh` (fetch + ingest + attest + publish onchain + sinh posts) → log vào `data/cron.log`. Verify chạy tay OK (15 funds, upsert idempotent). Backup crontab cũ ở `/tmp/crontab.backup.*`.
 - **5 bài đăng mẫu viết xong** trong `docs/posts.md` (Bài 1-5: dòng tiền EU, so sánh yield, quỹ mới, tổng kết tháng, story build) — kèm số liệu THẬT snapshot 2026-08-05 (tổng $10.6B, USYC $3.0B, BUIDL $2.7B, EUTBL $898M, USTBL 4.34%...). User tự đăng qua Chrome, ghi link vào PROGRESS sau.
 - **Attestation làm mới** với data mới (sau khi chạy lại fetch/ingest): hash `0x3fda...869c`, verify OK.
 

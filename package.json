@@ -10,6 +10,7 @@
     "verify": "bun run src/agent/verify.ts",
     "deploy": "bun run src/agent/deploy.ts",
     "publish": "bun run src/agent/publish.ts",
+    "posts": "bun run src/posts.ts",
     "frontend": "cd src/frontend && bun run dev",
     "typecheck": "bunx tsc --noEmit"
   },
