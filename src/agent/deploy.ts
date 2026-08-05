@@ -19,12 +19,12 @@ const input = {
   sources: { "RWAAttestation.sol": { content: src } },
   settings: { outputSelection: { "*": { "*": ["abi", "evm.bytecode.object"] } } },
 }
-const out = JSON.parse(solc.compile(JSON.stringify(input)))
-const errs = out.errors as { severity: string; formattedMessage: string }[] | undefined
+const res = JSON.parse(solc.compile(JSON.stringify(input)))
+const errs = res.errors as { severity: string; formattedMessage: string }[] | undefined
 if (errs?.some((e) => e.severity === "error")) {
   throw new Error(errs.map((e) => e.formattedMessage).join("\n"))
 }
-const compiled = out.contracts["RWAAttestation.sol"]["RWAAttestation"]
+const compiled = res.contracts["RWAAttestation.sol"]["RWAAttestation"]
 const abi = compiled.abi as Abi
 const bytecode = `0x${compiled.evm.bytecode.object}` as Hex
 
@@ -36,9 +36,12 @@ console.log(
   `deploying RWAAttestation from ${acct.address} (${await publicClient.getBalance({ address: acct.address })} wei)`,
 )
 
-const address = await deployContract(walletClient, { abi, bytecode })
-console.log(`deployed: ${address}`)
+const hash = await deployContract(walletClient, { abi, bytecode })
+const rec = await publicClient.waitForTransactionReceipt({ hash })
+const address = rec.contractAddress
+if (!address) throw new Error("deploy failed: no contract address in receipt")
+console.log(`deployed: ${address} (tx ${hash})`)
 
-const rec = { address, abi, deployed_at: new Date().toISOString() }
-await writeFile(join(dir, "contract.json"), JSON.stringify(rec, null, 2))
+const out = { address, abi, deployed_at: new Date().toISOString() }
+await writeFile(join(dir, "contract.json"), JSON.stringify(out, null, 2))
 console.log(`saved -> data/contract.json`)

@@ -6,13 +6,16 @@
 
 **Việc đã làm:**
 
+- **Bonus Sepolia contract DEPLOY THÀNH CÔNG** 🎉:
+  - User claim faucet pk910 0.056 SepETH (mining thủ công ~vài phút). Lỗi đầu tiên `INVALID_ADDR` là do dán địa chỉ thừa ký tự ẩn — server chấp nhận địa chỉ chuẩn (test API trực tiếp).
+  - **Contract**: `0xcb03f6390ef54aaa1a39ef9f71448a23ccca3b7f` (Sepolia) — deploy tx `0x807e...a60565`.
+  - **Attestation onchain**: date `2026-08-05`, tx `0x6f8e...fb72c` (block 11421710). Verify đọc lại `getHash()` khớp `0x3fda...869c`, owner = ví agent. Xem: https://sepolia.etherscan.io/tx/0x6f8ec37095093d9097eae89265e9f086eec09b754c7d0120eff288fe9e2fb72c
+  - **Bug đã fix**: `deployContract` (viem) trả về **tx hash** chứ không phải địa chỉ → `deploy.ts` giờ `waitForTransactionReceipt` + lấy `contractAddress`. (Contract đầu orphaned vô hại.)
 - **Cron 12h CÀI XONG**: thêm job crontab `0 */12 * * *` chạy `scripts/run.sh` (fetch + ingest) → log vào `data/cron.log`. Verify chạy tay OK (15 funds, upsert idempotent). Backup crontab cũ ở `/tmp/crontab.backup.*`.
 - **5 bài đăng mẫu viết xong** trong `docs/posts.md` (Bài 1-5: dòng tiền EU, so sánh yield, quỹ mới, tổng kết tháng, story build) — kèm số liệu THẬT snapshot 2026-08-05 (tổng $10.6B, USYC $3.0B, BUIDL $2.7B, EUTBL $898M, USTBL 4.34%...). User tự đăng qua Chrome, ghi link vào PROGRESS sau.
-- **Bonus Sepolia contract**: `contracts/RWAAttestation.sol` + `src/agent/deploy.ts` + `src/agent/publish.ts` viết xong, solc compile OK (3949 bytes), typecheck sạch. Thêm scripts `deploy` + `publish` vào package.json.
 - **Attestation làm mới** với data mới (sau khi chạy lại fetch/ingest): hash `0x3fda...869c`, verify OK.
-- **BỊ CHẶN deploy contract**: ví agent `0x02B0...F846` có **0 ETH trên Sepolia**. Faucet pk910 cần captcha chống bot (obfuscated JS) → không tự động được, cần user claim thủ công qua browser (difficulty 12, mining ~30s, min claim 0.05 SepETH).
 
-**Trạng thái phase:** P1-P5 (code) xong với data thật, P4 deploy public, P6 posts viết xong (chưa đăng). Còn: faucet ETH → deploy+publish contract Sepolia, đăng 5 bài.
+**Trạng thái phase:** P1-P5 hoàn thành trọn vẹn (kể cả bonus Sepolia contract), P4 deploy public, P6 posts viết xong (chưa đăng). Còn: đăng 5 bài + ghi link, mở rộng WATCH list khi cần.
 
 ## Phiên 3: 2026-08-05
 
@@ -47,19 +50,17 @@
 - [x] P2: fetch + ingest + SQLite lịch sử — data thật web
 - [x] P3: API 4 endpoint — data thật
 - [x] P4: frontend + deploy public — **https://rwa-dashboard-gamma.vercel.app**
-- [~] P5: attest.ts + verify.ts xong — bonus Sepolia contract code xong, **chờ faucet ETH để deploy**
+- [x] P5: attest.ts + verify.ts + **bonus Sepolia contract** (contract `0xcb03...3b7f`, attest onchain 2026-08-05)
 - [~] P6: repo public + 5 bài đăng mẫu xong (`docs/posts.md`) — chưa đăng bài
 - [ ] P7: khách đầu tiên / grant
 - [ ] P8: mở rộng (optional)
 
 ## Việc tiếp theo (cho phiên sau)
 
-1. **Faucet Sepolia cho agent wallet** `0x02B027ecd3004Fbb579bD4c64B6e22Fff369F846` (user làm thủ công qua browser):
-   - Mở https://sepolia-faucet.pk910.de/ → dán địa chỉ → giải captcha → mining ~30s → claim 0.05 SepETH.
-2. **Sau khi có ETH**: `bun run deploy` → ghi `data/contract.json` → `bun run publish` → check Etherscan. (Contract `attest(date, hash, signature)` — publish check trùng date.)
-3. **Đăng 5 bài** trong `docs/posts.md` (X/Reddit/LinkedIn) + ghi link vào PROGRESS.
-4. **Vercel redeploy** để snapshot mới lên production: `bunx vercel --prod`.
-5. **Thêm quỹ**: WATCH list mở rộng (Libeara, Cashlink EU funds...) khi cần.
+1. **Đăng 5 bài** trong `docs/posts.md` (X/Reddit/LinkedIn) + ghi link vào PROGRESS.
+2. **Vercel redeploy** để snapshot mới lên production: `bunx vercel --prod`.
+3. **Thêm quỹ**: WATCH list mở rộng (Libeara, Cashlink EU funds...) khi cần.
+4. **Cron**: sau mỗi snapshot mới nên commit + push `data/snapshots/` (git chưa có credential — cần `gh auth login` nếu muốn tự động).
 
 ## Lưu ý
 
