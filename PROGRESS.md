@@ -13,9 +13,9 @@
   - **Test chạy thành công** (run 30981955231, dispatch): fetch 15 funds (rwa.xyz-web) → ingest 15 rows → guard đúng ("đã attest on-chain 2026-08-05 → giữ nguyên bản chính thức") → no changes. Chrome có sẵn trên runner.
   - `.prettierrc` thêm để formatter khớp style repo (no-semicolon).
 - **Kế hoạch chia việc**: khi laptop bật → cron local attest trước, GH Actions skip (guard chặn). Khi laptop tắt → GH Actions tự chạy full pipeline: fetch → ingest → attest → publish → posts → visual → commit → (redeploy).
-- **Còn chờ user**: cung cấp Vercel Deploy Hook URL → set secret `VERCEL_DEPLOY_HOOK` → workflow có step `redeploy` (đã viết sẵn, chỉ trigger khi có commit mới) → dashboard tự cập nhật data sau mỗi pipeline.
+- **Auto-deploy Vercel HOÀN TẤT**: user tạo Deploy Hook → set secret `VERCEL_DEPLOY_HOOK` → workflow có step `redeploy` (chỉ chạy khi có commit data mới). Đã test hook: POST 201 + deploy production thành công (site 200 sau redeploy). Giờ mỗi pipeline commit data mới → site tự cập nhật.
 
-**Trạng thái phase:** P1-P6 xong. Pipeline tự động đã hoạt động trên GitHub server. Còn: (1) user dán Vercel Deploy Hook để site tự cập nhật, (2) user đăng LinkedIn bài `docs/posts/ready-2026-08-05.md` kèm ảnh + ghi link vào PROGRESS.
+**Trạng thái phase:** P1-P6 xong. Pipeline tự động đã hoạt động hoàn chỉnh trên GitHub server (fetch → attest → publish → posts → visual → commit → redeploy Vercel). Còn lại: user đăng LinkedIn bài `docs/posts/ready-2026-08-05.md` kèm ảnh + ghi link vào PROGRESS.
 
 ## Phiên 5: 2026-08-05
 
