@@ -1,0 +1,59 @@
+name: pipeline
+
+on:
+  schedule:
+    - cron: "30 0,12 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pipeline
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+
+      - name: chrome
+        run: |
+          if command -v google-chrome >/dev/null 2>&1; then
+            echo "CHROME=google-chrome" >> "$GITHUB_ENV"
+          else
+            curl -fsSL https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -o /tmp/chrome.deb
+            sudo dpkg -i /tmp/chrome.deb >/dev/null 2>&1 || sudo apt-get -f install -y
+            echo "CHROME=google-chrome" >> "$GITHUB_ENV"
+          fi
+
+      - name: agent key
+        env:
+          AGENT_PRIVATE_KEY: ${{ secrets.AGENT_PRIVATE_KEY }}
+        run: |
+          mkdir -p data
+          printf '%s\n' "$AGENT_PRIVATE_KEY" > data/agent.key
+          chmod 600 data/agent.key
+
+      - run: bun install
+
+      - name: pipeline
+        env:
+          AGENT_PRIVATE_KEY: ${{ secrets.AGENT_PRIVATE_KEY }}
+        run: bash scripts/run.sh
+
+      - name: commit + push
+        run: |
+          git config user.name "eurorwa-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data docs
+          if git diff --cached --quiet; then
+            echo "no changes"
+          else
+            git commit -m "chore: pipeline $(date -u +%F)"
+            git push
+          fi
