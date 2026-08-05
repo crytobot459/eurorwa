@@ -2,7 +2,19 @@
 
 > Cập nhật sau mỗi phiên opencode. Xem `ROADMAP.md` để biết chi tiết từng phase.
 
-## Phiên gần nhất: 2026-08-05 (phiên 3)
+## Phiên gần nhất: 2026-08-05 (phiên 4)
+
+**Việc đã làm:**
+
+- **Cron 12h CÀI XONG**: thêm job crontab `0 */12 * * *` chạy `scripts/run.sh` (fetch + ingest) → log vào `data/cron.log`. Verify chạy tay OK (15 funds, upsert idempotent). Backup crontab cũ ở `/tmp/crontab.backup.*`.
+- **5 bài đăng mẫu viết xong** trong `docs/posts.md` (Bài 1-5: dòng tiền EU, so sánh yield, quỹ mới, tổng kết tháng, story build) — kèm số liệu THẬT snapshot 2026-08-05 (tổng $10.6B, USYC $3.0B, BUIDL $2.7B, EUTBL $898M, USTBL 4.34%...). User tự đăng qua Chrome, ghi link vào PROGRESS sau.
+- **Bonus Sepolia contract**: `contracts/RWAAttestation.sol` + `src/agent/deploy.ts` + `src/agent/publish.ts` viết xong, solc compile OK (3949 bytes), typecheck sạch. Thêm scripts `deploy` + `publish` vào package.json.
+- **Attestation làm mới** với data mới (sau khi chạy lại fetch/ingest): hash `0x3fda...869c`, verify OK.
+- **BỊ CHẶN deploy contract**: ví agent `0x02B0...F846` có **0 ETH trên Sepolia**. Faucet pk910 cần captcha chống bot (obfuscated JS) → không tự động được, cần user claim thủ công qua browser (difficulty 12, mining ~30s, min claim 0.05 SepETH).
+
+**Trạng thái phase:** P1-P5 (code) xong với data thật, P4 deploy public, P6 posts viết xong (chưa đăng). Còn: faucet ETH → deploy+publish contract Sepolia, đăng 5 bài.
+
+## Phiên 3: 2026-08-05
 
 **Việc đã làm:**
 
@@ -35,22 +47,24 @@
 - [x] P2: fetch + ingest + SQLite lịch sử — data thật web
 - [x] P3: API 4 endpoint — data thật
 - [x] P4: frontend + deploy public — **https://rwa-dashboard-gamma.vercel.app**
-- [x] P5: attest.ts + verify.ts xong (còn thiếu: bonus Sepolia contract)
-- [~] P6: repo public xong (https://github.com/crytobot459/eurorwa) — còn: 5 bài đăng (user tự đăng qua Chrome)
+- [~] P5: attest.ts + verify.ts xong — bonus Sepolia contract code xong, **chờ faucet ETH để deploy**
+- [~] P6: repo public + 5 bài đăng mẫu xong (`docs/posts.md`) — chưa đăng bài
 - [ ] P7: khách đầu tiên / grant
 - [ ] P8: mở rộng (optional)
 
 ## Việc tiếp theo (cho phiên sau)
 
-1. **Cron 12h**: cài systemd timer/crontab chạy `scripts/run.sh` (fetch → ingest) mỗi 12h → snapshot tự động + `/flows` có data sau 2 ngày. Lưu ý: sau mỗi snapshot mới cần commit + push `data/snapshots/` (hoặc chấp nhận data tự động chỉ có ở máy local).
-2. **Phase 6**: 5 bài đăng mẫu + khoe product (giờ có URL public) + repo public (git init + GitHub).
-3. **Bonus P5**: deploy `RWAAttestation.sol` Sepolia (Foundry) — optional.
-4. **Thêm quỹ**: WATCH list mở rộng thêm (Libeara, Cashlink EU funds...) khi cần.
-5. **Vercel redeploy**: `bunx vercel --prod` mỗi lần đổi code (hoặc connect Git repo để auto-deploy).
+1. **Faucet Sepolia cho agent wallet** `0x02B027ecd3004Fbb579bD4c64B6e22Fff369F846` (user làm thủ công qua browser):
+   - Mở https://sepolia-faucet.pk910.de/ → dán địa chỉ → giải captcha → mining ~30s → claim 0.05 SepETH.
+2. **Sau khi có ETH**: `bun run deploy` → ghi `data/contract.json` → `bun run publish` → check Etherscan. (Contract `attest(date, hash, signature)` — publish check trùng date.)
+3. **Đăng 5 bài** trong `docs/posts.md` (X/Reddit/LinkedIn) + ghi link vào PROGRESS.
+4. **Vercel redeploy** để snapshot mới lên production: `bunx vercel --prod`.
+5. **Thêm quỹ**: WATCH list mở rộng (Libeara, Cashlink EU funds...) khi cần.
 
 ## Lưu ý
 
 - Data là **thật** (scrape trang công khai rwa.xyz, source:"rwa.xyz-web"). Nếu rwa.xyz đổi cấu trúc trang → `fetch.ts` có fallback mock + cần check log.
+- **Cron 12h** chạy fetch+ingest local (log `data/cron.log`). Chưa push GitHub (git chưa có credential) và chưa auto-redeploy Vercel — muốn snapshot lên production thì chạy tay `bunx vercel --prod`.
 - API deploy đọc `data/snapshots/*.json` (không cần SQLite) — commit snapshot để deploy có data.
 - Không commit: `.env.local`, `data/rwa.db`, `data/agent.key`, `data/attestations/`.
 - API local: `bun run src/api.ts` → localhost:3000. Frontend dev: `cd src/frontend && bun run dev` → localhost:5173. Build: `cd src/frontend && bun run build` → `public/`.
