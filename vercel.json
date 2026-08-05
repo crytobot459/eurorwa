@@ -1,0 +1,11 @@
+{
+  "framework": null,
+  "installCommand": "bun install",
+  "buildCommand": "cd src/frontend && bun install && bun run build",
+  "build": {
+    "env": {
+      "VITE_API": "/api"
+    }
+  },
+  "rewrites": [{ "source": "/api/:path*", "destination": "/api/main" }]
+}

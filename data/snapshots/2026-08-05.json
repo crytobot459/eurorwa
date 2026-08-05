@@ -1,0 +1,314 @@
+{
+  "date": "2026-08-05",
+  "fetched_at": "2026-08-05T01:58:42.264Z",
+  "source": "rwa.xyz-web",
+  "funds": [
+    {
+      "ticker": "USYC",
+      "slug": "circle-usyc",
+      "name": "Circle USYC",
+      "issuer": "Circle International",
+      "asset_class": "US Treasury Debt",
+      "tvl": 3006510874.7150574,
+      "tvl_7d": 3005390536.5466957,
+      "chg_7d_pct": 0.037277623481471844,
+      "yield": 3.1867545671599045,
+      "holders": 38,
+      "supply": 2653659127.808604,
+      "networks": [
+        "BNB Chain",
+        "Ethereum",
+        "Solana"
+      ]
+    },
+    {
+      "ticker": "BUIDL",
+      "slug": "blackrock-usd-institutional-digital-liquidity-fund",
+      "name": "BlackRock USD Institutional Digital Liquidity Fund",
+      "issuer": "BlackRock USD Institutional Digital Liquidity Fund",
+      "asset_class": "US Treasury Debt",
+      "tvl": 2674737383.710449,
+      "tvl_7d": 2608576655.6804495,
+      "chg_7d_pct": 2.5362769342402802,
+      "yield": 3.3843627730881156,
+      "holders": 114,
+      "supply": 2674737383.710449,
+      "networks": [
+        "Ethereum",
+        "Solana",
+        "Avalanche C-Chain",
+        "Ethereum",
+        "BNB Chain",
+        "Optimism",
+        "Arbitrum",
+        "Tempo",
+        "Aptos",
+        "Polygon"
+      ]
+    },
+    {
+      "ticker": "USDY",
+      "slug": "ondo-u-s-dollar-yield",
+      "name": "Ondo U.S. Dollar Yield",
+      "issuer": "Ondo USDY",
+      "asset_class": "US Treasury Debt",
+      "tvl": 2122641420.7011132,
+      "tvl_7d": 2123498026.619801,
+      "chg_7d_pct": -0.040339379078744506,
+      "yield": 3.489652728533188,
+      "holders": 15559,
+      "supply": 1859217924.547613,
+      "networks": [
+        "Ethereum",
+        "Stellar",
+        "SEI",
+        "Solana",
+        "Mantle",
+        "Aptos",
+        "Arbitrum",
+        "MANTRA",
+        "BNB Chain",
+        "Ethereum",
+        "Plume",
+        "Noble",
+        "Sui"
+      ]
+    },
+    {
+      "ticker": "eurSAFO",
+      "slug": "spiko-amundi-overnight-swap-fund-eur",
+      "name": "Spiko Amundi Overnight Swap Fund (EUR)",
+      "issuer": "Spiko",
+      "asset_class": "Active Strategies",
+      "tvl": 933764930.9607588,
+      "tvl_7d": 900459143.2686181,
+      "chg_7d_pct": 3.6987561224868557,
+      "yield": 2.526846997245369,
+      "holders": 7394,
+      "supply": 803768282.7163824,
+      "networks": [
+        "Stellar",
+        "Arbitrum",
+        "Polygon",
+        "Ethereum",
+        "Base"
+      ]
+    },
+    {
+      "ticker": "EUTBL",
+      "slug": "spiko-eu-t-bills-money-market-fund",
+      "name": "Spiko EU T-Bills Money Market Fund",
+      "issuer": "Spiko",
+      "asset_class": "non-US Government Debt",
+      "tvl": 898455751.2636263,
+      "tvl_7d": 938553434.381844,
+      "chg_7d_pct": -4.272285588579951,
+      "yield": 2.212492055959985,
+      "holders": 3824,
+      "supply": 739179286.1885138,
+      "networks": [
+        "Stellar",
+        "Arbitrum",
+        "Polygon",
+        "Ethereum",
+        "Base"
+      ]
+    },
+    {
+      "ticker": "EURC",
+      "slug": "eurc",
+      "name": "EURC",
+      "issuer": "Circle",
+      "asset_class": "Stablecoins",
+      "tvl": 529466211.8179251,
+      "tvl_7d": 519439197.18069136,
+      "chg_7d_pct": 1.9303538684905506,
+      "yield": 0,
+      "holders": 131711,
+      "supply": 460115328.873472,
+      "networks": [
+        "Ethereum",
+        "Solana",
+        "Base",
+        "Avalanche C-Chain",
+        "Stellar",
+        "Tempo"
+      ]
+    },
+    {
+      "ticker": "SAFO",
+      "slug": "spiko-amundi-overnight-swap-fund",
+      "name": "Spiko Amundi Overnight Swap Fund",
+      "issuer": "Spiko",
+      "asset_class": "Active Strategies",
+      "tvl": 150157118.3996525,
+      "tvl_7d": 149188106.9784891,
+      "chg_7d_pct": 0.649523236663314,
+      "yield": 3.9959439698209636,
+      "holders": 440,
+      "supply": 147794475.90779057,
+      "networks": [
+        "Stellar",
+        "Ethereum",
+        "Arbitrum",
+        "Polygon",
+        "Base"
+      ]
+    },
+    {
+      "ticker": "USTBL",
+      "slug": "spiko-us-t-bills-money-market-fund",
+      "name": "Spiko US T-Bills Money Market Fund",
+      "issuer": "Spiko",
+      "asset_class": "US Treasury Debt",
+      "tvl": 145519601.5988943,
+      "tvl_7d": 146443621.44955882,
+      "chg_7d_pct": -0.6309730949823557,
+      "yield": 4.3405414190882246,
+      "holders": 924,
+      "supply": 133297915.61032996,
+      "networks": [
+        "Ethereum",
+        "Stellar",
+        "Arbitrum",
+        "Polygon",
+        "Base"
+      ]
+    },
+    {
+      "ticker": "NRW1",
+      "slug": "nrw1",
+      "name": "NRW1",
+      "issuer": "NRW.BANK",
+      "asset_class": "non-US Government Debt",
+      "tvl": 115072499.99999979,
+      "tvl_7d": 113859899.99999997,
+      "chg_7d_pct": 1.0649930309088813,
+      "yield": 0,
+      "holders": 1,
+      "supply": 1000,
+      "networks": [
+        "Polygon"
+      ]
+    },
+    {
+      "ticker": "UKTBL",
+      "slug": "spiko-uk-t-bills-money-market-fund",
+      "name": "Spiko UK T-Bills Money Market Fund",
+      "issuer": "Spiko",
+      "asset_class": "non-US Government Debt",
+      "tvl": 18455382.067733057,
+      "tvl_7d": 18564568.57405613,
+      "chg_7d_pct": -0.5881445932207686,
+      "yield": 3.565019297486887,
+      "holders": 437,
+      "supply": 13396899.204818903,
+      "networks": [
+        "Stellar",
+        "Polygon",
+        "Arbitrum",
+        "Base",
+        "Ethereum"
+      ]
+    },
+    {
+      "ticker": "AAULF",
+      "slug": "abrdn-liquidity-fund-lux-us-dollar-fund",
+      "name": "abrdn Liquidity Fund (Lux) – US Dollar Fund",
+      "issuer": "abrdn Liquidity Fund",
+      "asset_class": "US Treasury Debt",
+      "tvl": 16083984.469999999,
+      "tvl_7d": 16383988.559999999,
+      "chg_7d_pct": -1.8310809294168593,
+      "yield": 0,
+      "holders": 13,
+      "supply": 16083984.469999999,
+      "networks": [
+        "Hedera",
+        "XRP Ledger",
+        "XDC",
+        "XRP Ledger"
+      ]
+    },
+    {
+      "ticker": "bIB01",
+      "slug": "backed-ibta-treasury-bond-0-1yr",
+      "name": "Backed IBTA $ Treasury Bond 0-1yr",
+      "issuer": "Backed Assets",
+      "asset_class": "US Treasury Debt",
+      "tvl": 12382215.081334041,
+      "tvl_7d": 12371734.587504422,
+      "chg_7d_pct": 0.08471321265010441,
+      "yield": 0,
+      "holders": 129,
+      "supply": 161769.39464200113,
+      "networks": [
+        "Arbitrum",
+        "Ethereum",
+        "Avalanche C-Chain",
+        "Avalanche C-Chain",
+        "Base",
+        "Polygon",
+        "Gnosis"
+      ]
+    },
+    {
+      "ticker": "bC3M",
+      "slug": "backed-govies-0-6-months-euro-investment-grade",
+      "name": "Backed GOVIES 0-6 Months Euro Investment Grade",
+      "issuer": "Backed Assets",
+      "asset_class": "non-US Government Debt",
+      "tvl": 9968703.529192118,
+      "tvl_7d": 9816724.379211789,
+      "chg_7d_pct": 1.5481656009632387,
+      "yield": 0,
+      "holders": 3,
+      "supply": 68426.30270100001,
+      "networks": [
+        "Ethereum",
+        "Polygon",
+        "Base"
+      ]
+    },
+    {
+      "ticker": "CETES",
+      "slug": "etherfuse-cetes",
+      "name": "Etherfuse CETES",
+      "issuer": "Etherfuse",
+      "asset_class": "non-US Government Debt",
+      "tvl": 5365833.151014554,
+      "tvl_7d": 5324589.226435673,
+      "chg_7d_pct": 0.7745935475005634,
+      "yield": 4.59835886881694,
+      "holders": 5139,
+      "supply": 79150552.11918063,
+      "networks": [
+        "Stellar",
+        "Solana",
+        "Base",
+        "Polygon",
+        "Monad"
+      ]
+    },
+    {
+      "ticker": "EUROB",
+      "slug": "etherfuse-eurob",
+      "name": "Etherfuse EUROB",
+      "issuer": "Etherfuse",
+      "asset_class": "non-US Government Debt",
+      "tvl": 401.1163669017758,
+      "tvl_7d": 396.8068911488,
+      "chg_7d_pct": 1.086038536402276,
+      "yield": 1.4614996610402238,
+      "holders": 36,
+      "supply": 339.1523639999944,
+      "networks": [
+        "Solana",
+        "Stellar",
+        "Polygon",
+        "Base",
+        "Monad"
+      ]
+    }
+  ]
+}

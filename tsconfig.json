@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "types": ["bun"],
+    "module": "preserve",
+    "target": "esnext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true
+  },
+  "include": ["src", "api"],
+  "exclude": ["src/frontend"]
+}

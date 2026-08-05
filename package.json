@@ -1,0 +1,21 @@
+{
+  "name": "eurorwa",
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "fetch": "bun run src/fetch.ts",
+    "ingest": "bun run src/ingest.ts",
+    "api": "bun run src/api.ts",
+    "attest": "bun run src/agent/attest.ts",
+    "verify": "bun run src/agent/verify.ts",
+    "frontend": "cd src/frontend && bun run dev",
+    "typecheck": "bunx tsc --noEmit"
+  },
+  "dependencies": {
+    "hono": "^4",
+    "viem": "^2"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.3.14"
+  }
+}
