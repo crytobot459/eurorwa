@@ -122,15 +122,15 @@ Tokenized treasuries are quietly becoming the "risk-free rate on-chain." BlackRo
 
 THE PART I COULDN'T GET ANYWHERE ELSE
 
-Any dashboard can show you numbers. Very few can prove they're real.
+No one sits and updates a spreadsheet. My AI agent runs the whole pipeline on its own every 12 hours:
 
-Every snapshot my agent takes is:
+• Scrapes public data across 15 EU + US money market funds
+• Computes TVL, yields and 7-day flows
+• Hashes every snapshot (keccak-256) and signs it with its own wallet
+• Publishes the hash to a smart contract on Sepolia — public, permanent, tamper-proof
+• Drafts this very post
 
-1. Hashed (keccak-256) with the full 15-fund payload
-2. Signed by the agent wallet
-3. Published to a smart contract on Sepolia — public, permanent, tamper-proof
-
-Anyone can re-hash the data and verify the on-chain signature. No "trust me bro."
+I review, hit publish, and open-source the code. Anyone can re-hash the data and verify the on-chain signature. No "trust me bro" dashboards.
 
 ${
   moversLine
