@@ -86,9 +86,11 @@ Repo (attestation code): https://github.com/crytobot459/eurorwa
 
 Happy to add funds I missed — suggestions welcome.`
 
+const issuer = (f: Fund) => f.issuer.split(" ")[0]
+
 const liTop = byTvl
   .slice(0, 5)
-  .map((f) => `• ${f.ticker} — ${fmt(f.tvl)}${f.yield > 0 ? ` (yield ${f.yield.toFixed(2)}%)` : ""}`)
+  .map((f) => `• ${f.ticker} (${issuer(f)}) — ${fmt(f.tvl)} · yield ${f.yield > 0 ? f.yield.toFixed(2) + "%" : "n/a"}`)
   .join("\n")
 
 const liYld = byYld
@@ -96,43 +98,54 @@ const liYld = byYld
   .map((f) => `${f.ticker} ${f.yield.toFixed(2)}%`)
   .join(" · ")
 
-const linkedin = `$10.6 billion is now sitting in tokenized money market funds — and most people still can't tell you what's inside them.
+const moversLine = [
+  gainer ? `${gainer.ticker} is the 7-day mover (${pct(gainer.chg_7d_pct)})` : "",
+  loser ? `while ${loser.ticker} cooled off (${pct(loser.chg_7d_pct)})` : "",
+]
+  .filter(Boolean)
+  .join(", ")
 
-I built a dashboard to fix that. Here's the full story.
+const linkedin = `${fmt(total)} is sitting in tokenized money market funds — and almost nobody can tell you exactly what's inside them.
+
+I built a live dashboard to change that. Here's what the data says today, and the part I couldn't get from any other data provider.
 
 THE NUMBERS (${date})
 
-${fmt(total)} across 15 EU + US funds. Where the money is:
+${fmt(total)} across 15 EU + US funds:
 ${liTop}
 
 Top yields today: ${liYld}
 
 WHY THIS MATTERS
 
-Tokenized MMFs are quietly becoming the "risk-free rate on-chain" — treasury funds like BlackRock's BUIDL and Circle USYC pay daily yield, settle 24/7, and now hold billions. For corporate treasuries and DeFi alike, this is the new default parking spot for cash.
+Tokenized treasuries are quietly becoming the "risk-free rate on-chain." BlackRock, Circle and Ondo are pulling in billions — paying daily yield, settling 24/7. For corporate treasuries and DeFi alike, this is becoming the default place to park cash.
 
 THE PART I COULDN'T GET ANYWHERE ELSE
 
-I wanted numbers I could actually verify. So every snapshot my agent takes is:
+Any dashboard can show you numbers. Very few can prove they're real.
+
+Every snapshot my agent takes is:
 
 1. Hashed (keccak-256) with the full 15-fund payload
 2. Signed by the agent wallet
 3. Published to a smart contract on Sepolia — public, permanent, tamper-proof
 
-Anyone can re-hash the data and check the on-chain signature. No "trust me bro" dashboards.
+Anyone can re-hash the data and verify the on-chain signature. No "trust me bro."
 
 ${
-  gainer
-    ? `WHAT THE DATA SAYS RIGHT NOW\n\n${gainer.ticker} is the 7-day mover (+${gainer.chg_7d_pct.toFixed(2)}%)`
-    : ""
-}${loser ? `, while ${loser.ticker} cooled off (${pct(loser.chg_7d_pct)}).` : ""}
+  moversLine
+    ? `WHAT THE DATA SAYS RIGHT NOW
 
-Live dashboard: ${url}
+${moversLine}. The rotation between EUR and USD funds is the story to watch.
+
+`
+    : ""
+}Live dashboard: ${url}
 Open source: https://github.com/crytobot459/eurorwa
 
 What's the one fund you'd add to this list?
 
-#RWA #Tokenization #FixedIncome #DigitalAssets #DeFi #MoneyMarketFunds`
+#RWA #Tokenization #FixedIncome #DigitalAssets #MoneyMarketFunds`
 
 const out = `# Bài đăng sẵn sàng — ${date}
 
