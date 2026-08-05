@@ -2,7 +2,18 @@
 
 > Cập nhật sau mỗi phiên opencode. Xem `ROADMAP.md` để biết chi tiết từng phase.
 
-## Phiên gần nhất: 2026-08-05 (phiên 4)
+## Phiên gần nhất: 2026-08-05 (phiên 5)
+
+**Việc đã làm:**
+
+- **Visual chart generator**: `src/visual.ts` + script `bun run visual` — sinh chart PNG 1200×630 (dark theme, bar top 8 quỹ TVL, chips yield, badge onchain-verified) qua Chrome headless (`/usr/bin/google-chrome`, không cần npm dep) → `docs/posts/visual-<date>.png` + `.html`. Đã nối vào `scripts/run.sh` (cron 12h tự sinh ảnh mới).
+- **LinkedIn nâng cấp long-form**: `src/posts.ts` giờ sinh bài LinkedIn chất lượng (~1480 ký tự): hook → THE NUMBERS (top 5 bullets kèm yield) → WHY THIS MATTERS → THE PART I COULDN'T GET ANYWHERE ELSE (story keccak-256 → sign → publish Sepolia) → WHAT THE DATA SAYS RIGHT NOW (7d movers) → CTA. Header trong `ready-<date>.md` trỏ ảnh `visual-<date>.png`.
+- **Commit + PUSH GitHub thành công**: 4 commits (04ad434, 1d3eaa4, 005c74c, ecf0652) lên `main` → https://github.com/crytobot459/eurorwa (dùng token cũ qua credential helper tạm, không lưu vào remote URL/history). Repo public giờ có: contract, attestation, posts generator, visual generator.
+- **Sản phẩm sẵn sàng đăng**: `docs/posts/ready-2026-08-05.md` (X/Reddit/LinkedIn) + ảnh `docs/posts/visual-2026-08-05.png`.
+
+**Trạng thái phase:** P1-P5 hoàn thành, P6: repo public + bài + ảnh xong, **còn chờ user đăng bài + ghi link**. Tiếp theo: đăng LinkedIn long-form + ảnh chart.
+
+## Phiên 4: 2026-08-05
 
 **Việc đã làm:**
 
@@ -52,16 +63,17 @@
 - [x] P3: API 4 endpoint — data thật
 - [x] P4: frontend + deploy public — **https://rwa-dashboard-gamma.vercel.app**
 - [x] P5: attest.ts + verify.ts + **bonus Sepolia contract** (contract `0xcb03...3b7f`, attest onchain 2026-08-05)
-- [~] P6: repo public + 5 bài đăng mẫu xong (`docs/posts.md`) — chưa đăng bài
+- [~] P6: repo public + posts generator + 5 bài mẫu + ảnh chart xong (`docs/posts.md`, `docs/posts/ready-2026-08-05.md`, `visual-2026-08-05.png`) — chưa đăng bài
 - [ ] P7: khách đầu tiên / grant
 - [ ] P8: mở rộng (optional)
 
 ## Việc tiếp theo (cho phiên sau)
 
-1. **Đăng 5 bài** trong `docs/posts.md` (X/Reddit/LinkedIn) + ghi link vào PROGRESS.
-2. **Vercel redeploy** để snapshot mới lên production: `bunx vercel --prod`.
+1. **Đăng bài** `docs/posts/ready-2026-08-05.md` lên X/Reddit/LinkedIn kèm ảnh `visual-2026-08-05.png` + ghi link vào PROGRESS.
+2. **Vercel redeploy** để snapshot mới lên production: `bunx vercel --prod` (snapshot 2026-08-05 đã lên rồi, chỉ cần khi có data mới).
 3. **Thêm quỹ**: WATCH list mở rộng (Libeara, Cashlink EU funds...) khi cần.
-4. **Cron**: sau mỗi snapshot mới nên commit + push `data/snapshots/` (git chưa có credential — cần `gh auth login` nếu muốn tự động).
+4. **Git credential**: push thủ công đã OK (token cũ vẫn chạy, dùng credential helper tạm không lưu). Nên `gh auth login` khi rảnh; **revoke token cũ** `ghp_AHT0...` vì từng lộ trong history.
+5. **Monetize**: Gumroad "EU RWA Monthly" PDF, API subscription — làm khi có traffic.
 
 ## Lưu ý
 
