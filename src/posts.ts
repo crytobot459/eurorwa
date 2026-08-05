@@ -105,6 +105,23 @@ const moversLine = [
   .filter(Boolean)
   .join(", ")
 
+const attFile = join(import.meta.dir, "..", "data", "attestations", `${date}.json`)
+let proof = ""
+try {
+  const att = JSON.parse(readFileSync(attFile, "utf8")) as {
+    hash: string
+    published?: { tx: string; contract: string }
+  }
+  if (att.published?.tx) {
+    proof = `
+
+Live proof for this snapshot (Sepolia):
+• Tx: https://sepolia.etherscan.io/tx/${att.published.tx}
+• Contract: ${att.published.contract}
+• Hash: ${att.hash.slice(0, 10)}…`
+  }
+} catch {} // chưa attest/publish — bỏ qua
+
 const linkedin = `${fmt(total)} is sitting in tokenized money market funds — and almost nobody can tell you exactly what's inside them.
 
 I built a live dashboard to change that. Here's what the data says today, and the part I couldn't get from any other data provider.
@@ -130,7 +147,7 @@ No one sits and updates a spreadsheet. My AI agent runs the whole pipeline on it
 • Publishes the hash to a smart contract on Sepolia — public, permanent, tamper-proof
 • Drafts this very post
 
-I review, hit publish, and open-source the code. Anyone can re-hash the data and verify the on-chain signature. No "trust me bro" dashboards.
+I review, hit publish, and open-source the code. Anyone can re-hash the data and verify the on-chain signature. No "trust me bro" dashboards.${proof}
 
 ${
   moversLine

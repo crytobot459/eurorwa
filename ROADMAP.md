@@ -138,7 +138,7 @@ Agent tự động publish dữ liệu RWA lên blockchain để ai cũng verify
 
 - [x] `bun run src/agent/attest.ts` tạo file attestation (hash + signature) mỗi ngày
 - [x] Có script verify `src/agent/verify.ts` kiểm chứng lại signature
-- [x] (Bonus) Contract trên Sepolia + 1 tx thật — `0xcb03f6390ef54aaa1a39ef9f71448a23ccca3b7f`, attest tx https://sepolia.etherscan.io/tx/0x6f8ec37095093d9097eae89265e9f086eec09b754c7d0120eff288fe9e2fb72c
+- [x] (Bonus) Contract trên Sepolia + 1 tx thật — contract hiện tại `0xd482a715cdef4073593f4a3208abd328f6d71725`, attest tx https://sepolia.etherscan.io/tx/0x61afb801bb03f1e4de7c32ab42b7763cf1e40a734f25105ba5dc239c9a21a3f0 (contract cũ `0xcb03...3b7f` thay vì lỗi hash lệch do cron chạy lại)
 
 > Ghi chú: attest.ts/verify.ts đã chạy thật (15 quỹ, signer `0x02B0...F846`, ví `data/agent.key` gitignore). Verify bắt được tamper (payload đổi → "HASH MISMATCH"). Bonus Sepolia contract đã deploy + publish attestation đầu tiên (2026-08-05).
 

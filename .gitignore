@@ -5,5 +5,5 @@ src/frontend/dist/
 data/rwa.db
 data/rwa.db-*
 data/agent.key
-data/attestations/
 .vercel
+data/cron.log

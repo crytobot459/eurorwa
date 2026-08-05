@@ -1,4 +1,4 @@
-import { existsSync, readFileSync, readdirSync } from "node:fs"
+import { existsSync, readFileSync, readdirSync, writeFileSync } from "node:fs"
 import { join } from "node:path"
 import { privateKeyToAccount } from "viem/accounts"
 import { createPublicClient, createWalletClient, http, getContract } from "viem"
@@ -43,3 +43,9 @@ console.log(
 const hash = await contract.write.attest([att.date, att.hash, att.signature])
 const rec = await publicClient.waitForTransactionReceipt({ hash })
 console.log(`tx: ${hash} | block ${rec.blockNumber} | https://sepolia.etherscan.io/tx/${hash}`)
+
+const attFile = join(dir, "attestations", `${att.date}.json`)
+const attObj = JSON.parse(readFileSync(attFile, "utf8"))
+attObj.published = { tx: hash, block: String(rec.blockNumber), contract: address }
+writeFileSync(attFile, JSON.stringify(attObj, null, 2))
+console.log(`attestation updated -> ${attFile}`)

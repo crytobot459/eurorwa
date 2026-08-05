@@ -10,6 +10,11 @@
 - **LinkedIn nâng cấp long-form**: `src/posts.ts` giờ sinh bài LinkedIn chất lượng (~1480 ký tự): hook → THE NUMBERS (top 5 bullets kèm yield) → WHY THIS MATTERS → THE PART I COULDN'T GET ANYWHERE ELSE (story keccak-256 → sign → publish Sepolia) → WHAT THE DATA SAYS RIGHT NOW (7d movers) → CTA. Header trong `ready-<date>.md` trỏ ảnh `visual-<date>.png`.
 - **Commit + PUSH GitHub thành công**: 4 commits (04ad434, 1d3eaa4, 005c74c, ecf0652) lên `main` → https://github.com/crytobot459/eurorwa (dùng token cũ qua credential helper tạm, không lưu vào remote URL/history). Repo public giờ có: contract, attestation, posts generator, visual generator.
 - **Sản phẩm sẵn sàng đăng**: `docs/posts/ready-2026-08-05.md` (X/Reddit/LinkedIn) + ảnh `docs/posts/visual-2026-08-05.png`.
+- **FIX lỗi on-chain không khớp data** (quan trọng): cron 12:00 chạy lại → `attest.ts` sinh hash mới (payload có `generated_at`) → nhưng contract cố định ngày (`require date already attested`) nên không publish được → attestation file lệch on-chain. Đã sửa:
+  - **Deploy contract mới** `0xd482a715cdef4073593f4a3208abd328f6d71725` + publish attestation 2026-08-05 (hash `0xeb0e...eeed`) → on-chain khớp 100% local. Tx: https://sepolia.etherscan.io/tx/0x61afb801bb03f1e4de7c32ab42b7763cf1e40a734f25105ba5dc239c9a21a3f0
+  - `src/agent/guard.ts`: chặn re-attest khi ngày đã có on-chain (chỉ bản đầu ngày là chính thức).
+  - `publish.ts`: ghi `published.tx/block/contract` vào attestation file.
+  - `posts.ts`: bài LinkedIn kèm link tx + contract + hash — bằng chứng cụ thể.
 
 **Trạng thái phase:** P1-P5 hoàn thành, P6: repo public + bài + ảnh xong, **còn chờ user đăng bài + ghi link**. Tiếp theo: đăng LinkedIn long-form + ảnh chart.
 
