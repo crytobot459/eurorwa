@@ -14,8 +14,12 @@
   - `.prettierrc` thêm để formatter khớp style repo (no-semicolon).
 - **Kế hoạch chia việc**: khi laptop bật → cron local attest trước, GH Actions skip (guard chặn). Khi laptop tắt → GH Actions tự chạy full pipeline: fetch → ingest → attest → publish → posts → visual → commit → (redeploy).
 - **Auto-deploy Vercel HOÀN TẤT**: user tạo Deploy Hook → set secret `VERCEL_DEPLOY_HOOK` → workflow có step `redeploy` (chỉ chạy khi có commit data mới). Đã test hook: POST 201 + deploy production thành công (site 200 sau redeploy). Giờ mỗi pipeline commit data mới → site tự cập nhật.
+- **Telegram bot (agent chat với khách) — CODE XONG, đang chờ user**:
+  - `api/tg.ts` (entry) + `api/tgbot.js` (logic, kiểu app.js): webhook Telegram trên Vercel → `/api/tg`. Commands: `/today`, `/funds`, `/yields`, `/movers`, `/proof`, `/suggest <comment>` (gợi ý 3 mẫu reply LinkedIn) + trả lời tự nhiên khi gõ tên quỹ ("usyc") hoặc hỏi ("top yield?"). Đã test logic local OK, endpoint deploy OK (200).
+  - `scripts/tg-webhook.js` — đăng ký webhook. `scripts/bot-test.js` — test local.
+  - **Còn chờ user**: (1) tạo bot qua @BotFather → có token; (2) set `TG_TOKEN` trong Vercel → Settings → Environment Variables (production); (3) đưa token cho agent để đăng ký webhook + test thật.
 
-**Trạng thái phase:** P1-P6 xong. Pipeline tự động đã hoạt động hoàn chỉnh trên GitHub server (fetch → attest → publish → posts → visual → commit → redeploy Vercel). Còn lại: user đăng LinkedIn bài `docs/posts/ready-2026-08-05.md` kèm ảnh + ghi link vào PROGRESS.
+**Trạng thái phase:** P1-P6 xong. Pipeline tự động + auto-deploy Vercel đã hoạt động hoàn chỉnh. Telegram bot đang chờ token để kích hoạt. Còn lại: đăng LinkedIn bài `docs/posts/2026-08-05/ready.md` + ghi link, kích hoạt bot, thiết kế gói trả phí.
 
 ## Phiên 5: 2026-08-05
 

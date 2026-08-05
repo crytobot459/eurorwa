@@ -71,4 +71,14 @@ bun run fetch && bun run ingest
 bun run posts      # sinh bài
 bun run visual     # sinh ảnh
 bun run verify     # verify attestation khớp chữ ký
+bun run scripts/bot-test.js  # test logic bot (không cần token)
 ```
+
+## 8. Telegram bot (agent chat với khách)
+
+- Endpoint: `POST /api/tg` (webhook Telegram trên Vercel) — `api/tg.ts` + `api/tgbot.js`
+- Trả lời từ `data/snapshots/*.json` + `data/attestations/*.json` (data mới mỗi khi pipeline redeploy)
+- Lệnh: `/today`, `/funds`, `/yields`, `/movers`, `/proof`, `/suggest <comment>`, hoặc gõ thẳng tên quỹ / câu hỏi
+- Token: đọc từ env `TG_TOKEN` (set trong Vercel → Settings → Environment Variables)
+- Đăng ký webhook: `TG_TOKEN=... bun run scripts/tg-webhook.js https://rwa-dashboard-gamma.vercel.app/api/tg`
+- Test local: `bun run scripts/bot-test.js`
