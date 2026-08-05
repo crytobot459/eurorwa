@@ -43,6 +43,15 @@ const fmt = (n: number) => {
 }
 const pct = (n: number) => `${n > 0 ? "+" : ""}${n.toFixed(2)}%`
 
+const top3 = byTvl.slice(0, 3).reduce((s, f) => s + f.tvl, 0)
+const top3share = (top3 / total) * 100
+const byYldSig = byYld.filter((f) => f.tvl >= 1e6)
+const maxYld = byYldSig[0]
+const minYld = byYldSig.length > 1 ? byYldSig.at(-1) : undefined
+const spread = maxYld && minYld ? maxYld.yield - minYld.yield : 0
+const topHold = [...byYld].sort((a, b) => b.holders - a.holders)[0]
+const instFund = byTvl[1] ?? byTvl[0]
+
 const rows = byTvl
   .slice(0, 5)
   .map(
@@ -81,6 +90,10 @@ ${
   gainer ? `Biggest 7d mover: ${gainer.ticker} ${pct(gainer.chg_7d_pct)}` : ""
 }${loser ? `, ${loser.ticker} ${pct(loser.chg_7d_pct)}` : ""}
 
+What the numbers mean: ${fmt(top3)} (~${top3share.toFixed(0)}%) is in just 3 funds. Yields span ${spread.toFixed(2)} points (${minYld?.yield.toFixed(
+  2,
+)}% → ${maxYld?.yield.toFixed(2)}%). ${topHold.ticker} has ${topHold.holders.toLocaleString()} holders vs ${instFund.holders.toLocaleString()} for ${instFund.ticker}.
+
 Dashboard: ${url}
 Repo (attestation code): https://github.com/crytobot459/eurorwa
 
@@ -104,6 +117,23 @@ const moversLine = [
 ]
   .filter(Boolean)
   .join(", ")
+
+const liMeaning = [
+  `${fmt(top3)} — ${top3share.toFixed(0)}% of the total — sits in just 3 funds (${byTvl
+    .slice(0, 3)
+    .map((f) => f.ticker)
+    .join(", ")}). The market is consolidating behind the biggest issuers, fast.`,
+  spread > 0
+    ? `Yield on offer runs from ${minYld?.yield.toFixed(2)}% to ${maxYld?.yield.toFixed(2)}% — a ${spread.toFixed(
+        2,
+      )}-point gap for the same "park cash safely" trade. Which treasury you pick is now a real decision.`
+    : "",
+  `${topHold.ticker} counts ${topHold.holders.toLocaleString()} holders; ${instFund.ticker} counts ${instFund.holders.toLocaleString()}. Same asset class, two worlds: retail wallets vs institutions parking billions.`,
+  moversLine ? `${moversLine}. Capital is rotating, not leaving the asset class.` : "",
+]
+  .filter(Boolean)
+  .map((s) => `• ${s}`)
+  .join("\n")
 
 const attFile = join(import.meta.dir, "..", "data", "attestations", `${date}.json`)
 let proof = ""
@@ -132,6 +162,10 @@ ${fmt(total)} across 15 EU + US funds:
 ${liTop}
 
 Top yields today: ${liYld}
+
+WHAT THE NUMBERS MEAN
+
+${liMeaning}
 
 WHY THIS MATTERS
 
