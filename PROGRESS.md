@@ -21,6 +21,10 @@
   - User `bunx vercel login` → `bunx vercel --prod`. Project `crytobot/rwa-dashboard`.
   - **3 bug Vercel đã fix**: (1) `outputDirectory` khiến Vercel bỏ qua `api/` functions → bỏ; (2) `api/index.ts` chỉ match đúng `/api`, subpath CDN-404 → dùng rewrites `/api/:path*` → `/api/main`; (3) helper `.ts` không được Vercel compile (Node ESM không load `.ts`) → chuyển app sang `api/app.js` (JS thuần) + `api/app.d.ts` cho type. Và `env` trong vercel.json không vào build-phase → chuyển sang `build.env` để `VITE_API=/api` được bake vào bundle.
   - **Verify production**: `/api/funds` 15 funds (USYC $3.01B top), `/api/yields` (CETES 4.6%, USTBL 4.34%), `/api/funds/:slug` EUTBL history, `/api/flows`, 404, index 200, bundle chứa `/api`.
+- **Repo GitHub PUBLIC — https://github.com/crytobot459/eurorwa**:
+  - `git init -b main` + commit (30 files, dùng user inline không sửa git config). Loại `src/frontend/dist/` (build cũ) khỏi staged + thêm gitignore.
+  - Push `main` lên `crytobot459/eurorwa` (public). Remote URL sạch (không nhúng token).
+  - **Verify**: 30 files trên GitHub, không chứa `agent.key`/`.env`/`rwa.db`. Snapshot `data/snapshots/2026-08-05.json` được commit (cần cho deploy).
 - **Trong phiên trước**: đổi nguồn sang scrape data thật (11 quỹ), xóa mock, rebuild DB.
 
 **Trạng thái phase:** P1-P5 (code) xong với data thật, **P4 đã deploy public**. Còn thiếu: cron 12h, bonus Sepolia contract, Phase 6 (đăng bài + repo public).
@@ -31,8 +35,8 @@
 - [x] P2: fetch + ingest + SQLite lịch sử — data thật web
 - [x] P3: API 4 endpoint — data thật
 - [x] P4: frontend + deploy public — **https://rwa-dashboard-gamma.vercel.app**
-- [~] P5: attest.ts + verify.ts xong (còn thiếu: bonus Sepolia contract)
-- [ ] P6: 5 bài đăng + repo public
+- [x] P5: attest.ts + verify.ts xong (còn thiếu: bonus Sepolia contract)
+- [~] P6: repo public xong (https://github.com/crytobot459/eurorwa) — còn: 5 bài đăng (user tự đăng qua Chrome)
 - [ ] P7: khách đầu tiên / grant
 - [ ] P8: mở rộng (optional)
 
