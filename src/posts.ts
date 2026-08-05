@@ -167,7 +167,7 @@ What's the one fund you'd add to this list?
 const out = `# Bài đăng sẵn sàng — ${date}
 
 > Sinh tự động từ snapshot ${date}. Copy-paste từng mục là đăng được.
-> 📸 **Đính kèm ảnh (LinkedIn/X):** \`docs/posts/visual-${date}.png\` (chart 1200x630, chạy \`bun run visual\` để sinh). Có thể chụp thêm screenshot dashboard.
+> 📸 **Đính kèm ảnh (LinkedIn/X):** \`visual.png\` (cùng thư mục, chart 1200x630).
 
 ## X (Twitter)
 
@@ -188,8 +188,8 @@ ${redditBody}
 ${linkedin}
 `
 
-const outDir = join(import.meta.dir, "..", "docs", "posts")
+const outDir = join(import.meta.dir, "..", "docs", "posts", date)
 mkdirSync(outDir, { recursive: true })
-const outFile = join(outDir, `ready-${date}.md`)
+const outFile = join(outDir, "ready.md")
 writeFileSync(outFile, out)
 console.log(outFile)

@@ -92,22 +92,30 @@ body{background:#0b1220;font-family:"Segoe UI",Arial,sans-serif;color:#e2e8f0;-w
   <div class="foot"><span>${url}</span><span><b>verify:</b> sepolia.etherscan.io</span></div>
 </div></body></html>`
 
-const outDir = join(import.meta.dir, "..", "docs", "posts")
-const htmlFile = join(outDir, `visual-${date}.html`)
-const pngFile = join(outDir, `visual-${date}.png`)
+const outDir = join(import.meta.dir, "..", "docs", "posts", date)
+const htmlFile = join(outDir, "visual.html")
+const pngFile = join(outDir, "visual.png")
 writeFileSync(htmlFile, html)
 
 const chrome = process.env.CHROME || "google-chrome"
-const res = Bun.spawnSync([
-  chrome,
-  "--headless=new",
-  "--disable-gpu",
-  "--no-sandbox",
-  `--screenshot=${pngFile}`,
-  "--window-size=1200,630",
-  "--hide-scrollbars",
-  `file://${htmlFile}`,
-])
-if (res.exitCode !== 0) throw new Error(`chrome screenshot failed: ${res.stderr.toString()}`)
+const profile = join("/tmp", `chrome-headless-${process.pid}`)
+const res = Bun.spawnSync(
+  [
+    chrome,
+    "--headless=new",
+    "--disable-gpu",
+    "--no-sandbox",
+    `--user-data-dir=${profile}`,
+    `--screenshot=${pngFile}`,
+    "--window-size=1200,630",
+    "--hide-scrollbars",
+    `file://${htmlFile}`,
+  ],
+  { timeout: 30000 },
+)
+if (res.exitCode !== 0) {
+  console.warn(`chrome screenshot failed (code ${res.exitCode}) — bỏ qua ảnh lần này`)
+  process.exit(0)
+}
 
 console.log(pngFile)

@@ -1,7 +1,7 @@
 # Bài đăng sẵn sàng — 2026-08-05
 
 > Sinh tự động từ snapshot 2026-08-05. Copy-paste từng mục là đăng được.
-> 📸 **Đính kèm ảnh (LinkedIn/X):** `docs/posts/visual-2026-08-05.png` (chart 1200x630, chạy `bun run visual` để sinh). Có thể chụp thêm screenshot dashboard.
+> 📸 **Đính kèm ảnh (LinkedIn/X):** `visual.png` (cùng thư mục, chart 1200x630).
 
 ## X (Twitter)
 
