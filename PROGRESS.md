@@ -2,7 +2,22 @@
 
 > Cập nhật sau mỗi phiên opencode. Xem `ROADMAP.md` để biết chi tiết từng phase.
 
-## Phiên gần nhất: 2026-08-05 (phiên 5)
+## Phiên gần nhất: 2026-08-05 (phiên 6)
+
+**Việc đã làm:**
+
+- **GitHub Actions pipeline CÀI XONG** — thay thế kế hoạch HF Space (đã xác nhận free KHÔNG chạy Gradio/Docker, phải paid):
+  - `.github/workflows/pipeline.yml`: cron `30 0,12 * * *` (lệch 30 phút so với cron local 00:00/12:00 để tránh race) + `workflow_dispatch`. Chạy: checkout → setup bun → chrome → ghi key từ secret → `bun install` → `bash scripts/run.sh` → commit+push kết quả → redeploy Vercel (nếu có data mới).
+  - `src/agent/attest.ts`: đọc `AGENT_PRIVATE_KEY` env trước `data/agent.key` — cho phép GH Actions ký bằng đúng ví agent. Verify local: derive address từ key khớp signer `0x02B0...F846`.
+  - Secret `AGENT_PRIVATE_KEY` đã set lên repo (encrypted).
+  - **Test chạy thành công** (run 30981955231, dispatch): fetch 15 funds (rwa.xyz-web) → ingest 15 rows → guard đúng ("đã attest on-chain 2026-08-05 → giữ nguyên bản chính thức") → no changes. Chrome có sẵn trên runner.
+  - `.prettierrc` thêm để formatter khớp style repo (no-semicolon).
+- **Kế hoạch chia việc**: khi laptop bật → cron local attest trước, GH Actions skip (guard chặn). Khi laptop tắt → GH Actions tự chạy full pipeline: fetch → ingest → attest → publish → posts → visual → commit → (redeploy).
+- **Còn chờ user**: cung cấp Vercel Deploy Hook URL → set secret `VERCEL_DEPLOY_HOOK` → workflow có step `redeploy` (đã viết sẵn, chỉ trigger khi có commit mới) → dashboard tự cập nhật data sau mỗi pipeline.
+
+**Trạng thái phase:** P1-P6 xong. Pipeline tự động đã hoạt động trên GitHub server. Còn: (1) user dán Vercel Deploy Hook để site tự cập nhật, (2) user đăng LinkedIn bài `docs/posts/ready-2026-08-05.md` kèm ảnh + ghi link vào PROGRESS.
+
+## Phiên 5: 2026-08-05
 
 **Việc đã làm:**
 
@@ -75,16 +90,16 @@
 ## Việc tiếp theo (cho phiên sau)
 
 1. **Đăng bài** `docs/posts/ready-2026-08-05.md` lên X/Reddit/LinkedIn kèm ảnh `visual-2026-08-05.png` + ghi link vào PROGRESS.
-2. **Vercel redeploy** để snapshot mới lên production: `bunx vercel --prod` (snapshot 2026-08-05 đã lên rồi, chỉ cần khi có data mới).
+2. **Vercel Deploy Hook**: tạo hook trong Vercel (Project Settings → Deploy Hooks) → dán URL cho agent để set secret `VERCEL_DEPLOY_HOOK` → từ đó dashboard tự redeploy sau mỗi pipeline commit.
 3. **Thêm quỹ**: WATCH list mở rộng (Libeara, Cashlink EU funds...) khi cần.
-4. **Git credential**: push thủ công đã OK (token cũ vẫn chạy, dùng credential helper tạm không lưu). Nên `gh auth login` khi rảnh; **revoke token cũ** `ghp_AHT0...` vì từng lộ trong history.
+4. **Git credential**: push qua credential helper tạm vẫn OK; nên `gh auth login` khi rảnh; **revoke token cũ** `ghp_AHT0...` vì từng lộ trong history. `gh` CLI đã cài standalone tại `~/.local/bin/gh` (dùng `GH_TOKEN` env).
 5. **Monetize**: Gumroad "EU RWA Monthly" PDF, API subscription — làm khi có traffic.
 
 ## Lưu ý
 
 - Data là **thật** (scrape trang công khai rwa.xyz, source:"rwa.xyz-web"). Nếu rwa.xyz đổi cấu trúc trang → `fetch.ts` có fallback mock + cần check log.
-- **Cron 12h** chạy fetch+ingest local (log `data/cron.log`). Chưa push GitHub (git chưa có credential) và chưa auto-redeploy Vercel — muốn snapshot lên production thì chạy tay `bunx vercel --prod`.
+- **Cron 12h** chạy fetch+ingest local (log `data/cron.log`). **GH Actions** chạy song song trên GitHub server (cron `30 0,12 * * *` + dispatch) — guard chặn attest trùng ngày nên không xung đột. GH Actions commit snapshot mới về repo; Vercel redeploy chờ Deploy Hook.
 - API deploy đọc `data/snapshots/*.json` (không cần SQLite) — commit snapshot để deploy có data.
-- Không commit: `.env.local`, `data/rwa.db`, `data/agent.key`, `data/attestations/`.
+- Không commit: `.env.local`, `data/rwa.db`, `data/agent.key`.
 - API local: `bun run src/api.ts` → localhost:3000. Frontend dev: `cd src/frontend && bun run dev` → localhost:5173. Build: `cd src/frontend && bun run build` → `public/`.
 - Bundle frontend 523KB (recharts) — code-split nếu cần sau.
