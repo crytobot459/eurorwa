@@ -1,6 +1,7 @@
 import { existsSync, readFileSync, readdirSync } from "node:fs"
 import { dirname, join } from "node:path"
 import { fileURLToPath } from "node:url"
+import { quickQuote } from "./freelance.js"
 
 const urlSite = "https://rwa-dashboard-gamma.vercel.app"
 const here = dirname(fileURLToPath(import.meta.url))
@@ -226,11 +227,63 @@ export async function sendMessage(chatId, text) {
   })
 }
 
+const buildWords = [
+  "build",
+  "make me",
+  "custom",
+  "hire",
+  "freelance",
+  "contract work",
+  "develop",
+  "create a",
+  "tôi cần",
+  "làm giúp",
+  "làm cho",
+  "đặt hàng",
+  "báo giá",
+  "nhận task",
+  "làm bot",
+  "làm dashboard",
+  "xây dựng",
+  "xây",
+  "code cho",
+  "code giúp",
+  "giúp tôi xây",
+]
+
+export function detectBuild(text) {
+  const low = text.toLowerCase()
+  return buildWords.some((w) => low.includes(w))
+}
+
+function buildOffer(text) {
+  const q = quickQuote(text)
+  const bot = process.env.BUILD_BOT_USERNAME
+  if (!bot) return null
+  const link = `https://t.me/${bot}?start=build`
+  return `\n\n🔧 ${q.cat}: $${q.lo}-${q.hi}. Muốn đặt task riêng? Chat với bot build: ${link}`
+}
+
+async function postLead(msg) {
+  const group = process.env.GROUP_CHAT_ID
+  if (!group) return
+  const name = `${msg.from?.first_name ?? ""} ${msg.from?.last_name ?? ""}`.trim() || "?"
+  const user = msg.from?.username ? `@${msg.from.username}` : ""
+  const text = `#[lead] ${msg.chat.id}|${name} ${user}|${(msg.text || "").slice(0, 120)}`
+  await sendMessage(group, text)
+}
+
 export async function webhook(request) {
   const upd = await request.json()
   const msg = upd.message
   if (!msg?.text) return new Response("ok", { status: 200 })
-  const reply = replyFor(msg.text)
+  if (msg.chat.type !== "private") return new Response("ok", { status: 200 })
+  let reply = replyFor(msg.text)
+  if (detectBuild(msg.text)) {
+    const offer = buildOffer(msg.text)
+    if (offer) reply += offer
+    await postLead(msg)
+  }
   await sendMessage(msg.chat.id, reply)
   return new Response("ok", { status: 200 })
 }

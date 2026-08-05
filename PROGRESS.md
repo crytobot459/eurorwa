@@ -2,24 +2,42 @@
 
 > Cập nhật sau mỗi phiên opencode. Xem `ROADMAP.md` để biết chi tiết từng phase.
 
-## Phiên gần nhất: 2026-08-05 (phiên 6)
+## Phiên gần nhất: 2026-08-05 (phiên 9)
 
 **Việc đã làm:**
 
-- **GitHub Actions pipeline CÀI XONG** — thay thế kế hoạch HF Space (đã xác nhận free KHÔNG chạy Gradio/Docker, phải paid):
-  - `.github/workflows/pipeline.yml`: cron `30 0,12 * * *` (lệch 30 phút so với cron local 00:00/12:00 để tránh race) + `workflow_dispatch`. Chạy: checkout → setup bun → chrome → ghi key từ secret → `bun install` → `bash scripts/run.sh` → commit+push kết quả → redeploy Vercel (nếu có data mới).
-  - `src/agent/attest.ts`: đọc `AGENT_PRIVATE_KEY` env trước `data/agent.key` — cho phép GH Actions ký bằng đúng ví agent. Verify local: derive address từ key khớp signer `0x02B0...F846`.
-  - Secret `AGENT_PRIVATE_KEY` đã set lên repo (encrypted).
-  - **Test chạy thành công** (run 30981955231, dispatch): fetch 15 funds (rwa.xyz-web) → ingest 15 rows → guard đúng ("đã attest on-chain 2026-08-05 → giữ nguyên bản chính thức") → no changes. Chrome có sẵn trên runner.
-  - `.prettierrc` thêm để formatter khớp style repo (no-semicolon).
-- **Kế hoạch chia việc**: khi laptop bật → cron local attest trước, GH Actions skip (guard chặn). Khi laptop tắt → GH Actions tự chạy full pipeline: fetch → ingest → attest → publish → posts → visual → commit → (redeploy).
-- **Auto-deploy Vercel HOÀN TẤT**: user tạo Deploy Hook → set secret `VERCEL_DEPLOY_HOOK` → workflow có step `redeploy` (chỉ chạy khi có commit data mới). Đã test hook: POST 201 + deploy production thành công (site 200 sau redeploy). Giờ mỗi pipeline commit data mới → site tự cập nhật.
-- **Telegram bot (agent chat với khách) — CODE XONG, đang chờ user**:
-  - `api/tg.ts` (entry) + `api/tgbot.js` (logic, kiểu app.js): webhook Telegram trên Vercel → `/api/tg`. Commands: `/today`, `/funds`, `/yields`, `/movers`, `/proof`, `/suggest <comment>` (gợi ý 3 mẫu reply LinkedIn) + trả lời tự nhiên khi gõ tên quỹ ("usyc") hoặc hỏi ("top yield?"). Đã test logic local OK, endpoint deploy OK (200).
-  - `scripts/tg-webhook.js` — đăng ký webhook. `scripts/bot-test.js` — test local.
-  - **Còn chờ user**: (1) tạo bot qua @BotFather → có token; (2) set `TG_TOKEN` trong Vercel → Settings → Environment Variables (production); (3) đưa token cho agent để đăng ký webhook + test thật.
+- **BOT THẬT + NHÓM THẬT — CHẠY END-TO-END ✓**:
+  - Tạo 2 bot qua @BotFather (dùng Chrome headless + CDP, session Telegram thật):
+    `@EuroRWA_Data_bot` (TG_TOKEN) và `@EuroRWA_Build_2026_bot` (TG_FREELANCE_TOKEN, username cũ `EuroRWA_Build_bot` đã bị chiếm).
+  - Tạo nhóm **"EuroRWA Bots Hub"** `GROUP_CHAT_ID=-5127324366` (owner + 2 bot).
+  - `OWNER_CHAT_ID=444148694` (eleven/@crytobot459). Token/group lưu `data/tg-bots.json` + `.env.local` (gitignore, không commit).
+  - **Vercel**: set env (TG_TOKEN, BUILD_BOT_USERNAME, GROUP_CHAT_ID) → deploy → set webhook `https://rwa-dashboard-gamma.vercel.app/api/tg`.
+  - **Fix routing Vercel**: `vercel.json` rewrite `/api/:path*` → `/api/main` nuốt luôn `/api/tg` → thêm route `/tg` vào Hono `api/app.js` (`app.post("/tg", webhook)`). Đã deploy.
+  - **Verify public bot**: owner `/start` → reply help; "tôi cần build dashboard" → quote `dashboard: $80-150` + link `https://t.me/EuroRWA_Build_2026_bot?start=build` + `#[lead]` vào nhóm. ✓
+  - **Verify build bot (local long-polling)**: `/start` → welcome; mô tả task → quote `$115`; `ok` → địa chỉ USDT TRC20 `TPVSnUZg...`; tx hash fake → **Binance auto-verify reject đúng** ("Chưa thấy giao dịch...") + tạo task + `#[task]` vào nhóm; owner `/approve msfzjhdo-753` → `#[approved]`. ✓
+- **BUG ĐÃ FIX**:
+  - `api/app.js` thiếu route `/tg` (rewrite Vercel nuốt) → thêm.
+  - Bot build: vòng lặp `getUpdates` crash trên update không phải `message` (`my_chat_member`) → skip `!upd.message`.
+  - Bot build: `/start` của owner bị nhánh lệnh owner nuốt ("Lệnh owner: ..." gửi fail vì chứa `<id>` không escape trong parse_mode HTML) → nhánh owner chỉ match `/^\/(approve|reject|tasks)/` + escape `&lt;id&gt;`.
+- **KHÁM PHÁ QUAN TRỌNG — giới hạn Telegram**: bot **không thấy tin nhắn của bot khác** (trong nhóm lẫn DM riêng: `USER_BOT_TO_BOT_DISABLED`; dù tắt privacy mode qua BotFather vẫn không thấy tin từ bot khác). → `#[ack]` từ bot build không tự bắn khi data bot post `#[lead]`. **Kiến trúc thực tế**: khách tự bấm deep link sang bot build (không có handoff bot→bot). Nhóm chung = **nhật ký audit cho chủ** (`#[lead]` data bot + `#[task]`/`#[approved]` build bot). Đã cập nhật `docs/FREELANCE-FLOW.md`.
+- **Còn lại**: commit+push repo (loại secret), đăng LinkedIn bài `docs/posts/ready-2026-08-05.md`, chạy bot build local khi cần (`bun run freelance` dùng `--env-file`).
 
-**Trạng thái phase:** P1-P6 xong. Pipeline tự động + auto-deploy Vercel đã hoạt động hoàn chỉnh. Telegram bot đang chờ token để kích hoạt. Còn lại: đăng LinkedIn bài `docs/posts/2026-08-05/ready.md` + ghi link, kích hoạt bot, thiết kế gói trả phí.
+**Trạng thái phase:** P1-P6 xong. Hệ 2 bot + nhóm + auto-verify Binance **chạy thật end-to-end**. Còn: commit, đăng bài, giới thiệu khách đầu tiên (P7).
+
+## Phiên gần nhất trước: 2026-08-05 (phiên 8)
+
+**Việc đã làm:**
+
+- **2 agent nói chuyện với nhau — HOÀN THÀNH** (bot công khai ↔ bot build):
+  - `api/freelance.js` (mới): bảng giá + `classify` + `quickQuote` dùng chung cho cả 2 bot (chạy được trên Vercel).
+  - Bot công khai (`api/tgbot.js`): thêm `detectBuild()` — khi khách có ý định đặt task → trả Q&A + **báo giá nhanh** + link `t.me/<build_bot>?start=build` + đăng `#[lead]` vào nhóm chung. Bỏ qua tin nhóm (chỉ xử lý chat riêng).
+  - Bot build (`scripts/freelance-bot.js`): xử lý tin `#[lead]` từ nhóm → đáp `#[ack]`; đăng `#[task]` khi tạo task và `#[approved]` khi chủ duyệt; chủ approve được từ trong nhóm; nhận `/start build` (deep link).
+  - `scripts/freelance-core.js`: dùng chung `classify`/`midPrice` từ `api/freelance.js`.
+  - Test mở rộng (`scripts/freelance-test.js`): detectBuild + quickQuote + happy path + trả giá + owner — chạy OK, typecheck sạch.
+  - **Cơ chế nối 2 agent**: nhóm Telegram chung (`GROUP_CHAT_ID`, cả 2 bot làm thành viên) — protocol `#[lead]`/`#[ack]`/`#[task]`/`#[approved]`. Vì luật Telegram cấm bot nhắn trước người lạ → bot công khai đưa link, khách tự bấm `/start` với bot build.
+  - `docs/FREELANCE-FLOW.md` + `.env.example` cập nhật: `BUILD_BOT_USERNAME`, `GROUP_CHAT_ID`.
+
+**Trạng thái phase:** P1-P6 xong. Pipeline tự động + auto-deploy Vercel hoạt động. **2 bot freelance đã nói chuyện được với nhau qua nhóm chung.** Còn chờ user: (1) tạo 2 bot + nhóm, set env (Vercel: `TG_TOKEN`, `BUILD_BOT_USERNAME`, `GROUP_CHAT_ID`; local: `TG_FREELANCE_TOKEN`, `OWNER_CHAT_ID`, `USDT_ADDRESS`, `GROUP_CHAT_ID`), (2) chạy bot build local, (3) đăng LinkedIn bài + ghi link.
 
 ## Phiên 5: 2026-08-05
 

@@ -61,9 +61,19 @@ rwa-dashboard/
 │   └── agent/
 │       ├── attest.ts   # Ký + publish attestation onchain
 │       └── verify.ts   # Verify signature
+├── api/
+│   ├── app.js          # API data (đọc snapshot JSON)
+│   ├── tg.ts           # Entry webhook Telegram /api/tg
+│   ├── tgbot.js        # Bot công khai Q&A + detectBuild + gửi lead
+│   └── freelance.js    # Bảng giá + classify + quickQuote (dùng chung 2 bot)
+├── scripts/
+│   ├── freelance-core.js  # State machine nhận task (thuần, test được)
+│   ├── freelance-bot.js   # Bot build local (long-polling) nhận task
+│   └── freelance-test.js  # Test luồng freelance
 └── data/
     ├── snapshots/      # JSON mỗi ngày
     ├── rwa.db          # SQLite
+    ├── freelance/      # tasks.json + state.json (gitignore)
     └── attestations/   # Hash + chữ ký mỗi ngày
 ```
 

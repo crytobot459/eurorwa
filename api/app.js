@@ -3,6 +3,7 @@ import { dirname, join } from "node:path"
 import { fileURLToPath } from "node:url"
 import { Hono } from "hono"
 import { cors } from "hono/cors"
+import { webhook } from "./tgbot.js"
 
 const cwd = process.cwd()
 const here = dirname(fileURLToPath(import.meta.url))
@@ -21,6 +22,9 @@ export const app = new Hono()
 app.use("*", cors())
 
 const bySlug = (slug) => (f) => f.slug === slug
+
+app.get("/tg", (c) => c.text("tg ok"))
+app.post("/tg", (c) => webhook(c.req.raw))
 
 app.get("/", (c) => c.json({ ok: true, endpoints: ["/funds", "/funds/:slug", "/yields", "/flows"] }))
 
