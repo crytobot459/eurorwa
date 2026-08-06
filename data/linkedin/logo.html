@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html><head><meta charset="utf-8"><style>
 *{margin:0;box-sizing:border-box}
-body{background:radial-gradient(circle at 50% 38%,#16314d 0%,#0e1a2f 55%,#0b1220 100%);width:400px;height:400px;-webkit-font-smoothing:antialiased}
-.wrap{width:400px;height:400px;display:flex;align-items:center;justify-content:center}
-.mark{width:216px;height:216px;border-radius:36px;background:linear-gradient(160deg,#13263f,#0e1a2f);border:1px solid rgba(148,163,184,.28);display:flex;align-items:center;justify-content:center;box-shadow:0 0 70px rgba(34,211,238,.14), inset 0 0 40px rgba(52,211,153,.06)}
-svg{width:176px;height:176px}
-</style></head><body><div class="wrap"><div class="mark">
+body{background:transparent;width:900px;height:280px;font-family:"Segoe UI",Arial,sans-serif;color:#e2e8f0;-webkit-font-smoothing:antialiased;overflow:hidden}
+.wrap{width:900px;height:280px;display:flex;align-items:center;gap:36px;padding:0 8px}
+.mark{width:168px;height:168px;border-radius:36px;background:linear-gradient(160deg,#16314d,#0e1a2f);border:1px solid rgba(148,163,184,.3);display:flex;align-items:center;justify-content:center;box-shadow:0 0 60px rgba(34,211,238,.2)}
+.mark svg{width:132px;height:132px}
+.word .name{font-size:72px;font-weight:800;letter-spacing:1px;color:#fff;line-height:1}
+.word .acc{background:linear-gradient(90deg,#34d399,#22d3ee);-webkit-background-clip:text;background-clip:text;color:transparent}
+.word .tag{font-size:17px;color:#7b8ba0;letter-spacing:3px;margin-top:14px}
+</style></head><body><div class="wrap">
+  <div class="mark">
 <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
@@ -18,4 +22,9 @@ svg{width:176px;height:176px}
   <circle cx="100" cy="100" r="13" fill="url(#g1)"/>
   <circle cx="100" cy="100" r="5" fill="#0b1220"/>
   <circle cx="162" cy="100" r="13" fill="url(#g1)" opacity="1"/><circle cx="131" cy="153.7" r="8" fill="#22d3ee" opacity="0.85"/><circle cx="69" cy="153.7" r="8" fill="#22d3ee" opacity="0.85"/><circle cx="38" cy="100" r="8" fill="#22d3ee" opacity="0.85"/><circle cx="69" cy="46.3" r="8" fill="#22d3ee" opacity="0.85"/><circle cx="131" cy="46.3" r="8" fill="#22d3ee" opacity="0.85"/>
-</svg></div></div></body></html>
+</svg></div>
+  <div class="word">
+    <div class="name">Euro<span class="acc">RWA</span></div>
+    <div class="tag">ONCHAIN DATA · RWA</div>
+  </div>
+</div></body></html>

@@ -1,19 +1,20 @@
 # LinkedIn — Hồ sơ + Bài đăng (2026-08-06)
 
 > Hồ sơ: https://www.linkedin.com/in/canh-pham-bot-dev/
-> Ảnh trong thư mục này: `avatar.png` (ảnh đại diện 400×400) · `banner.png` (ảnh bìa 1584×396)
-> Cả 2 ảnh **không có tên, không có mặt** — avatar là logo mạng dữ liệu trừu tượng (network graph), banner chỉ có thương hiệu + số liệu.
+> Ảnh trong thư mục này: `avatar.png` (ảnh đại diện 400×400) · `banner.png` (ảnh bìa 1584×396) · `logo.png` (logo 900×280, dùng cho brand kit / bài viết)
+> Cả 3 ảnh **không có tên, không có mặt, không có số liệu** — avatar là logo mạng dữ liệu trừu tượng (network graph), banner/logo chỉ có thương hiệu "EuroRWA".
 
 ---
 
 ## 1. CÁC BƯỚC ÁP DỤNG (2-3 phút, làm bằng tay)
 
 1. **Ảnh đại diện:** vào hồ sơ → ✏️ → Ảnh → Tải lên → chọn `avatar.png` (logo trừu tượng, không mặt).
-2. **Ảnh bìa:** hồ sơ → ✏️ → Ảnh nền → Tải lên → chọn `banner.png`.
-3. **Headline:** dán dòng bên dưới (mục 2).
-4. **Phần Giới thiệu (About):** dán nội dung mục 3.
-5. **Kinh nghiệm:** thêm 1 mục (mục 4).
-6. **Đăng bài:** tạo bài đăng mới → dán mục 5 → đính kèm ảnh `visual.png` (docs/posts/2026-08-06/).
+2. **Ảnh bìa:** hồ sơ → ✏️ → Ảnh nền → Tải lên → chọn `banner.png` (chỉ thương hiệu EuroRWA, không số liệu).
+3. **Logo riêng (`logo.png`):** dùng trong bài viết, trang web, chữ ký — không phải ảnh hồ sơ.
+4. **Headline:** dán dòng bên dưới (mục 2).
+5. **Phần Giới thiệu (About):** dán nội dung mục 3.
+6. **Kinh nghiệm:** thêm 1 mục (mục 4).
+7. **Đăng bài:** tạo bài đăng mới → dán mục 5 → đính kèm ảnh `visual.png` (docs/posts/2026-08-06/).
 
 ---
 
