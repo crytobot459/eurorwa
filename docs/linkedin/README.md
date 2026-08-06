@@ -22,7 +22,7 @@
 
 ## 0.6. ĐÁNH GIÁ HỒ SƠ — HỌC TỪ NGƯỜI GIỎI 🎯
 
-> Kiểm tra 2026-08-06: headline hiện tại trên LinkedIn **vẫn là** _"Machine Learning Engineer | Algorithmic Trading | Rust, Python"_ + bài đăng cảm xúc (mùa thu Hà Nội) → **CHƯA áp dụng bộ nội dung mới**. Làm theo checklist dưới đây.
+> Kiểm tra 2026-08-06: bộ nội dung mới đang được áp dụng từng bước (ảnh + headline đã làm). Lưu ý: LinkedIn chặn bot nên tôi **không xem được hồ sơ live** — search engine vẫn còn cache headline cũ _"Machine Learning Engineer | Algorithmic Trading | Rust, Python"_. Sau khi sửa, kiểm tra trên chính tài khoản của bạn (chưa vào thì chưa lưu).
 
 ### Tên thật hay tên giả? → BẮT BUỘC tên thật ⚠️
 
@@ -133,7 +133,7 @@ Bot Developer | On-chain RWA & DeFi data pipelines | AI agents + Telegram automa
 ```
 I build small automated systems that turn public data into products people can verify — every number hashed & signed on-chain.
 
-Currently building EuroRWA — an AI agent pipeline that snapshots 15 EU + US tokenized money market funds (USYC, BUIDL, USDY, eurSAFO, EUTBL…) every 12 hours, computes TVL / APY / 7-day flows, hashes and signs each snapshot on Sepolia, and drafts the daily report. Every number is on-chain verifiable — no "trust me" dashboards.
+Currently building EuroRWA — an AI agent pipeline that snapshots 15 EU + US tokenized money market funds (USYC, BUIDL, USDY, eurSAFO, EUTBL…) every 12 hours, computes TVL / APY / holders / 7-30-90-day flows, runs a BUY/HOLD/SELL analyst, hashes and signs each snapshot on Sepolia, and drafts the daily report. Every number is on-chain verifiable — no "trust me" dashboards.
 
 Also building Telegram bots that do real work: a public data bot for the dashboard and a freelance build bot with on-chain payment verification.
 
@@ -142,7 +142,7 @@ What I care about:
 • Automating workflows until they run unattended
 • Small, reliable systems over big ones
 
-Open to work on RWA / tokenization data, DeFi analytics, and automation projects. DM me here or email me to chat.
+Open to work on RWA / tokenization data, DeFi analytics, and automation projects. DM me here to chat.
 ```
 
 ---
