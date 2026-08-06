@@ -131,6 +131,54 @@ tbody tr:hover {
   color: var(--red);
 }
 
+.ok {
+  color: var(--green);
+}
+
+.warn {
+  color: #fbbf24;
+}
+
+.bad {
+  color: var(--red);
+}
+
+.lag {
+  text-transform: capitalize;
+}
+
+.lag.fresh {
+  color: var(--green);
+}
+
+.lag.stale {
+  color: #fbbf24;
+}
+
+.lag.critical {
+  color: var(--red);
+}
+
+.vmark {
+  font-weight: 700;
+}
+
+.vmark.ok {
+  color: var(--green);
+}
+
+.vmark.warn {
+  color: #fbbf24;
+}
+
+.vmark.fail {
+  color: var(--red);
+}
+
+.vmark.na {
+  color: var(--muted);
+}
+
 .muted {
   color: var(--muted);
 }

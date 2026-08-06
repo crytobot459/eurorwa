@@ -10,6 +10,9 @@ export interface FundRow {
   chg_7d_pct: number
   yield: number
   holders: number
+  nav: number | null
+  integrity: string
+  checks: { self?: boolean; nav?: boolean; yield?: boolean } | null
   date: string
 }
 
@@ -22,7 +25,7 @@ export interface Point {
 }
 
 export interface FundDetail {
-  fund: Omit<FundRow, "tvl" | "chg_7d_pct" | "yield" | "holders" | "date">
+  fund: Omit<FundRow, "tvl" | "chg_7d_pct" | "yield" | "holders" | "nav" | "integrity" | "date">
   history: Point[]
 }
 
@@ -76,6 +79,16 @@ export interface Overview {
   chain: ChainData | null
   signer: string
   hash: string
+  verified: { ok: boolean; hash_ok: boolean; sig_ok: boolean; signer: string } | null
+  attestation: {
+    attested: boolean
+    key: string
+    tx: string
+    block: number | null
+    hash_ok: boolean
+    signer_ok: boolean
+  } | null
+  snapshot: { date: string; fetched_at: string; age_hours: number; lag: string } | null
 }
 
 async function get<T>(path: string): Promise<T> {

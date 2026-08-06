@@ -13,6 +13,17 @@ const fmtUsd = (n: number) => {
 const fmtPct = (n: number | null | undefined) =>
   n === null || n === undefined ? "—" : `${n > 0 ? "+" : ""}${n.toFixed(2)}%`
 
+const fmtNav = (n: number | null | undefined) =>
+  n === null || n === undefined ? "—" : `$${n.toLocaleString(undefined, { maximumFractionDigits: 4 })}`
+
+const checkFail = (c: FundRow["checks"] | null | undefined) => {
+  if (!c) return ""
+  const fails = Object.entries(c)
+    .filter(([, v]) => v === false)
+    .map(([k]) => k)
+  return fails.length ? `failed: ${fails.join(", ")}` : ""
+}
+
 const fmtTime = (iso: string) => {
   const d = new Date(iso)
   if (isNaN(d.getTime())) return iso
@@ -68,6 +79,9 @@ const badge = (action: string) => <span className={`badge ${action}`}>{action}</
 
 function OverviewView({ ov, funds }: { ov: Overview; funds: FundRow[] }) {
   const m = ov.macro
+  const ok = funds.filter((f) => f.integrity === "ok").length
+  const warn = funds.filter((f) => f.integrity === "warn").length
+  const fail = funds.filter((f) => f.integrity === "fail").length
   const order = { BUY: 0, HOLD: 1, SELL: 2 } as Record<string, number>
   const sigs = [...ov.signals].sort(
     (a, b) => (order[a.action] ?? 9) - (order[b.action] ?? 9) || a.ticker.localeCompare(b.ticker),
@@ -103,6 +117,52 @@ function OverviewView({ ov, funds }: { ov: Overview; funds: FundRow[] }) {
           <span>RWA vs T-bill spread</span>
         </div>
       </div>
+
+      {ov.verified && (
+        <div className="agent">
+          <h2>🛡️ Data verification</h2>
+          <div className="chips">
+            <div className="chip">
+              <b className={ov.verified.ok ? "ok" : "bad"}>{ov.verified.ok ? "✓ verified" : "✗ mismatch"}</b>
+              <span>Report hash &amp; signature</span>
+            </div>
+            <div className="chip">
+              <b className={fail ? "bad" : warn ? "warn" : "ok"}>
+                {ok}/{funds.length}
+              </b>
+              <span>Funds pass integrity{fail ? ` · ${fail} fail` : warn ? ` · ${warn} warn` : ""}</span>
+            </div>
+            {ov.attestation && (
+              <div className="chip">
+                <b className={ov.attestation.attested ? "ok" : "bad"}>
+                  {ov.attestation.attested ? "✓ on-chain" : "✗ not attested"}
+                </b>
+                <span>Attested on-chain</span>
+              </div>
+            )}
+            {ov.snapshot && (
+              <div className="chip">
+                <b className={`lag ${ov.snapshot.lag}`}>{ov.snapshot.age_hours.toFixed(1)}h</b>
+                <span>Data age · {ov.snapshot.lag}</span>
+              </div>
+            )}
+          </div>
+          <div className="meta">
+            {ov.verified.hash_ok ? "hash matches report body" : "hash mismatch"} ·{" "}
+            {ov.verified.sig_ok ? "signature valid" : "signature invalid"} · signer {ov.verified.signer.slice(0, 10)}…
+            {ov.verified.signer.slice(-4)} · snapshot {ov.snapshot?.date ?? "n/a"}
+            {ov.attestation && (
+              <>
+                {" "}
+                ·{" "}
+                {ov.attestation.attested
+                  ? `attested ${ov.attestation.key} · block ${ov.attestation.block}`
+                  : "not attested on-chain"}
+              </>
+            )}
+          </div>
+        </div>
+      )}
 
       {ov.crypto && (
         <div className="agent">
@@ -216,7 +276,9 @@ function Table({ rows }: { rows: FundRow[] }) {
           <th>TVL</th>
           <th>7d</th>
           <th>APY</th>
+          <th>NAV</th>
           <th>Holders</th>
+          <th>Verif</th>
         </tr>
       </thead>
       <tbody>
@@ -227,7 +289,13 @@ function Table({ rows }: { rows: FundRow[] }) {
             <td>{fmtUsd(r.tvl)}</td>
             <td className={r.chg_7d_pct >= 0 ? "pos" : "neg"}>{fmtPct(r.chg_7d_pct)}</td>
             <td>{r.yield > 0 ? `${r.yield.toFixed(2)}%` : "—"}</td>
+            <td>{fmtNav(r.nav)}</td>
             <td>{r.holders || "—"}</td>
+            <td>
+              <span className={`vmark ${r.integrity}`} title={checkFail(r.checks)}>
+                {r.integrity === "ok" ? "✓" : r.integrity === "warn" ? "⚠" : r.integrity === "fail" ? "✗" : "—"}
+              </span>
+            </td>
           </tr>
         ))}
       </tbody>

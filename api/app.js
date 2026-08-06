@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url"
 import { Hono } from "hono"
 import { cors } from "hono/cors"
 import { webhook } from "./tgbot.js"
+import { verifyReport, verifyAttestation, verifySnapshot, lagOf } from "./verify.js"
 
 const cwd = process.cwd()
 const here = dirname(fileURLToPath(import.meta.url))
@@ -38,9 +39,10 @@ app.post("/tg", (c) => webhook(c.req.raw))
 
 app.get("/", (c) => c.json({ ok: true, endpoints: ["/overview", "/funds", "/funds/:slug", "/yields", "/flows"] }))
 
-app.get("/overview", (c) => {
+app.get("/overview", async (c) => {
   const rep = reports().at(-1)
   if (!rep) return c.json({ date: null })
+  const snap = snaps().at(-1)
   return c.json({
     date: rep.date,
     generated_at: rep.generated_at,
@@ -58,6 +60,9 @@ app.get("/overview", (c) => {
     chain: rep.chain_used ?? null,
     signer: rep.signer,
     hash: rep.hash,
+    verified: await verifyReport(rep),
+    attestation: verifyAttestation(rep),
+    snapshot: snap ? { date: snap.date, fetched_at: snap.fetched_at, ...(lagOf(snap.fetched_at) ?? {}) } : null,
   })
 })
 
@@ -65,23 +70,36 @@ app.get("/funds", (c) => {
   const all = snaps()
   const last = all.at(-1)
   if (!last) return c.json({ date: null, funds: [] })
+  const v = verifySnapshot(last, all.at(-2))
+  const vBy = new Map(v.funds.map((f) => [f.slug, f]))
   const funds = [...last.funds]
     .sort((x, y) => y.tvl - x.tvl)
-    .map((f) => ({
-      slug: f.slug,
-      ticker: f.ticker,
-      name: f.name,
-      issuer: f.issuer,
-      asset_class: f.asset_class,
-      tvl: f.tvl,
-      tvl_7d: f.tvl_7d,
-      chg_7d_pct: f.chg_7d_pct,
-      yield: f.yield,
-      holders: f.holders,
-      supply: f.supply,
-      date: last.date,
-    }))
-  return c.json({ date: last.date, funds })
+    .map((f) => {
+      const vf = vBy.get(f.slug)
+      return {
+        slug: f.slug,
+        ticker: f.ticker,
+        name: f.name,
+        issuer: f.issuer,
+        asset_class: f.asset_class,
+        tvl: f.tvl,
+        tvl_7d: f.tvl_7d,
+        chg_7d_pct: f.chg_7d_pct,
+        yield: f.yield,
+        holders: f.holders,
+        supply: f.supply,
+        nav: vf?.nav ?? null,
+        integrity: vf?.integrity ?? "na",
+        checks: vf?.checks ?? null,
+        date: last.date,
+      }
+    })
+  return c.json({
+    date: last.date,
+    snapshot: { date: last.date, fetched_at: last.fetched_at, ...(lagOf(last.fetched_at) ?? {}) },
+    integrity: { checked: v.checked, ok: v.ok, warn: v.warn, fail: v.fail },
+    funds,
+  })
 })
 
 app.get("/funds/:slug", (c) => {
