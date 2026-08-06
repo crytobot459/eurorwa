@@ -45,6 +45,8 @@ app.get("/overview", (c) => {
     date: rep.date,
     generated_at: rep.generated_at,
     market_view: rep.market_view,
+    crypto_view: rep.crypto_view ?? null,
+    chain_view: rep.chain_view ?? null,
     signals: rep.signals.map((s) => ({
       ticker: s.ticker,
       action: s.action,
@@ -52,6 +54,8 @@ app.get("/overview", (c) => {
       reasons: s.reasons,
     })),
     macro: rep.macro_used,
+    crypto: rep.crypto_used ?? null,
+    chain: rep.chain_used ?? null,
     signer: rep.signer,
     hash: rep.hash,
   })

@@ -3,6 +3,8 @@ import type { Indicator, YieldRank } from "./data"
 import type { NewsSignal } from "./news"
 import type { FlowSignal } from "./flow"
 import type { MacroSignal } from "./macro"
+import type { CryptoSignal } from "./crypto"
+import type { ChainSignal } from "./chain"
 
 export interface Signal {
   ticker: string
@@ -15,15 +17,19 @@ export interface Report {
   date: string
   generated_at: string
   market_view: string
+  crypto_view: string
+  chain_view: string
   signals: Signal[]
   news_used: NewsSignal[]
   flow_used: FlowSignal[]
   macro_used: MacroSignal
+  crypto_used: CryptoSignal
+  chain_used: ChainSignal
 }
 
-const SYS = `You are AnalystAgent — an expert in tokenized RWA money-market funds (tokenized treasury funds).
-Input: (1) fund table (yield + 30/90d trends, TVL 7/30/90d, holders), (2) news signals, (3) on-chain flows (holders/supply 7d), (4) macro (Fear&Greed, BTC, RWA vs T-bill yield spread).
-Your job: for EACH fund give a recommendation BUY (buy/add because yield is high or rising), HOLD (keep), SELL (exit because yield is low, falling, or risky).
+const SYS = `You are AnalystAgent — an expert in tokenized RWA money-market funds (tokenized treasury funds) AND the broader crypto/blockchain market.
+Input: (1) fund table (yield + 30/90d trends, TVL 7/30/90d, holders), (2) news signals, (3) on-chain flows (holders/supply 7d), (4) macro (Fear&Greed, BTC, RWA vs T-bill yield spread), (5) crypto market data (total mcap, BTC/ETH, dominance, top movers), (6) on-chain/blockchain data (DeFi TVL, stablecoins, BTC/ETH network activity).
+Your job: (a) for EACH fund give a recommendation BUY (buy/add because yield is high or rising), HOLD (keep), SELL (exit because yield is low, falling, or risky); (b) write crypto_view — a short English crypto market brief for a broad audience, using EXACTLY this 3-part structure on one line each, prefixed by "Regime:", "Rotation:", "What to watch:" — Regime = market phase (risk_on/neutral/risk_off) with Fear&Greed and mcap evidence; Rotation = where capital is moving (BTC vs alts, dominance, top movers, trending); What to watch = 1-2 key levels/events that could flip the regime; (c) write chain_view — a short English on-chain brief using EXACTLY this 3-part structure: "Liquidity:" (DeFi TVL + stablecoin trend), "Activity:" (BTC/ETH network, fees), "Watch:" (notable on-chain signal).
 BUY criteria: top yield cohort or yield_30d rising strongly + inflows (TVL/holders up) or positive news. SELL: lowest yield cohort + outflows, or yield dropping fast. Otherwise HOLD.
 30/90d trends matter a lot: positive yield_chg_30d_pct = yield rising (supports BUY/HOLD); strongly negative = yield falling (supports SELL). If yield rises fast but holders withdraw (profit-taking) → consider HOLD instead of rushing SELL.
 On-chain flow matters: holders/supply 7d up = institutions entering (supports BUY); down = exiting (supports SELL).
@@ -31,7 +37,7 @@ Macro: if risk_off (low Fear&Greed) → be more cautious, fewer BUYs. If the RWA
 Funds with 0.00% yield or missing data → HOLD with note "missing data".
 Write reasons specific and full of numbers. Do not invent numbers. If not enough evidence → HOLD.
 Reply in ENGLISH. Return ONLY JSON:
-{"market_view":"2-3 sentence English market overview for a broad audience","signals":[{"ticker","action","confidence","reasons":[...]}]}`
+{"market_view":"2-3 sentence English market overview for a broad audience","crypto_view":"Regime: ...\\nRotation: ...\\nWhat to watch: ...","chain_view":"Liquidity: ...\\nActivity: ...\\nWatch: ...","signals":[{"ticker","action","confidence","reasons":[...]}]}`
 
 const EUR_SET = new Set(["eurSAFO", "EUTBL", "EUROB", "NRW1"])
 
@@ -61,6 +67,8 @@ export async function analyze(
   news: NewsSignal[],
   flow: FlowSignal[],
   macro: MacroSignal,
+  crypto: CryptoSignal,
+  chain: ChainSignal,
 ): Promise<Report> {
   const bench = benchmarks(funds)
   const fundLines = funds
@@ -100,16 +108,26 @@ DÒNG TIỀN ON-CHAIN:
 ${flowLines}
 
 VĨ MÔ:
-${macroLine}`
+${macroLine}
+
+CRYPTO MARKET:
+${crypto.note}
+
+ON-CHAIN/BLOCKCHAIN:
+${chain.note}`
   try {
     const body = await jsonChat<{
       market_view: string
+      crypto_view: string
+      chain_view: string
       signals: (Omit<Signal, "confidence"> & { confidence: string | number })[]
     }>(SYS, prompt)
     return {
       date: snapshotDate,
       generated_at: new Date().toISOString(),
       market_view: body.market_view,
+      crypto_view: body.crypto_view,
+      chain_view: body.chain_view,
       signals: body.signals.map((s) => ({
         ticker: s.ticker,
         action: s.action,
@@ -119,10 +137,12 @@ ${macroLine}`
       news_used: news,
       flow_used: flow,
       macro_used: macro,
+      crypto_used: crypto,
+      chain_used: chain,
     }
   } catch (err) {
     console.warn(`analyst LLM fail (${err}) — using rule-based fallback`)
-    return fallback(snapshotDate, funds, ranks, news, flow, macro)
+    return fallback(snapshotDate, funds, ranks, news, flow, macro, crypto, chain)
   }
 }
 
@@ -145,6 +165,8 @@ function fallback(
   news: NewsSignal[],
   flow: FlowSignal[],
   macro: MacroSignal,
+  crypto: CryptoSignal,
+  chain: ChainSignal,
 ): Report {
   const flowBy = new Map(flow.map((f) => [f.ticker, f]))
   const signals: Signal[] = funds.map((f) => {
@@ -198,9 +220,15 @@ function fallback(
     date: snapshotDate,
     generated_at: new Date().toISOString(),
     market_view: `Rule-based fallback: ${funds.length} funds; macro ${macro.risk_level}; ${newsReasons.length ? "news: " + newsReasons.join("; ") : ""}`,
+    crypto_view: `Regime: ${macro.risk_level} (F&G ${macro.fear_greed.value})\nRotation: ${crypto.note || "n/a"}`,
+    chain_view: `Liquidity: ${
+      chain.defi.stables_usd ? `stablecoins $${(chain.defi.stables_usd / 1e9).toFixed(1)}B` : "n/a"
+    }\nActivity: ${chain.btc.tx_24h ? `${chain.btc.tx_24h.toLocaleString("en-US")} BTC tx/24h` : "n/a"}`,
     signals,
     news_used: news,
     flow_used: flow,
     macro_used: macro,
+    crypto_used: crypto,
+    chain_used: chain,
   }
 }

@@ -41,10 +41,28 @@ export interface Signal {
   reasons: string[]
 }
 
+export interface CryptoData {
+  mcap: { usd: number; chg_24h_pct: number }
+  volume: { usd: number }
+  btc: { usd: number; chg_24h: number }
+  eth: { usd: number; chg_24h: number }
+  dominance: { btc: number; eth: number }
+  movers: { gainers: { sym: string; pct: number }[]; losers: { sym: string; pct: number }[] }
+  trending: string[]
+}
+
+export interface ChainData {
+  defi: { tvl_usd: number; top: { name: string; tvl: number }[]; stables_usd: number; stables_chg_24h_pct: number }
+  btc: { tx_24h: number; avg_fee_usd: number; blocks_24h: number }
+  eth: { tx_24h: number; blocks_24h: number }
+}
+
 export interface Overview {
   date: string
   generated_at: string
   market_view: string
+  crypto_view: string | null
+  chain_view: string | null
   signals: Signal[]
   macro: {
     fear_greed: { value: number; label: string }
@@ -54,6 +72,8 @@ export interface Overview {
     spread: number
     risk_level: string
   }
+  crypto: CryptoData | null
+  chain: ChainData | null
   signer: string
   hash: string
 }

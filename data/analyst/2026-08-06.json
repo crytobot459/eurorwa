@@ -1,36 +1,35 @@
 {
   "date": "2026-08-06",
-  "generated_at": "2026-08-06T08:03:38.309Z",
-  "market_view": "Amid extreme market fear (Fear & Greed index at 25), tokenized RWA treasury funds offer stable yields led by Mexican CETES (4.60%) and US T-bills (4.32%). European funds are seeing targeted capital allocation, with eurSAFO attracting significant institutional inflows (+4.5% supply). Investors should prioritize top-yielding segment leaders while exiting underperforming funds suffering from capital and holder flight.",
+  "generated_at": "2026-08-06T09:08:40.386Z",
+  "market_view": "Tokenized Real-World Asset (RWA) treasury yields remain attractive, led by CETES at 4.60% (+0.28pt spread over T-bills) and USTBL at 4.32%, providing stable returns amidst broader market risk-off sentiment. On-chain capital flows show clear selectivity, with capital shifting into top-yielding EUR products like eurSAFO (+5.9% supply) while lower-yielding USD vehicles face redemptions. Meanwhile, total crypto market cap sits at $2.29T with Bitcoin consolidating near $64.8k.",
+  "crypto_view": "Regime: risk_off as Fear & Greed registers at 25 (Extreme Fear) despite total crypto market cap ticking up +0.81% to $2.29T.\nRotation: Capital favors Bitcoin safety with 56.7% BTC dominance and BTC (+1.15% to $64,820) outperforming Ethereum (+2.33% to $1,912) in market share, alongside selective altcoin gains (Binance Life +6.00%) and steep sell-offs (BEAT -34.00%).\nWhat to watch: Key BTC support at $64,000 and potential recovery in macro sentiment above 30 on the Fear & Greed Index.",
+  "chain_view": "Liquidity: Total DeFi TVL sits at $142.7B while stablecoin market cap expanded +0.33% to $307.6B, reflecting steady baseline dollar liquidity.\nActivity: High network usage across major L1s with 2,913,328 daily transactions on Ethereum and 620,830 on Bitcoin at low average fees ($0.36).\nWatch: Institutional supply expansion in eurSAFO (+5.9% supply, +4.6% holders) contrasting with holder exits in USYC (-11.6% holders).",
   "signals": [
     {
       "ticker": "USYC",
       "action": "SELL",
       "confidence": "high",
       "reasons": [
-        "Low yield of 3.19% lagging USTBL benchmark by -1.13pt",
-        "Significant holder exodus with holders dropping -11.6% in 7 days (down to 38)",
-        "TVL 7d contracted by -0.05% with supply shrinking -0.1%"
+        "Yield of 3.19% lags the USTBL benchmark by -1.13pt.",
+        "On-chain holders dropped -11.6% in 7 days to 38 holders, signaling active capital redemption."
       ]
     },
     {
       "ticker": "BUIDL",
       "action": "HOLD",
-      "confidence": "medium",
+      "confidence": "high",
       "reasons": [
-        "Yield of 3.38% lags USTBL benchmark by -0.93pt",
-        "Stable institutional base with holders up +0.9% 7d to 114",
-        "Positive supply expansion (+0.7%) and TVL growth (+0.73%) offset yield lag"
+        "Yield of 3.38% trails the benchmark USTBL rate of 4.32% by -0.93pt.",
+        "On-chain metrics remain stable with 7d TVL up +0.73% and holders flat at 114 (+0.9%)."
       ]
     },
     {
       "ticker": "USDY",
       "action": "HOLD",
-      "confidence": "medium",
+      "confidence": "high",
       "reasons": [
-        "Yield of 3.49% sits -0.83pt below the 4.32% USTBL benchmark",
-        "Large and stable holder base of 15,582 (+0.2% in 7d)",
-        "Minor 7d TVL drop (-0.18%) and supply reduction (-0.2%) do not warrant exit"
+        "Yield at 3.49% sits -0.83pt below benchmark USTBL (4.32%).",
+        "Large base of 15,582 holders remains flat (+0.2% 7d) despite slight 7d TVL dip (-0.18%)."
       ]
     },
     {
@@ -38,9 +37,8 @@
       "action": "BUY",
       "confidence": "high",
       "reasons": [
-        "Top EUR yield cohort at 2.54% (EUR benchmark leader)",
-        "Strong institutional inflows with 7d supply up +4.5% and holders up +3.6% to 7,496",
-        "Robust TVL growth of +5.11% in 7 days"
+        "Top EUR yield provider at 2.54% (0.00pt spread vs EUR leader).",
+        "Strong institutional inflows with 7d TVL up +5.11%, supply up +5.9%, and holders up +4.6% to 7,571."
       ]
     },
     {
@@ -48,9 +46,8 @@
       "action": "HOLD",
       "confidence": "medium",
       "reasons": [
-        "Yield of 2.13% lags EUR leader by -0.40pt",
-        "Supply contracted -3.5% and TVL down -2.96% over 7 days",
-        "Holder base remains stable at 3,830 (+0.2%), avoiding a full SELL signal"
+        "Yield of 2.13% lags EUR benchmark by -0.40pt.",
+        "TVL contracted -2.96% 7d and supply fell -3.5%, though holders remained steady at 3,830."
       ]
     },
     {
@@ -58,18 +55,17 @@
       "action": "HOLD",
       "confidence": "high",
       "reasons": [
-        "Missing data or 0.00% yield reported",
-        "Holder base remains stable at 131,835 (+0.3%) with 7d TVL up +3.11%"
+        "0.00% yield reported (missing yield data).",
+        "TVL grew +3.11% 7d with a large base of 131,835 holders."
       ]
     },
     {
       "ticker": "SAFO",
-      "action": "BUY",
-      "confidence": "medium",
+      "action": "HOLD",
+      "confidence": "high",
       "reasons": [
-        "Solid USD yield of 4.01% (-0.31pt vs benchmark)",
-        "Positive institutional flow with holders up +1.8% (to 444) and supply up +0.9%",
-        "7d TVL increased by +0.91%"
+        "Competitive yield of 4.01% (-0.31pt vs USTBL benchmark).",
+        "7d TVL increased +0.91% and holders grew +3.2% to 450, offset by -3.3% supply contraction."
       ]
     },
     {
@@ -77,9 +73,8 @@
       "action": "BUY",
       "confidence": "high",
       "reasons": [
-        "Benchmark US T-bill yield at 4.32%",
-        "Stable holder base of 927 (+0.9% in 7d)",
-        "Strong safe-haven demand in extreme fear macro environment"
+        "High yield of 4.32% matching the T-bill benchmark rate (0.00pt spread).",
+        "Holder count expanded +0.9% 7d to 927 holders despite a minor 7d TVL pull-back (-0.49%)."
       ]
     },
     {
@@ -87,8 +82,8 @@
       "action": "HOLD",
       "confidence": "high",
       "reasons": [
-        "Missing data or 0.00% yield reported",
-        "Single holder with 0.00% TVL/supply change"
+        "0.00% yield reported (missing data).",
+        "TVL slightly up +0.57% 7d with 1 holder."
       ]
     },
     {
@@ -96,9 +91,8 @@
       "action": "HOLD",
       "confidence": "medium",
       "reasons": [
-        "Yield of 3.72% lags USTBL benchmark by -0.59pt",
-        "TVL decreased by -4.02% and supply down -4.7% in 7 days",
-        "Holders remain stable at 439 (+0.7%)"
+        "Yield of 3.72% (-0.59pt vs USTBL benchmark).",
+        "7d TVL declined -4.02% and supply fell -4.7%, while holders remained flat at 439 (+0.7%)."
       ]
     },
     {
@@ -106,8 +100,8 @@
       "action": "HOLD",
       "confidence": "high",
       "reasons": [
-        "Missing data or 0.00% yield reported",
-        "Zero flow activity across holders (13) and TVL"
+        "0.00% yield reported (missing data).",
+        "TVL and supply completely flat across 7d, 30d, and 90d with 13 holders."
       ]
     },
     {
@@ -115,8 +109,8 @@
       "action": "HOLD",
       "confidence": "high",
       "reasons": [
-        "Missing data or 0.00% yield reported",
-        "Insignificant flow changes (3 holders)"
+        "0.00% yield reported (missing data).",
+        "7d TVL slightly up +0.36% across 3 holders."
       ]
     },
     {
@@ -124,8 +118,8 @@
       "action": "HOLD",
       "confidence": "high",
       "reasons": [
-        "Missing data or 0.00% yield reported",
-        "Flat holder base (83) with minimal TVL tick (+0.09%)"
+        "0.00% yield reported (missing data).",
+        "7d TVL grew +0.09% across 83 holders."
       ]
     },
     {
@@ -133,19 +127,17 @@
       "action": "BUY",
       "confidence": "high",
       "reasons": [
-        "Highest yield in the RWA market at 4.60% (+0.28pt spread over T-bill benchmark)",
-        "Positive 7d TVL growth (+0.57%)",
-        "Large holder base of 5,139 showing stability"
+        "Top overall market yield at 4.60%, offering a positive spread of +0.28pt over USTBL benchmark.",
+        "7d TVL expanded +0.57% alongside a stable base of 5,139 holders."
       ]
     },
     {
       "ticker": "EUROB",
       "action": "SELL",
-      "confidence": "medium",
+      "confidence": "high",
       "reasons": [
-        "Lowest EUR yield cohort at 1.46% (-1.08pt behind EUR leader eurSAFO)",
-        "Stagnant holder base of only 36 with 0.0% growth",
-        "Underperforms safer cash alternatives in euro segment"
+        "Lowest EUR yield cohort at 1.46%, underperforming EUR leader by -1.08pt.",
+        "Low adoption with only 36 holders and minimal 7d TVL traction (+0.10%)."
       ]
     }
   ],
@@ -180,12 +172,12 @@
     },
     {
       "ticker": "eurSAFO",
-      "holders": 7496,
-      "holders_7d_pct": 3.607463718037319,
-      "supply_7d_pct": 4.4839124998518844,
-      "tvl_7d_pct": 5.111925525561977,
+      "holders": 7571,
+      "holders_7d_pct": 4.644091223220456,
+      "supply_7d_pct": 5.938983792322597,
+      "tvl_7d_pct": 6.809107006817823,
       "direction": "inflow",
-      "note": "holders +3.6% (7496) — tổ chức đang vào"
+      "note": "holders +4.6% (7571) — tổ chức đang vào"
     },
     {
       "ticker": "EUTBL",
@@ -207,12 +199,12 @@
     },
     {
       "ticker": "SAFO",
-      "holders": 444,
-      "holders_7d_pct": 1.834862385321101,
-      "supply_7d_pct": 0.8503688438592009,
-      "tvl_7d_pct": 0.9060802568456143,
-      "direction": "inflow",
-      "note": "holders +1.8% (444) — tổ chức đang vào"
+      "holders": 450,
+      "holders_7d_pct": 3.211009174311927,
+      "supply_7d_pct": -3.294814916414699,
+      "tvl_7d_pct": -3.2307281076874474,
+      "direction": "flat",
+      "note": "holders ổn định (450)"
     },
     {
       "ticker": "USTBL",
@@ -293,16 +285,125 @@
       "label": "Extreme Fear"
     },
     "btc": {
-      "usd": 64764,
-      "chg_24h": 1.0124206111848766
+      "usd": 64821,
+      "chg_24h": 1.157628398860098
     },
     "tbill_yield": 4.31625592642975,
     "max_rwa_yield": 4.597661560750271,
     "spread": 0.2814056343205209,
     "risk_level": "risk_off",
-    "note": "Fear & Greed 25 (Extreme Fear); BTC $64764 (+1.01%); top RWA yield 4.60% vs T-bill ~4.32% → spread +0.28pt"
+    "note": "Fear & Greed 25 (Extreme Fear); BTC $64821 (+1.16%); top RWA yield 4.60% vs T-bill ~4.32% → spread +0.28pt"
+  },
+  "crypto_used": {
+    "mcap": {
+      "usd": 2293373779957.8423,
+      "chg_24h_pct": 0.8071541304530288,
+      "btc": 56.713321318716915,
+      "eth": 10.063497410826395,
+      "vol": 55427007895.6055
+    },
+    "volume": {
+      "usd": 55427007895.6055
+    },
+    "btc": {
+      "usd": 64820,
+      "chg_24h": 1.1547318910761404
+    },
+    "eth": {
+      "usd": 1912.25,
+      "chg_24h": 2.3294385676888703
+    },
+    "dominance": {
+      "btc": 56.713321318716915,
+      "eth": 10.063497410826395
+    },
+    "movers": {
+      "gainers": [
+        {
+          "sym": "币安人生",
+          "pct": 6
+        },
+        {
+          "sym": "PI",
+          "pct": 5.9
+        },
+        {
+          "sym": "BDX",
+          "pct": 4.2
+        },
+        {
+          "sym": "XMR",
+          "pct": 3.1
+        },
+        {
+          "sym": "APT",
+          "pct": 2.9
+        }
+      ],
+      "losers": [
+        {
+          "sym": "BEAT",
+          "pct": -34
+        },
+        {
+          "sym": "CC",
+          "pct": -8
+        },
+        {
+          "sym": "PUMP",
+          "pct": -5.8
+        },
+        {
+          "sym": "ALGO",
+          "pct": -3.5
+        },
+        {
+          "sym": "AAVE",
+          "pct": -3.4
+        }
+      ]
+    },
+    "trending": [
+      "HEI",
+      "STONKBROKER",
+      "CASHCAT",
+      "PENGU",
+      "GRVT"
+    ],
+    "note": "total mcap $2.29T (+0.81%); 24h vol $55.4B; BTC $64820 (+1.15%); ETH $1912 (+2.33%); BTC dominance 56.7%; gainers 币安人生 +6.00%, PI +5.90%, BDX +4.20%, XMR +3.10%, APT +2.90%; losers BEAT -34.00%, CC -8.00%, PUMP -5.80%, ALGO -3.50%, AAVE -3.40%; trending HEI, STONKBROKER, CASHCAT, PENGU, GRVT"
+  },
+  "chain_used": {
+    "defi": {
+      "tvl_usd": 142707674854.51572,
+      "top": [
+        {
+          "name": "Ethereum",
+          "tvl": 88980906895.61653
+        },
+        {
+          "name": "Solana",
+          "tvl": 10221454593.801989
+        },
+        {
+          "name": "Base",
+          "tvl": 7792529762.221308
+        }
+      ],
+      "stables_usd": 307599509725.71204,
+      "stables_chg_24h_pct": 0.3260288326230415
+    },
+    "btc": {
+      "tx_24h": 620830,
+      "avg_fee_usd": 0.3608105131055845,
+      "blocks_24h": 143
+    },
+    "eth": {
+      "tx_24h": 2913328,
+      "blocks_24h": 7179
+    },
+    "note": "DeFi TVL $142.7B; stablecoins $307.6B (+0.33%); BTC fee $0.36 (620,830 tx/24h); ETH 2,913,328 tx/24h"
   },
   "signer": "0x02B027ecd3004Fbb579bD4c64B6e22Fff369F846",
-  "hash": "0xfd1bc69b154f088cb04b975a14a446b540340f645776fc20b47e3a8ff0e2f624",
-  "signature": "0x0b936a8d966156d4faa0559d29c832b3fc3e74ba0710970241f0281e61e206f67b64be5f1eb61bf08255ff87b3f0cb7d44e79fd759181bbc3d2e031c87f499d61c"
+  "hash": "0xb7ec98104df6af75f64bd66f42db36d97aa93937cddb0b033854b11278289a80",
+  "signature": "0x3c175e73b0c1531036adc430e795e41f618fb3a7d53080d9dde45fa4f4641b9d20a30c50b9b77e3ee9832c53715ccb85ca647ca91bc5a62f1255cfe4f7d9bf021b"
 }
