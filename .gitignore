@@ -7,7 +7,7 @@ src/frontend/dist/
 data/rwa.db
 data/rwa.db-*
 data/agent.key
-data/buyer.key
+data/buyer*.key
 data/freelance/
 data/tg-bots.json
 data/agent-wallets.json
