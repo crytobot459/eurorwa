@@ -1,7 +1,7 @@
 {
   "framework": null,
   "installCommand": "bun install",
-  "buildCommand": "cd src/frontend && bun install && bun run build",
+  "buildCommand": "cd src/frontend && bun install && node node_modules/vite/bin/vite.js build",
   "build": {
     "env": {
       "VITE_API": "/api"
