@@ -21,17 +21,17 @@ export interface Report {
   macro_used: MacroSignal
 }
 
-const SYS = `Bạn là AnalystAgent — chuyên gia phân tích tokenized RWA money-market funds (quỹ treasury token hóa).
-Đầu vào: (1) bảng số liệu quỹ (yield + xu hướng 30/90d, TVL 7/30/90d, holders), (2) tín hiệu tin tức, (3) dòng tiền on-chain (holders/supply 7d), (4) tình hình vĩ mô (Fear&Greed, BTC, chênh yield RWA vs T-bill).
-Việc của bạn: với MỖI quỹ đưa ra khuyến nghị BUY (nên mua/nắm giữ thêm vì yield cao hoặc tăng), HOLD (giữ), SELL (nên bán/rút vì yield thấp, giảm, hoặc rủi ro).
-Tiêu chí BUY: yield nhóm cao hoặc yield_30d đang tăng mạnh + dòng tiền vào (TVL/holders tăng) hoặc tin tích cực. SELL: yield nhóm thấp nhất + dòng tiền ra, hoặc yield đang giảm mạnh. Còn lại HOLD.
-Xu hướng 30/90d rất quan trọng: yield_chg_30d_pct cao (+) = yield đang tăng (động lực ủng hộ BUY/HOLD); âm mạnh = yield đang giảm (ủng hộ SELL). Nếu yield tăng mạnh nhưng holders rút (chốt lời) → cân nhắc HOLD thay vì SELL vội.
-Flow on-chain quan trọng: holders/supply 7d tăng = tổ chức đang vào (ủng hộ BUY); giảm = rút (ủng hộ SELL).
-Macro: nếu risk_off (Fear&Greed thấp) → thận trọng hơn, ít BUY. Nếu spread yield RWA vs benchmark rộng → RWA hấp dẫn.
-Quỹ có yield 0.00% hoặc thiếu dữ liệu → HOLD kèm ghi chú "thiếu dữ liệu".
-Viết reasons cụ thể có số liệu. Không bịa số. Nếu không đủ căn cứ → HOLD.
-Trả CHỈ JSON:
-{"market_view":"1-2 câu tổng quan thị trường","signals":[{"ticker","action","confidence","reasons":[...]}]}`
+const SYS = `You are AnalystAgent — an expert in tokenized RWA money-market funds (tokenized treasury funds).
+Input: (1) fund table (yield + 30/90d trends, TVL 7/30/90d, holders), (2) news signals, (3) on-chain flows (holders/supply 7d), (4) macro (Fear&Greed, BTC, RWA vs T-bill yield spread).
+Your job: for EACH fund give a recommendation BUY (buy/add because yield is high or rising), HOLD (keep), SELL (exit because yield is low, falling, or risky).
+BUY criteria: top yield cohort or yield_30d rising strongly + inflows (TVL/holders up) or positive news. SELL: lowest yield cohort + outflows, or yield dropping fast. Otherwise HOLD.
+30/90d trends matter a lot: positive yield_chg_30d_pct = yield rising (supports BUY/HOLD); strongly negative = yield falling (supports SELL). If yield rises fast but holders withdraw (profit-taking) → consider HOLD instead of rushing SELL.
+On-chain flow matters: holders/supply 7d up = institutions entering (supports BUY); down = exiting (supports SELL).
+Macro: if risk_off (low Fear&Greed) → be more cautious, fewer BUYs. If the RWA vs benchmark spread is wide → RWA is attractive.
+Funds with 0.00% yield or missing data → HOLD with note "missing data".
+Write reasons specific and full of numbers. Do not invent numbers. If not enough evidence → HOLD.
+Reply in ENGLISH. Return ONLY JSON:
+{"market_view":"2-3 sentence English market overview for a broad audience","signals":[{"ticker","action","confidence","reasons":[...]}]}`
 
 const EUR_SET = new Set(["eurSAFO", "EUTBL", "EUROB", "NRW1"])
 
@@ -121,7 +121,7 @@ ${macroLine}`
       macro_used: macro,
     }
   } catch (err) {
-    console.warn(`analyst LLM fail (${err}) — dùng fallback quy tắc`)
+    console.warn(`analyst LLM fail (${err}) — using rule-based fallback`)
     return fallback(snapshotDate, funds, ranks, news, flow, macro)
   }
 }
@@ -158,30 +158,30 @@ function fallback(
     const yUp = f.yield_chg_30d_pct > 10
     const yDown = f.yield_chg_30d_pct < -10
     if (f.yield <= 0) {
-      reasons.push(`yield 0.00% — thiếu dữ liệu hoặc quỹ không trả yield`)
+      reasons.push(`yield 0.00% — missing data or fund pays no yield`)
     } else if (yUp && !outflow && pctile >= 0.5) {
       action = "BUY"
       reasons.push(
-        `yield ${f.yield.toFixed(2)}% đang tăng mạnh 30d ${fmtPct(f.yield_chg_30d_pct)}, TVL 7d ${fmtPct(f.chg_7d_pct)}`,
+        `yield ${f.yield.toFixed(2)}% rising strongly 30d ${fmtPct(f.yield_chg_30d_pct)}, TVL 7d ${fmtPct(f.chg_7d_pct)}`,
       )
     } else if (yUp && outflow) {
       action = "HOLD"
       reasons.push(
-        `yield 30d ${fmtPct(f.yield_chg_30d_pct)} (đang tăng mạnh) nhưng holders rút ${fl ? fmtPct(fl.holders_7d_pct) : ""} — giữ để hưởng yield tăng, theo dõi tiếp`,
+        `yield 30d ${fmtPct(f.yield_chg_30d_pct)} (rising fast) but holders exiting ${fl ? fmtPct(fl.holders_7d_pct) : ""} — keep to capture rising yield, monitor`,
       )
     } else if (yDown && (outflow || f.chg_7d_pct < 0)) {
       action = "SELL"
       reasons.push(
-        `yield 30d ${fmtPct(f.yield_chg_30d_pct)} đang giảm + dòng ra (holders ${fl ? fmtPct(fl.holders_7d_pct) : ""})`,
+        `yield 30d ${fmtPct(f.yield_chg_30d_pct)} falling + outflows (holders ${fl ? fmtPct(fl.holders_7d_pct) : ""})`,
       )
     } else if (pctile >= 0.8 && f.chg_7d_pct >= 0 && !outflow) {
       action = "BUY"
-      reasons.push(`yield ${f.yield.toFixed(2)}% top nhóm, TVL 7d +${f.chg_7d_pct.toFixed(2)}%`)
+      reasons.push(`yield ${f.yield.toFixed(2)}% top of cohort, TVL 7d +${f.chg_7d_pct.toFixed(2)}%`)
     } else if (pctile <= 0.2 && f.chg_7d_pct < 0 && !inflow) {
       action = "SELL"
-      reasons.push(`yield ${f.yield.toFixed(2)}% nhóm thấp, TVL 7d ${f.chg_7d_pct.toFixed(2)}%`)
+      reasons.push(`yield ${f.yield.toFixed(2)}% bottom of cohort, TVL 7d ${f.chg_7d_pct.toFixed(2)}%`)
     } else if (pctile >= 0.8) {
-      reasons.push(`yield ${f.yield.toFixed(2)}% thuộc nhóm cao`)
+      reasons.push(`yield ${f.yield.toFixed(2)}% in the top cohort`)
     } else if (inflow) {
       action = "BUY"
       reasons.push(`on-chain inflow: holders 7d +${fl?.holders_7d_pct.toFixed(1)}%`)
@@ -189,7 +189,7 @@ function fallback(
       action = "SELL"
       reasons.push(`on-chain outflow: holders 7d ${fl?.holders_7d_pct.toFixed(1)}%`)
     } else {
-      reasons.push(`yield ${f.yield.toFixed(2)}%, chưa đủ tín hiệu rõ ràng`)
+      reasons.push(`yield ${f.yield.toFixed(2)}%, no clear signal yet`)
     }
     return { ticker: f.ticker, action, confidence: "medium", reasons }
   })
@@ -197,7 +197,7 @@ function fallback(
   return {
     date: snapshotDate,
     generated_at: new Date().toISOString(),
-    market_view: `Fallback quy tắc: ${funds.length} quỹ; macro ${macro.risk_level}; ${newsReasons.length ? "tin: " + newsReasons.join("; ") : ""}`,
+    market_view: `Rule-based fallback: ${funds.length} funds; macro ${macro.risk_level}; ${newsReasons.length ? "news: " + newsReasons.join("; ") : ""}`,
     signals,
     news_used: news,
     flow_used: flow,

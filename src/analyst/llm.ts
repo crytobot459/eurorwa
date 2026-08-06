@@ -42,7 +42,7 @@ export async function chat(msgs: ChatMsg[]): Promise<string> {
 
 export async function jsonChat<T>(sys: string, prompt: string): Promise<T> {
   const raw = await call([
-    { role: "user", text: `${sys}\n\nTrả về CHỈ JSON hợp lệ, không kèm markdown fence, đúng schema:\n${prompt}` },
+    { role: "user", text: `${sys}\n\nReturn ONLY valid JSON, no markdown fence, correct schema:\n${prompt}` },
   ])
   const cleaned = raw
     .replace(/^```(?:json)?\s*/i, "")

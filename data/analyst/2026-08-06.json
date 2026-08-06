@@ -1,33 +1,36 @@
 {
   "date": "2026-08-06",
-  "generated_at": "2026-08-06T04:58:20.760Z",
-  "market_view": "Thị trường RWA ở trạng thái Extreme Fear (Fear & Greed = 25), tuy nhiên dòng tiền tổ chức vẫn tập trung mạnh vào các quỹ có yield dẫn đầu nhóm như CETES, USTBL, SAFO và eurSAFO. Sự phân hóa diễn ra rõ rệt khi dòng vốn liên tục rút khỏi các quỹ có yield giảm mạnh hoặc kém cạnh tranh như UKTBL và EUROB.",
+  "generated_at": "2026-08-06T08:03:38.309Z",
+  "market_view": "Amid extreme market fear (Fear & Greed index at 25), tokenized RWA treasury funds offer stable yields led by Mexican CETES (4.60%) and US T-bills (4.32%). European funds are seeing targeted capital allocation, with eurSAFO attracting significant institutional inflows (+4.5% supply). Investors should prioritize top-yielding segment leaders while exiting underperforming funds suffering from capital and holder flight.",
   "signals": [
     {
       "ticker": "USYC",
-      "action": "HOLD",
-      "confidence": "medium",
+      "action": "SELL",
+      "confidence": "high",
       "reasons": [
-        "Yield 30d tăng mạnh +41.91% lên 3.19% nhưng vẫn thấp hơn T-bill 1.13pt.",
-        "Lượng holders 7d giảm -11.63% (-19.15% trong 30d) phản ánh áp lực chốt lời/rút vốn ngắn hạn."
+        "Low yield of 3.19% lagging USTBL benchmark by -1.13pt",
+        "Significant holder exodus with holders dropping -11.6% in 7 days (down to 38)",
+        "TVL 7d contracted by -0.05% with supply shrinking -0.1%"
       ]
     },
     {
       "ticker": "BUIDL",
       "action": "HOLD",
-      "confidence": "high",
+      "confidence": "medium",
       "reasons": [
-        "Yield ở mức 3.38% (giảm -2.55% trong 30d, thấp hơn T-bill 0.93pt).",
-        "TVL 30d tăng trưởng tốt +19.74% và lượng holders duy trì ổn định (+0.88% trong 7d)."
+        "Yield of 3.38% lags USTBL benchmark by -0.93pt",
+        "Stable institutional base with holders up +0.9% 7d to 114",
+        "Positive supply expansion (+0.7%) and TVL growth (+0.73%) offset yield lag"
       ]
     },
     {
       "ticker": "USDY",
       "action": "HOLD",
-      "confidence": "high",
+      "confidence": "medium",
       "reasons": [
-        "Yield đi ngang ở mức 3.49% (thấp hơn T-bill 0.83pt).",
-        "Dòng tiền on-chain biến động nhẹ với holders 7d +0.24% và TVL 7d -0.18%."
+        "Yield of 3.49% sits -0.83pt below the 4.32% USTBL benchmark",
+        "Large and stable holder base of 15,582 (+0.2% in 7d)",
+        "Minor 7d TVL drop (-0.18%) and supply reduction (-0.2%) do not warrant exit"
       ]
     },
     {
@@ -35,8 +38,9 @@
       "action": "BUY",
       "confidence": "high",
       "reasons": [
-        "Dẫn đầu nhóm EUR với yield 2.54% (30d +2.30%).",
-        "Tăng trưởng TVL bứt phá (+39.91% 30d) kèm dòng tiền tổ chức vào mạnh làm holders 7d +3.61% (+21.27% 30d)."
+        "Top EUR yield cohort at 2.54% (EUR benchmark leader)",
+        "Strong institutional inflows with 7d supply up +4.5% and holders up +3.6% to 7,496",
+        "Robust TVL growth of +5.11% in 7 days"
       ]
     },
     {
@@ -44,8 +48,9 @@
       "action": "HOLD",
       "confidence": "medium",
       "reasons": [
-        "Yield 2.13% thấp hơn EUR leader 0.40pt dù yield 30d tăng +0.76%.",
-        "TVL 30d giảm -10.40% và supply 7d giảm -3.5% cho thấy dòng vốn đang rút bớt."
+        "Yield of 2.13% lags EUR leader by -0.40pt",
+        "Supply contracted -3.5% and TVL down -2.96% over 7 days",
+        "Holder base remains stable at 3,830 (+0.2%), avoiding a full SELL signal"
       ]
     },
     {
@@ -53,16 +58,18 @@
       "action": "HOLD",
       "confidence": "high",
       "reasons": [
-        "Yield 0.00% (thiếu dữ liệu yield)."
+        "Missing data or 0.00% yield reported",
+        "Holder base remains stable at 131,835 (+0.3%) with 7d TVL up +3.11%"
       ]
     },
     {
       "ticker": "SAFO",
       "action": "BUY",
-      "confidence": "high",
+      "confidence": "medium",
       "reasons": [
-        "Yield ở mức cao 4.01% với xu hướng tăng tích cực (+0.84% 30d).",
-        "TVL tăng bền vững (+9.69% 30d, +24.26% 90d) cùng lượng holders 7d +1.83% (+14.73% 30d)."
+        "Solid USD yield of 4.01% (-0.31pt vs benchmark)",
+        "Positive institutional flow with holders up +1.8% (to 444) and supply up +0.9%",
+        "7d TVL increased by +0.91%"
       ]
     },
     {
@@ -70,8 +77,9 @@
       "action": "BUY",
       "confidence": "high",
       "reasons": [
-        "Yield top đầu phân khúc USD đạt 4.32% nhờ đà tăng 30d rất mạnh +43.60%.",
-        "Lượng holders tiếp tục mở rộng (+0.87% 7d, +4.39% 30d) dù TVL 30d giảm nhẹ -6.41%."
+        "Benchmark US T-bill yield at 4.32%",
+        "Stable holder base of 927 (+0.9% in 7d)",
+        "Strong safe-haven demand in extreme fear macro environment"
       ]
     },
     {
@@ -79,16 +87,18 @@
       "action": "HOLD",
       "confidence": "high",
       "reasons": [
-        "Yield 0.00% (thiếu dữ liệu yield)."
+        "Missing data or 0.00% yield reported",
+        "Single holder with 0.00% TVL/supply change"
       ]
     },
     {
       "ticker": "UKTBL",
-      "action": "SELL",
-      "confidence": "high",
+      "action": "HOLD",
+      "confidence": "medium",
       "reasons": [
-        "Yield giảm mạnh -12.81% trong 30d xuống còn 3.72%.",
-        "Dòng tiền thoát ra rõ rệt với TVL 30d -13.88% (90d -25.84%) và supply 7d giảm -4.7%."
+        "Yield of 3.72% lags USTBL benchmark by -0.59pt",
+        "TVL decreased by -4.02% and supply down -4.7% in 7 days",
+        "Holders remain stable at 439 (+0.7%)"
       ]
     },
     {
@@ -96,7 +106,8 @@
       "action": "HOLD",
       "confidence": "high",
       "reasons": [
-        "Yield 0.00% (thiếu dữ liệu yield)."
+        "Missing data or 0.00% yield reported",
+        "Zero flow activity across holders (13) and TVL"
       ]
     },
     {
@@ -104,7 +115,8 @@
       "action": "HOLD",
       "confidence": "high",
       "reasons": [
-        "Yield 0.00% (thiếu dữ liệu yield)."
+        "Missing data or 0.00% yield reported",
+        "Insignificant flow changes (3 holders)"
       ]
     },
     {
@@ -112,7 +124,8 @@
       "action": "HOLD",
       "confidence": "high",
       "reasons": [
-        "Yield 0.00% (thiếu dữ liệu yield)."
+        "Missing data or 0.00% yield reported",
+        "Flat holder base (83) with minimal TVL tick (+0.09%)"
       ]
     },
     {
@@ -120,17 +133,19 @@
       "action": "BUY",
       "confidence": "high",
       "reasons": [
-        "Yield cao nhất toàn thị trường ở mức 4.60% (spread +0.28pt so với T-bill).",
-        "TVL 30d duy trì tăng trưởng +2.27% và lượng holders duy trì ổn định."
+        "Highest yield in the RWA market at 4.60% (+0.28pt spread over T-bill benchmark)",
+        "Positive 7d TVL growth (+0.57%)",
+        "Large holder base of 5,139 showing stability"
       ]
     },
     {
       "ticker": "EUROB",
       "action": "SELL",
-      "confidence": "high",
+      "confidence": "medium",
       "reasons": [
-        "Yield thấp nhất nhóm có sinh lời với 1.46% (thấp hơn EUR leader -1.08pt) và tiếp tục giảm -2.16% trong 30d.",
-        "Thiếu động lực dòng tiền với TVL 90d suy giảm -1.59%."
+        "Lowest EUR yield cohort at 1.46% (-1.08pt behind EUR leader eurSAFO)",
+        "Stagnant holder base of only 36 with 0.0% growth",
+        "Underperforms safer cash alternatives in euro segment"
       ]
     }
   ],
@@ -278,16 +293,16 @@
       "label": "Extreme Fear"
     },
     "btc": {
-      "usd": 64627,
-      "chg_24h": 0.8143359728233095
+      "usd": 64764,
+      "chg_24h": 1.0124206111848766
     },
     "tbill_yield": 4.31625592642975,
     "max_rwa_yield": 4.597661560750271,
     "spread": 0.2814056343205209,
     "risk_level": "risk_off",
-    "note": "Fear & Greed 25 (Extreme Fear); BTC $64627 (+0.81%); top RWA yield 4.60% vs T-bill ~4.32% → spread +0.28pt"
+    "note": "Fear & Greed 25 (Extreme Fear); BTC $64764 (+1.01%); top RWA yield 4.60% vs T-bill ~4.32% → spread +0.28pt"
   },
   "signer": "0x02B027ecd3004Fbb579bD4c64B6e22Fff369F846",
-  "hash": "0x16c3a6cb478ebad5d85b3a47e90ce0732a47618748d1a00b69a683e41deed448",
-  "signature": "0x2736d8e799c5b391f36805548daa4217d748a1907fa48e384e1d9a3d92149ab92e10b62c9eb3a66cc0f3c1c32c0f180b69a8b52a6554c972183828b4a1bfc1781c"
+  "hash": "0xfd1bc69b154f088cb04b975a14a446b540340f645776fc20b47e3a8ff0e2f624",
+  "signature": "0x0b936a8d966156d4faa0559d29c832b3fc3e74ba0710970241f0281e61e206f67b64be5f1eb61bf08255ff87b3f0cb7d44e79fd759181bbc3d2e031c87f499d61c"
 }

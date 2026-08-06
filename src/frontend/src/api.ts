@@ -34,12 +34,37 @@ export interface Flow {
   chg_7d_pct: number
 }
 
+export interface Signal {
+  ticker: string
+  action: string
+  confidence: string
+  reasons: string[]
+}
+
+export interface Overview {
+  date: string
+  generated_at: string
+  market_view: string
+  signals: Signal[]
+  macro: {
+    fear_greed: { value: number; label: string }
+    btc: { usd: number; chg_24h: number }
+    tbill_yield: number
+    max_rwa_yield: number
+    spread: number
+    risk_level: string
+  }
+  signer: string
+  hash: string
+}
+
 async function get<T>(path: string): Promise<T> {
   const r = await fetch(`${API}${path}`)
   if (!r.ok) throw new Error(`${path} -> ${r.status}`)
   return r.json() as Promise<T>
 }
 
+export const getOverview = () => get<Overview>("/overview")
 export const getFunds = () => get<{ funds: FundRow[] }>("/funds")
 export const getFund = (slug: string) => get<FundDetail>(`/funds/${slug}`)
 export const getFlows = () => get<{ flows: Flow[] }>("/flows")

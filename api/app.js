@@ -9,6 +9,8 @@ const cwd = process.cwd()
 const here = dirname(fileURLToPath(import.meta.url))
 const cands = [join(cwd, "data", "snapshots"), join(here, "..", "data", "snapshots"), join(here, "data", "snapshots")]
 const dir = cands.find((d) => existsSync(d)) ?? cands[0]
+const aCands = [join(cwd, "data", "analyst"), join(here, "..", "data", "analyst"), join(here, "data", "analyst")]
+const adir = aCands.find((d) => existsSync(d)) ?? aCands[0]
 
 function snaps() {
   if (!existsSync(dir)) return []
@@ -16,6 +18,14 @@ function snaps() {
     .filter((f) => f.endsWith(".json"))
     .sort()
     .map((f) => JSON.parse(readFileSync(join(dir, f), "utf8")))
+}
+
+function reports() {
+  if (!existsSync(adir)) return []
+  return readdirSync(adir)
+    .filter((f) => f.endsWith(".json"))
+    .sort()
+    .map((f) => JSON.parse(readFileSync(join(adir, f), "utf8")))
 }
 
 export const app = new Hono()
@@ -26,7 +36,26 @@ const bySlug = (slug) => (f) => f.slug === slug
 app.get("/tg", (c) => c.text("tg ok"))
 app.post("/tg", (c) => webhook(c.req.raw))
 
-app.get("/", (c) => c.json({ ok: true, endpoints: ["/funds", "/funds/:slug", "/yields", "/flows"] }))
+app.get("/", (c) => c.json({ ok: true, endpoints: ["/overview", "/funds", "/funds/:slug", "/yields", "/flows"] }))
+
+app.get("/overview", (c) => {
+  const rep = reports().at(-1)
+  if (!rep) return c.json({ date: null })
+  return c.json({
+    date: rep.date,
+    generated_at: rep.generated_at,
+    market_view: rep.market_view,
+    signals: rep.signals.map((s) => ({
+      ticker: s.ticker,
+      action: s.action,
+      confidence: s.confidence,
+      reasons: s.reasons,
+    })),
+    macro: rep.macro_used,
+    signer: rep.signer,
+    hash: rep.hash,
+  })
+})
 
 app.get("/funds", (c) => {
   const all = snaps()
