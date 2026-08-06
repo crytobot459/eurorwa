@@ -18,9 +18,11 @@
 
 **Còn lại (cơ hội mở rộng):**
 
-1. **agenticmarket.dev** (agent/API marketplace) — đăng ký MCP/API ở đó (khác Bazaar). Từng research "cần MCP server thật" — giờ đã có, có thể đăng ký.
-2. Chờ user fund ví mainnet `0x03fa9C…585c4` → resume self-settle (xem Phiên 12) để index Bazaar + doanh thu thật.
-3. Update MCP server khi thêm tool mới → bump version trong server.json → `publish` lại.
+0. **Vercel Deploy Hook — ĐÃ TẠO** (commit tới): hook `eurorwa-pipeline` (branch main) → URL `https://api.vercel.com/v1/integrations/deploy/prj_DlHOyuXm7m3vywY29uFboYLDwtw5/FrAH8dG02p` (đã test trigger OK). GH Actions `pipeline.yml` đã có step "redeploy" dùng secret `VERCEL_DEPLOY_HOOK` — **user cần set GitHub secret** `VERCEL_DEPLOY_HOOK` = URL trên (Settings → Secrets and variables → Actions) để sau mỗi pipeline commit dashboard tự redeploy.
+1. **agenticmarket.dev — ĐÃ PREP** (commit tới): `api/_mcp.js` thêm check header `x-agenticmarket-secret` khi env `AGENTICMARKET_SECRET` được set (test: có secret 200, thiếu → 401; 20 MCP test vẫn PASS). Flow: user tạo account agenticmarket.dev (email verify) → submit server (fields đã soạn sẵn trong chat) → chờ review 24h → nhận proxy secret `am_server_…` → set `AGENTICMARKET_SECRET` trên Vercel + deploy. Giá tối thiểu $0.03/call, ăn 80-90%.
+2. **agenticmarket.dev** (agent/API marketplace) — đăng ký MCP/API ở đó (khác Bazaar). Từng research "cần MCP server thật" — giờ đã có, có thể đăng ký.
+3. Chờ user fund ví mainnet `0x03fa9C…585c4` → resume self-settle (xem Phiên 12) để index Bazaar + doanh thu thật.
+4. Update MCP server khi thêm tool mới → bump version trong server.json → `publish` lại.
 
 **Trạng thái phase:** P1-P6 + x402 + analytics + alerts + MCP server + **MCP Registry** xong. Chờ: fund ví buyer mainnet (index Bazaar + doanh thu) + agenticmarket.dev.
 

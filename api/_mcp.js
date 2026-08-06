@@ -117,6 +117,13 @@ export async function handleMcp(req) {
       headers: { ...cors, "Content-Type": "application/json", Allow: "POST, OPTIONS" },
     })
   }
+  const amSecret = process.env.AGENTICMARKET_SECRET
+  if (amSecret && req.headers.get("x-agenticmarket-secret") !== amSecret) {
+    return new Response(JSON.stringify(err(null, -32600, "Unauthorized")), {
+      status: 401,
+      headers: { ...cors, "Content-Type": "application/json" },
+    })
+  }
   let body
   try {
     body = await req.json()
