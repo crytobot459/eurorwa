@@ -10,16 +10,19 @@
 - **Routing Vercel**: `vercel.json` thêm rewrite `{"/mcp" → "/api/main"}`; `api/main.ts` route pathname `/mcp` (sau strip `/api`) sang `handleMcp(req)` (raw request, không strip). `api/_mcp.d.ts` (theo convention `_app.d.ts`). `/api/mcp` cũng hoạt động.
 - **Discovery**: `src/frontend/public/.well-known/mcp.json` (`mcpServers.eurorwa-analyst.url = https://rwa-dashboard-gamma.vercel.app/mcp`).
 - **Test**: `scripts/_mcp-test.mjs` 20 checks ALL PASS (initialize/fallback protocol, ping, 4 tools/call trả JSON, unknown tool → -32602, resources/read, unknown uri → -32602, batch, notification → null, unknown method → -32601, parse error → 400, GET → 405, OPTIONS → 204, CORS origin echo). Routing qua `api/main.ts`: `/mcp` POST→200 initialize, `/api/mcp` tools→200, `/api/overview`→200 (không vỡ), `/mcp` GET→405. Typecheck sạch.
-- **Phát hiện**: Vercel SPA-fallback trả index.html cho mọi path không match (trước đây `/mcp` = HTML); nhưng filesystem check ưu tiên → `.well-known/*.json`, `llms.txt` serve đúng. Rewrite `/mcp` sẽ thắng SPA fallback.
+- **Phát hiện**: Vercel SPA-fallback trả index.html cho mọi path không match (trước đây `/mcp` = HTML); nhưng filesystem check ưu tiên → `.well-known/*.json`, `llms.txt` serve đúng. Rewrite `/mcp` thắng SPA fallback (production verify: GET /mcp → 405 JSON, initialize → 200 protocolVersion, tools/list, resources/read, tools/call đều OK).
+- **ĐÃ ĐĂNG KÝ MCP REGISTRY** (commit `f2c9b3f` MCP server, `5562138` + `68cfa6f` server.json):
+  - `server.json` root repo (name `io.github.crytobot459/eurorwa-analyst`, title "EuroRWA Analyst", description ≤100 chars, `remotes:[{type:"streamable-http", url:"https://rwa-dashboard-gamma.vercel.app/mcp"}]`).
+  - Publish qua `mcp-publisher` CLI (tải từ GitHub releases, `/tmp/mcp-publisher`): `login github` **device flow** (lần đầu lỗi `incorrect_device_code`, retry thành công) → `validate` OK → `publish` ✓ `io.github.crytobot459/eurorwa-analyst 1.0.0` → verify `GET /v0.1/servers?search=eurorwa` → status active, isLatest true.
+  - **Chú ý**: mcp-publisher đang ở `/tmp` (mất sau reboot) — nếu update sau này cần tải lại. Token auth CLI lưu local.
 
-**Còn lại (MCP Registry — cần GitHub token từ user):**
+**Còn lại (cơ hội mở rộng):**
 
-1. Commit + deploy → verify `/mcp` production (initialize trả protocolVersion + `curl /mcp` không còn HTML).
-2. Tạo `server.json` root repo: name `io.github.crytobot459/eurorwa-analyst`, title/description, version `1.0.0`, `remotes:[{type:"streamable-http", url:"https://rwa-dashboard-gamma.vercel.app/mcp"}]` → commit + push (registry lấy repo làm source of truth).
-3. Auth: `POST https://registry.modelcontextprotocol.io/v0.1/auth/github-at` với GitHub token (hoặc `auth/http`/`auth/dns`) → `POST /v0.1/publish` bearer.
-4. Sau: chờ user fund ví mainnet `0x03fa9C…585c4` → resume self-settle (xem Phiên 12).
+1. **agenticmarket.dev** (agent/API marketplace) — đăng ký MCP/API ở đó (khác Bazaar). Từng research "cần MCP server thật" — giờ đã có, có thể đăng ký.
+2. Chờ user fund ví mainnet `0x03fa9C…585c4` → resume self-settle (xem Phiên 12) để index Bazaar + doanh thu thật.
+3. Update MCP server khi thêm tool mới → bump version trong server.json → `publish` lại.
 
-**Trạng thái phase:** P1-P6 + x402 + analytics + alerts + MCP server xong. Chờ: fund ví buyer mainnet (index Bazaar) + GitHub token (MCP Registry).
+**Trạng thái phase:** P1-P6 + x402 + analytics + alerts + MCP server + **MCP Registry** xong. Chờ: fund ví buyer mainnet (index Bazaar + doanh thu) + agenticmarket.dev.
 
 ## Phiên gần nhất: 2026-08-06 (phiên 11)
 
