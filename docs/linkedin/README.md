@@ -2,17 +2,31 @@
 
 > Hồ sơ: https://www.linkedin.com/in/canh-pham-bot-dev/
 > Ảnh trong thư mục này: `avatar.png` (ảnh đại diện 400×400) · `banner.png` (ảnh bìa 1584×396)
+> Cả 2 ảnh **không có tên, không có mặt** — avatar là logo mạng dữ liệu trừu tượng (network graph), banner chỉ có thương hiệu + số liệu.
 
 ---
 
 ## 1. CÁC BƯỚC ÁP DỤNG (2-3 phút, làm bằng tay)
 
-1. **Ảnh đại diện:** vào hồ sơ → ✏️ → Ảnh → Tải lên → chọn `avatar.png` (không có mặt thật).
+1. **Ảnh đại diện:** vào hồ sơ → ✏️ → Ảnh → Tải lên → chọn `avatar.png` (logo trừu tượng, không mặt).
 2. **Ảnh bìa:** hồ sơ → ✏️ → Ảnh nền → Tải lên → chọn `banner.png`.
 3. **Headline:** dán dòng bên dưới (mục 2).
 4. **Phần Giới thiệu (About):** dán nội dung mục 3.
 5. **Kinh nghiệm:** thêm 1 mục (mục 4).
 6. **Đăng bài:** tạo bài đăng mới → dán mục 5 → đính kèm ảnh `visual.png` (docs/posts/2026-08-06/).
+
+---
+
+## 0. NÊN HAY KHÔNG — NFT LÀM ẢNH ĐẠI DIỆN?
+
+**Nên, nếu tự mint ảnh của mình** — nhưng không cần thiết. Tóm tắt:
+
+- **Lợi ích:** ảnh NFT PFP là tín hiệu "biết on-chain" — hợp với câu chuyện EuroRWA (mọi thứ đều verify on-chain). Cộng đồng RWA/tokenization nhìn avatar NFT là dân trong ngành.
+- **Rủi ro/cần tránh:** đừng trả tiền mua NFT linh tinh chỉ để làm avatar; cũng đừng mint NFT có chữ "Canh Pham" (bạn không muốn tên thật dính vào NFT công khai).
+- **Cách đúng (rẻ nhất):** tự mint **chính file `avatar.png`** này thành NFT của bạn trên **Base** (L2 của Coinbase, gas ~$0.01-0.10) bằng ví agent của dự án. Vừa có NFT thật, vừa 100% thuộc về bạn, vừa là "proof of onchain skill" để kể trong bài đăng.
+- **Khuyến nghị:** dùng thẳng ảnh này làm avatar trước (đăng hôm nay), mint NFT sau nếu muốn kể chuyện "profile pic này là NFT do tôi tự mint". Không bắt buộc — ảnh đã đủ chuyên nghiệp.
+
+_(Muốn mint Base: nói tôi viết script mint ERC-721 qua viem vào ví `0x02B027…F846`.)_
 
 ---
 
@@ -97,6 +111,6 @@ _(Nếu có kinh nghiệm làm việc trước đây thì thêm lên phía trên
 
 ## GHI CHÚ
 
-- Không dùng ảnh có mặt thật — avatar đã là monogram "CP" chuyên nghiệp.
+- Avatar là logo mạng dữ liệu trừu tượng — không tên, không mặt, không liên quan danh tính thật.
 - Hồ sơ bằng tiếng Anh (LinkedIn quốc tế). Nếu muốn song ngữ, thêm phần tiếng Việt ở cuối About.
 - Sau khi đăng xong → ghi link bài vào PROGRESS.md.
