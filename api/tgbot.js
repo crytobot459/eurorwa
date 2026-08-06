@@ -49,22 +49,22 @@ const pct = (n) => `${n > 0 ? "+" : ""}${n.toFixed(2)}%`
 function help() {
   return `🤖 EuroRWA Assistant
 
-Tôi đọc data tokenized money market funds mỗi 12h và đối chiếu chữ ký on-chain.
+I read tokenized money-market fund data every 12h and verify the on-chain signature.
 
 Commands:
-/today — con số hôm nay
-/funds — toàn bộ quỹ
-/yields — top yield
-/movers — biến động 7 ngày
-/proof — bằng chứng on-chain
-/suggest <comment> — gợi ý reply cho comment LinkedIn
+/today — today's numbers
+/funds — all funds
+/yields — top yields
+/movers — 7-day movers
+/proof — on-chain proof
+/suggest <comment> — get reply drafts for a LinkedIn comment
 
-Gõ thẳng tên quỹ (vd: usyc) hoặc đặt câu hỏi (vd: "top yield?") cũng được.`
+Type a fund name (e.g. usyc) or ask a question (e.g. "top yield?") directly.`
 }
 
 function today() {
   const s = lastSnap()
-  if (!s) return "Chưa có data — chạy fetch trước."
+  if (!s) return "No data yet — run a fetch first."
   const { date, funds } = s
   const total = funds.reduce((a, f) => a + f.tvl, 0)
   const byTvl = [...funds].sort((a, b) => b.tvl - a.tvl)
@@ -90,7 +90,7 @@ Live: ${urlSite}${proof}`
 
 function fundsList() {
   const s = lastSnap()
-  if (!s) return "Chưa có data."
+  if (!s) return "No data yet."
   const byTvl = [...s.funds].sort((a, b) => b.tvl - a.tvl)
   const rows = byTvl
     .map(
@@ -105,7 +105,7 @@ ${rows}`
 
 function yieldsList() {
   const s = lastSnap()
-  if (!s) return "Chưa có data."
+  if (!s) return "No data yet."
   const byYld = [...s.funds].filter((f) => f.yield > 0).sort((a, b) => b.yield - a.yield)
   const rows = byYld.map((f) => `• ${f.ticker} — ${f.yield.toFixed(2)}%`).join("\n")
   return `🏦 Top yields — ${s.date}
@@ -115,7 +115,7 @@ ${rows}`
 
 function moversText() {
   const s = lastSnap()
-  if (!s) return "Chưa có data."
+  if (!s) return "No data yet."
   const movers = [...s.funds]
     .filter((f) => f.chg_7d_pct)
     .sort((a, b) => Math.abs(b.chg_7d_pct) - Math.abs(a.chg_7d_pct))
@@ -128,9 +128,9 @@ ${rows}`
 
 function proofText() {
   const s = lastSnap()
-  if (!s) return "Chưa có data."
+  if (!s) return "No data yet."
   const att = attest(s.date)
-  if (!att?.published?.tx) return "Chưa có attestation publish."
+  if (!att?.published?.tx) return "No attestation published yet."
   return `🔐 Onchain proof — ${s.date}
 
 Hash: ${att.hash}
@@ -139,7 +139,7 @@ Contract: ${att.published.contract}
 
 Tx: https://sepolia.etherscan.io/tx/${att.published.tx}
 
-Ai cũng verify được: hash lại data → so khớp chữ ký trên chuỗi.`
+Anyone can verify: hash the data → match the signature on-chain.`
 }
 
 function findFund(low) {
@@ -165,7 +165,7 @@ Onchain-verified: ${urlSite}`
 
 function suggest(comment) {
   const s = lastSnap()
-  if (!s) return "Chưa có data — thử lại sau."
+  if (!s) return "No data yet — try again later."
   const { date, funds } = s
   const total = funds.reduce((a, f) => a + f.tvl, 0)
   const low = comment.toLowerCase()
@@ -187,7 +187,7 @@ function suggest(comment) {
   const d3 = txShort
     ? `Love this take. Adding what I can't get elsewhere: every snapshot is hashed + signed onchain (tx ${txShort}…) so anyone can verify it. What's the one fund you'd add?`
     : `Love this take. We verify every snapshot on-chain — no "trust me bro" dashboards. What's the one fund you'd add? ${urlSite}`
-  return `💬 3 mẫu reply (chỉnh theo ý bạn rồi tự đăng):
+  return `💬 3 reply drafts (edit to your taste, then post):
 
 1) ${d1}
 
@@ -261,7 +261,7 @@ function buildOffer(text) {
   const bot = process.env.BUILD_BOT_USERNAME
   if (!bot) return null
   const link = `https://t.me/${bot}?start=build`
-  return `\n\n🔧 ${q.cat}: $${q.lo}-${q.hi}. Muốn đặt task riêng? Chat với bot build: ${link}`
+  return `\n\n🔧 ${q.cat}: $${q.lo}-${q.hi}. Want a custom task? Chat with the build bot: ${link}`
 }
 
 async function postLead(msg) {

@@ -34,7 +34,11 @@
 
 **Trên dashboard web:** đã thêm nút **💬 Telegram** ở header → mở @EuroRWA_Data_bot (đã deploy).
 
-> ⚠️ **Lưu ý:** message chào của bot nhận task (freelance-core.js) hiện **bằng tiếng Việt** — khách quốc tế từ LinkedIn sẽ không hiểu. Cần thêm bản **tiếng Anh** (hoặc chọn ngôn ngữ theo chat language) trước khi đăng bài thu hút khách quốc tế.
+> ✅ **Đã cập nhật (2026-08-06):** bot nhận task (freelance-core.js + freelance-bot.js) giờ **toàn tiếng Anh** — khách quốc tế từ LinkedIn hiểu ngay. Đã thêm:
+>
+> - **Lead triage:** tự phân loại tin nhắn → `opportunity` (nhà tuyển dụng) / `task` (thuê build) / `spam`.
+> - **Luồng A:** tin nhắn nhà tuyển dụng KHÔNG tự trả lời — bot gửi bản nháp gợi ý (từ `data/templates.json`) cho chủ, chủ duyệt `/send <chatId>` hoặc soạn riêng `/draft <chatId> <text>` rồi mới gửi khách.
+> - **Luồng B:** sau khi bàn giao, chủ gõ `/deliver <taskId> <mô tả/đường dẫn>` → bot gửi thông báo hoàn thành cho khách; khách trả lời "ok" → đóng task, hoặc góp ý → về trạng thái review.
 
 ---
 

@@ -1,57 +1,76 @@
-import { classify, midPrice } from "../api/freelance.js"
+import { classify, midPrice, triage } from "../api/freelance.js"
 
-export { classify }
+export { classify, triage }
+
+const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
 
 export function welcome() {
   return `🤖 EuroRWA — Freelance intake
 
-Tôi nhận các task nhỏ: bot, dashboard, web scraper, smart contract, tool...
-• Dashboard/frontend: $80-150
-• Bot Telegram/Discord: $80-150
-• Data/API/scrape: $40-100
-• Smart contract/onchain: $150-300
-• Script/tool nhỏ: $30-60
+I handle small tasks: bots, dashboards, scrapers, smart contracts, tools...
+• Dashboard / frontend: $80-150
+• Telegram / Discord bot: $80-150
+• Data / API / scrape: $40-100
+• Smart contract / onchain: $150-300
+• Small script / tool: $30-60
 
-Mô tả task của bạn (1-2 câu), tôi báo giá ngay.`
+Describe your task in 1-2 sentences and I'll quote a price right away.`
 }
 
-const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
-
 function quoteText(st) {
-  return `Đã rõ! Task: "${esc(st.task)}"
+  return `Got it! Task: "${esc(st.task)}"
 
-📦 Loại: ${st.cat}
-💰 Giá: $${st.price} (trả 100% trước khi làm)
+📦 Category: ${st.cat}
+💰 Price: $${st.price} (100% upfront before work starts)
 
-Gõ "ok" để chốt, hoặc trả giá.`
+Reply "ok" to confirm, or counter-offer.`
 }
 
 function payText(st, cfg) {
-  if (!cfg.usdt) return "Khoản thanh toán chưa cấu hình — vui lòng thử lại sau."
-  return `✅ Chốt $${st.price}.
+  if (!cfg.usdt) return "Payment is not configured — please try again later."
+  return `✅ Confirmed at $${st.price}.
 
-Chuyển USDT (TRC20) 100% trước khi làm tới ví Binance:
+Send USDT (TRC20) 100% upfront to the Binance wallet:
 <code>${cfg.usdt}</code>
 
-Gửi tx hash hoặc ảnh screenshot khi đã chuyển. Tôi xác nhận rồi bắt đầu ngay.`
+Send the tx hash or a screenshot once you've transferred. I verify it and start right away.`
 }
 
-const isOk = (low) =>
-  low === "ok" ||
-  /^(ok luôn|ok bro|đồng ý|đồng y|chốt|chốt luôn|được|được luôn|agree|accept|yes|yeah|done|good)$/.test(low) ||
-  low.startsWith("ok ")
+export function isAccept(low) {
+  return (
+    low === "ok" ||
+    /^(ok luôn|ok bro|đồng ý|đồng y|chốt|chốt luôn|được|được luôn|agree|accept|yes|yeah|done|good|great|perfect)$/.test(
+      low,
+    ) ||
+    low.startsWith("ok ")
+  )
+}
 
 const isHaggle = (low) =>
-  ["đắt", "đắt quá", "giảm", "bớt", "rẻ hơn", "cheaper", "discount", "giá cao", "overpriced"].some((h) =>
-    low.includes(h),
-  )
+  [
+    "đắt",
+    "đắt quá",
+    "giảm",
+    "bớt",
+    "rẻ hơn",
+    "cheaper",
+    "discount",
+    "giá cao",
+    "overpriced",
+    "expensive",
+    "too much",
+    "can you lower",
+    "price",
+  ].some((h) => low.includes(h))
 
-const isReject = (low) => /^(no|không|k|đổi|khác|change|other)$/.test(low) || low.includes("không thích")
+export function isReject(low) {
+  return /^(no|nope|không|k|đổi|khác|change|other|stop|cancel)$/.test(low) || low.includes("không thích")
+}
 
 const isProof = (text, low) =>
   /0x[0-9a-fA-F]{20,}/.test(text) ||
   /^[0-9a-fA-F]{64}$/.test(text.trim()) ||
-  /(paid|sent|chuyển|gửi|thanh toán|xong|screenshot)/.test(low)
+  /(paid|sent|chuyển|gửi|thanh toán|xong|screenshot|transferred|payment|hash)/.test(low)
 
 export function step(state, text, cfg) {
   const low = text.trim().toLowerCase()
@@ -67,18 +86,24 @@ export function step(state, text, cfg) {
   }
 
   if (state.step === "quote") {
-    if (isOk(low)) {
+    if (isAccept(low)) {
       const st = { ...state, step: "pay" }
       return { state: st, reply: payText(st, cfg) }
     }
     if (isHaggle(low)) {
       const price = state.discounted ? state.price : Math.round(state.price * 0.8)
       const st = { ...state, step: "quote", price, discounted: true }
-      return { state: st, reply: `Giá mới: $${price}. Gõ "ok" để chốt.` }
+      return { state: st, reply: `New price: $${price}. Reply "ok" to confirm.` }
     }
     if (isReject(low))
-      return { state: { ...state, step: "describe" }, reply: "OK, bạn muốn làm gì khác? Mô tả lại nhé." }
-    return { state, reply: `Chưa rõ ý bạn. Gõ "ok" chốt $${state.price}, trả giá, hoặc mô tả task khác.` }
+      return {
+        state: { ...state, step: "describe" },
+        reply: "OK — want something different? Describe it and I'll re-quote.",
+      }
+    return {
+      state,
+      reply: `Not sure what you mean. Reply "ok" to lock $${state.price}, counter-offer, or describe a different task.`,
+    }
   }
 
   if (state.step === "pay") {
@@ -95,12 +120,20 @@ export function step(state, text, cfg) {
         proof: text,
         status: "pending",
       }
-      return { state: { ...state, step: "done" }, reply: "Đã nhận! Tôi xác nhận thanh toán và bắt đầu làm ngay.", task }
+      return {
+        state: { ...state, step: "done", taskId: id },
+        reply: "Received! I'll verify the payment and start working. You'll get a confirmation shortly.",
+        task,
+      }
     }
-    return { state, reply: "Gửi tx hash (0x...) hoặc ảnh screenshot sau khi chuyển USDT nhé." }
+    return { state, reply: "Send the tx hash (0x...) or a screenshot after transferring USDT." }
   }
 
-  return { state, reply: "Task của bạn đang được xử lý. Có task mới? Gõ mô tả để tôi báo giá." }
+  if (state.step === "done" || state.step === "review") {
+    return { state, reply: "Your task is being handled. Have a new task? Describe it and I'll quote." }
+  }
+
+  return { state, reply: "Your task is being handled. Have a new task? Describe it and I'll quote." }
 }
 
 export const ownerReply = (cmd, tasks) => {
@@ -108,14 +141,14 @@ export const ownerReply = (cmd, tasks) => {
   const name = parts[0]
   const id = parts[1]
   if (name === "/tasks") {
-    if (!tasks.length) return "Chưa có task nào."
+    if (!tasks.length) return "No tasks yet."
     return tasks.map((t) => `#${t.id} — $${t.price} — ${t.cat} — ${t.status}`).join("\n")
   }
   if (name === "/approve" || name === "/reject") {
     const t = tasks.find((x) => x.id === id)
-    if (!t) return `Không thấy task #${id}. Gõ /tasks.`
+    if (!t) return `Task #${id} not found. Try /tasks.`
     t.status = name === "/approve" ? "approved" : "rejected"
     return `#${t.id} → ${t.status}`
   }
-  return "Lệnh owner: /tasks, /approve &lt;id&gt;, /reject &lt;id&gt;"
+  return "Owner commands: /tasks, /approve <id>, /reject <id>, /deliver <id> <msg>, /leads, /send <chatId>, /draft <chatId> <text>, /drop <chatId>"
 }
