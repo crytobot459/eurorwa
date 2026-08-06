@@ -1,7 +1,7 @@
 import { existsSync, readFileSync, readdirSync } from "node:fs"
 import { dirname, join } from "node:path"
 import { fileURLToPath } from "node:url"
-import { quickQuote } from "./freelance.js"
+import { quickQuote } from "./_freelance.js"
 
 const urlSite = "https://rwa-dashboard-gamma.vercel.app"
 const here = dirname(fileURLToPath(import.meta.url))

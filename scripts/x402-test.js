@@ -1,7 +1,7 @@
 import { randomBytes } from "node:crypto"
 import { privateKeyToAccount } from "viem/accounts"
-import { app } from "../api/app.js"
-import { typedData, requirements, payTo, AMOUNT } from "../api/x402.js"
+import { app } from "../api/_app.js"
+import { typedData, requirements, payTo, AMOUNT } from "../api/_x402.js"
 
 const acct = privateKeyToAccount(`0x${randomBytes(32).toString("hex")}`)
 process.env.X402_PAYTO = acct.address

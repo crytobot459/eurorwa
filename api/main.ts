@@ -1,4 +1,4 @@
-import { app } from "./app.js"
+import { app } from "./_app.js"
 
 function strip(req: Request): Request {
   const url = new URL(req.url)

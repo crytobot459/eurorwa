@@ -3,10 +3,10 @@ import { dirname, join } from "node:path"
 import { fileURLToPath } from "node:url"
 import { Hono } from "hono"
 import { cors } from "hono/cors"
-import { webhook } from "./tgbot.js"
-import { verifyReport, verifyAttestation, verifySnapshot, lagOf } from "./verify.js"
-import { institutionMetrics } from "./analytics.js"
-import { paymentRequired, verifyPayment, settlePayment, paymentResponseHeader } from "./x402.js"
+import { webhook } from "./_tgbot.js"
+import { verifyReport, verifyAttestation, verifySnapshot, lagOf } from "./_verify.js"
+import { institutionMetrics } from "./_analytics.js"
+import { paymentRequired, verifyPayment, settlePayment, paymentResponseHeader } from "./_x402.js"
 
 const cwd = process.cwd()
 const here = dirname(fileURLToPath(import.meta.url))

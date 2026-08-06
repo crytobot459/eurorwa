@@ -1,6 +1,6 @@
-import { institutionMetrics } from "../api/analytics.js"
+import { institutionMetrics } from "../api/_analytics.js"
 import { detectAlerts } from "../src/analyst/alerts.ts"
-import { app } from "../api/app.js"
+import { app } from "../api/_app.js"
 
 let passed = 0
 const assert = (name, cond) => {

@@ -14,6 +14,7 @@
 - **Discovery cho agent/registry**: `public/.well-known/x402.json`, `public/.well-known/agent-services.json` (Rail402-compatible), `public/SKILL.md`, `public/llms.txt` (build Vite copy vào `public/`).
 - **Frontend 6 tab**: thêm **analytics** + **alerts** (bar concentration, chain/issuer footprint, currency split, top flows; chip severity màu). Build OK (537KB).
 - **Tests đều xanh**: `scripts/x402-test.js` (15 checks: 402 flow, header decode, payment hợp lệ→200, hết hạn/sai amount/sai payTo/sig rác→402, settlement deferred) + `scripts/axis-test.js` (21 checks: toán analytics, cả 5 loại alert, endpoint live). Script `alerts`, `x402-test`, `axis-test` đã thêm vào `package.json`.
+- **FIX deploy Vercel**: Vercel auto-expose mọi file `api/*.js` thành function riêng → `api/analytics.js` nuốt route `/api/analytics` (crash 500 "Invalid export"), và `POST /api/analyst` báo "x402 not configured" vì thiếu env. Fix: đổi tên helper sang `_`-prefix (`_app.js`, `_analytics.js`, `_x402.js`, `_verify.js`, `_tgbot.js`, `_freelance.js`) — theo docs Vercel file `_`-prefix không thành function; cập nhật import toàn bộ (main.ts, tg.ts, src/api.ts, scripts test). Set env `X402_PAYTO` + `X402_SKIP_BALANCE=1` trên Vercel.
 
 **Còn lại (phiên sau):** commit+push repo (kèm `data/alerts.json` cho `/api/alerts` production), deploy Vercel, verify endpoint thật, đăng ký lên Bazaar/Base MCP (payTo `0x02B027…F846`), test settle mainnet khi có `X402_KEY`.
 

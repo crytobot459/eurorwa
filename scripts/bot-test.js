@@ -1,4 +1,4 @@
-import { replyFor } from "../api/tgbot.js"
+import { replyFor } from "../api/_tgbot.js"
 
 const cases = [
   "/today",

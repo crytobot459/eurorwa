@@ -1,6 +1,6 @@
 import { step, classify, welcome, ownerReply, triage, isAccept } from "./freelance-core.js"
-import { quickQuote } from "../api/freelance.js"
-import { detectBuild } from "../api/tgbot.js"
+import { quickQuote } from "../api/_freelance.js"
+import { detectBuild } from "../api/_tgbot.js"
 import { readFileSync } from "node:fs"
 
 const cfg = { usdt: "T1QzZqQwDeYtXfY2pX7uB9aQ3sVfCvNmWj" }
