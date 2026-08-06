@@ -1,0 +1,17 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.crytobot459/eurorwa-analyst",
+  "title": "EuroRWA Analyst",
+  "description": "Tokenized money-market fund (RWA) analysis: latest BUY/HOLD/SELL analyst report, fund snapshots (TVL, yield, holders, integrity), institutional analytics and operational alerts. Data is hashed, signed and attested on-chain for independent verification.",
+  "repository": {
+    "url": "https://github.com/crytobot459/eurorwa",
+    "source": "github"
+  },
+  "version": "1.0.0",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://rwa-dashboard-gamma.vercel.app/mcp"
+    }
+  ]
+}
