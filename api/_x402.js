@@ -15,6 +15,8 @@ export const CHAIN_ID = Number(NETWORK)
 export const ASSET = USDC[NETWORK] ?? USDC["84532"]
 export const AMOUNT = process.env.X402_AMOUNT ?? "50000"
 
+const EIP712_NAME = NETWORK === "84532" ? "USDC" : "USD Coin"
+
 const EIP712_TYPES = {
   TransferWithAuthorization: [
     { name: "from", type: "address" },
@@ -28,7 +30,7 @@ const EIP712_TYPES = {
 
 export function typedData(auth) {
   return {
-    domain: { name: "USD Coin", version: "2", chainId: CHAIN_ID, verifyingContract: ASSET },
+    domain: { name: EIP712_NAME, version: "2", chainId: CHAIN_ID, verifyingContract: ASSET },
     types: EIP712_TYPES,
     primaryType: "TransferWithAuthorization",
     message: auth,
@@ -58,7 +60,7 @@ export function requirements(pay) {
     asset: ASSET,
     payTo: pay,
     maxTimeoutSeconds: 60,
-    extra: { name: "USD Coin", version: "2" },
+    extra: { name: EIP712_NAME, version: "2" },
   }
 }
 
