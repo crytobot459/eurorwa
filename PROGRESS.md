@@ -2,6 +2,25 @@
 
 > Cập nhật sau mỗi phiên opencode. Xem `ROADMAP.md` để biết chi tiết từng phase.
 
+## Phiên gần nhất: 2026-08-06 (phiên 13)
+
+**Việc đã làm — MCP SERVER + SẴN SÀNG ĐĂNG KÝ MCP REGISTRY:**
+
+- **MCP server hoàn chỉnh `api/_mcp.js`**: JSON-RPC 2.0 (batch, notification, parse error), `initialize`/`ping`/`tools/list`/`tools/call`/`resources/list`/`resources/read`, CORS + OPTIONS + GET→405, serverInfo `eurorwa-analyst 1.0.0`, protocol `2024-11-05`/`2025-03-26`/`2025-06-18`. **4 tools**: `overview`, `funds`, `analytics`, `alerts` (wrapp `app.fetch` internal). **2 resources**: `eurorwa://analyst/latest`, `eurorwa://funds/latest`.
+- **Routing Vercel**: `vercel.json` thêm rewrite `{"/mcp" → "/api/main"}`; `api/main.ts` route pathname `/mcp` (sau strip `/api`) sang `handleMcp(req)` (raw request, không strip). `api/_mcp.d.ts` (theo convention `_app.d.ts`). `/api/mcp` cũng hoạt động.
+- **Discovery**: `src/frontend/public/.well-known/mcp.json` (`mcpServers.eurorwa-analyst.url = https://rwa-dashboard-gamma.vercel.app/mcp`).
+- **Test**: `scripts/_mcp-test.mjs` 20 checks ALL PASS (initialize/fallback protocol, ping, 4 tools/call trả JSON, unknown tool → -32602, resources/read, unknown uri → -32602, batch, notification → null, unknown method → -32601, parse error → 400, GET → 405, OPTIONS → 204, CORS origin echo). Routing qua `api/main.ts`: `/mcp` POST→200 initialize, `/api/mcp` tools→200, `/api/overview`→200 (không vỡ), `/mcp` GET→405. Typecheck sạch.
+- **Phát hiện**: Vercel SPA-fallback trả index.html cho mọi path không match (trước đây `/mcp` = HTML); nhưng filesystem check ưu tiên → `.well-known/*.json`, `llms.txt` serve đúng. Rewrite `/mcp` sẽ thắng SPA fallback.
+
+**Còn lại (MCP Registry — cần GitHub token từ user):**
+
+1. Commit + deploy → verify `/mcp` production (initialize trả protocolVersion + `curl /mcp` không còn HTML).
+2. Tạo `server.json` root repo: name `io.github.crytobot459/eurorwa-analyst`, title/description, version `1.0.0`, `remotes:[{type:"streamable-http", url:"https://rwa-dashboard-gamma.vercel.app/mcp"}]` → commit + push (registry lấy repo làm source of truth).
+3. Auth: `POST https://registry.modelcontextprotocol.io/v0.1/auth/github-at` với GitHub token (hoặc `auth/http`/`auth/dns`) → `POST /v0.1/publish` bearer.
+4. Sau: chờ user fund ví mainnet `0x03fa9C…585c4` → resume self-settle (xem Phiên 12).
+
+**Trạng thái phase:** P1-P6 + x402 + analytics + alerts + MCP server xong. Chờ: fund ví buyer mainnet (index Bazaar) + GitHub token (MCP Registry).
+
 ## Phiên gần nhất: 2026-08-06 (phiên 11)
 
 **Việc đã làm — SETTLEMENT QUA CDP FACILITATOR + SẴN SÀNG INDEX BAZAAR:**

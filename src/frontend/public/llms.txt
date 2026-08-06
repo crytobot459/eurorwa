@@ -7,5 +7,6 @@ report that is hashed, signed and attested on-chain.
 
 - Paid (x402, $0.05 USDC on Base): `POST /api/analyst` — latest analyst report with BUY/HOLD/SELL signals
 - Free: `GET /api/overview`, `/api/funds`, `/api/yields`, `/api/flows`, `/api/analytics`, `/api/alerts`
-- Discovery: `/.well-known/x402.json`, `/.well-known/agent-services.json`
+- MCP server (Streamable HTTP): `POST /mcp` — tools `overview`, `funds`, `analytics`, `alerts`; resources `eurorwa://analyst/latest`, `eurorwa://funds/latest`
+- Discovery: `/.well-known/x402.json`, `/.well-known/agent-services.json`, `/.well-known/mcp.json`
 - Dashboard: https://rwa-dashboard-gamma.vercel.app

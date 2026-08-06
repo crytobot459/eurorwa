@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "eurorwa-analyst": {
+      "url": "https://rwa-dashboard-gamma.vercel.app/mcp"
+    }
+  }
+}
