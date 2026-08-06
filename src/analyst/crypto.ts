@@ -93,7 +93,10 @@ async function moverData(): Promise<{ gainers: Mover[]; losers: Mover[] }> {
     price_change_percentage_24h: number | null
     total_volume: number | null
   }[]
-  const rated = list.filter((c) => c.price_change_percentage_24h != null && (c.total_volume ?? 0) >= MIN_VOL) as {
+  const rated = list.filter(
+    (c) =>
+      c.price_change_percentage_24h != null && (c.total_volume ?? 0) >= MIN_VOL && /^[A-Z0-9]{2,10}$/i.test(c.symbol),
+  ) as {
     symbol: string
     price_change_percentage_24h: number
   }[]
@@ -109,5 +112,8 @@ async function trendingData(): Promise<string[]> {
   const res = await fetch("https://api.coingecko.com/api/v3/search/trending")
   if (!res.ok) throw new Error(`http ${res.status}`)
   const j = (await res.json()) as { coins: { item: { symbol: string } }[] }
-  return (j.coins ?? []).slice(0, 5).map((c) => c.item.symbol.toUpperCase())
+  return (j.coins ?? [])
+    .map((c) => c.item.symbol.toUpperCase())
+    .filter((s) => /^[A-Z0-9]{2,10}$/.test(s))
+    .slice(0, 5)
 }
