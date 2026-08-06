@@ -10,5 +10,8 @@ fi
 if [ -f .env.local ]; then
   bun --env-file=.env.local run src/analyst/index.ts || echo "[$(date -Iseconds)] analyst FAILED" >> data/cron.log
 fi
+if [ -f .env.local ]; then
+  bun --env-file=.env.local run scripts/alerts.ts || echo "[$(date -Iseconds)] alerts FAILED" >> data/cron.log
+fi
 bun run src/posts.ts
 bun run src/visual.ts

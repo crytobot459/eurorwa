@@ -2,6 +2,23 @@
 
 > Cập nhật sau mỗi phiên opencode. Xem `ROADMAP.md` để biết chi tiết từng phase.
 
+## Phiên gần nhất: 2026-08-06 (phiên 10)
+
+**Việc đã làm — MONETIZE + KHÁC BIỆT SẢN PHẨM (x402 + Axis B + Axis C):**
+
+- **x402 pay-per-call API — `POST /api/analyst`** (`api/x402.js` + `api/app.js`): triển khai thủ công spec x402 v2 bằng `viem` (không thêm dep, chạy được trên Vercel Node):
+  - Chưa có `PAYMENT-SIGNATURE` → **HTTP 402** + header `PAYMENT-REQUIRED` (base64: scheme, amount $0.05, network Base Sepolia `eip155:84532`, asset USDC, payTo `0x02B027…F846`, thời hạn 30s, bazaar extension `discoverable`).
+  - Có header → verify (version/network/asset/amount/payTo, `verifyTypedData` EIP-712 TransferWithAuthorization, `balanceOf` trừ khi `X402_SKIP_BALANCE=1`) → settle `transferWithAuthorization` qua `X402_KEY` (nếu chưa set → `{status:"deferred"}` vẫn trả report 200) → trả report kèm header `PAYMENT-RESPONSE`.
+- **Axis B — institutional analytics — `GET /api/analytics`** (`api/analytics.js`): TVL tổng, concentration (top3/5/10 + HHI), breadth (median/max/min yield, spread), currency split USD/EUR/GBP, chain footprint, issuer concentration, holders, top-10 day flows. Tính on-the-fly từ snapshot, không cần nguồn mới.
+- **Axis C — alerts — `GET /api/alerts`** (`src/analyst/alerts.ts` + `scripts/alerts.ts`): 5 loại cảnh báo `yield-breakout`/`yield-cohort`/`tvl-spike`/`holder-surge`/`regime-flip` (severity info/warning/high). Script dedupe theo id `type-ticker-date`, giữ 60 gần nhất → `data/alerts.json`, post warning/high lên nhóm Telegram. **Đã chạy thật: 2 alert, post 1 warning** (USYC holder exit -11.63%). Đã nối vào `scripts/run.sh`.
+- **Discovery cho agent/registry**: `public/.well-known/x402.json`, `public/.well-known/agent-services.json` (Rail402-compatible), `public/SKILL.md`, `public/llms.txt` (build Vite copy vào `public/`).
+- **Frontend 6 tab**: thêm **analytics** + **alerts** (bar concentration, chain/issuer footprint, currency split, top flows; chip severity màu). Build OK (537KB).
+- **Tests đều xanh**: `scripts/x402-test.js` (15 checks: 402 flow, header decode, payment hợp lệ→200, hết hạn/sai amount/sai payTo/sig rác→402, settlement deferred) + `scripts/axis-test.js` (21 checks: toán analytics, cả 5 loại alert, endpoint live). Script `alerts`, `x402-test`, `axis-test` đã thêm vào `package.json`.
+
+**Còn lại (phiên sau):** commit+push repo (kèm `data/alerts.json` cho `/api/alerts` production), deploy Vercel, verify endpoint thật, đăng ký lên Bazaar/Base MCP (payTo `0x02B027…F846`), test settle mainnet khi có `X402_KEY`.
+
+**Trạng thái phase:** P1-P6 xong. Pipeline + bot + attestation onchain + **API trả phí x402 + analytics institutional + alerts** đều chạy local. Chờ: commit, deploy, đăng ký registry.
+
 ## Phiên gần nhất: 2026-08-05 (phiên 9)
 
 **Việc đã làm:**

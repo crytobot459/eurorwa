@@ -5,6 +5,8 @@ import { Hono } from "hono"
 import { cors } from "hono/cors"
 import { webhook } from "./tgbot.js"
 import { verifyReport, verifyAttestation, verifySnapshot, lagOf } from "./verify.js"
+import { institutionMetrics } from "./analytics.js"
+import { paymentRequired, verifyPayment, settlePayment, paymentResponseHeader } from "./x402.js"
 
 const cwd = process.cwd()
 const here = dirname(fileURLToPath(import.meta.url))
@@ -37,7 +39,21 @@ const bySlug = (slug) => (f) => f.slug === slug
 app.get("/tg", (c) => c.text("tg ok"))
 app.post("/tg", (c) => webhook(c.req.raw))
 
-app.get("/", (c) => c.json({ ok: true, endpoints: ["/overview", "/funds", "/funds/:slug", "/yields", "/flows"] }))
+app.get("/", (c) =>
+  c.json({
+    ok: true,
+    endpoints: [
+      "/overview",
+      "/funds",
+      "/funds/:slug",
+      "/yields",
+      "/flows",
+      "/analytics",
+      "/alerts",
+      "/analyst (x402 paid)",
+    ],
+  }),
+)
 
 app.get("/overview", async (c) => {
   const rep = reports().at(-1)
@@ -161,4 +177,45 @@ app.get("/flows", (c) => {
     }
   })
   return c.json({ date: cur.date, prev_date: prev.date, flows })
+})
+
+app.get("/analytics", (c) => {
+  const all = snaps()
+  const last = all.at(-1)
+  if (!last) return c.json({ date: null })
+  return c.json(institutionMetrics(last, all.at(-2)))
+})
+
+const aFile = (() => {
+  const cands = [
+    join(cwd, "data", "alerts.json"),
+    join(here, "..", "data", "alerts.json"),
+    join(here, "data", "alerts.json"),
+  ]
+  return cands.find((f) => existsSync(f)) ?? cands[0]
+})()
+
+app.get("/alerts", (c) => {
+  if (!existsSync(aFile)) return c.json({ updated_at: null, alerts: [] })
+  const j = JSON.parse(readFileSync(aFile, "utf8"))
+  return c.json({ updated_at: j.updated_at ?? null, alerts: (j.alerts ?? []).slice(-40).reverse() })
+})
+
+app.post("/analyst", async (c) => {
+  const rep = reports().at(-1)
+  if (!rep) return c.json({ ok: false, error: "no report yet" }, 503)
+  const origin = new URL(c.req.url).origin || "https://rwa-dashboard-gamma.vercel.app"
+  const resource = {
+    url: `${origin}/api/analyst`,
+    description:
+      "Latest EuroRWA analyst report — BUY/HOLD/SELL signals, market view, crypto & on-chain briefs, hashed + signed + attested on-chain",
+    mimeType: "application/json",
+    serviceName: "EuroRWA Analyst",
+  }
+  const raw = c.req.header("PAYMENT-SIGNATURE") || c.req.header("X-PAYMENT")
+  if (!raw) return paymentRequired(c, resource)
+  const v = await verifyPayment(raw)
+  if (!v.ok) return paymentRequired(c, resource, v.reason)
+  const settlement = await settlePayment(v.payload)
+  return c.json(rep, 200, { "PAYMENT-RESPONSE": paymentResponseHeader(settlement) })
 })

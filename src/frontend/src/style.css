@@ -143,6 +143,14 @@ tbody tr:hover {
   color: var(--red);
 }
 
+.pos-fill {
+  background: var(--green) !important;
+}
+
+.neg-fill {
+  background: var(--red) !important;
+}
+
 .lag {
   text-transform: capitalize;
 }

@@ -1,0 +1,23 @@
+{
+  "updated_at": "2026-08-06T10:01:10.495Z",
+  "alerts": [
+    {
+      "id": "yield-cohort-USYC-2026-08-06",
+      "type": "yield-cohort",
+      "severity": "info",
+      "ticker": "USYC",
+      "title": "USYC bottom of USD cohort",
+      "detail": "USYC 3.19% vs cohort median 4.01% (-0.82pt)",
+      "date": "2026-08-06"
+    },
+    {
+      "id": "holder-surge-USYC-2026-08-06",
+      "type": "holder-surge",
+      "severity": "warning",
+      "ticker": "USYC",
+      "title": "Holders exited -11.63% on USYC",
+      "detail": "USYC holders 38 (7d -11.63%) — institutions exiting",
+      "date": "2026-08-06"
+    }
+  ]
+}

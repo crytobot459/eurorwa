@@ -37,6 +37,51 @@ export interface Flow {
   chg_7d_pct: number
 }
 
+export interface Concentration {
+  top3_pct: number
+  top5_pct: number
+  top10_pct: number
+  hhi: number
+}
+
+export interface Breadth {
+  yield_funds: number
+  median_yield: number | null
+  max_yield: number | null
+  min_yield: number | null
+  spread: number | null
+}
+
+export interface SplitRow {
+  tvl: number
+  count: number
+  share: number
+}
+
+export interface Analytics {
+  date: string | null
+  prev_date: string | null
+  total_tvl: number
+  fund_count: number
+  concentration: Concentration
+  breadth: Breadth
+  currency: Record<string, SplitRow>
+  chains: (SplitRow & { name: string })[]
+  issuers: (SplitRow & { name: string })[]
+  holders: { total: number; avg: number | null }
+  day_flows: { ticker: string; flow: number | null }[]
+}
+
+export interface AlertItem {
+  id: string
+  type: string
+  severity: "info" | "warning" | "high"
+  ticker?: string
+  title: string
+  detail: string
+  date: string
+}
+
 export interface Signal {
   ticker: string
   action: string
@@ -101,3 +146,5 @@ export const getOverview = () => get<Overview>("/overview")
 export const getFunds = () => get<{ funds: FundRow[] }>("/funds")
 export const getFund = (slug: string) => get<FundDetail>(`/funds/${slug}`)
 export const getFlows = () => get<{ flows: Flow[] }>("/flows")
+export const getAnalytics = () => get<Analytics>("/analytics")
+export const getAlerts = () => get<{ updated_at: string | null; alerts: AlertItem[] }>("/alerts")

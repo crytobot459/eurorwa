@@ -1,8 +1,22 @@
 import { useEffect, useState } from "react"
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend } from "recharts"
-import { API, FundRow, Flow, FundDetail, Overview, getFunds, getFund, getFlows, getOverview } from "./api"
+import {
+  API,
+  FundRow,
+  Flow,
+  FundDetail,
+  Overview,
+  Analytics,
+  AlertItem,
+  getFunds,
+  getFund,
+  getFlows,
+  getOverview,
+  getAnalytics,
+  getAlerts,
+} from "./api"
 
-type Tab = "overview" | "funds" | "yields" | "flows"
+type Tab = "overview" | "funds" | "yields" | "flows" | "analytics" | "alerts"
 
 const fmtUsd = (n: number) => {
   if (n >= 1e9) return `$${(n / 1e9).toFixed(2)}B`
@@ -399,11 +413,178 @@ function Flows({ rows }: { rows: Flow[] }) {
   )
 }
 
+function AnalyticsView({ a }: { a: Analytics }) {
+  const c = a.concentration
+  const b = a.breadth
+  const maxChain = a.chains[0]?.tvl ?? 1
+  const maxIssuer = a.issuers[0]?.tvl ?? 1
+  const maxFlow = Math.max(...a.day_flows.map((f) => Math.abs(f.flow ?? 0)), 1)
+  return (
+    <div>
+      <div className="agent">
+        <h2>🏛️ Institutional analytics — {a.date ?? "n/a"}</h2>
+        <div className="chips">
+          <div className="chip">
+            <b>{fmtUsd(a.total_tvl)}</b>
+            <span>Total TVL · {a.fund_count} funds</span>
+          </div>
+          <div className="chip">
+            <b>{a.holders.total.toLocaleString()}</b>
+            <span>Total holders</span>
+          </div>
+          <div className="chip">
+            <b>{c.hhi.toFixed(4)}</b>
+            <span>HHI concentration</span>
+          </div>
+          <div className="chip">
+            <b>{b.median_yield != null ? `${b.median_yield.toFixed(2)}%` : "—"}</b>
+            <span>Median yield · {b.yield_funds} paying</span>
+          </div>
+          <div className="chip">
+            <b className={b.spread != null && b.spread >= 0 ? "pos" : "neg"}>
+              {b.spread != null ? `${b.spread.toFixed(2)}pt` : "—"}
+            </b>
+            <span>Yield spread (max−min)</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="agent">
+        <h2>🎯 Concentration</h2>
+        <div className="bars">
+          {[
+            ["Top 3", c.top3_pct],
+            ["Top 5", c.top5_pct],
+            ["Top 10", c.top10_pct],
+          ].map(([label, val]) => (
+            <div className="bar-row" key={label as string}>
+              <span className="bar-label">
+                {label as string} <i>share of TVL</i>
+              </span>
+              <div className="bar-track">
+                <div className="bar-fill" style={{ width: `${(val as number) * 1.5}%` }} />
+              </div>
+              <span className="bar-val">{(val as number).toFixed(1)}%</span>
+            </div>
+          ))}
+        </div>
+        <div className="meta">Herfindahl index {c.hhi.toFixed(4)} — above 0.25 = concentrated</div>
+      </div>
+
+      <div className="agent">
+        <h2>🌐 Chain footprint</h2>
+        <div className="bars">
+          {a.chains.slice(0, 8).map((n) => (
+            <div className="bar-row" key={n.name}>
+              <span className="bar-label">
+                {n.name}{" "}
+                <i>
+                  {n.count} fund{n.count > 1 ? "s" : ""}
+                </i>
+              </span>
+              <div className="bar-track">
+                <div className="bar-fill" style={{ width: `${(n.tvl / maxChain) * 100}%` }} />
+              </div>
+              <span className="bar-val">{n.share.toFixed(1)}%</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="agent">
+        <h2>🏢 Issuer concentration</h2>
+        <div className="bars">
+          {a.issuers.map((n) => (
+            <div className="bar-row" key={n.name}>
+              <span className="bar-label">
+                {n.name}{" "}
+                <i>
+                  {n.count} fund{n.count > 1 ? "s" : ""}
+                </i>
+              </span>
+              <div className="bar-track">
+                <div className="bar-fill" style={{ width: `${(n.tvl / maxIssuer) * 100}%` }} />
+              </div>
+              <span className="bar-val">{n.share.toFixed(1)}%</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {Object.keys(a.currency).length > 0 && (
+        <div className="agent">
+          <h2>💱 Currency split</h2>
+          <div className="chips">
+            {Object.entries(a.currency).map(([cur, v]) => (
+              <div className="chip" key={cur}>
+                <b>
+                  {cur.toUpperCase()} · {v.share.toFixed(1)}%
+                </b>
+                <span>
+                  {fmtUsd(v.tvl)} · {v.count} fund{v.count > 1 ? "s" : ""}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {a.day_flows.length > 0 && (
+        <div className="agent">
+          <h2>↔️ Top daily flows</h2>
+          <div className="bars">
+            {a.day_flows.slice(0, 5).map((f) => (
+              <div className="bar-row" key={f.ticker}>
+                <span className="bar-label">{f.ticker}</span>
+                <div className="bar-track">
+                  <div
+                    className={`bar-fill ${(f.flow ?? 0) >= 0 ? "pos-fill" : "neg-fill"}`}
+                    style={{ width: `${(Math.abs(f.flow ?? 0) / maxFlow) * 100}%` }}
+                  />
+                </div>
+                <span className="bar-val">{f.flow == null ? "—" : fmtUsd(f.flow)}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
+const sevClass = (s: string) => (s === "high" ? "bad" : s === "warning" ? "warn" : "ok")
+
+function AlertsView({ alerts }: { alerts: AlertItem[] }) {
+  if (!alerts.length) return <p className="muted">No alerts — all quiet.</p>
+  return (
+    <div>
+      {alerts.map((a) => (
+        <div className="sig" key={a.id}>
+          <div className="sig-head">
+            <span className="ticker">{a.ticker ?? "⚡"}</span>
+            <span className={`vmark ${sevClass(a.severity)}`}>
+              {a.severity === "high" ? "✗" : a.severity === "warning" ? "⚠" : "✓"}
+            </span>
+            <span className={`conf ${a.severity}`}>{a.severity}</span>
+            <span className="conf">{a.date}</span>
+          </div>
+          <p>
+            <b>{a.title}</b>
+          </p>
+          <p className="meta">{a.detail}</p>
+        </div>
+      ))}
+    </div>
+  )
+}
+
 export default function App() {
   const [tab, setTab] = useState<Tab>("overview")
   const [funds, setFunds] = useState<FundRow[] | null>(null)
   const [flows, setFlows] = useState<Flow[] | null>(null)
   const [ov, setOv] = useState<Overview | null>(null)
+  const [an, setAn] = useState<Analytics | null>(null)
+  const [al, setAl] = useState<AlertItem[] | null>(null)
   const [err, setErr] = useState("")
   const [slug, setSlug] = useState<string | null>(null)
 
@@ -423,6 +604,18 @@ export default function App() {
       getOverview()
         .then(setOv)
         .catch(() => setOv(null))
+  }, [tab])
+  useEffect(() => {
+    if (tab === "analytics")
+      getAnalytics()
+        .then(setAn)
+        .catch(() => setAn(null))
+  }, [tab])
+  useEffect(() => {
+    if (tab === "alerts")
+      getAlerts()
+        .then((b) => setAl(b.alerts))
+        .catch(() => setAl([]))
   }, [tab])
 
   return (
@@ -481,7 +674,7 @@ export default function App() {
         </div>
         <p>EU tokenized money market funds — data via rwa.xyz + on-chain, snapshotted daily.</p>
         <div className="tabs">
-          {(["overview", "funds", "yields", "flows"] as Tab[]).map((t) => (
+          {(["overview", "funds", "yields", "flows", "analytics", "alerts"] as Tab[]).map((t) => (
             <button key={t} className={tab === t ? "active" : ""} onClick={() => setTab(t)}>
               {t}
             </button>
@@ -519,6 +712,10 @@ export default function App() {
       {tab === "yields" && (funds ? <Yields rows={funds} /> : <p className="muted">loading…</p>)}
 
       {tab === "flows" && (flows ? <Flows rows={flows} /> : <p className="muted">loading…</p>)}
+
+      {tab === "analytics" && (an ? <AnalyticsView a={an} /> : <p className="muted">loading…</p>)}
+
+      {tab === "alerts" && (al ? <AlertsView alerts={al} /> : <p className="muted">loading…</p>)}
     </main>
   )
 }

@@ -1,0 +1,11 @@
+# EuroRWA
+
+EuroRWA tracks tokenized money-market funds (RWA) and produces a daily analyst
+report that is hashed, signed and attested on-chain.
+
+## API
+
+- Paid (x402, $0.05 USDC on Base): `POST /api/analyst` — latest analyst report with BUY/HOLD/SELL signals
+- Free: `GET /api/overview`, `/api/funds`, `/api/yields`, `/api/flows`, `/api/analytics`, `/api/alerts`
+- Discovery: `/.well-known/x402.json`, `/.well-known/agent-services.json`
+- Dashboard: https://rwa-dashboard-gamma.vercel.app
