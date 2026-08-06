@@ -23,7 +23,10 @@
 
 **Còn lại:** (1) tạo **CDP Secret API Key miễn phí** portal.cdp.coinbase.com/api-keys/secret → set `CDP_API_KEY_ID`/`CDP_API_KEY_SECRET` trên Vercel; (2) `scripts/cdp-auth-check.js` + tự-settle 1 lần Base Sepolia (faucet ETH quicknode.com/base/sepolia + USDC faucet.circle.com cho 1 ví buyer tách biệt, payer ≠ payTo); (3) verify `GET /v2/x402/discovery/resources?payTo=0x02B027…F846` + header `EXTENSION-RESPONSES`; (4) optional mainnet (`X402_NETWORK=8453`) cho doanh thu thật.
 
-**Trạng thái phase:** P1-P6 + x402 + analytics + alerts xong, deployed. Chờ CDP API key để settle thật + index Bazaar.
+- **Đã commit + deploy**: `d5bb7a4` (CDP facilitator settlement) + `b3cd003` (report quality) → production OK (no-pay 402, x402 manifest live).
+- **Report quality fix (deployed)**: yield hiển thị **"n/a"** thay vì "0.00%" cho quỹ thiếu dữ liệu (EURC, NRW1, AAULF, bC3M, bIB01 — cả prompt LLM + reason fallback); lọc symbol crypto không-ASCII (币安人生) trong movers/trending → report đã regenerate + attest on-chain mới (`2026-08-06-analyst-4`, tx `0x025070…a7`).
+
+**Trạng thái phase:** P1-P6 + x402 + analytics + alerts xong, deployed. Chờ user tạo **CDP Secret API Key** (portal.cdp.coinbase.com/api-keys/secret) để settle thật + index Bazaar.
 
 ## Phiên 10: 2026-08-06
 
