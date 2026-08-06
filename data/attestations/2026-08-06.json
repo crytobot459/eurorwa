@@ -1,0 +1,122 @@
+{
+  "date": "2026-08-06",
+  "signer": "0x02B027ecd3004Fbb579bD4c64B6e22Fff369F846",
+  "hash": "0x242d82e211f13f4b285cfe51261415f009f0b1eb3e77acef77c4bd4e22a6f03d",
+  "signature": "0xd801742a1905c29d4e32e503c12568cd3cdb54ee8cee5e1d895075522405d1dc01e12f085a8118693dad71285bbb958cb32acfa23f874ec67ae7d2f8757ee2801b",
+  "payload": {
+    "date": "2026-08-06",
+    "generated_at": "2026-08-06T03:50:44.370Z",
+    "funds": [
+      {
+        "ticker": "AAULF",
+        "slug": "abrdn-liquidity-fund-lux-us-dollar-fund",
+        "tvl": 16083984.469999999,
+        "yield": 0,
+        "holders": 13
+      },
+      {
+        "ticker": "BUIDL",
+        "slug": "blackrock-usd-institutional-digital-liquidity-fund",
+        "tvl": 2674829642.040449,
+        "yield": 3.3843627730881156,
+        "holders": 114
+      },
+      {
+        "ticker": "CETES",
+        "slug": "etherfuse-cetes",
+        "tvl": 5388214.678744153,
+        "yield": 4.597661560750271,
+        "holders": 5139
+      },
+      {
+        "ticker": "EURC",
+        "slug": "eurc",
+        "tvl": 527293060.0534985,
+        "yield": 0,
+        "holders": 131835
+      },
+      {
+        "ticker": "EUROB",
+        "slug": "etherfuse-eurob",
+        "tvl": 401.993208510697,
+        "yield": 1.461422857531068,
+        "holders": 36
+      },
+      {
+        "ticker": "EUTBL",
+        "slug": "spiko-eu-t-bills-money-market-fund",
+        "tvl": 903335744.7306759,
+        "yield": 2.1333350651123424,
+        "holders": 3830
+      },
+      {
+        "ticker": "NRW1",
+        "slug": "nrw1",
+        "tvl": 115320500.00000003,
+        "yield": 0,
+        "holders": 1
+      },
+      {
+        "ticker": "SAFO",
+        "slug": "spiko-amundi-overnight-swap-fund",
+        "tvl": 150606968.68983293,
+        "yield": 4.010917902428785,
+        "holders": 444
+      },
+      {
+        "ticker": "UKTBL",
+        "slug": "spiko-uk-t-bills-money-market-fund",
+        "tvl": 17832001.070171308,
+        "yield": 3.7224229939243827,
+        "holders": 439
+      },
+      {
+        "ticker": "USDY",
+        "slug": "ondo-u-s-dollar-yield",
+        "tvl": 2122937581.331832,
+        "yield": 3.4896848014931114,
+        "holders": 15582
+      },
+      {
+        "ticker": "USTBL",
+        "slug": "spiko-us-t-bills-money-market-fund",
+        "tvl": 145053383.06926322,
+        "yield": 4.31625592642975,
+        "holders": 927
+      },
+      {
+        "ticker": "USYC",
+        "slug": "circle-usyc",
+        "tvl": 3004084951.1584487,
+        "yield": 3.19108351127844,
+        "holders": 38
+      },
+      {
+        "ticker": "bC3M",
+        "slug": "backed-govies-0-6-months-euro-investment-grade",
+        "tvl": 9937317.13002174,
+        "yield": 0,
+        "holders": 3
+      },
+      {
+        "ticker": "bIB01",
+        "slug": "backed-ibta-treasury-bond-0-1yr",
+        "tvl": 9836659.309871307,
+        "yield": 0,
+        "holders": 83
+      },
+      {
+        "ticker": "eurSAFO",
+        "slug": "spiko-amundi-overnight-swap-fund-eur",
+        "tvl": 963540279.8693491,
+        "yield": 2.5370082710586117,
+        "holders": 7496
+      }
+    ]
+  },
+  "published": {
+    "tx": "0xb70f48ba50e5260e14a03740071feae8a800e9130e3aebccea01a00e6c2bbca0",
+    "block": "11428798",
+    "contract": "0xd482a715cdef4073593f4a3208abd328f6d71725"
+  }
+}
