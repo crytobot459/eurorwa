@@ -1,6 +1,7 @@
 .env*
 node_modules/
 public/
+!src/frontend/public/
 src/frontend/dist/
 data/rwa.db
 data/rwa.db-*

@@ -160,7 +160,57 @@ export default function App() {
   return (
     <main>
       <header>
-        <h1>EuroRWA</h1>
+        <div className="brand">
+          <svg viewBox="0 0 200 200" width="36" height="36" aria-hidden="true">
+            <defs>
+              <linearGradient id="mark-g" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stopColor="#34d399" />
+                <stop offset="100%" stopColor="#22d3ee" />
+              </linearGradient>
+            </defs>
+            <circle cx="100" cy="100" r="13" fill="url(#mark-g)" />
+            <circle cx="100" cy="100" r="5" fill="#0f172a" />
+            {["162 100", "131 153.7", "69 153.7", "38 100", "69 46.3", "131 46.3"].map(([x, y]) => (
+              <circle key={x + y} cx={x} cy={y} r="8" fill="#22d3ee" opacity="0.85" />
+            ))}
+            {[
+              ["100 100", "131 153.7"],
+              ["100 100", "69 153.7"],
+              ["100 100", "38 100"],
+              ["100 100", "69 46.3"],
+              ["100 100", "131 46.3"],
+            ].map(([a, b]) => (
+              <line
+                key={a + b}
+                x1={a.split(" ")[0]}
+                y1={a.split(" ")[1]}
+                x2={b.split(" ")[0]}
+                y2={b.split(" ")[1]}
+                stroke="rgba(148,163,184,.5)"
+                strokeWidth="3"
+              />
+            ))}
+            {[
+              ["162 100", "131 153.7"],
+              ["131 153.7", "69 153.7"],
+              ["69 153.7", "38 100"],
+              ["38 100", "69 46.3"],
+              ["69 46.3", "131 46.3"],
+              ["131 46.3", "162 100"],
+            ].map(([a, b]) => (
+              <line
+                key={a + b + "r"}
+                x1={a.split(" ")[0]}
+                y1={a.split(" ")[1]}
+                x2={b.split(" ")[0]}
+                y2={b.split(" ")[1]}
+                stroke="rgba(52,211,153,.55)"
+                strokeWidth="3"
+              />
+            ))}
+          </svg>
+          <h1>EuroRWA</h1>
+        </div>
         <p>EU tokenized money market funds — data via rwa.xyz + on-chain, snapshotted daily.</p>
         <div className="tabs">
           {(["funds", "yields", "flows"] as Tab[]).map((t) => (

@@ -24,6 +24,22 @@
 
 > Kiểm tra 2026-08-06: headline hiện tại trên LinkedIn **vẫn là** _"Machine Learning Engineer | Algorithmic Trading | Rust, Python"_ + bài đăng cảm xúc (mùa thu Hà Nội) → **CHƯA áp dụng bộ nội dung mới**. Làm theo checklist dưới đây.
 
+### Tên thật hay tên giả? → BẮT BUỘC tên thật ⚠️
+
+LinkedIn **cấm tên giả / biệt danh / tên thương hiệu** trong ô tên (User Agreement + Professional Community Policies). Dùng tên giả = tài khoản bị khoá/restrict. Được phép dùng **"preferred professional name"** (tên gọn hơn của tên thật).
+→ **Giữ tên "Canh Pham"**, đưa thương hiệu "EuroRWA" vào **headline, About, Experience, Featured** — đúng như cách người giỏi làm (xem dưới đây).
+
+### Các hồ sơ giỏi làm sao? (học theo)
+
+4 hồ sơ RWA/DeFi được săn đón:
+
+- **moazam abbasi** — headline nhét từ khoá: `Smart Contract Engineer | DeFi Protocol Development | MEV and Flash Loan Systems | RWA Tokenization ERC-3643 | Solidity and Rust | Arbitrum...`; About = hook + "what I'm building" + stack; dự án có SỐ đo ("$5M+", "sub-millisecond latency").
+- **almardan isaev** — dùng con số ấn tượng ("liquidated $5M+ positions, made $300K+"), viết bài chia sẻ trải nghiệm thật.
+- **devang patel (RWA.xyz)** — đăng/tái chia sẻ tin RWA mỗi tuần → tạo "authority".
+- **joachim lebrun (creator ERC-3643)** — About kể rõ mình "build infrastructure", vai trò, chuẩn.
+
+**Điểm chung:** tên thật · headline giàu từ khoá · About hook + số liệu · Featured đầy đủ · kỹ năng liệt kê keyword · đăng bài đều về đúng chủ đề RWA/tokenization · không có bài đăng cảm xúc lạc chủ đề.
+
 Chuẩn rút ra từ hồ sơ các dev RWA/DeFi được săn đón (moazam abbasi, almardan isaev, devang patel của RWA.xyz):
 
 ### Headline — nhét từ khoá, tối đa 220 ký tự
