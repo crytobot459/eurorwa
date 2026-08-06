@@ -17,16 +17,20 @@
 
 ---
 
-## 0. NÊN HAY KHÔNG — NFT LÀM ẢNH ĐẠI DIỆN?
+## 0. NFT ĐÃ MINT (2026-08-06) ✅
 
-**Nên, nếu tự mint ảnh của mình** — nhưng không cần thiết. Tóm tắt:
+**Đã mint xong, 100% miễn phí (Sepolia):**
 
-- **Lợi ích:** ảnh NFT PFP là tín hiệu "biết on-chain" — hợp với câu chuyện EuroRWA (mọi thứ đều verify on-chain). Cộng đồng RWA/tokenization nhìn avatar NFT là dân trong ngành.
-- **Rủi ro/cần tránh:** đừng trả tiền mua NFT linh tinh chỉ để làm avatar; cũng đừng mint NFT có chữ "Canh Pham" (bạn không muốn tên thật dính vào NFT công khai).
-- **Cách đúng (rẻ nhất):** tự mint **chính file `avatar.png`** này thành NFT của bạn trên **Base** (L2 của Coinbase, gas ~$0.01-0.10) bằng ví agent của dự án. Vừa có NFT thật, vừa 100% thuộc về bạn, vừa là "proof of onchain skill" để kể trong bài đăng.
-- **Khuyến nghị:** dùng thẳng ảnh này làm avatar trước (đăng hôm nay), mint NFT sau nếu muốn kể chuyện "profile pic này là NFT do tôi tự mint". Không bắt buộc — ảnh đã đủ chuyên nghiệp.
+- **NFT:** EuroRWA Avatar #1 — ảnh (SVG) nằm thẳng **trên chuỗi**, không cần IPFS
+- **Hợp đồng:** `0x38d6c0c35da4288b6e34061e4e7b104135a7c1e0`
+- **Chủ sở hữu:** ví MetaMask của bạn `0x55833f4B385528dF3c711741a2dEa404806fd0Da`
+- **Xem:** https://sepolia.etherscan.io/token/0x38d6c0c35da4288b6e34061e4e7b104135a7c1e0
 
-_(Muốn mint Base: nói tôi viết script mint ERC-721 qua viem vào ví `0x02B027…F846`.)_
+**Xem trong MetaMask:** đổi mạng sang **Sepolia test network** → tab **NFT** → Import → nhập địa chỉ hợp đồng + Token ID `1`.
+
+**Chuyển sang Base mainnet (khi muốn NFT "thật"):** liên hệ tôi — ví đã có sẵn ~0.01 Sepolia ETH để trả gas chuyển NFT. Lưu ý ví này có gas tiền **testnet** nên cần nạp ETH thật (Base) nếu muốn mint/chuyển trên mainnet.
+
+> ⚠️ Khóa riêng tư của ví này **đã bị dán trong chat** → coi là đã lộ. Không nạp tiền thật vào. Muốn an toàn thì tạo ví mới và chuyển NFT sang sau.
 
 ---
 
