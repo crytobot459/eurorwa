@@ -12,6 +12,7 @@
     "publish": "bun run src/agent/publish.ts",
     "posts": "bun run src/posts.ts",
     "visual": "bun run src/visual.ts",
+    "analyst": "bun --env-file=.env.local run src/analyst/index.ts",
     "frontend": "cd src/frontend && bun run dev",
     "freelance": "bun --env-file=.env.local run scripts/freelance-bot.js",
     "freelance-test": "bun run scripts/freelance-test.js",
@@ -23,6 +24,7 @@
   },
   "devDependencies": {
     "@types/bun": "^1.3.14",
-    "solc": "^0.8.36"
+    "solc": "^0.8.36",
+    "typescript": "^7.0.2"
   }
 }

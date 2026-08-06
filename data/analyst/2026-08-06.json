@@ -1,0 +1,293 @@
+{
+  "date": "2026-08-06",
+  "generated_at": "2026-08-06T04:58:20.760Z",
+  "market_view": "Thị trường RWA ở trạng thái Extreme Fear (Fear & Greed = 25), tuy nhiên dòng tiền tổ chức vẫn tập trung mạnh vào các quỹ có yield dẫn đầu nhóm như CETES, USTBL, SAFO và eurSAFO. Sự phân hóa diễn ra rõ rệt khi dòng vốn liên tục rút khỏi các quỹ có yield giảm mạnh hoặc kém cạnh tranh như UKTBL và EUROB.",
+  "signals": [
+    {
+      "ticker": "USYC",
+      "action": "HOLD",
+      "confidence": "medium",
+      "reasons": [
+        "Yield 30d tăng mạnh +41.91% lên 3.19% nhưng vẫn thấp hơn T-bill 1.13pt.",
+        "Lượng holders 7d giảm -11.63% (-19.15% trong 30d) phản ánh áp lực chốt lời/rút vốn ngắn hạn."
+      ]
+    },
+    {
+      "ticker": "BUIDL",
+      "action": "HOLD",
+      "confidence": "high",
+      "reasons": [
+        "Yield ở mức 3.38% (giảm -2.55% trong 30d, thấp hơn T-bill 0.93pt).",
+        "TVL 30d tăng trưởng tốt +19.74% và lượng holders duy trì ổn định (+0.88% trong 7d)."
+      ]
+    },
+    {
+      "ticker": "USDY",
+      "action": "HOLD",
+      "confidence": "high",
+      "reasons": [
+        "Yield đi ngang ở mức 3.49% (thấp hơn T-bill 0.83pt).",
+        "Dòng tiền on-chain biến động nhẹ với holders 7d +0.24% và TVL 7d -0.18%."
+      ]
+    },
+    {
+      "ticker": "eurSAFO",
+      "action": "BUY",
+      "confidence": "high",
+      "reasons": [
+        "Dẫn đầu nhóm EUR với yield 2.54% (30d +2.30%).",
+        "Tăng trưởng TVL bứt phá (+39.91% 30d) kèm dòng tiền tổ chức vào mạnh làm holders 7d +3.61% (+21.27% 30d)."
+      ]
+    },
+    {
+      "ticker": "EUTBL",
+      "action": "HOLD",
+      "confidence": "medium",
+      "reasons": [
+        "Yield 2.13% thấp hơn EUR leader 0.40pt dù yield 30d tăng +0.76%.",
+        "TVL 30d giảm -10.40% và supply 7d giảm -3.5% cho thấy dòng vốn đang rút bớt."
+      ]
+    },
+    {
+      "ticker": "EURC",
+      "action": "HOLD",
+      "confidence": "high",
+      "reasons": [
+        "Yield 0.00% (thiếu dữ liệu yield)."
+      ]
+    },
+    {
+      "ticker": "SAFO",
+      "action": "BUY",
+      "confidence": "high",
+      "reasons": [
+        "Yield ở mức cao 4.01% với xu hướng tăng tích cực (+0.84% 30d).",
+        "TVL tăng bền vững (+9.69% 30d, +24.26% 90d) cùng lượng holders 7d +1.83% (+14.73% 30d)."
+      ]
+    },
+    {
+      "ticker": "USTBL",
+      "action": "BUY",
+      "confidence": "high",
+      "reasons": [
+        "Yield top đầu phân khúc USD đạt 4.32% nhờ đà tăng 30d rất mạnh +43.60%.",
+        "Lượng holders tiếp tục mở rộng (+0.87% 7d, +4.39% 30d) dù TVL 30d giảm nhẹ -6.41%."
+      ]
+    },
+    {
+      "ticker": "NRW1",
+      "action": "HOLD",
+      "confidence": "high",
+      "reasons": [
+        "Yield 0.00% (thiếu dữ liệu yield)."
+      ]
+    },
+    {
+      "ticker": "UKTBL",
+      "action": "SELL",
+      "confidence": "high",
+      "reasons": [
+        "Yield giảm mạnh -12.81% trong 30d xuống còn 3.72%.",
+        "Dòng tiền thoát ra rõ rệt với TVL 30d -13.88% (90d -25.84%) và supply 7d giảm -4.7%."
+      ]
+    },
+    {
+      "ticker": "AAULF",
+      "action": "HOLD",
+      "confidence": "high",
+      "reasons": [
+        "Yield 0.00% (thiếu dữ liệu yield)."
+      ]
+    },
+    {
+      "ticker": "bC3M",
+      "action": "HOLD",
+      "confidence": "high",
+      "reasons": [
+        "Yield 0.00% (thiếu dữ liệu yield)."
+      ]
+    },
+    {
+      "ticker": "bIB01",
+      "action": "HOLD",
+      "confidence": "high",
+      "reasons": [
+        "Yield 0.00% (thiếu dữ liệu yield)."
+      ]
+    },
+    {
+      "ticker": "CETES",
+      "action": "BUY",
+      "confidence": "high",
+      "reasons": [
+        "Yield cao nhất toàn thị trường ở mức 4.60% (spread +0.28pt so với T-bill).",
+        "TVL 30d duy trì tăng trưởng +2.27% và lượng holders duy trì ổn định."
+      ]
+    },
+    {
+      "ticker": "EUROB",
+      "action": "SELL",
+      "confidence": "high",
+      "reasons": [
+        "Yield thấp nhất nhóm có sinh lời với 1.46% (thấp hơn EUR leader -1.08pt) và tiếp tục giảm -2.16% trong 30d.",
+        "Thiếu động lực dòng tiền với TVL 90d suy giảm -1.59%."
+      ]
+    }
+  ],
+  "news_used": [],
+  "flow_used": [
+    {
+      "ticker": "USYC",
+      "holders": 38,
+      "holders_7d_pct": -11.627906976744185,
+      "supply_7d_pct": -0.08981489594635131,
+      "tvl_7d_pct": -0.04623657345289549,
+      "direction": "outflow",
+      "note": "holders -11.6% (38) — có dấu hiệu rút"
+    },
+    {
+      "ticker": "BUIDL",
+      "holders": 114,
+      "holders_7d_pct": 0.8849557522123894,
+      "supply_7d_pct": 0.7314245972869078,
+      "tvl_7d_pct": 0.7314245972869078,
+      "direction": "flat",
+      "note": "holders ổn định (114)"
+    },
+    {
+      "ticker": "USDY",
+      "holders": 15582,
+      "holders_7d_pct": 0.24446731857951623,
+      "supply_7d_pct": -0.2285949409626076,
+      "tvl_7d_pct": -0.18090481194596267,
+      "direction": "flat",
+      "note": "holders ổn định (15582)"
+    },
+    {
+      "ticker": "eurSAFO",
+      "holders": 7496,
+      "holders_7d_pct": 3.607463718037319,
+      "supply_7d_pct": 4.4839124998518844,
+      "tvl_7d_pct": 5.111925525561977,
+      "direction": "inflow",
+      "note": "holders +3.6% (7496) — tổ chức đang vào"
+    },
+    {
+      "ticker": "EUTBL",
+      "holders": 3830,
+      "holders_7d_pct": 0.18310227569971227,
+      "supply_7d_pct": -3.539548012176115,
+      "tvl_7d_pct": -2.9649408938536115,
+      "direction": "flat",
+      "note": "holders ổn định (3830)"
+    },
+    {
+      "ticker": "EURC",
+      "holders": 131835,
+      "holders_7d_pct": 0.2707656736056709,
+      "supply_7d_pct": 2.5299674267466132,
+      "tvl_7d_pct": 3.110070825113707,
+      "direction": "flat",
+      "note": "holders ổn định (131835)"
+    },
+    {
+      "ticker": "SAFO",
+      "holders": 444,
+      "holders_7d_pct": 1.834862385321101,
+      "supply_7d_pct": 0.8503688438592009,
+      "tvl_7d_pct": 0.9060802568456143,
+      "direction": "inflow",
+      "note": "holders +1.8% (444) — tổ chức đang vào"
+    },
+    {
+      "ticker": "USTBL",
+      "holders": 927,
+      "holders_7d_pct": 0.8705114254624592,
+      "supply_7d_pct": -0.5363244017832138,
+      "tvl_7d_pct": -0.489749281619612,
+      "direction": "flat",
+      "note": "holders ổn định (927)"
+    },
+    {
+      "ticker": "NRW1",
+      "holders": 1,
+      "holders_7d_pct": 0,
+      "supply_7d_pct": 0,
+      "tvl_7d_pct": 0.5657891179781405,
+      "direction": "flat",
+      "note": "holders ổn định (1)"
+    },
+    {
+      "ticker": "UKTBL",
+      "holders": 439,
+      "holders_7d_pct": 0.6880733944954129,
+      "supply_7d_pct": -4.653014283996064,
+      "tvl_7d_pct": -4.0172151683025366,
+      "direction": "flat",
+      "note": "holders ổn định (439)"
+    },
+    {
+      "ticker": "AAULF",
+      "holders": 13,
+      "holders_7d_pct": 0,
+      "supply_7d_pct": 0,
+      "tvl_7d_pct": 0,
+      "direction": "flat",
+      "note": "holders ổn định (13)"
+    },
+    {
+      "ticker": "bC3M",
+      "holders": 3,
+      "holders_7d_pct": 0,
+      "supply_7d_pct": 0,
+      "tvl_7d_pct": 0.36111012017440747,
+      "direction": "flat",
+      "note": "holders ổn định (3)"
+    },
+    {
+      "ticker": "bIB01",
+      "holders": 83,
+      "holders_7d_pct": 0,
+      "supply_7d_pct": 0,
+      "tvl_7d_pct": 0,
+      "direction": "flat",
+      "note": "holders ổn định (83)"
+    },
+    {
+      "ticker": "CETES",
+      "holders": 5139,
+      "holders_7d_pct": -0.03890293717175647,
+      "supply_7d_pct": -0.0001075325072808994,
+      "tvl_7d_pct": 0.5716176806194808,
+      "direction": "flat",
+      "note": "holders ổn định (5139)"
+    },
+    {
+      "ticker": "EUROB",
+      "holders": 36,
+      "holders_7d_pct": 0,
+      "supply_7d_pct": 0,
+      "tvl_7d_pct": 0.0974260450956479,
+      "direction": "flat",
+      "note": "holders ổn định (36)"
+    }
+  ],
+  "macro_used": {
+    "fear_greed": {
+      "value": 25,
+      "label": "Extreme Fear"
+    },
+    "btc": {
+      "usd": 64627,
+      "chg_24h": 0.8143359728233095
+    },
+    "tbill_yield": 4.31625592642975,
+    "max_rwa_yield": 4.597661560750271,
+    "spread": 0.2814056343205209,
+    "risk_level": "risk_off",
+    "note": "Fear & Greed 25 (Extreme Fear); BTC $64627 (+0.81%); top RWA yield 4.60% vs T-bill ~4.32% → spread +0.28pt"
+  },
+  "signer": "0x02B027ecd3004Fbb579bD4c64B6e22Fff369F846",
+  "hash": "0x16c3a6cb478ebad5d85b3a47e90ce0732a47618748d1a00b69a683e41deed448",
+  "signature": "0x2736d8e799c5b391f36805548daa4217d748a1907fa48e384e1d9a3d92149ab92e10b62c9eb3a66cc0f3c1c32c0f180b69a8b52a6554c972183828b4a1bfc1781c"
+}

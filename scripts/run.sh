@@ -7,5 +7,6 @@ if bun run src/agent/guard.ts; then
   bun run src/agent/attest.ts
   bun run src/agent/publish.ts
 fi
+bun --env-file=.env.local run src/analyst/index.ts || echo "[$(date -Iseconds)] analyst FAILED" >> data/cron.log
 bun run src/posts.ts
 bun run src/visual.ts

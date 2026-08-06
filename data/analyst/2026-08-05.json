@@ -1,0 +1,321 @@
+{
+  "date": "2026-08-05",
+  "generated_at": "2026-08-06T01:34:56.646Z",
+  "market_view": "Thị trường RWA giữ chênh lệch yield dương +0.28pt so với T-bill (4.60% vs 4.32%), tuy nhiên tâm lý vĩ mô đang ở trạng thái Cực kỳ Sợ hãi (Fear & Greed 25) đòi hỏi chiến lược phân bổ thận trọng vào các quỹ có yield vượt trội hoặc dòng tiền tổ chức vào rõ ràng.",
+  "signals": [
+    {
+      "ticker": "USYC",
+      "action": "SELL",
+      "confidence": "high",
+      "reasons": [
+        "Số lượng holders giảm mạnh -11.6% (xuống 38 holders) và supply 7d giảm -0.1% cho thấy dòng tiền tổ chức rút ra",
+        "Yield 3.19% ở mức thấp trong nhóm USD money market",
+        "TVL 7d giảm -0.05% xuống $3004.1M"
+      ]
+    },
+    {
+      "ticker": "BUIDL",
+      "action": "HOLD",
+      "confidence": "high",
+      "reasons": [
+        "Dòng tiền ổn định với holders tăng +0.9% (114 holders) và supply 7d tăng +0.7%",
+        "TVL 7d tăng nhẹ +1.40% lên $2674.8M",
+        "Yield 3.38% ở mức trung bình, chưa đủ lực bứt phá trong bối cảnh vĩ mô Extreme Fear"
+      ]
+    },
+    {
+      "ticker": "USDY",
+      "action": "BUY",
+      "confidence": "medium",
+      "reasons": [
+        "Tin tức tích cực từ nhà phát hành Ondo Finance tuyển dụng cựu CFO Blockchain.com tăng cường năng lực quản trị",
+        "Yield 3.49% ổn định với TVL lớn $2122.9M",
+        "Dòng tiền giữ mức ổn định (holders 15582, +0.2% 7d)"
+      ]
+    },
+    {
+      "ticker": "eurSAFO",
+      "action": "BUY",
+      "confidence": "high",
+      "reasons": [
+        "Dòng tiền vào mạnh mẽ với holders 7d tăng +3.6% (7496 holders) và supply 7d tăng +4.5%",
+        "Yield 2.54% dẫn đầu nhóm quỹ đồng EUR (vượt xa EUTBL 2.13% và EUROB 1.46%)",
+        "TVL 7d tăng +3.09% lên $938.0M"
+      ]
+    },
+    {
+      "ticker": "EUTBL",
+      "action": "SELL",
+      "confidence": "medium",
+      "reasons": [
+        "Supply 7d giảm mạnh -3.5% cho thấy tín hiệu rút vốn",
+        "TVL 7d giảm -2.66% xuống $902.7M",
+        "Yield 2.13% kém hấp dẫn hơn eurSAFO (2.54%) trong cùng nhóm EUR"
+      ]
+    },
+    {
+      "ticker": "EURC",
+      "action": "HOLD",
+      "confidence": "high",
+      "reasons": [
+        "Yield 0.00% do đặc thù token",
+        "Dòng tiền và holders khá ổn định (holders +0.3% lên 131835, supply +2.5%)",
+        "TVL 7d tăng +0.92% lên $527.3M"
+      ]
+    },
+    {
+      "ticker": "SAFO",
+      "action": "BUY",
+      "confidence": "high",
+      "reasons": [
+        "Yield cao 4.01% thuộc nhóm dẫn đầu thị trường USD RWA",
+        "Dòng tiền tổ chức đi vào với holders 7d tăng +1.8% (444 holders) và supply +0.9%",
+        "TVL 7d tăng +0.66% lên $150.2M"
+      ]
+    },
+    {
+      "ticker": "USTBL",
+      "action": "HOLD",
+      "confidence": "high",
+      "reasons": [
+        "Yield ở mức cao 4.32%",
+        "Tuy nhiên TVL 7d giảm -1.06% ($144.7M) và supply 7d giảm nhẹ -0.5%",
+        "Cần theo dõi thêm biến động dòng tiền trước khi gia tăng vị thế"
+      ]
+    },
+    {
+      "ticker": "NRW1",
+      "action": "HOLD",
+      "confidence": "high",
+      "reasons": [
+        "Yield 0.00% và chỉ có 1 holder (không biến động 7d)",
+        "TVL $115.3M (+0.56% 7d)",
+        "Thiếu căn cứ giao dịch chủ động"
+      ]
+    },
+    {
+      "ticker": "UKTBL",
+      "action": "HOLD",
+      "confidence": "medium",
+      "reasons": [
+        "Yield 3.72% khá tốt nhưng supply 7d giảm -4.9%",
+        "TVL 7d giảm -0.40% xuống $18.6M",
+        "Holders giảm nhẹ -0.5% xuống 439"
+      ]
+    },
+    {
+      "ticker": "AAULF",
+      "action": "HOLD",
+      "confidence": "high",
+      "reasons": [
+        "Yield 0.00% và TVL 7d giảm -1.83% xuống $16.1M",
+        "Holders đi ngang ở mức 13",
+        "Không có động lực mua/bán rõ ràng"
+      ]
+    },
+    {
+      "ticker": "bC3M",
+      "action": "HOLD",
+      "confidence": "high",
+      "reasons": [
+        "Yield 0.00%, quy mô nhỏ $9.9M",
+        "Holders giữ nguyên ở mức 3, supply 7d không đổi 0.0%",
+        "Không đủ căn cứ để khuyến nghị BUY/SELL"
+      ]
+    },
+    {
+      "ticker": "bIB01",
+      "action": "HOLD",
+      "confidence": "high",
+      "reasons": [
+        "Yield 0.00%, quy mô $9.8M",
+        "Dòng tiền và holders đi ngang (83 holders, supply 0.0%)",
+        "Chờ đợi tín hiệu rõ hơn từ sản phẩm"
+      ]
+    },
+    {
+      "ticker": "CETES",
+      "action": "BUY",
+      "confidence": "high",
+      "reasons": [
+        "Yield cao nhất toàn thị trường RWA đạt 4.60%, tạo spread +0.28pt so với T-bill (4.32%)",
+        "TVL 7d tăng +1.09% lên $5.4M",
+        "Số lượng holders lớn 5138 giữ mức ổn định"
+      ]
+    },
+    {
+      "ticker": "EUROB",
+      "action": "HOLD",
+      "confidence": "high",
+      "reasons": [
+        "Yield thấp 1.46% so với các quỹ EUR khác",
+        "TVL và holders đi ngang (36 holders, supply 0.0%)",
+        "Chưa có dòng tiền đột biến để xem xét"
+      ]
+    }
+  ],
+  "news_used": [
+    {
+      "topic": "Issuer Expansion",
+      "fund": "USDY",
+      "direction": "positive",
+      "confidence": 2,
+      "reason": "Ondo Finance (nhà phát hành USDY) tuyển dụng cựu CFO từ Blockchain.com, giúp gia tăng năng lực quản trị tài chính và củng cố uy tín thu hút dòng tiền thể chế."
+    }
+  ],
+  "flow_used": [
+    {
+      "ticker": "USYC",
+      "holders": 38,
+      "holders_7d_pct": -11.627906976744185,
+      "supply_7d_pct": -0.08981489594636928,
+      "tvl_7d_pct": -0.04623657345287962,
+      "direction": "outflow",
+      "note": "holders -11.6% (38) — có dấu hiệu rút"
+    },
+    {
+      "ticker": "BUIDL",
+      "holders": 114,
+      "holders_7d_pct": 0.8849557522123894,
+      "supply_7d_pct": 0.7314245972869078,
+      "tvl_7d_pct": 0.7314245972869078,
+      "direction": "flat",
+      "note": "holders ổn định (114)"
+    },
+    {
+      "ticker": "USDY",
+      "holders": 15582,
+      "holders_7d_pct": 0.24446731857951623,
+      "supply_7d_pct": -0.22859494096260755,
+      "tvl_7d_pct": -0.18090481194597385,
+      "direction": "flat",
+      "note": "holders ổn định (15582)"
+    },
+    {
+      "ticker": "eurSAFO",
+      "holders": 7496,
+      "holders_7d_pct": 3.607463718037319,
+      "supply_7d_pct": 4.4839124998518685,
+      "tvl_7d_pct": 5.111925525561977,
+      "direction": "inflow",
+      "note": "holders +3.6% (7496) — tổ chức đang vào"
+    },
+    {
+      "ticker": "EUTBL",
+      "holders": 3830,
+      "holders_7d_pct": 0.18310227569971227,
+      "supply_7d_pct": -3.539548012176115,
+      "tvl_7d_pct": -2.9649408938536115,
+      "direction": "flat",
+      "note": "holders ổn định (3830)"
+    },
+    {
+      "ticker": "EURC",
+      "holders": 131835,
+      "holders_7d_pct": 0.2707656736056709,
+      "supply_7d_pct": 2.5299674267466403,
+      "tvl_7d_pct": 3.110070825113707,
+      "direction": "flat",
+      "note": "holders ổn định (131835)"
+    },
+    {
+      "ticker": "SAFO",
+      "holders": 444,
+      "holders_7d_pct": 1.834862385321101,
+      "supply_7d_pct": 0.8503688438592011,
+      "tvl_7d_pct": 0.9060802568456342,
+      "direction": "inflow",
+      "note": "holders +1.8% (444) — tổ chức đang vào"
+    },
+    {
+      "ticker": "USTBL",
+      "holders": 927,
+      "holders_7d_pct": 0.8705114254624592,
+      "supply_7d_pct": -0.5363244017832138,
+      "tvl_7d_pct": -0.4897492816196324,
+      "direction": "flat",
+      "note": "holders ổn định (927)"
+    },
+    {
+      "ticker": "NRW1",
+      "holders": 1,
+      "holders_7d_pct": 0,
+      "supply_7d_pct": 0,
+      "tvl_7d_pct": 0.5578091537554933,
+      "direction": "flat",
+      "note": "holders ổn định (1)"
+    },
+    {
+      "ticker": "UKTBL",
+      "holders": 439,
+      "holders_7d_pct": -0.45351473922902497,
+      "supply_7d_pct": -4.941519227348872,
+      "tvl_7d_pct": -4.298965757271154,
+      "direction": "flat",
+      "note": "holders ổn định (439)"
+    },
+    {
+      "ticker": "AAULF",
+      "holders": 13,
+      "holders_7d_pct": 0,
+      "supply_7d_pct": -1.8310809294168593,
+      "tvl_7d_pct": -1.8310809294168593,
+      "direction": "flat",
+      "note": "holders ổn định (13)"
+    },
+    {
+      "ticker": "bC3M",
+      "holders": 3,
+      "holders_7d_pct": 0,
+      "supply_7d_pct": 0,
+      "tvl_7d_pct": 1.0730885502314764,
+      "direction": "flat",
+      "note": "holders ổn định (3)"
+    },
+    {
+      "ticker": "bIB01",
+      "holders": 83,
+      "holders_7d_pct": 0,
+      "supply_7d_pct": 0,
+      "tvl_7d_pct": 0,
+      "direction": "flat",
+      "note": "holders ổn định (83)"
+    },
+    {
+      "ticker": "CETES",
+      "holders": 5139,
+      "holders_7d_pct": -0.03890293717175647,
+      "supply_7d_pct": -0.00010753250729972576,
+      "tvl_7d_pct": 0.5716176806194634,
+      "direction": "flat",
+      "note": "holders ổn định (5139)"
+    },
+    {
+      "ticker": "EUROB",
+      "holders": 36,
+      "holders_7d_pct": 0,
+      "supply_7d_pct": 0,
+      "tvl_7d_pct": 0.58228032385792,
+      "direction": "flat",
+      "note": "holders ổn định (36)"
+    }
+  ],
+  "macro_used": {
+    "fear_greed": {
+      "value": 25,
+      "label": "Extreme Fear"
+    },
+    "btc": {
+      "usd": 64451,
+      "chg_24h": 0.5153016257913694
+    },
+    "tbill_yield": 4.31625592642975,
+    "max_rwa_yield": 4.597661560750271,
+    "spread": 0.2814056343205209,
+    "risk_level": "risk_off",
+    "note": "Fear & Greed 25 (Extreme Fear); BTC $64451 (+0.52%); top RWA yield 4.60% vs T-bill ~4.32% → spread +0.28pt"
+  },
+  "signer": "0x02B027ecd3004Fbb579bD4c64B6e22Fff369F846",
+  "hash": "0xb968abf35445b4c3c46a6b4e21b25b851b3d0139bdb6029d304a6c030604230b",
+  "signature": "0x68fa362590278441cda23b0bc0e49dedf645b972976a5ec535596708e19e610048ea1102c72e4b3cb780b8cba0985d3d435a20350b5ea5f4a17260c608458f7d1b"
+}

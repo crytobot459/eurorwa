@@ -23,8 +23,10 @@ interface Metric {
   val?: number | null
   val_7d?: number | null
   val_30d?: number | null
+  val_90d?: number | null
   chg_7d_pct?: number | null
   chg_30d_pct?: number | null
+  chg_90d_pct?: number | null
 }
 
 interface Token {
@@ -56,13 +58,23 @@ interface Fund {
   tvl: number
   tvl_7d: number
   chg_7d_pct: number
+  chg_30d_pct: number
+  chg_90d_pct: number
   yield: number
+  yield_30d: number
+  yield_chg_30d_pct: number
+  yield_chg_90d_pct: number
   holders: number
+  holders_7d_pct: number
+  holders_30d_pct: number
   supply: number
   networks: string[]
 }
 
-const pickNum = (m: Metric | undefined, k: "val" | "val_7d" | "chg_7d_pct") => m?.[k] ?? null
+const pickNum = (
+  m: Metric | undefined,
+  k: "val" | "val_7d" | "val_30d" | "chg_7d_pct" | "chg_30d_pct" | "chg_90d_pct",
+) => m?.[k] ?? null
 
 async function getAsset(ticker: string): Promise<Asset | null> {
   const res = await fetch(`https://app.rwa.xyz/assets/${ticker}`, {
@@ -89,8 +101,15 @@ function norm(a: Asset): Fund {
     tvl: pickNum(tvl, "val") ?? 0,
     tvl_7d: pickNum(tvl, "val_7d") ?? 0,
     chg_7d_pct: pickNum(tvl, "chg_7d_pct") ?? 0,
+    chg_30d_pct: pickNum(tvl, "chg_30d_pct") ?? 0,
+    chg_90d_pct: pickNum(tvl, "chg_90d_pct") ?? 0,
     yield: pickNum(yld, "val") ?? 0,
+    yield_30d: pickNum(yld, "val_30d") ?? 0,
+    yield_chg_30d_pct: pickNum(yld, "chg_30d_pct") ?? 0,
+    yield_chg_90d_pct: pickNum(yld, "chg_90d_pct") ?? 0,
     holders: pickNum(hold, "val") ?? 0,
+    holders_7d_pct: pickNum(hold, "chg_7d_pct") ?? 0,
+    holders_30d_pct: pickNum(hold, "chg_30d_pct") ?? 0,
     supply: pickNum(sup, "val") ?? 0,
     networks: (a.tokens ?? []).map((t) => t.network_name ?? "").filter(Boolean),
   }
@@ -135,8 +154,15 @@ function mock(): Fund[] {
     tvl,
     tvl_7d: tvl / (1 + chg / 100),
     chg_7d_pct: chg,
+    chg_30d_pct: 0,
+    chg_90d_pct: 0,
     yield: yld,
+    yield_30d: yld,
+    yield_chg_30d_pct: 0,
+    yield_chg_90d_pct: 0,
     holders: 0,
+    holders_7d_pct: 0,
+    holders_30d_pct: 0,
     supply,
     networks: [],
   }))
