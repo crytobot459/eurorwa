@@ -218,6 +218,9 @@ export default function App() {
               {t}
             </button>
           ))}
+          <a className="tg" href="https://t.me/EuroRWA_Data_bot" target="_blank" rel="noreferrer">
+            💬 Telegram
+          </a>
         </div>
       </header>
 

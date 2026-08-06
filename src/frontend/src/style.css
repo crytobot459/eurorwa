@@ -68,8 +68,23 @@ header p {
 .tabs button.active {
   background: var(--blue);
   border-color: var(--blue);
-  color: #0f172a;
+  color: #fff;
+}
+
+.tabs a.tg {
+  background: linear-gradient(90deg, #34d399, #22d3ee);
+  color: #0b1220;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 6px 14px;
+  text-decoration: none;
   font-weight: 600;
+  margin-left: auto;
+  transition: opacity 0.15s ease;
+}
+
+.tabs a.tg:hover {
+  opacity: 0.85;
 }
 
 table {

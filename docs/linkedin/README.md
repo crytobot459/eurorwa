@@ -20,6 +20,24 @@
 
 ---
 
+## 0.7. TELEGRAM CHO KHÁCH ✅
+
+2 bot Telegram (đã có sẵn):
+
+- **@EuroRWA_Data_bot** — bot dữ liệu công khai (khách hỏi số liệu, xem dashboard)
+- **@EuroRWA_Build_2026_bot** — bot nhận task/thuê build (khách báo giá, trả USDT 100% trước)
+
+**Trên LinkedIn — thêm vào Contact info → Websites:**
+
+- Website 1 (Portfolio): `https://rwa-dashboard-gamma.vercel.app`
+- Website 2 (Telegram): `https://t.me/EuroRWA_Build_2026_bot` (khách bấm → vào bot nhận task)
+
+**Trên dashboard web:** đã thêm nút **💬 Telegram** ở header → mở @EuroRWA_Data_bot (đã deploy).
+
+> ⚠️ **Lưu ý:** message chào của bot nhận task (freelance-core.js) hiện **bằng tiếng Việt** — khách quốc tế từ LinkedIn sẽ không hiểu. Cần thêm bản **tiếng Anh** (hoặc chọn ngôn ngữ theo chat language) trước khi đăng bài thu hút khách quốc tế.
+
+---
+
 ## 0.6. ĐÁNH GIÁ HỒ SƠ — HỌC TỪ NGƯỜI GIỎI 🎯
 
 > Kiểm tra 2026-08-06: bộ nội dung mới đang được áp dụng từng bước (ảnh + headline đã làm). Lưu ý: LinkedIn chặn bot nên tôi **không xem được hồ sơ live** — search engine vẫn còn cache headline cũ _"Machine Learning Engineer | Algorithmic Trading | Rust, Python"_. Sau khi sửa, kiểm tra trên chính tài khoản của bạn (chưa vào thì chưa lưu).

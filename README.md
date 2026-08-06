@@ -74,4 +74,9 @@ Verifies the payload hash matches the published keccak-256 and that the recovere
 
 ---
 
+## Contact
+
+- Telegram data bot: https://t.me/EuroRWA_Data_bot
+- Telegram build bot (commissions): https://t.me/EuroRWA_Build_2026_bot
+
 MIT © 2026 — data sourced from rwa.xyz public APIs. Not financial advice.
