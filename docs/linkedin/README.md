@@ -6,6 +6,75 @@
 
 ---
 
+## 0.5. LOGO ĐỂ ĐÂU? ✅
+
+`logo.png` **KHÔNG dùng cho LinkedIn** (LinkedIn đã có avatar + banner). Logo dùng ở nơi khác:
+
+- GitHub repo `eurorwa` → README header
+- Website dashboard → footer / header
+- Telegram bot → ảnh đại diện bot, mô tả
+- Bài viết / bản tin / slides / chữ ký email
+- Trang docs, vercel.json branding
+
+> Đã sửa: trước đây logo nền trong suốt nhưng chữ trắng → mất chữ trên nền sáng. Giờ có thẻ nền tối (card) → dùng được trên nền trắng lẫn tối.
+
+---
+
+## 0.6. ĐÁNH GIÁ HỒ SƠ — HỌC TỪ NGƯỜI GIỎI 🎯
+
+> Kiểm tra 2026-08-06: headline hiện tại trên LinkedIn **vẫn là** _"Machine Learning Engineer | Algorithmic Trading | Rust, Python"_ + bài đăng cảm xúc (mùa thu Hà Nội) → **CHƯA áp dụng bộ nội dung mới**. Làm theo checklist dưới đây.
+
+Chuẩn rút ra từ hồ sơ các dev RWA/DeFi được săn đón (moazam abbasi, almardan isaev, devang patel của RWA.xyz):
+
+### Headline — nhét từ khoá, tối đa 220 ký tự
+
+```
+Bot Developer | On-chain RWA & DeFi data pipelines | AI agents + Telegram automation for tokenized money market funds
+```
+
+(Thêm "DeFi", "AI agents" để tăng từ khoá tìm kiếm so với bản cũ.)
+
+### About — câu mở đầu phải "hook" (chỉ ~3 dòng hiển thị trước "see more")
+
+Đổi dòng đầu tiên thành:
+
+```
+I build small automated systems that turn public data into products people can verify — every number hashed & signed on-chain.
+```
+
+Rồi mới tiếp đoạn "Currently building EuroRWA..." như cũ. Cuối About thêm CTA rõ:
+
+```
+Open to work on RWA / tokenization data, DeFi analytics, and automation projects. DM me or email...
+```
+
+### Featured (mục nổi bật) — THÊM ngay, rất quan trọng
+
+Đưa 3 thứ lên Featured để hồ sơ "sống":
+
+1. Link dashboard: https://rwa-dashboard-gamma.vercel.app
+2. Link GitHub: https://github.com/crytobot459/eurorwa
+3. Ảnh `visual.png` hoặc link NFT trên Etherscan (minh chứng on-chain)
+
+### Kỹ năng (Skills) — thêm từ khoá để được tìm thấy
+
+`RWA · Tokenization · On-chain Data · DeFi · Telegram Bot · AI Agents · Data Pipeline · TypeScript · Bun · SQLite · Viem · Google Gemini · Solidity · Ethereum · Sepolia · Web3 · Automation`
+
+### Kinh nghiệm — bullet có SỐ đo
+
+Bản hiện tại đã khá tốt; thêm số: "15 funds · 12h cadence · 30/90-day flows", "every snapshot keccak-256 signed on Sepolia".
+
+### Việc cần làm trên LinkedIn (thủ công)
+
+1. Đổi headline (dán ở trên).
+2. Dán lại About mới (hook + CTA).
+3. Thêm 3 mục Featured.
+4. Xoá/ẩn bài đăng cũ kiểu cảm xúc, hoặc ghim bài RWA.
+5. Bật "Open to work" + điền location (Ho Chi Minh City).
+6. Đăng 1 bài mới kèm `visual.png` (mục 5) — đăng xong ghi link vào PROGRESS.md.
+
+---
+
 ## 1. CÁC BƯỚC ÁP DỤNG (2-3 phút, làm bằng tay)
 
 1. **Ảnh đại diện:** vào hồ sơ → ✏️ → Ảnh → Tải lên → chọn `avatar.png` (logo trừu tượng, không mặt).
@@ -38,7 +107,7 @@
 ## 2. HEADLINE (dán thẳng)
 
 ```
-Bot Developer | On-chain RWA data pipelines | Telegram automation for tokenized money market funds
+Bot Developer | On-chain RWA & DeFi data pipelines | AI agents + Telegram automation for tokenized money market funds
 ```
 
 ---
@@ -46,7 +115,7 @@ Bot Developer | On-chain RWA data pipelines | Telegram automation for tokenized 
 ## 3. GIỚI THIỆU (About)
 
 ```
-I build small automated systems that turn public data into products people can verify.
+I build small automated systems that turn public data into products people can verify — every number hashed & signed on-chain.
 
 Currently building EuroRWA — an AI agent pipeline that snapshots 15 EU + US tokenized money market funds (USYC, BUIDL, USDY, eurSAFO, EUTBL…) every 12 hours, computes TVL / APY / 7-day flows, hashes and signs each snapshot on Sepolia, and drafts the daily report. Every number is on-chain verifiable — no "trust me" dashboards.
 
@@ -57,7 +126,7 @@ What I care about:
 • Automating workflows until they run unattended
 • Small, reliable systems over big ones
 
-Open to work on RWA / tokenization data, DeFi analytics, and automation projects.
+Open to work on RWA / tokenization data, DeFi analytics, and automation projects. DM me here or email me to chat.
 ```
 
 ---

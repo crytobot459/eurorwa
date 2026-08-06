@@ -88,14 +88,14 @@ body{width:1584px;height:396px;background:linear-gradient(120deg,#0b1220 0%,#0e1
 const logoHtml = `<!DOCTYPE html>
 <html><head><meta charset="utf-8"><style>
 *{margin:0;box-sizing:border-box}
-body{background:transparent;width:900px;height:280px;font-family:"Segoe UI",Arial,sans-serif;color:#e2e8f0;-webkit-font-smoothing:antialiased;overflow:hidden}
-.wrap{width:900px;height:280px;display:flex;align-items:center;gap:36px;padding:0 8px}
-.mark{width:168px;height:168px;border-radius:36px;background:linear-gradient(160deg,#16314d,#0e1a2f);border:1px solid rgba(148,163,184,.3);display:flex;align-items:center;justify-content:center;box-shadow:0 0 60px rgba(34,211,238,.2)}
+body{background:transparent;width:900px;height:280px;font-family:"Segoe UI",Arial,sans-serif;color:#e2e8f0;-webkit-font-smoothing:antialiased;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.card{display:flex;align-items:center;gap:36px;padding:44px 56px;border-radius:48px;background:linear-gradient(160deg,#16314d,#0b1220);border:1px solid rgba(148,163,184,.28);box-shadow:0 0 60px rgba(34,211,238,.14), inset 0 0 40px rgba(52,211,153,.05)}
+.mark{width:168px;height:168px;border-radius:36px;background:linear-gradient(160deg,#13263f,#0e1a2f);border:1px solid rgba(148,163,184,.3);display:flex;align-items:center;justify-content:center}
 .mark svg{width:132px;height:132px}
 .word .name{font-size:72px;font-weight:800;letter-spacing:1px;color:#fff;line-height:1}
 .word .acc{background:linear-gradient(90deg,#34d399,#22d3ee);-webkit-background-clip:text;background-clip:text;color:transparent}
 .word .tag{font-size:17px;color:#7b8ba0;letter-spacing:3px;margin-top:14px}
-</style></head><body><div class="wrap">
+</style></head><body><div class="card">
   <div class="mark">${networkSvg()}</div>
   <div class="word">
     <div class="name">Euro<span class="acc">RWA</span></div>
