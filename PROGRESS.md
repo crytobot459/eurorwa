@@ -2,7 +2,30 @@
 
 > Cập nhật sau mỗi phiên opencode. Xem `ROADMAP.md` để biết chi tiết từng phase.
 
-## Phiên gần nhất: 2026-08-06 (phiên 10)
+## Phiên gần nhất: 2026-08-06 (phiên 11)
+
+**Việc đã làm — SETTLEMENT QUA CDP FACILITATOR + SẴN SÀNG INDEX BAZAAR:**
+
+- **Đã deploy 2 commit trước**: `7eb1b06` (x402 + analytics + alerts) + `8cff89e` (rename helper `_`-prefix) → repo `crytobot459/eurorwa` nhánh `main`. Vercel production `https://rwa-dashboard-gamma.vercel.app`, env `X402_PAYTO` + `X402_SKIP_BALANCE=1`. Verify thật: `/api/analytics` 200, `/api/alerts` 200, `POST /api/analyst` no-pay → 402, `.well-known/*` 200, `/api/app` `/api/x402` → 404 (đúng). E2E x402 production: payment hợp lệ → 200 + `PAYMENT-RESPONSE` deferred.
+- **CDP validate production → `valid:true`, `simulation:accepted`** (chỉ advisory: thiếu output example — đã bổ sung).
+- **Research registry + KYC (đã xong)**:
+  - **Agentic.Market + Bazaar: KHÔNG KYC, KHÔNG đăng ký tay** — tự-index khi 1 payment thật settle qua CDP facilitator (`api.cdp.coinbase.com/platform/v2/x402`), 15–30 phút sau xuất hiện trong `/v2/x402/discovery/resources?payTo=...`. Discovery API **public** (search/resources/merchant).
+  - **CDP `/verify` + `/settle` yêu cầu JWT** (Secret API Key miễn phí tại portal.cdp.coinbase.com/api-keys/secret) — xác nhận bằng test thực tế: 401 khi không auth.
+  - **MCP Registry + agenticmarket.dev cần MCP server thật** (chưa có) — defer. **Base builder-code** miễn phí: đã đăng ký `bc_q4sqsqpy` cho wallet `0x02B027…F846`.
+  - **Điều kiện indexing đã rõ**: (1) 402 kèm bazaar extension hợp lệ; (2) `paymentPayload.resource` PHẢI có (CDP yêu cầu, kể cả spec không bắt buộc); (3) extension phải echo trong payload settle; (4) **bắt buộc v2** (extensions không hỗ trợ trên v1); (5) **KHÔNG được có field `discoverable`** — CDP maintainer xác nhận gây failed discovery; (6) payer ≠ payTo (tránh `self_send_not_allowed`).
+- **Code `api/_x402.js`**:
+  - **Bazaar extension fix**: bỏ `discoverable:true`, thêm `output.example` (report mẫu thật) → export `bazaarExtension()`.
+  - **CDP facilitator settlement**: `cdpJwt()` (Ed25519 mặc định / ES256 fallback, header `{alg,kid,nonce}`, claims `{sub,iss:"cdp",aud:["cdp_service"],nbf,exp,uri:"POST api.cdp.coinbase.com/platform/v2/x402/settle"}`, sign bằng Node `crypto` — không thêm dep); `facilitatorSettleBody()` (v2: `paymentPayload{resource,accepted,payload,extensions.bazaar}` + `paymentRequirements`); `facilitatorSettle()` POST `/settle` kèm `Authorization: Bearer <jwt>`, parse header `EXTENSION-RESPONSES` → `{bazaar:{status}}`.
+  - `settlePayment` chain: có CDP creds → CDP settle (fallback local nếu lỗi transport) → không → local (`X402_KEY`) → không → `deferred`. `_app.js` truyền `resource` vào settle.
+- **`.env.example`**: thêm `CDP_API_KEY_ID` / `CDP_API_KEY_SECRET` (miễn phí, kèm link portal).
+- **`scripts/cdp-auth-check.js`**: smoke-test JWT — gọi `/verify` body rác, mong đợi 400 thay vì 401 (auth OK).
+- **Tests**: x402-test **30 checks** (bazaar extension không `discoverable` + có output.example; JWT phát hành/claims/verify chữ ký; settle body v2 đúng shape), axis-test 21, typecheck sạch.
+
+**Còn lại:** (1) tạo **CDP Secret API Key miễn phí** portal.cdp.coinbase.com/api-keys/secret → set `CDP_API_KEY_ID`/`CDP_API_KEY_SECRET` trên Vercel; (2) `scripts/cdp-auth-check.js` + tự-settle 1 lần Base Sepolia (faucet ETH quicknode.com/base/sepolia + USDC faucet.circle.com cho 1 ví buyer tách biệt, payer ≠ payTo); (3) verify `GET /v2/x402/discovery/resources?payTo=0x02B027…F846` + header `EXTENSION-RESPONSES`; (4) optional mainnet (`X402_NETWORK=8453`) cho doanh thu thật.
+
+**Trạng thái phase:** P1-P6 + x402 + analytics + alerts xong, deployed. Chờ CDP API key để settle thật + index Bazaar.
+
+## Phiên 10: 2026-08-06
 
 **Việc đã làm — MONETIZE + KHÁC BIỆT SẢN PHẨM (x402 + Axis B + Axis C):**
 

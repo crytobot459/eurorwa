@@ -216,6 +216,6 @@ app.post("/analyst", async (c) => {
   if (!raw) return paymentRequired(c, resource)
   const v = await verifyPayment(raw)
   if (!v.ok) return paymentRequired(c, resource, v.reason)
-  const settlement = await settlePayment(v.payload)
+  const settlement = await settlePayment(v.payload, resource)
   return c.json(rep, 200, { "PAYMENT-RESPONSE": paymentResponseHeader(settlement) })
 })
