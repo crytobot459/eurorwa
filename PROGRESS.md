@@ -26,7 +26,29 @@
 - **Đã commit + deploy**: `d5bb7a4` (CDP facilitator settlement) + `b3cd003` (report quality) → production OK (no-pay 402, x402 manifest live).
 - **Report quality fix (deployed)**: yield hiển thị **"n/a"** thay vì "0.00%" cho quỹ thiếu dữ liệu (EURC, NRW1, AAULF, bC3M, bIB01 — cả prompt LLM + reason fallback); lọc symbol crypto không-ASCII (币安人生) trong movers/trending → report đã regenerate + attest on-chain mới (`2026-08-06-analyst-4`, tx `0x025070…a7`).
 
-**Trạng thái phase:** P1-P6 + x402 + analytics + alerts xong, deployed. Chờ user tạo **CDP Secret API Key** (portal.cdp.coinbase.com/api-keys/secret) để settle thật + index Bazaar.
+## Phiên 12: 2026-08-06
+
+**Việc đã làm — CDP KEY + FAUCET + PHÁT HIỆN SAI LỆCH EIP-712 DOMAIN (chặn settle testnet):**
+
+- **CDP Secret API Key đã tạo + set env**: `CDP_API_KEY_ID` + `CDP_API_KEY_SECRET` (Sensitive/Production) trên Vercel bằng `vercel env add --sensitive --value` (CLI v58 — KHÔNG dùng positional value vì bị parse thành gitBranch; hoặc `--value` flag). Đã redeploy.
+- **Smoke-test JWT `scripts/cdp-auth-check.js` → AUTH OK** (400 schema reject thay vì 401).
+- **CDP Faucet programmatic hoạt động**: `POST https://api.cdp.coinbase.com/platform/v2/evm/faucet` (JWT như x402) — 1 USDC + 0.0001 ETH/request trên Base Sepolia, không captcha. Đã dùng để fund ví buyer testnet.
+- **Phát hiện CRITICAL — Base Sepolia USDC dùng EIP-712 domain name "USDC" (không phải "USD Coin")**:
+  - Test thật: signature domain "USD Coin" → verify off-chain OK nhưng `transferWithAuthorization` revert on-chain "FiatTokenV2: invalid signature".
+  - Đọc `DOMAIN_SEPARATOR()` on-chain + so sánh: khớp name="USDC" (không khớp "USD Coin"). Mainnet Base USDC (0x8335…) vẫn dùng "USD Coin". Xác nhận bởi x402-foundation constants + docs Solvela/Polyrank + docs Circle (Eco gasless).
+  - **Đã fix `api/_x402.js`**: `EIP712_NAME = NETWORK === "84532" ? "USDC" : "USD Coin"` (cả `typedData()` + `requirements().extra`). Local `estimateContractGas` sau fix: OK (102296 gas).
+- **NHƯNG CDP facilitator testnet vẫn vô phương**: CDP `/settle` hardcode "USD Coin" khi validate → (a) signature "USD Coin" → CDP accept nhưng broadcast revert → "unable to estimate gas"; (b) signature "USDC" → CDP reject "invalid signature". ⇒ **Testnet CDP settle không thể thành công.**
+- **Hướng đi: Base MAINNET** (CDP + on-chain đều "USD Coin"). Đã tạo ví buyer mainnet `data/buyer-8453.key` (gitignored) = **`0x03fa9Cd74bE76C815DCaf079A31ed745028585c4`** — **chờ user fund ~$0.05 USDC + chút ETH**.
+- `scripts/self-settle.js` đã refactor **network-aware**: import `NETWORK/CHAIN_ID/ASSET/AMOUNT/requirements/typedData` từ `_x402.js`, key file theo network (`buyer-<NETWORK>.key`), auto-faucet chỉ khi testnet, dùng `requirements(PAYTO)` cho accepted. `scripts/_sim-twa.mjs` (debug simulate transfer) đã commit.
+
+**Còn lại (khi user fund xong ví mainnet):**
+
+1. `vercel env add X402_NETWORK production --value 8453` (+ cân nhắc bỏ `X402_SKIP_BALANCE` cho doanh thu thật; giữ `=1` cho self-settle) → deploy.
+2. `X402_NETWORK=8453 SELF_SETTLE_PAYTO=0x02B027…F846 CDP_*… bun scripts/self-settle.js` → mong đợi `EXTENSION-RESPONSES` bazaar status success/processing.
+3. Sau 15–30 phút check `GET https://api.cdp.coinbase.com/platform/v2/x402/discovery/resources?payTo=0x02B027…F846` + Agentic.Market search.
+4. Nếu CDP mainnet settle lỗi gas → cần thêm ETH ví buyer (CDP relay có thể không sponsor gas).
+
+**Trạng thái phase:** P1-P6 + x402 + analytics + alerts xong, deployed. Chờ fund ví buyer mainnet `0x03fa9C…585c4` để settle thật + index Bazaar.
 
 ## Phiên 10: 2026-08-06
 
