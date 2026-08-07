@@ -101,3 +101,41 @@ Does your company need this kind of data?
 - 1 insight per week — traffic/reputation is the main asset
 - Don't race rwa.xyz — only do the EU angle + attestation + portfolio + alerts
 - Ask 10 people before building new features
+
+## 7. NEW (2026-08-07): How others actually make money — market data
+
+Sources: CoinShares/Token Terminal Q2/26, Binance Research, RWA.xyz, RelayPlane, Cloudflare, Circle, CoinDesk. Summarized below.
+
+### 7.1 The macro: RWA is the only growing corner of crypto
+
+- **RWA deposits tripled to $7.4B in Q2/26** while total DeFi deposits fell ~15% (CoinShares/Token Terminal). Demand driven by real use cases, not market conditions.
+- Tokenized asset market **$43B+** (Token Terminal, wider definition) / **$33B** (RWA.xyz) — 37% growth in 6 months. Funds = ~80% of it.
+- RWA spot trading **+220% YoY** while overall DEX volume fell ~70% — tokenized assets are becoming _tradable_, not just held.
+- **RWA perpetuals exploded**: $347B volume in May (1,472x from start of 2025), $4.5B daily OI, RWA perps = **31% of onchain perp volume** (was 1.3% at start of year). 24/7 markets beat TradFi futures for reacting to events (Iran conflict showed on Hyperliquid before CME reopened). Pre-IPO markets = new retail access.
+- **Tokenized stocks doubled** ($951M Mar → $1.89B Jul): SECZ, FGRS, STRCx drove half the growth; Ondo + xStocks = 72.7% of distributed value. Caveat: most tokenized equities lack real legal rights (90%).
+- Tokenized gold ($6B+) + yield-bearing stablecoins (Sky sUSDS, Ethena sUSDe) drive DEX RWA volume.
+- DTCC tokenization service commercial rollout, Nasdaq same-CUSIP settlement, Standard Chartered initiates Uniswap coverage (UNI 40x by 2030 thesis, DeFi $2.7T).
+
+**Implication for EuroRWA**: the story is shifting from "Treasury/MMF tokenization" to **"RWAs as tradeable, leveraged, perp-able assets."** The MMF-yield angle we track is the stable, collateral-grade slice. Reference the perps/stock boom in posts to ride the narrative.
+
+### 7.2 The x402/agent-payment opportunity (numbers that matter)
+
+- x402 protocol processed **172,270 tx/day ≈ $62,990/day** on 2026-03-11 (~$23M/yr run rate). 7x volume growth in 5 months.
+- **Supply-demand gap: 477 sellers vs 4,400 buyers.** Demand is ~9x supply — a builder gap waiting to be filled.
+- **76% of x402 services price at $0.10 or below** → our $0.05 `/api/analyst` price is in the volume sweet spot.
+- **Virtuals Protocol ACP** (`acp-x402.virtuals.io`): 54,910 tx in 24h = $34,810/day, **only 2 sellers serving 3,700 buyers** — extreme demand concentration, seller side nearly empty. Register there.
+- **LLM-proxy model** (blockrun.ai): accept USDC via x402, forward to GPT/Claude/Gemini, +5% margin. 6,770 tx/day, ~$25K/month. Buyers avoid managing 11 provider API keys.
+- **MCP monetization**: `mcp-x402.vishwanetwork.xyz` = 18,670 tx/day at $0.01. Per-tool pricing inside MCP tool calls.
+- **Data-wrapper model**: wrap free source (CoinGecko, Yahoo, scraping), charge $0.01–$0.25/call → $1,500–2,400/month at 1k req/day, ~$15/month infra. One dev built 3 APIs / 22 paid endpoints in days.
+- **Cloudflare Monetization Gateway** (announced 2026-07-01): charge for pages/datasets/APIs/MCP tools via x402, waitlist open — **join the waitlist now, first-mover positioning**. Cloudflare Wallets (2026-08-04): programmable agent wallets, payments "coming soon" — design for it.
+- **Circle Agent Stack**: Agent Wallets + Agent Marketplace (`agents.circle.com/services`) + Gateway nanopayments ($0.000001 min). Seller flow live on Arc Testnet.
+- **DeFi yield on idle USDC**: Morpho Base vaults 4.5–7% APY — sweep revenue into yield instead of leaving it idle.
+
+### 7.3 Concrete next actions for EuroRWA (ranked by effort vs. payoff)
+
+1. **Register on Circle Agent Marketplace** (agents.circle.com/services) — discovery where Circle's agent-wallet buyers already shop. Free, no mainnet settlement required for listing.
+2. **Join Cloudflare Monetization Gateway waitlist** — be early; it directly monetizes the exact MCP/API shape we already ship.
+3. **Virtuals ACP registration** — 2 sellers / 3,700 buyers is the most under-served demand pool in the ecosystem.
+4. **Add a paid MCP tool** (price per tool call ~$0.01–0.05) — MCP monetization already does 18k tx/day; we have `/mcp` infra.
+5. **Ride the RWA-perps narrative in posts** — tag the $347B volume stat, Hyperliquid/tradeXYZ, pre-IPO markets to stay on-trend, while keeping our verifiable-MMF-data differentiation.
+6. Keep testnet for now (per user decision) — mainnet switch unlocks x402scan + CDP Bazaar; the demand data above strengthens the case to fund mainnet wallets when ready.

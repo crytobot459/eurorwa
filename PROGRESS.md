@@ -2,6 +2,25 @@
 
 > Updated after each opencode session. See `ROADMAP.md` for phase details.
 
+## Most recent session: 2026-08-07 (session 20) — 402 INDEX VERIFIED + POST PUBLISHED + NEWS SCAN
+
+**What was done:**
+
+- **402 Index DOMAIN VERIFIED ✅** — created `src/frontend/public/.well-known/402index-verify.txt` (hash `ab79a0d3…5681abe`), deployed, `POST /api/v1/claim/verify` → `{"status":"verified","services_count":1,"retroactively_approved":1}`. Listing `cd0f890e-…` page now shows **verified** — no manual review wait.
+- **Repo committed** (2 commits: translation+analytics+registration, then post/progress docs).
+- **LinkedIn post PUBLISHED** (user posted manually): https://www.linkedin.com/posts/canh-pham-bot-dev_rwa-tokenization-buildinginpublic-share-7491303078453727232-VTx_ — uses #BuildingInPublic (08-06 version). A fresh yield-rotation version is ready in `docs/posts/2026-08-07/ready.md`.
+- **News scan (2026-08-07)** — see `docs/research-monetization.md` §7. Key numbers: RWA deposits tripled to $7.4B Q2/26 (DeFi -15%); tokenized market $43B; RWA perps $347B/mo (31% of onchain perp volume); x402 = 172k tx/day, **477 sellers vs 4,400 buyers**; Virtuals ACP = 2 sellers / 3,700 buyers; Cloudflare Monetization Gateway (waitlist open) + Cloudflare Wallets; Circle Agent Marketplace live. Our $0.05 price is in the 76% sweet spot (≤$0.10).
+
+**Next (ranked):**
+
+1. Register on **Circle Agent Marketplace** (agents.circle.com/services) — free, no mainnet needed.
+2. Join **Cloudflare Monetization Gateway waitlist** — first-mover on MCP/API monetization.
+3. **Virtuals ACP** registration — 2 sellers / 3,700 buyers = most under-served demand.
+4. Add a **paid MCP tool** (per-tool pricing) — MCP monetization already does 18k tx/day.
+5. Ride **RWA-perps narrative** in posts; keep verifiable-MMF-data differentiation.
+6. Fund mainnet wallets → `X402_NETWORK=8453` → x402scan + CDP Bazaar (unblocks real demand channels).
+7. Log any future LinkedIn post link here after posting.
+
 ## Most recent session: 2026-08-07 (session 19) — WEB ANALYTICS + DIRECTORY REGISTRATION
 
 **What was done — Vercel Web Analytics live + API registered on directories:**
