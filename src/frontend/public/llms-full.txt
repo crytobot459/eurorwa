@@ -1,0 +1,215 @@
+# EuroRWA
+
+EuroRWA tracks tokenized money-market funds (RWA) listed on rwa.xyz, plus the
+broader crypto and on-chain market. Every 12 hours it produces an analyst report
+that is hashed (keccak-256), signed (EIP-191), and attested on-chain (Sepolia),
+so every payload can be independently verified — the hash matches the body, the
+signature matches the hash, and the attestation is on the Sepolia chain.
+
+- Dashboard: https://rwa-dashboard-gamma.vercel.app
+- Report cadence: every 12 hours (00:00 / 12:00 UTC)
+- On-chain attestation: Sepolia, keyed `YYYY-MM-DD-analyst-N`
+
+## Quick reference
+
+- Paid (x402, $0.05 USDC on Base): `POST /api/analyst` — latest analyst report with BUY/HOLD/SELL signals
+- Open: `GET /api/overview`, `/api/funds`, `/api/funds/:slug`, `/api/yields`, `/api/flows`, `/api/analytics`, `/api/alerts`
+- MCP server (Streamable HTTP): `POST /mcp` — tools `overview`, `funds`, `analytics`, `alerts`; resources `eurorwa://analyst/latest`, `eurorwa://funds/latest`
+- Discovery: `/.well-known/x402.json`, `/.well-known/agent-services.json`, `/.well-known/mcp.json`, `/.well-known/openapi.json`, `/.well-known/ai-plugin.json`
+- Skills: `/SKILL.md`
+- Short docs: `/llms.txt`
+
+## REST API
+
+Base URL: `https://rwa-dashboard-gamma.vercel.app` — all endpoints return JSON.
+
+### GET /api/overview
+
+Latest analyst report summary. Open, no auth.
+
+```json
+{
+  "date": "2026-08-06",
+  "generated_at": "2026-08-06T10:55:24.792Z",
+  "market_view": "The crypto market remains in Extreme Fear (Fear & Greed index at 25)...",
+  "crypto_view": "Regime: risk_off...",
+  "chain_view": "Liquidity: DeFi TVL sits at $142.7B...",
+  "signals": [
+    { "ticker": "USYC", "action": "HOLD", "confidence": "medium", "reasons": ["..."] }
+  ],
+  "macro": "fear_greed_25|gold_2627|oil_72.3|dxy_104.5|10y_4.18",
+  "crypto": "btc_64566|eth_1902|dxy_104.5|total_mcap_2.28T",
+  "chain": "stablecoins_307.8B|defi_tvl_142.7B|eth_gas_1.2",
+  "signer": "0x02B027ecd3004Fbb579bD4c64B6e22Fff369F846",
+  "hash": "0x…",
+  "verified": true,
+  "attestation": { "key": "2026-08-06-analyst-2", "tx": "0x…", "block": 11430480, "hash": "0x…", "signer": "0x…" },
+  "snapshot": { "date": "2026-08-06", "fetched_at": "2026-08-06T14:54:52.759Z", "age_hours": 9.9, "lag": "fresh" }
+}
+```
+
+### GET /api/funds
+
+Per-fund table sorted by TVL, with integrity checks against the rwa.xyz source.
+
+```json
+{
+  "date": "2026-08-06",
+  "snapshot": { "date": "2026-08-06", "fetched_at": "2026-08-06T14:54:52.759Z", "age_hours": 9.9, "lag": "fresh" },
+  "integrity": { "checked": 15, "ok": 15, "warn": 0, "fail": 0 },
+  "funds": [
+    {
+      "slug": "circle-usyc",
+      "ticker": "USYC",
+      "name": "Circle USYC",
+      "issuer": "Circle International",
+      "asset_class": "US Treasury Debt",
+      "tvl": 3003903052.8457847,
+      "tvl_7d": 3005474579.6200624,
+      "chg_7d_pct": -0.05228880606524218,
+      "yield": 3.190804548981907,
+      "holders": 37,
+      "supply": 2650894090.4031577,
+      "nav": 1.1332,
+      "integrity": "ok",
+      "checks": { "self": true, "nav": true, "yield": true },
+      "date": "2026-08-06"
+    }
+  ]
+}
+```
+
+### GET /api/funds/:slug
+
+Single fund plus its full TVL / yield / holders / supply history.
+
+```json
+{
+  "fund": { "slug": "circle-usyc", "ticker": "USYC", "name": "Circle USYC", "issuer": "Circle International", "asset_class": "US Treasury Debt" },
+  "history": [
+    { "date": "2026-08-05", "tvl": 3005474579.6, "chg_7d_pct": 0.31, "yield": 3.21, "holders": 38, "supply": 2650894090.4 }
+  ]
+}
+```
+
+### GET /api/yields
+
+Yield ranking (highest first).
+
+```json
+{
+  "date": "2026-08-06",
+  "yields": [ { "ticker": "CETES", "slug": "mexc-cetes", "yield": 4.6, "date": "2026-08-06" } ]
+}
+```
+
+### GET /api/flows
+
+Day-over-day TVL flows (current vs previous snapshot).
+
+```json
+{
+  "date": "2026-08-06",
+  "prev_date": "2026-08-05",
+  "flows": [ { "ticker": "USYC", "slug": "circle-usyc", "flow": -1571526.77, "tvl": 3003903052.85, "chg_7d_pct": -0.05 } ]
+}
+```
+
+### GET /api/analytics
+
+Institutional metrics: concentration (HHI, top-N share), breadth (yield spread),
+currency split, chains, issuers, holder stats, top day flows.
+
+```json
+{
+  "date": "2026-08-06",
+  "prev_date": "2026-08-05",
+  "total_tvl": 6123456789.0,
+  "fund_count": 15,
+  "concentration": { "top3_pct": 68.2, "top5_pct": 84.9, "top10_pct": 99.1, "hhi": 0.19 },
+  "breadth": { "yield_funds": 15, "median_yield": 4.01, "max_yield": 4.6, "min_yield": 3.19, "spread": 1.41 },
+  "currency": { "usd": { "tvl": 5900000000.0, "count": 10, "share": 96.4 }, "eur": { "tvl": 200000000.0, "count": 4, "share": 3.3 } },
+  "chains": [ { "name": "ethereum", "tvl": 4900000000.0, "count": 8, "share": 80.1 } ],
+  "issuers": [ { "name": "Circle", "tvl": 3100000000.0, "count": 1, "share": 50.7 } ],
+  "holders": { "total": 1240, "avg": 82.7 },
+  "day_flows": [ { "ticker": "USYC", "flow": -1571526.77 } ]
+}
+```
+
+### GET /api/alerts
+
+Recent alerts: yield breakouts, TVL spikes, holder surges, regime flips.
+
+```json
+{
+  "updated_at": "2026-08-06T10:01:10.495Z",
+  "alerts": [
+    { "id": "holder-surge-USYC-2026-08-06", "type": "holder-surge", "severity": "warning", "ticker": "USYC", "title": "Holders exited -11.63% on USYC", "detail": "USYC holders 38 (7d -11.63%) — institutions exiting", "date": "2026-08-06" }
+  ]
+}
+```
+
+### POST /api/analyst (paid, x402)
+
+Latest analyst report with on-chain proof. Payment required: `$0.05` USDC on
+**Base** (`eip155:8453`), 6 decimals = `50000` atomic units, payTo
+`0x02B027ecd3004Fbb579bD4c64B6e22Fff369F846`.
+
+Calling pattern:
+
+1. `POST /api/analyst` with no payment → `402` with a `PAYMENT-REQUIRED` header (base64 JSON) describing the accepted payment.
+2. Sign the EIP-712 `TransferWithAuthorization` typed data with the caller's wallet (USDC on Base, `balanceOf(caller) >= 50000` required).
+3. Resend `POST /api/analyst` with the `PAYMENT-SIGNATURE` header (base64 JSON of `{ x402Version: 2, accepted, payload: { signature, authorization } }`).
+4. Server verifies signature + balance, settles on-chain, returns `200` with the report body and a `PAYMENT-RESPONSE` header.
+
+Response is the full report:
+
+```json
+{
+  "date": "2026-08-06",
+  "generated_at": "2026-08-06T09:08:40.386Z",
+  "market_view": "…",
+  "crypto_view": "Regime: …\nRotation: …\nWhat to watch: …",
+  "chain_view": "Liquidity: …\nActivity: …\nWatch: …",
+  "signals": [{ "ticker": "USYC", "action": "HOLD", "confidence": "medium", "reasons": ["…"] }],
+  "hash": "0x…",
+  "signer": "0x02B027ecd3004Fbb579bD4c64B6e22Fff369F846",
+  "signature": "0x…",
+  "attestation": { "key": "2026-08-06-analyst-2", "tx": "0x…", "block": 11430480, "hash": "0x…", "signer": "0x…" }
+}
+```
+
+## MCP server
+
+Streamable HTTP server at `POST https://rwa-dashboard-gamma.vercel.app/mcp`.
+Configure in an MCP client (Claude, Cursor, etc.):
+
+```json
+{
+  "mcpServers": {
+    "eurorwa-analyst": { "url": "https://rwa-dashboard-gamma.vercel.app/mcp" }
+  }
+}
+```
+
+Tools:
+
+- `overview` — latest analyst report summary (same data as `GET /api/overview`)
+- `funds` — per-fund table with TVL, yield, NAV, integrity checks
+- `analytics` — institutional metrics (concentration, breadth, chains, issuers)
+- `alerts` — recent alerts
+
+Resources:
+
+- `eurorwa://analyst/latest` — full latest analyst report (paid data)
+- `eurorwa://funds/latest` — latest fund snapshot
+
+Also registered on the MCP Registry as `io.github.crytobot459/eurorwa-analyst`.
+
+## Verification
+
+Every report can be verified independently:
+
+1. `hash` = keccak-256 of the report body (the JSON object without hash/signer/signature/attestation).
+2. `signature` = EIP-191 signature over `hash` from `signer`.
+3. `attestation` is on Sepolia at `attestation.tx` with `attestation.key`, signed by `signer`.
