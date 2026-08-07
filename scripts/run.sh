@@ -7,11 +7,14 @@ if bun run src/agent/guard.ts; then
   bun run src/agent/attest.ts
   bun run src/agent/publish.ts
 fi
-if [ -f .env.local ]; then
-  bun --env-file=.env.local run src/analyst/index.ts || echo "[$(date -Iseconds)] analyst FAILED" >> data/cron.log
-fi
-if [ -f .env.local ]; then
-  bun --env-file=.env.local run scripts/alerts.ts || echo "[$(date -Iseconds)] alerts FAILED" >> data/cron.log
-fi
+run_step() {
+  if [ -f .env.local ]; then
+    bun --env-file=.env.local run "$1" || echo "[$(date -Iseconds)] $1 FAILED" >> data/cron.log
+  elif [ -n "$LLM_BASE_URL" ]; then
+    bun run "$1" || echo "[$(date -Iseconds)] $1 FAILED" >> data/cron.log
+  fi
+}
+run_step src/analyst/index.ts
+run_step scripts/alerts.ts
 bun run src/posts.ts
 bun run src/visual.ts
