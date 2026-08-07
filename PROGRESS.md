@@ -2,6 +2,27 @@
 
 > Cập nhật sau mỗi phiên opencode. Xem `ROADMAP.md` để biết chi tiết từng phase.
 
+## Phiên gần nhất: 2026-08-07 (phiên 18) — FREE LLM TRONG CI
+
+**Việc đã làm — analyst chạy trong GH Actions bằng LLM miễn phí:**
+
+- **Vấn đề**: CI thiếu `.env.local` (chứa `GEMINI_API_KEY`) → `scripts/run.sh` bỏ qua analyst → `/api/overview` + `/api/analyst` (paid) luôn trả bản cũ. Tìm LLM free thay thế: **`llm7` (`https://api.llm7.io/v1`)** — OpenAI-compatible, keyless cho 1 số model.
+- **`src/analyst/llm.ts`**: thêm client OpenAI-compatible (`LLM_BASE_URL`, `LLM_MODEL` mặc định `gemma4:31b`, `LLM_API_KEY`, `LLM_MAX_TOKENS=8192`, `LLM_MIN_GAP_MS=2500` throttle); Gemini giữ làm primary (khi có `GEMINI_API_KEY`); `jsonChat` log raw khi parse fail.
+- **`src/analyst/analyst.ts`**: SYS prompt sửa — schema mẫu **cụ thể** (không dùng `[...]`) + nhấn mạnh 3 view field tách biệt; thêm **normalizer `toSignals`** (chấp nhận `signals` lẫn `recommendations`/`fund`/`recommendation`/`reason`); **fallback theo từng field** (`ruleSignals` + `ruleViews`) — view rỗng được điền bằng rule-based, signals luôn có 15 quỹ.
+- **`scripts/run.sh`**: hàm `run_step` — chạy analyst/alerts khi có `.env.local` HOẶC `LLM_BASE_URL`.
+- **`.github/workflows/pipeline.yml`**: env `LLM_BASE_URL: https://api.llm7.io/v1` + `LLM_MODEL: gemma4:31b`.
+- **Khám phá llm7**: models `gpt-oss:20b`, `gemma4:31b` keyless ($0.03-0.04/1M tok); deepseek/gemini/gpt-5.4 **cần API key** (401). `gpt-oss:20b` hay "hallucinate" `{"error":"Missing input"}` và dồn cả 3 view vào market_view; `gemma4:31b` trả 3 view sạch + 15 signals — **chọn làm default**.
+- **Test local**: `GEMINI_API_KEY= LLM_BASE_URL=... LLM_MODEL=gemma4:31b bun run src/analyst/index.ts` → report thật (market_view/crypto_view/chain_view đầy đủ + 15 signals) + attest on-chain mới.
+- **Commit `5d9aeb1`** (đã push): llm.ts + analyst.ts + run.sh + pipeline.yml + `data/analyst/2026-08-07.json` (report LLM thật).
+- **Cần user**: bấm **Run workflow** (Actions → pipeline) để verify CI sinh analyst report thật, hoặc chờ cron 12:00 UTC. Sau khi CI chạy → check `data/analyst/2026-08-07.json` trong commit + dashboard `/api/overview`.
+
+**Còn lại:**
+
+1. Trigger workflow + verify analyst 08-07 xuất hiện trong CI commit.
+2. Xem alerts trong CI (`scripts/alerts.ts` skip nếu thiếu `TG_TOKEN`/`GROUP_CHAT_ID` — không critical).
+3. Fund ví mainnet `0x03fa9C…585c4` để test x402 self-settle + Bazaar index.
+4. Đăng bài LinkedIn `docs/posts/2026-08-06/ready.md`.
+
 ## Phiên gần nhất: 2026-08-06 (phiên 13)
 
 **Việc đã làm — MCP SERVER + SẴN SÀNG ĐĂNG KÝ MCP REGISTRY:**
