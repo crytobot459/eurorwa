@@ -189,35 +189,60 @@ _(Nếu có kinh nghiệm làm việc trước đây thì thêm lên phía trên
 
 ## 5. BÀI ĐĂNG (đăng kèm ảnh visual.png)
 
-> $10.67B is sitting in tokenized money market funds — and almost nobody can tell you exactly what's inside them.
->
-> I built a live dashboard to change that.
->
-> THE NUMBERS (2026-08-06)
-> • USYC (Circle) — $3.00B · yield 3.19%
-> • BUIDL (BlackRock) — $2.67B · yield 3.38%
-> • USDY (Ondo) — $2.12B · yield 3.49%
-> • eurSAFO (Spiko) — $963.5M · yield 2.54%
-> • EUTBL (Spiko) — $903.3M · yield 2.13%
->
-> Top yields: CETES 4.60% · USTBL 4.32% · SAFO 4.01%
->
-> THE PART I COULDN'T GET ANYWHERE ELSE
-> No one sits and updates a spreadsheet. My AI agent runs the whole pipeline itself every 12 hours:
-> • Scrapes public data across 15 EU + US money market funds
-> • Computes TVL, yields and flows
-> • Hashes every snapshot and signs it with its own wallet
-> • Publishes the hash to a smart contract on Sepolia — public, permanent, tamper-proof
-> • Drafts this very post
->
-> Anyone can re-hash the data and verify the on-chain signature. No "trust me bro" dashboards.
->
-> Live dashboard: https://rwa-dashboard-gamma.vercel.app
-> Open source: https://github.com/crytobot459/eurorwa
->
-> What's the one fund you'd add to this list?
->
-> #RWA #Tokenization #FixedIncome #DigitalAssets #MoneyMarketFunds
+> Bản mới 2026-08-07 — viết lại theo pattern từ các bài đăng RWA/DeFi chất lượng + data 2026 (hook <60 ký tự, số thật, story, câu hỏi cuối, link ở comment, 1-3 hashtag). Bản mới nhất luôn nằm trong `docs/posts/2026-08-06/ready.md`.
+
+```
+$10.7B is parked in tokenized money funds. Nobody publishes what's actually inside them.
+
+So I built an AI agent that does — every 12 hours, every number on-chain verifiable.
+
+Here's what it found that a weekly report would have missed:
+
+THE NUMBERS (2026-08-06)
+
+• USYC (Circle) — $3.00B · yield 3.19%
+• BUIDL (BlackRock) — $2.68B · yield 3.38%
+• USDY (Ondo) — $2.12B · yield 3.49%
+• eurSAFO (Spiko) — $979M · yield 2.55%
+• EUTBL (Spiko) — $911M · yield 2.16%
+
+Top yields: CETES 4.60% · USTBL 4.12% · SAFO 4.02%
+
+WHAT THE AGENT DOES EVERY 12 HOURS
+
+1. Scrapes 15 EU + US money market funds
+2. Computes TVL, yield, holders, and 7-day flows
+3. Hashes each snapshot (keccak-256) and signs it with its own wallet
+4. Publishes the hash to a smart contract on Sepolia — public, permanent, tamper-proof
+5. Drafts this very post for me to review
+
+That step 4 is the part I couldn't get from any data provider.
+
+Anyone can re-hash the data, check the signature, and match the on-chain attestation. No "trust me bro" dashboards.
+
+WHY THIS MATTERS
+
+• $7.8B — 73% of the total — sits in just 3 funds. The market is consolidating behind the biggest issuers, fast.
+• Yields run from 2.16% to 4.60% for the same "park cash safely" trade. Choosing a treasury is now a real decision.
+• USDY counts 15,601 holders; BUIDL counts 114. Same asset class, two worlds — retail wallets vs institutions parking billions.
+• eurSAFO is the 7-day mover (+6.8%) while UKTBL cooled off (-3.3%). Capital is rotating, not leaving the asset class.
+
+Tokenized treasuries are quietly becoming the on-chain risk-free rate. I wanted to see that data live, not in a monthly report.
+
+The dashboard and all the code are open source — links in the first comment.
+
+Which fund would you add to this list?
+
+#RWA #Tokenization #BuildingInPublic
+```
+
+**Comment đầu tiên** (dán ngay sau khi đăng — link KHÔNG để trong thân bài):
+
+```
+Live dashboard: https://rwa-dashboard-gamma.vercel.app
+On-chain proof (Sepolia tx): https://sepolia.etherscan.io/tx/0xb70f48ba50e5260e14a03740071feae8a800e9130e3aebccea01a00e6c2bbca0
+Open source: https://github.com/crytobot459/eurorwa
+```
 
 ---
 
