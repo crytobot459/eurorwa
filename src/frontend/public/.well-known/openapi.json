@@ -2,7 +2,7 @@
   "openapi": "3.0.3",
   "info": {
     "title": "EuroRWA API",
-    "description": "Tokenized money-market fund (RWA) analysis. Open endpoints for dashboard data; a paid x402 endpoint (POST /api/analyst) returns the latest analyst report with BUY/HOLD/SELL signals, hashed, signed and attested on-chain (Sepolia).",
+    "description": "Tokenized money-market fund (RWA) analysis. Open endpoints for dashboard data; a paid x402 endpoint (POST /api/analyst) and a paid MCP tool (overview, via POST /mcp) return the latest analyst report with BUY/HOLD/SELL signals, hashed, signed and attested on-chain (Sepolia).",
     "version": "1.0.0"
   },
   "servers": [{ "url": "https://rwa-dashboard-gamma.vercel.app" }],
@@ -424,6 +424,43 @@
             "description": "Payment required. PAYMENT-REQUIRED header (base64 JSON) describes the accepted x402 payment."
           },
           "503": { "description": "No report available yet" }
+        }
+      }
+    },
+    "/mcp": {
+      "post": {
+        "operationId": "callMcpTool",
+        "summary": "MCP endpoint (paid tools)",
+        "description": "Model Context Protocol server. Free tools: funds, analytics, alerts. Paid tool: overview ($0.05 USDC per call, x402) — the same analyst report as POST /api/analyst, returned inside a JSON-RPC tools/call result. Unpaid overview calls return HTTP 402 with PAYMENT-REQUIRED (base64 JSON); resend with PAYMENT-SIGNATURE header.",
+        "x-payment-info": {
+          "protocols": ["x402"],
+          "price": { "mode": "fixed", "currency": "USD", "amount": "0.05" },
+          "tools": { "overview": "paid", "funds": "free", "analytics": "free", "alerts": "free" }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "jsonrpc": { "type": "string", "const": "2.0" },
+                  "id": { "type": "number" },
+                  "method": {
+                    "type": "string",
+                    "enum": ["initialize", "tools/list", "tools/call", "resources/list", "resources/read", "ping"]
+                  },
+                  "params": { "type": "object" }
+                },
+                "required": ["jsonrpc", "method"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "JSON-RPC result" },
+          "402": {
+            "description": "Payment required for paid tool. PAYMENT-REQUIRED header (base64 JSON) describes the accepted x402 payment."
+          }
         }
       }
     }

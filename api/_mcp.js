@@ -1,4 +1,5 @@
 import { app } from "./_app.js"
+import { requirements, bazaarExtension, payTo, verifyPayment, settlePayment, paymentResponseHeader } from "./_x402.js"
 
 const SERVER_INFO = { name: "eurorwa-analyst", version: "1.0.0" }
 const KNOWN_PROTOCOLS = new Set(["2024-11-05", "2025-03-26", "2025-06-18"])
@@ -7,7 +8,7 @@ const DEFAULT_PROTOCOL = "2025-03-26"
 const TOOLS = {
   overview: {
     description:
-      "EuroRWA analyst overview — the latest tokenized money-market fund report: BUY/HOLD/SELL signal per fund with reasons, market view, crypto brief and on-chain brief. The report is hashed, signed and attested on-chain (Sepolia) so it can be independently verified.",
+      "EuroRWA analyst overview — the latest tokenized money-market fund report: BUY/HOLD/SELL signal per fund with reasons, market view, crypto brief and on-chain brief. The report is hashed, signed and attested on-chain (Sepolia) so it can be independently verified. Paid tool — $0.05 USDC per call (x402, PAYMENT-REQUIRED challenge).",
     inputSchema: { type: "object", properties: {} },
   },
   funds: {
@@ -26,6 +27,9 @@ const TOOLS = {
     inputSchema: { type: "object", properties: {} },
   },
 }
+
+const PAID_TOOLS = new Set(["overview"])
+const MCP_ORIGIN = "https://rwa-dashboard-gamma.vercel.app"
 
 const RESOURCES = [
   {
@@ -107,7 +111,7 @@ export async function handleMcp(req) {
   const cors = {
     "Access-Control-Allow-Origin": req.headers.get("origin") ?? "*",
     "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type, Accept, Mcp-Session-Id, Authorization",
+    "Access-Control-Allow-Headers": "Content-Type, Accept, Mcp-Session-Id, Authorization, PAYMENT-SIGNATURE, X-Payment",
     "Access-Control-Max-Age": "86400",
   }
   if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: cors })
@@ -118,12 +122,6 @@ export async function handleMcp(req) {
     })
   }
   const amSecret = process.env.AGENTICMARKET_SECRET
-  if (amSecret && req.headers.get("x-agenticmarket-secret") !== amSecret) {
-    return new Response(JSON.stringify(err(null, -32600, "Unauthorized")), {
-      status: 401,
-      headers: { ...cors, "Content-Type": "application/json" },
-    })
-  }
   let body
   try {
     body = await req.json()
@@ -134,6 +132,33 @@ export async function handleMcp(req) {
     })
   }
   const msgs = Array.isArray(body) ? body : [body]
+  const needsPay = msgs.some((m) => m?.method === "tools/call" && PAID_TOOLS.has(m?.params?.name))
+  if (amSecret && !needsPay && req.headers.get("x-agenticmarket-secret") !== amSecret) {
+    return new Response(JSON.stringify(err(null, -32600, "Unauthorized")), {
+      status: 401,
+      headers: { ...cors, "Content-Type": "application/json" },
+    })
+  }
+  if (needsPay) {
+    const raw = req.headers.get("PAYMENT-SIGNATURE") || req.headers.get("X-Payment")
+    const v = await verifyPayment(raw)
+    if (!v.ok) return mcpPaymentRequired(req, cors, v.reason)
+    const settlement = await settlePayment(v.payload, mcpResource(req))
+    const results = []
+    for (const m of msgs) {
+      if (!m || typeof m !== "object" || m.jsonrpc !== "2.0" || typeof m.method !== "string") {
+        results.push(err(m?.id ?? null, -32600, "Invalid Request"))
+        continue
+      }
+      const r = await handle(m)
+      if (r !== null) results.push(r)
+    }
+    const single = !Array.isArray(body) && results.length === 1
+    return new Response(JSON.stringify(single ? results[0] : results), {
+      status: 200,
+      headers: { ...cors, "Content-Type": "application/json", "PAYMENT-RESPONSE": paymentResponseHeader(settlement) },
+    })
+  }
   const results = []
   for (const m of msgs) {
     if (!m || typeof m !== "object" || m.jsonrpc !== "2.0" || typeof m.method !== "string") {
@@ -149,4 +174,57 @@ export async function handleMcp(req) {
     status: 200,
     headers: { ...cors, "Content-Type": "application/json" },
   })
+}
+
+function mcpResource(req) {
+  const origin = new URL(req.url).origin || MCP_ORIGIN
+  return {
+    url: `${origin}/mcp`,
+    description:
+      "EuroRWA analyst MCP — paid tool: latest BUY/HOLD/SELL report, hashed + signed + attested on-chain (Sepolia)",
+    mimeType: "application/json",
+    serviceName: "EuroRWA Analyst MCP",
+  }
+}
+
+function mcpPaymentRequired(req, cors, error) {
+  const pay = payTo()
+  if (!pay) {
+    return new Response(JSON.stringify(err(null, -32603, "x402 not configured — set X402_PAYTO or X402_KEY")), {
+      status: 503,
+      headers: { ...cors, "Content-Type": "application/json" },
+    })
+  }
+  const body = {
+    x402Version: 2,
+    error: error ?? "Payment required",
+    resource: mcpResource(req),
+    accepts: [requirements(pay)],
+    extensions: { bazaar: bazaarExtension() },
+  }
+  const b64 = Buffer.from(JSON.stringify(body)).toString("base64")
+  return new Response(
+    JSON.stringify({
+      jsonrpc: "2.0",
+      id: null,
+      error: {
+        code: -32002,
+        message: "Payment required",
+        data: { resource: body.resource, accepts: body.accepts },
+      },
+    }),
+    {
+      status: 402,
+      headers: {
+        ...cors,
+        "Content-Type": "application/json",
+        "PAYMENT-REQUIRED": b64,
+        "X-Payment-Required": "true",
+        "X-Payment-Network": process.env.X402_NETWORK === "8453" ? "base" : "base-sepolia",
+        "X-Payment-Amount": "50000",
+        "X-Payment-Currency": "USDC",
+        "X-Payment-Address": pay,
+      },
+    },
+  )
 }
