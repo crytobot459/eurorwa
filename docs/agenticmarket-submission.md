@@ -1,8 +1,9 @@
 # AgenticMarket — EuroRWA submission (2026-08-06)
 
 > Nộp tại https://agenticmarket.dev/dashboard/submit sau khi tạo account (email verify).
-> Sau approve (24h): copy proxy secret `am_server_…` → set `AGENTICMARKET_SECRET` trên Vercel → redeploy.
-> Code `api/_mcp.js` đã có sẵn check header `x-agenticmarket-secret` (chỉ active khi env set).
+> Sau approve (24h): copy API key `am_live_…` → set `AGENTICMARKET_SECRET` trên Vercel → redeploy.
+> ✅ **Đã LIVE (2026-08-07):** secret đã set + gate hoạt động (401 không key / 200 đúng key).
+> Code `api/_mcp.js` có check header `x-agenticmarket-secret` (chỉ active khi env set).
 
 ## Form fields
 

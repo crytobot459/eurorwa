@@ -19,13 +19,15 @@
 **Còn lại (cơ hội mở rộng):**
 
 0. **README + public docs làm sạch** (commit `d6069da`): bỏ hết nhắc "free"/"free tier" (Gemini free tier, Vercel free tier) khỏi README.md, `llms.txt`, `SKILL.md`, `docs/posts.md`; README cập nhật đúng state hiện tại (x402 API, MCP server + Registry, analytics, deploy hook).
-1. **AgenticMarket — ĐÃ PREP**: submission doc `docs/agenticmarket-submission.md` (fields + long description markdown) + code check `x-agenticmarket-secret` đã deploy. User cần: tạo account → submit form → sau approve set `AGENTICMARKET_SECRET` trên Vercel.
+1. **AgenticMarket — ĐÃ LIVE** (2026-08-07): user có API key `am_live_…` → đã set `AGENTICMARKET_SECRET` trên Vercel (Sensitive, production) + redeploy. Gate `x-agenticmarket-secret` test live OK: không header → 401, đúng key → 200 (initialize/resources/tools/call đều qua), sai key → 401. Doc submit: `docs/agenticmarket-submission.md`.
 2. **Vercel Deploy Hook — ĐÃ TẠO** (commit tới): hook `eurorwa-pipeline` (branch main) → URL `https://api.vercel.com/v1/integrations/deploy/prj_DlHOyuXm7m3vywY29uFboYLDwtw5/FrAH8dG02p` (đã test trigger OK). GH Actions `pipeline.yml` đã có step "redeploy" dùng secret `VERCEL_DEPLOY_HOOK` — **user cần set GitHub secret** `VERCEL_DEPLOY_HOOK` = URL trên (Settings → Secrets and variables → Actions) để sau mỗi pipeline commit dashboard tự redeploy.
-3. **agenticmarket.dev** (agent/API marketplace) — đăng ký MCP/API ở đó (khác Bazaar). Từng research "cần MCP server thật" — giờ đã có, có thể đăng ký.
+3. ~~**agenticmarket.dev**~~ — đã nhập vào mục 1 (đã LIVE).
 4. Chờ user fund ví mainnet `0x03fa9C…585c4` → resume self-settle (xem Phiên 12) để index Bazaar + doanh thu thật.
-5. Update MCP server khi thêm tool mới → bump version trong server.json → `publish` lại.
+5. Update MCP server khi thêm tool mới → bump version trong server.json.
 
-**Trạng thái phase:** P1-P6 + x402 + analytics + alerts + MCP server + **MCP Registry** xong. Chờ: fund ví buyer mainnet (index Bazaar + doanh thu) + agenticmarket.dev.
+> ⚠️ **MCP Registry (`mcp-registry.com`) — ĐÃ CHẾT (2026-08-07):** domain thành Sedo parking, `api.mcp-registry.com` không còn response. Listing `io.github.crytobot459/eurorwa-analyst` không còn ý nghĩa — bỏ khỏi kế hoạch. Kênh MCP chính giờ là AgenticMarket.
+
+**Trạng thái phase:** P1-P6 + x402 + analytics + alerts + MCP server + **AgenticMarket (gate live)** xong. Chờ: fund ví buyer mainnet (index Bazaar + doanh thu) + set GitHub secret `VERCEL_DEPLOY_HOOK`.
 
 ## Phiên gần nhất: 2026-08-06 (phiên 11)
 
