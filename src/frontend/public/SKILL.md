@@ -41,7 +41,7 @@ data can be verified independently.
 }
 ```
 
-## Free data endpoints (no payment)
+## Open data endpoints
 
 - `GET /api/overview` — report summary + verification status
 - `GET /api/funds` — per-fund table (TVL, NAV, integrity checks)

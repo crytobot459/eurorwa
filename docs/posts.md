@@ -90,7 +90,7 @@
 > 1. Data — pull TVL / APY / holder counts of 15 EU + US funds from public pages into SQLite
 > 2. API — 4 endpoints (funds, yields, fund detail with history, flows)
 > 3. Onchain attestation — every daily snapshot is keccak256-hashed, signed by an agent wallet, and verifiable on-chain. No more "trust me bro" dashboards.
-> 4. Deploy — Vite + Hono, free tier on Vercel, ~$0/month
+> 4. Deploy — Vite + Hono on Vercel, edge-consistent worldwide
 >
 > Live: https://rwa-dashboard-gamma.vercel.app
 > Code: https://github.com/crytobot459/eurorwa
@@ -105,7 +105,7 @@
 >
 > 1/ Why: rwa.xyz is great but I wanted EU focus + verifiable data. Data from public sources → SQLite, refreshed daily.
 > 2/ The twist: each daily snapshot is hashed (keccak256) + signed by an agent wallet. Anyone can verify the numbers aren't tampered with.
-> 3/ Deployed on the Vercel free tier — costs me $0/month.
+> 3/ Deployed on Vercel — CI/CD from GitHub, redeployed on every pipeline commit.
 > Live: https://rwa-dashboard-gamma.vercel.app · Code: https://github.com/crytobot459/eurorwa
 >
 > Feedback welcome. #buildinpublic #RWA
