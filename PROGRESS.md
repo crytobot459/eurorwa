@@ -22,7 +22,7 @@
 1. Trigger workflow + verify analyst 08-07 appears in the CI commit.
 2. Check alerts in CI (`scripts/alerts.ts` skips if `TG_TOKEN`/`GROUP_CHAT_ID` missing — not critical).
 3. Fund mainnet wallets → set `X402_NETWORK=8453` → self-settle → **then register x402scan** + CDP Bazaar indexes.
-4. Post LinkedIn `docs/posts/2026-08-06/ready.md`.
+4. **Post LinkedIn** — quality post written in `docs/posts/2026-08-07/ready.md` (yield-rotation angle from 08-07 analyst). **Must be pasted manually** (LinkedIn blocks bots): body + first comment + attach `visual.png`. After posting: log the link here.
 
 ## Most recent session: 2026-08-07 (session 18) — FREE LLM IN CI
 

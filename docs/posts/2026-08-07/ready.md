@@ -43,56 +43,65 @@ Happy to add funds I missed — suggestions welcome.
 
 ## LinkedIn
 
-$10.71B is sitting in tokenized money market funds — and almost nobody can tell you exactly what's inside them.
+> Quality version (2026-08-07, hand-written from the analyst report — yield-rotation angle, not the auto template).
 
-I built a live dashboard to change that. Here's what the data says today, and the part I couldn't get from any other data provider.
+---
 
-THE NUMBERS (2026-08-07)
+Money is quietly rotating inside tokenized treasuries — and the data says don't follow the crowd.
 
-$10.71B across 15 EU + US funds:
-• USYC (Circle) — $3.00B · yield 3.18%
-• BUIDL (BlackRock) — $2.70B · yield 3.43%
-• USDY (Ondo) — $2.12B · yield 3.49%
-• eurSAFO (Spiko) — $989.7M · yield 2.56%
-• EUTBL (Spiko) — $919.3M · yield 2.11%
+$10.69B now sits in tokenized money market funds. That's the headline. But the signal is in what's underneath: yield is moving, and my AI analyst caught it before the weekly reports will.
 
-Top yields today: CETES 4.60% · SAFO 4.04% · UKTBL 3.78% · USDY 3.49% · USTBL 3.48%
+THE MOVE (30-day yield trend)
 
-WHAT THE NUMBERS MEAN
+• USTBL — yield +7.99% → now 4.12% — BUY
+• eurSAFO — yield +2.71% → 2.55%, TVL +6.8% in 7 days — BUY
+• SAFO — 4.02% and still climbing — BUY
+• UKTBL — yield -15.77% → 3.63% — SELL
+• USYC — lowest-yield cohort at 3.19% despite $3.0B TVL — SELL
 
-• $7.82B — 73% of the total — sits in just 3 funds (USYC, BUIDL, USDY). The market is consolidating behind the biggest issuers, fast.
-• Yield on offer runs from 2.11% to 4.60% — a 2.49-point gap for the same "park cash safely" trade. Which treasury you pick is now a real decision.
-• USDY counts 15,604 holders; BUIDL counts 114. Same asset class, two worlds: retail wallets vs institutions parking billions.
-• eurSAFO is the 7-day mover (+7.28%), while SAFO cooled off (-8.97%). Capital is rotating, not leaving the asset class.
+THE UNCOMFORTABLE PART
 
-WHY THIS MATTERS
+The biggest fund is not the best trade.
 
-Tokenized treasuries are quietly becoming the "risk-free rate on-chain." BlackRock, Circle and Ondo are pulling in billions — paying daily yield, settling 24/7. For corporate treasuries and DeFi alike, this is becoming the default place to park cash.
+USYC is #1 by TVL ($3.0B) but sits in the lowest-yield cohort. Meanwhile European funds — eurSAFO, USTBL, SAFO — are where yield is compounding.
 
-THE PART I COULDN'T GET ANYWHERE ELSE
+That's the rotation: EUR-denominated treasuries are quietly becoming the on-chain safe-haven trade, while the mega-funds cool.
 
-No one sits and updates a spreadsheet. My AI agent runs the whole pipeline on its own every 12 hours:
+WHY TRUST THE NUMBERS
 
-• Scrapes public data across 15 EU + US money market funds
-• Computes TVL, yields and 7-day flows
-• Hashes every snapshot (keccak-256) and signs it with its own wallet
-• Publishes the hash to a smart contract on Sepolia — public, permanent, tamper-proof
-• Drafts this very post
+Every snapshot is hashed (keccak-256), signed by an agent wallet, and published to a smart contract on Sepolia. You can re-hash the data yourself and match the on-chain signature. No "trust me" dashboards.
 
-I review, hit publish, and open-source the code. Anyone can re-hash the data and verify the on-chain signature. No "trust me bro" dashboards.
+WHAT I BUILT
 
-Live proof for this snapshot (Sepolia):
-• Tx: https://sepolia.etherscan.io/tx/0xc71804deacdffced42096948c3ffbfb77450c2b3ec553c0db585a96eede7d506
-• Contract: 0xd482a715cdef4073593f4a3208abd328f6d71725
-• Hash: 0x0e75510a…
+An AI agent that every 12 hours:
 
-WHAT THE DATA SAYS RIGHT NOW
+1. Scrapes 15 EU + US money market funds
+2. Computes TVL, yield, holders, 7/30-day flows
+3. Runs a BUY/HOLD/SELL analyst
+4. Signs each snapshot on-chain
+5. Drafts this post for me to review
 
-eurSAFO is the 7-day mover (+7.28%), while SAFO cooled off (-8.97%). The rotation between EUR and USD funds is the story to watch.
+Today's signal list (2026-08-07): BUY eurSAFO · USTBL · SAFO — SELL USYC · UKTBL · EUROB.
 
+Live dashboard, on-chain proof and the code are all in the first comment.
+
+Which fund's yield trend are you watching right now?
+
+#RWA #Tokenization #FixedIncome
+
+---
+
+### FIRST COMMENT (paste right after posting — links here, NOT in the body)
+
+```
 Live dashboard: https://rwa-dashboard-gamma.vercel.app
+On-chain proof (Sepolia tx): https://sepolia.etherscan.io/tx/0xc71804deacdffced42096948c3ffbfb77450c2b3ec553c0db585a96eede7d506
 Open source: https://github.com/crytobot459/eurorwa
+```
 
-What's the one fund you'd add to this list?
+### POSTING NOTES
 
-#RWA #Tokenization #FixedIncome #DigitalAssets #MoneyMarketFunds
+- Attach `visual.png` (same folder, 1200x630 chart).
+- Best time: Tue/Thu/Fri 8–10am US = ~20–22h Vietnam time.
+- Reply to every comment in the first 60–90 minutes (golden hour).
+- After posting: log the post link in PROGRESS.md.
