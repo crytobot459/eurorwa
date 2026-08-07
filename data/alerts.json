@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-07T03:30:53.518Z",
+  "updated_at": "2026-08-07T13:50:54.519Z",
   "alerts": [
     {
       "id": "yield-cohort-USYC-2026-08-06",
@@ -35,6 +35,33 @@
       "ticker": "USYC",
       "title": "Holders exited -13.95% on USYC",
       "detail": "USYC holders 37 (7d -13.95%) — institutions exiting",
+      "date": "2026-08-07"
+    },
+    {
+      "id": "yield-breakout-USTBL-2026-08-07",
+      "type": "yield-breakout",
+      "severity": "warning",
+      "ticker": "USTBL",
+      "title": "USTBL yield dropped 0.64pt",
+      "detail": "USTBL yield 4.12% → 3.48% vs prior day (watch outflows)",
+      "date": "2026-08-07"
+    },
+    {
+      "id": "tvl-spike-SAFO-2026-08-07",
+      "type": "tvl-spike",
+      "severity": "warning",
+      "ticker": "SAFO",
+      "title": "SAFO TVL plunged -5.83%",
+      "detail": "SAFO TVL $144.4M → $136.0M (outflows)",
+      "date": "2026-08-07"
+    },
+    {
+      "id": "yield-cohort-CETES-2026-08-07",
+      "type": "yield-cohort",
+      "severity": "info",
+      "ticker": "CETES",
+      "title": "CETES top of USD cohort",
+      "detail": "CETES 4.60% vs cohort median 3.49% (+1.11pt)",
       "date": "2026-08-07"
     }
   ]
