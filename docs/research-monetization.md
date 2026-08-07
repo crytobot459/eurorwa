@@ -136,6 +136,6 @@ Sources: CoinShares/Token Terminal Q2/26, Binance Research, RWA.xyz, RelayPlane,
 1. **Register on Circle Agent Marketplace** (agents.circle.com/services) — discovery where Circle's agent-wallet buyers already shop. Free, no mainnet settlement required for listing.
 2. **Join Cloudflare Monetization Gateway waitlist** — be early; it directly monetizes the exact MCP/API shape we already ship.
 3. **Virtuals ACP registration** — 2 sellers / 3,700 buyers is the most under-served demand pool in the ecosystem.
-4. **Add a paid MCP tool** (price per tool call ~$0.01–0.05) — MCP monetization already does 18k tx/day; we have `/mcp` infra.
-5. **Ride the RWA-perps narrative in posts** — tag the $347B volume stat, Hyperliquid/tradeXYZ, pre-IPO markets to stay on-trend, while keeping our verifiable-MMF-data differentiation.
+4. **Add a paid MCP tool** (price per tool call ~$0.01–0.05) — MCP monetization already does 18k tx/day; we have `/mcp` infra. **DONE ✅ (2026-08-07)**: `overview` tool now charges $0.05 USDC via x402 (HTTP 402 challenge → verify → settle); free tools keep the agenticmarket secret gate.
+5. **Ride the RWA-perps narrative in posts** — tag the $347B volume stat, Hyperliquid/tradeXYZ, pre-IPO markets to stay on-trend, while keeping our verifiable-MMF-data differentiation. Draft ready in `docs/posts/2026-08-07/rwa-perps.md`.
 6. Keep testnet for now (per user decision) — mainnet switch unlocks x402scan + CDP Bazaar; the demand data above strengthens the case to fund mainnet wallets when ready.
