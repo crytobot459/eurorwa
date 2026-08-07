@@ -22,7 +22,7 @@
 1. Trigger workflow + verify analyst 08-07 appears in the CI commit.
 2. Check alerts in CI (`scripts/alerts.ts` skips if `TG_TOKEN`/`GROUP_CHAT_ID` missing — not critical).
 3. Fund mainnet wallets → set `X402_NETWORK=8453` → self-settle → **then register x402scan** + CDP Bazaar indexes.
-4. **Post LinkedIn** — quality post written in `docs/posts/2026-08-07/ready.md` (yield-rotation angle from 08-07 analyst). **Must be pasted manually** (LinkedIn blocks bots): body + first comment + attach `visual.png`. After posting: log the link here.
+4. **Post LinkedIn** — quality post written in `docs/posts/2026-08-07/ready.md` (yield-rotation angle from 08-07 analyst). **PUBLISHED** ✅ (user posted manually): https://www.linkedin.com/posts/canh-pham-bot-dev_rwa-tokenization-buildinginpublic-share-7491303078453727232-VTx_ (hashtag #BuildingInPublic — matches the 08-06 version of the post). If a later post uses the 08-07 yield-rotation version, log that link too.
 
 ## Most recent session: 2026-08-07 (session 18) — FREE LLM IN CI
 
