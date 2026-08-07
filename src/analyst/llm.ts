@@ -81,8 +81,14 @@ async function callOpenAI(msgs: ChatMsg[], attempt = 0): Promise<string> {
 
 async function call(msgs: ChatMsg[]): Promise<string> {
   await throttle()
-  if (geminiKey) return callGemini(msgs)
-  return callOpenAI(msgs)
+  if (!geminiKey) return callOpenAI(msgs)
+  try {
+    return await callGemini(msgs)
+  } catch (err) {
+    if (!llmBase) throw err
+    console.warn(`Gemini fail (${(err as Error).message}) — falling back to ${llmModel}`)
+    return callOpenAI(msgs)
+  }
 }
 
 export async function chat(msgs: ChatMsg[]): Promise<string> {
