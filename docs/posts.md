@@ -1,12 +1,12 @@
-# 5 bài đăng mẫu — EuroRWA
+# 5 sample posts — EuroRWA
 
-> Data thật snapshot 2026-08-05 (15 quỹ, tổng $10.6B). Link: https://rwa-dashboard-gamma.vercel.app
+> Real data from the 2026-08-05 snapshot (15 funds, total $10.6B). Link: https://rwa-dashboard-gamma.vercel.app
 > Repo: https://github.com/crytobot459/eurorwa
-> Đăng 2-3 bài/tuần, mỗi bài 1 insight + kèm screenshot. Sau khi đăng, ghi link vào PROGRESS.md.
+> Post 2-3 posts/week, each with 1 insight + screenshot. After posting, log the link in PROGRESS.md.
 
 ---
 
-## Bài 1 — Dòng tiền chảy vào EU (X + LinkedIn)
+## Post 1 — Capital flowing into EU (X + LinkedIn)
 
 **X:**
 
@@ -19,13 +19,13 @@
 >
 > #RWA #Tokenization #Defi @rwa_xyz @BlackRock
 
-**LinkedIn (mở rộng 2-3 câu):**
+**LinkedIn (expand to 2-3 sentences):**
 
 > Tokenized money market funds have crossed $10.6B in TVL across the 15 largest EU + US funds. The shift that stands out: USYC (Ondo) leading at $3.0B, while European funds (eurSAFO, EUTBL) are compounding fast as treasuries go onchain. We're snapshotting all 15 funds daily and signing every data point onchain — anyone can verify the numbers. Dashboard + source on my GitHub. #RWA #Tokenization
 
 ---
 
-## Bài 2 — So sánh yield (X + Reddit r/tokenization)
+## Post 2 — Yield comparison (X + Reddit r/tokenization)
 
 **X:**
 
@@ -48,7 +48,7 @@
 
 ---
 
-## Bài 3 — Quỹ mới gia nhập WATCH list (X)
+## Post 3 — New fund joins the WATCH list (X)
 
 **X:**
 
@@ -65,7 +65,7 @@
 
 ---
 
-## Bài 4 — Tổng kết (X + LinkedIn, đăng cuối tháng)
+## Post 4 — Summary (X + LinkedIn, post end of month)
 
 **X:**
 
@@ -81,7 +81,7 @@
 
 ---
 
-## Bài 5 — Câu chuyện build (LinkedIn + X thread)
+## Post 5 — Build story (LinkedIn + X thread)
 
 **LinkedIn:**
 

@@ -1,10 +1,10 @@
-# Nghiên cứu: Dữ liệu RWA + API rwa.xyz
+# Research: RWA data + rwa.xyz API
 
-> Nguồn: rwa.xyz (trang chính + docs), CoinDesk 04/08/2026. Cập nhật: 2026-08-04.
+> Sources: rwa.xyz (main site + docs), CoinDesk 04/08/2026. Updated: 2026-08-04.
 
-## 1. Thị trường RWA hiện tại (số liệu thật từ rwa.xyz)
+## 1. Current RWA market (real numbers from rwa.xyz)
 
-| Chỉ số                   | Giá trị   | Ghi chú        |
+| Metric                   | Value     | Note           |
 | ------------------------ | --------- | -------------- |
 | Distributed Asset Value  | $37.38B   | ▲1.71% / 30d   |
 | Represented Asset Value  | $419.71B  | ▲176.57% / 30d |
@@ -12,12 +12,12 @@
 | Total Stablecoin Value   | $295.85B  | ▲0.17%         |
 | Total Stablecoin Holders | 280.57M   | ▲3.47%         |
 
-**Ngày 04/08/2026**: BlackRock mở **12 tokenized share class** từ 6 quỹ,
-phủ **$311 tỷ AUM money market funds** ở châu Âu (15 thị trường, tuân thủ UCITS),
-hợp tác JPMorgan Kinexys. Trước đó 1 ngày BlackRock thêm 2 quỹ tokenized ở Mỹ.
-Thị trường RWA tăng **>200%/năm, vượt $30 tỷ** (rwa.xyz). Citi: $5.5 ngàn tỷ vào 2030.
+**On 04/08/2026**: BlackRock opened **12 tokenized share classes** from 6 funds,
+covering **$311B AUM in money market funds** across Europe (15 markets, UCITS-compliant),
+partnering with JPMorgan Kinexys. The day before, BlackRock added 2 tokenized funds in the US.
+The RWA market is growing **>200%/year, past $30B** (rwa.xyz). Citi: $5.5 trillion by 2030.
 
-## 2. Các quỹ EU hiện có (dữ liệu rwa.xyz — non-US govt debt)
+## 2. Existing EU funds (rwa.xyz data — non-US govt debt)
 
 | Ticker | TVL     | 1d change |
 | ------ | ------- | --------- |
@@ -32,20 +32,20 @@ Thị trường RWA tăng **>200%/năm, vượt $30 tỷ** (rwa.xyz). Citi: $5.5
 | CETES  | $5.4M   | +0.77%    |
 | CRMFR  | $4.9M   | +15.29%   |
 
-**Nhận xét quan trọng**: các quỹ EU hiện tại đều RẤT NHỎ (lớn nhất EUTBL ~$900M)
-so với $311 tỷ BlackRock vừa mở. Đây chính là **data gap** — thị trường vừa bùng nổ
-nhưng dữ liệu theo dõi chưa có. Dashboard của chúng ta lấp chỗ này.
+**Key observation**: current EU funds are all VERY SMALL (largest EUTBL ~$900M)
+compared to BlackRock's just-opened $311B. This is exactly the **data gap** — the market just
+exploded but there's no tracking data yet. Our dashboard fills that gap.
 
-## 3. API rwa.xyz — cách dùng
+## 3. rwa.xyz API — how to use
 
-### Endpoint chính
+### Main endpoint
 
 ```
 GET https://api.rwa.xyz/v4/assets
 Header: Authorization: Bearer $RWA_API_KEY
 ```
 
-### Query mẫu (top 3 asset theo market value)
+### Sample query (top 3 assets by market value)
 
 ```bash
 curl -G 'https://api.rwa.xyz/v4/assets' \
@@ -56,39 +56,39 @@ curl -G 'https://api.rwa.xyz/v4/assets' \
   }'
 ```
 
-### Field trả về (~200 field/asset)
+### Returned fields (~200 fields/asset)
 
 - `circulating_market_value_dollar`: `{val, val_7d, val_30d, chg_7d_pct}`
 - `asset_class_name`, `issuer_name`, `network_names`, `token_count`
-- Có endpoints riêng: issuers, managers, networks, platforms, tokens, transactions
+- Separate endpoints: issuers, managers, networks, platforms, tokens, transactions
 
 ### API key
 
-- Đăng ký tại **app.rwa.xyz** → API Tools → API Keys
-- Nếu không có quyền: email team@rwa.xyz
-- Docs đầy đủ: https://docs.rwa.xyz/llms.txt (index)
+- Register at **app.rwa.xyz** → API Tools → API Keys
+- If no access: email team@rwa.xyz
+- Full docs: https://docs.rwa.xyz/llms.txt (index)
 
-### MCP server (cho AI)
+### MCP server (for AI)
 
 - URL: `https://mcp.rwa.xyz`, OAuth 2.0
-- Hiện chỉ hỗ trợ Claude. Hữu ích cho research, không dùng cho production code.
+- Currently only supports Claude. Useful for research, not for production code.
 
 ## 4. Etherscan API (free, 5 req/s)
 
-- Lấy balance/supply ERC-20: `https://api.etherscan.io/api?module=account&action=tokenbalance...`
-- Cần API key free (etherscan.io → API keys). Dùng để cross-check supply onchain
-  của các token: BUIDL, EURC, USYC, USDY, EUTBL.
+- Get ERC-20 balance/supply: `https://api.etherscan.io/api?module=account&action=tokenbalance...`
+- Needs a free API key (etherscan.io → API keys). Used to cross-check onchain supply
+  of tokens: BUIDL, EURC, USYC, USDY, EUTBL.
 
-## 5. Data gap (tại sao dự án này tồn tại)
+## 5. Data gap (why this project exists)
 
-1. **Châu Âu thiếu dữ liệu**: quỹ EU nhỏ, không ai cover; $311 tỷ vừa bùng nổ
-2. **Không có portfolio tracker**: rwa.xyz là registry tổng, không cho nhập ví
-3. **Không có alerts**: không cảnh báo inflow/outflow bất thường
-4. **Không track RWA làm collateral trong DeFi** (RWA perps trend mới)
-5. **Không có yield marketplace** ("bỏ $10K vào đâu lời nhất")
+1. **Europe lacks data**: EU funds are small, nobody covers them; the $311B just exploded
+2. **No portfolio tracker**: rwa.xyz is an aggregate registry, no wallet input
+3. **No alerts**: no warning for unusual inflow/outflow
+4. **Doesn't track RWA as DeFi collateral** (new RWA perps trend)
+5. **No yield marketplace** ("where to park $10K for the best return")
 
-## 6. Các tài nguyên học thêm
+## 6. Further learning resources
 
-- https://docs.rwa.xyz/methodology/overview.md — cách tính yield/NAV
-- https://docs.rwa.xyz/api/examples.md — ví dụ từng endpoint
-- https://docs.rwa.xyz/schemas/assets.md — toàn bộ field reference
+- https://docs.rwa.xyz/methodology/overview.md — how yield/NAV is computed
+- https://docs.rwa.xyz/api/examples.md — endpoint examples
+- https://docs.rwa.xyz/schemas/assets.md — full field reference

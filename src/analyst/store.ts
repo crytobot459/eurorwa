@@ -29,7 +29,7 @@ interface C {
 
 export async function store(report: Report): Promise<{ file: string; signer: string; hash: string }> {
   const keyFile = join(dir, "agent.key")
-  if (!existsSync(keyFile)) throw new Error("agent.key missing — chạy bun run src/agent/attest.ts trước")
+  if (!existsSync(keyFile)) throw new Error("agent.key missing — run bun run src/agent/attest.ts first")
   const pk = readFileSync(keyFile, "utf8").trim() as Hex
   const acct = privateKeyToAccount(pk)
 
@@ -59,13 +59,13 @@ export async function store(report: Report): Promise<{ file: string; signer: str
         }
         console.log(`attested on-chain: ${key} | tx ${tx} | block ${rec.blockNumber}`)
       } catch (err) {
-        console.warn(`publish on-chain fail (${err}) — vẫn lưu local`)
+        console.warn(`publish on-chain fail (${err}) — keeping local copy`)
       }
     } else {
-      console.log(`đã attest on-chain trùng hash: ${report.date}-analyst`)
+      console.log(`already attested on-chain with same hash: ${report.date}-analyst`)
     }
   } else {
-    console.warn("chưa có contract.json — bỏ qua publish on-chain (chạy bun run src/agent/deploy.ts)")
+    console.warn("no contract.json — skipping on-chain publish (run bun run src/agent/deploy.ts)")
   }
 
   await writeFile(

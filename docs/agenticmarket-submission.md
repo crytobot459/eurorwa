@@ -1,9 +1,9 @@
 # AgenticMarket — EuroRWA submission (2026-08-06)
 
-> Nộp tại https://agenticmarket.dev/dashboard/submit sau khi tạo account (email verify).
-> Sau approve (24h): copy API key `am_live_…` → set `AGENTICMARKET_SECRET` trên Vercel → redeploy.
-> ✅ **Đã LIVE (2026-08-07):** secret đã set + gate hoạt động (401 không key / 200 đúng key).
-> Code `api/_mcp.js` có check header `x-agenticmarket-secret` (chỉ active khi env set).
+> Submit at https://agenticmarket.dev/dashboard/submit after creating an account (email verify).
+> After approval (24h): copy the API key `am_live_…` → set `AGENTICMARKET_SECRET` on Vercel → redeploy.
+> ✅ **LIVE (2026-08-07):** secret set + gate working (401 without key / 200 with correct key).
+> Code `api/_mcp.js` checks the `x-agenticmarket-secret` header (only active when the env is set).
 
 ## Form fields
 
@@ -11,13 +11,13 @@
 | ---------------- | ------------------------------------------------------------------------------------- |
 | Name             | `eurorwa`                                                                             |
 | Description      | EuroRWA analyst: tokenized money-market fund signals, snapshots, analytics and alerts |
-| Long description | (markdown dưới đây)                                                                   |
+| Long description | (markdown below)                                                                      |
 | MCP server URL   | `https://rwa-dashboard-gamma.vercel.app/mcp`                                          |
 | Category         | Finance / Data                                                                        |
-| Price per call   | `3` cents (tối thiểu $0.03)                                                           |
+| Price per call   | `3` cents (minimum $0.03)                                                             |
 | Visibility       | Listed                                                                                |
 
-## Long description (dán vào form)
+## Long description (paste into the form)
 
 ```markdown
 # EuroRWA Analyst

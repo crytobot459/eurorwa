@@ -1,100 +1,100 @@
 # AGENTS.md — EuroRWA Agent
 
-Hướng dẫn cho **mọi phiên opencode** làm việc trong dự án này.
-Đọc file này TRƯỚC TIÊN, rồi `ROADMAP.md`, rồi `PROGRESS.md`.
+Instructions for **every opencode session** working in this project.
+Read this file FIRST, then `ROADMAP.md`, then `PROGRESS.md`.
 
-## Nhiệm vụ chính (mission)
+## Mission
 
-Agent được giao hoàn thiện **EuroRWA dashboard**:
-một dashboard theo dõi các quỹ money market tokenized ở châu Âu
-(BlackRock/JPMorgan vừa mở $311 tỷ), có tích hợp **AI agent onchain**
-publish attestation dữ liệu lên blockchain. Mục tiêu cuối: kiếm tiền
-qua bán API/data → grant → việc làm.
+The agent's task is to complete the **EuroRWA dashboard**:
+a dashboard tracking European tokenized money-market funds
+(BlackRock/JPMorgan just opened $311B), with an integrated **on-chain AI agent**
+that publishes data attestations to the blockchain. End goal: make money
+by selling API/data → grant → job.
 
-## Trạng thái mỗi phiên (bắt buộc làm)
+## Session start (required)
 
-Khi bắt đầu phiên mới:
+When starting a new session:
 
-1. Đọc `ROADMAP.md` (toàn bộ)
-2. Đọc `PROGRESS.md` (nếu có) — xem phiên trước đã làm tới đâu
-3. Xác định phase đang dang dở, tiếp tục từ đó (không làm lại)
+1. Read `ROADMAP.md` (entirely)
+2. Read `PROGRESS.md` (if present) — see where the last session left off
+3. Identify the in-progress phase, continue from there (don't redo)
 
-Khi kết thúc phiên:
+At the end of the session:
 
-1. Cập nhật `PROGRESS.md`: phase nào xong, ghi tiêu chí Done đã tick
-2. Ghi rõ "việc tiếp theo phải làm" để phiên sau biết
+1. Update `PROGRESS.md`: which phases are done, note the Done criteria ticked
+2. Clearly note "next steps to do" for the next session
 
-## Quy tắc làm việc
+## Working rules
 
-- **Theo thứ tự phase** trong ROADMAP, không nhảy cóc trừ khi PROGRESS.md nói rõ lý do
-- **Mỗi phase có tiêu chí Done** — chỉ sang phase sau khi tick đủ checklist
-- **Đăng/khoe từ sớm** (Phase 2 trở đi) — đừng giấu sản phẩm cho tới khi "hoàn hảo"
-- **Chi phí $0-15/tháng** — không thêm dependency/cloud tốn tiền trừ khi có lý do
-- **Mỗi phiên nên hoàn thành trọn 1 phase** thay vì dở dang nhiều phase
+- **Follow the ROADMAP phase order**, don't skip unless PROGRESS.md explains why
+- **Each phase has Done criteria** — only move on after the checklist is ticked
+- **Post/showcase early** (from Phase 2 onward) — don't hide the product until "perfect"
+- **Cost $0-15/month** — don't add paid dependencies/cloud without a reason
+- **Each session should complete one full phase** rather than leaving many half-done
 
-## Quy ước code (kế thừa AGENTS.md root của repo)
+## Code conventions (inherited from repo root AGENTS.md)
 
-- Biến 1 từ: `const db`, `const cfg` — không `camelCase` dài trừ khi thật cần
-- Không dùng `any`
-- Tránh try/catch trừ khi cần
-- Dùng Bun APIs: `Bun.file()`, `bun:sqlite`
-- Ưu tiên type inference, `const` hơn `let`, early return thay `else`
-- Dùng snake_case cho cột DB
+- Single-word variables: `const db`, `const cfg` — no long `camelCase` unless truly needed
+- No `any`
+- Avoid try/catch unless needed
+- Use Bun APIs: `Bun.file()`, `bun:sqlite`
+- Prefer type inference, `const` over `let`, early return over `else`
+- snake_case for DB columns
 
-## Cấu trúc dự án
+## Project structure
 
 ```
 rwa-dashboard/
-├── ROADMAP.md          # Lộ trình 8 phase (đọc trước)
-├── AGENTS.md           # File này
-├── PROGRESS.md         # Trạng thái — cập nhật mỗi phiên
+├── ROADMAP.md          # 8-phase roadmap (read first)
+├── AGENTS.md           # This file
+├── PROGRESS.md         # Status — update every session
 ├── docs/
-│   ├── research-rwa-data.md       # Nghiên cứu dữ liệu RWA
-│   ├── research-onchain-agent.md  # Nghiên cứu AI agent onchain
-│   ├── research-monetization.md   # Cách kiếm tiền + mẫu bài đăng
-│   └── posts/                     # 5 bài đăng mẫu (Phase 6)
+│   ├── research-rwa-data.md       # RWA data research
+│   ├── research-onchain-agent.md  # AI agent onchain research
+│   ├── research-monetization.md   # Monetization + post templates
+│   └── posts/                     # Sample posts (Phase 6)
 ├── src/
-│   ├── fetch.ts        # Lấy dữ liệu từ rwa.xyz + etherscan
-│   ├── ingest.ts       # Ghi vào SQLite
+│   ├── fetch.ts        # Get data from rwa.xyz + etherscan
+│   ├── ingest.ts       # Write into SQLite
 │   ├── api.ts          # API endpoints
 │   ├── frontend/       # React dashboard
 │   └── agent/
-│       ├── attest.ts   # Ký + publish attestation onchain
+│       ├── attest.ts   # Sign + publish onchain attestation
 │       └── verify.ts   # Verify signature
 ├── api/
-│   ├── app.js          # API data (đọc snapshot JSON)
-│   ├── tg.ts           # Entry webhook Telegram /api/tg
-│   ├── tgbot.js        # Bot công khai Q&A + detectBuild + gửi lead
-│   └── freelance.js    # Bảng giá + classify + quickQuote (dùng chung 2 bot)
+│   ├── app.js          # Data API (reads snapshot JSON)
+│   ├── tg.ts           # Telegram webhook entry /api/tg
+│   ├── tgbot.js        # Public bot Q&A + detectBuild + send lead
+│   └── freelance.js    # Price list + classify + quickQuote (shared by 2 bots)
 ├── scripts/
-│   ├── freelance-core.js  # State machine nhận task (thuần, test được)
-│   ├── freelance-bot.js   # Bot build local (long-polling) nhận task
-│   └── freelance-test.js  # Test luồng freelance
+│   ├── freelance-core.js  # Task intake state machine (pure, testable)
+│   ├── freelance-bot.js   # Local build bot (long-polling) takes tasks
+│   └── freelance-test.js  # Freelance flow tests
 └── data/
-    ├── snapshots/      # JSON mỗi ngày
+    ├── snapshots/      # JSON per day
     ├── rwa.db          # SQLite
     ├── freelance/      # tasks.json + state.json (gitignore)
-    └── attestations/   # Hash + chữ ký mỗi ngày
+    └── attestations/   # Hash + signature per day
 ```
 
-## Các nguồn dữ liệu chính
+## Main data sources
 
 - **rwa.xyz API**: `https://api.rwa.xyz/v4/assets` — Bearer token `RWA_API_KEY`
-  (đăng ký tại app.rwa.xyz → API Tools → API Keys)
-- **rwa.xyz MCP**: `https://mcp.rwa.xyz` (OAuth — cho AI assistant)
-- **Docs**: https://docs.rwa.xyz/llms.txt (index đầy đủ)
+  (register at app.rwa.xyz → API Tools → API Keys)
+- **rwa.xyz MCP**: `https://mcp.rwa.xyz` (OAuth — for AI assistants)
+- **Docs**: https://docs.rwa.xyz/llms.txt (full index)
 - **Etherscan API**: free, 5 req/s
-- **Docs nội bộ quan trọng**: ROADMAP Phase 5 nói rõ cách làm attestation
+- **Key internal doc**: ROADMAP Phase 5 details how to do attestation
 
-## Cảnh báo bảo mật
+## Security warnings
 
-- **KHÔNG bao giờ** commit `.env.local`, private key agent, `RWA_API_KEY`
-- Private key cho attestation: tạo ví EVM mới riêng cho agent, chỉ dùng cho ký
-  dữ liệu, không nạp tiền vào
-- `.gitignore` phải có: `.env*`, `data/rwa.db`, `data/attestations/`, `data/snapshots/`
+- **NEVER** commit `.env.local`, agent private key, `RWA_API_KEY`
+- Private key for attestation: create a new EVM wallet dedicated to the agent, used only for signing,
+  never funded
+- `.gitignore` must include: `.env*`, `data/rwa.db`, `data/attestations/`, `data/snapshots/`
 
-## Thứ tự ưu tiên khi phiên bị giới hạn thời gian
+## Priority order when a session is time-constrained
 
-1. Cập nhật PROGRESS.md (luôn làm đầu tiên khi kết thúc)
-2. Hoàn thành phase đang dang dở
-3. Build 1 tính năng nhỏ trong phase hiện tại
+1. Update PROGRESS.md (always do first at the end)
+2. Complete the in-progress phase
+3. Build one small feature in the current phase

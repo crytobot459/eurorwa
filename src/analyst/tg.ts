@@ -6,7 +6,7 @@ export async function postSummary(report: Report): Promise<void> {
   const token = process.env.TG_TOKEN
   const chat = process.env.GROUP_CHAT_ID
   if (!token || !chat) {
-    console.log("skip TG summary — thiếu TG_TOKEN/GROUP_CHAT_ID")
+    console.log("skip TG summary — missing TG_TOKEN/GROUP_CHAT_ID")
     return
   }
   const buys = report.signals.filter((s) => s.action === "BUY")

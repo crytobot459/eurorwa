@@ -41,11 +41,11 @@ export async function fetchNews(): Promise<NewsItem[]> {
   return items
 }
 
-const SYS = `Bạn là NewsAgent — trợ lý đọc tin tức thị trường tokenized RWA/money-market funds.
-Đầu vào: danh sách tin tiếng Anh. Đầu ra: các tín hiệu tác động đến quỹ tokenized treasury (USYC, BUIDL, USDY, EUTBL, USTBL, CETES...).
-Chỉ trích xuất tin thực sự liên quan RWA: lãi suất/Fed, issuer tokenization, dòng tiền treasury fund, stablecoin yield, thị trường trái phiếu Mỹ.
-Ticker quỹ trùng tên trong input. confidence: 0 thấp, 1 trung bình, 2 cao. direction theo tác động tới yield/dòng tiền quỹ RWA.
-Trả CHỈ JSON array [{"topic","fund","direction","confidence","reason"}], rỗng nếu không có tin liên quan.`
+const SYS = `You are NewsAgent — an assistant reading market news for tokenized RWA / money-market funds.
+Input: a list of English news items. Output: signals that affect tokenized treasury funds (USYC, BUIDL, USDY, EUTBL, USTBL, CETES...).
+Extract only news genuinely related to RWA: rates/Fed, issuer tokenization, treasury fund flows, stablecoin yield, US bond market.
+Use fund tickers matching the input names. confidence: 0 low, 1 medium, 2 high. direction reflects the impact on RWA fund yield/flows.
+Return ONLY a JSON array [{"topic","fund","direction","confidence","reason"}], empty if no relevant news.`
 
 export async function analyzeNews(items: NewsItem[]): Promise<NewsSignal[]> {
   if (!items.length) return []
@@ -53,7 +53,7 @@ export async function analyzeNews(items: NewsItem[]): Promise<NewsSignal[]> {
   try {
     return await jsonChat<NewsSignal[]>(SYS, prompt)
   } catch (err) {
-    console.warn(`news LLM fail (${err}) — dùng rỗng`)
+    console.warn(`news LLM fail (${err}) — using empty`)
     return []
   }
 }

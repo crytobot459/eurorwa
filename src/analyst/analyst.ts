@@ -115,7 +115,7 @@ export async function analyze(
     .join("\n")
   const newsLines = news.length
     ? news.map((n) => `[${n.direction} conf=${n.confidence} ${n.fund ?? ""}] ${n.topic} — ${n.reason}`).join("\n")
-    : "(không có tin)"
+    : "(no news)"
   const flowLines = flow
     .map(
       (f) =>

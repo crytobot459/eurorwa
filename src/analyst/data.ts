@@ -46,7 +46,7 @@ export function latestSnapshot(): Snapshot {
     .filter((f) => f.endsWith(".json"))
     .sort()
   const file = files.at(-1)
-  if (!file) throw new Error("chưa có snapshot — chạy bun run fetch trước")
+  if (!file) throw new Error("no snapshot yet — run bun run fetch first")
   const snap = JSON.parse(readFileSync(join(dir, file), "utf8")) as { date: string; funds: Fund[] }
   return {
     date: snap.date,

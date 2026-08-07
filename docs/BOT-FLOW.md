@@ -1,84 +1,84 @@
-# BOT-FLOW — Luồng hoạt động của pipeline EuroRWA
+# BOT-FLOW — EuroRWA pipeline operation flow
 
-Pipeline tự động hóa toàn bộ: lấy data → verify on-chain → viết bài → deploy. Chạy độc lập trên GitHub server nên **máy tắt vẫn hoạt động**.
+The pipeline automates everything: fetch data → verify on-chain → write posts → deploy. It runs independently on GitHub servers, so it **works even when your machine is off**.
 
-## 1. Trình kích hoạt (trigger)
+## 1. Triggers
 
-| Nguồn                 | Thời gian                                                | Mục đích               |
-| --------------------- | -------------------------------------------------------- | ---------------------- |
-| Cron local (máy user) | `0 */12 * * *` (00:00, 12:00)                            | Chạy khi máy bật       |
-| GitHub Actions        | `30 0,12 * * *` (00:30, 12:30 UTC) + `workflow_dispatch` | Chạy kể cả khi máy tắt |
+| Source                    | Schedule                                                 | Purpose                       |
+| ------------------------- | -------------------------------------------------------- | ----------------------------- |
+| Local cron (user machine) | `0 */12 * * *` (00:00, 12:00)                            | Runs when machine is on       |
+| GitHub Actions            | `30 0,12 * * *` (00:30, 12:30 UTC) + `workflow_dispatch` | Runs even when machine is off |
 
-Lệch 30 phút để tránh 2 luồng chạy cùng lúc (guard chặn attest trùng nên dù trùng cũng không hỏng).
+The 30-minute offset avoids both flows running at once (the guard blocks duplicate attestations anyway, so overlap isn't harmful).
 
-## 2. Chuỗi xử lý (`scripts/run.sh`)
-
-```
-fetch.ts   → gọi rwa.xyz, lấy TVL/yield/holders của 15 quỹ → data/snapshots/<ngày>.json
-ingest.ts  → đọc snapshot, ghi vào SQLite (data/rwa.db)
-guard.ts   → kiểm tra on-chain: ngày này đã attest chưa?
-              ├─ đã attest  → thoát (giữ nguyên bản chính thức trên chuỗi)
-              └─ chưa attest → attest.ts + publish.ts
-attest.ts  → hash snapshot (keccak-256) + ký bằng ví agent → data/attestations/<ngày>.json
-publish.ts → gửi hash + chữ ký lên contract Sepolia → ghi published.tx vào file attestation
-posts.ts   → sinh ready.md (bài X/Reddit/LinkedIn) vào docs/posts/<ngày>/
-visual.ts  → dựng chart HTML → chụp PNG bằng Chrome headless → docs/posts/<ngày>/visual.png
-```
-
-Sau đó (chỉ trong GitHub Actions):
+## 2. Processing chain (`scripts/run.sh`)
 
 ```
-commit + push → nếu có thay đổi: commit snapshot + bài + ảnh về repo main
-redeploy      → nếu có commit mới: gọi Vercel Deploy Hook → site tự cập nhật
+fetch.ts   → calls rwa.xyz, gets TVL/yield/holders for 15 funds → data/snapshots/<date>.json
+ingest.ts  → reads snapshot, writes into SQLite (data/rwa.db)
+guard.ts   → checks on-chain: is this date already attested?
+              ├─ attested      → exit (keep the canonical version on-chain)
+              └─ not attested  → attest.ts + publish.ts
+attest.ts  → hashes snapshot (keccak-256) + signs with agent wallet → data/attestations/<date>.json
+publish.ts → sends hash + signature to the Sepolia contract → writes published.tx into attestation file
+posts.ts   → generates ready.md (X/Reddit/LinkedIn posts) into docs/posts/<date>/
+visual.ts  → builds chart HTML → screenshots PNG with headless Chrome → docs/posts/<date>/visual.png
 ```
 
-## 3. Ví agent & bảo mật
+Then (GitHub Actions only):
 
-- Ví ký = địa chỉ `0x02B027ecd3004Fbb579bD4c64B6e22Fff369F846`
-- Key nằm ở `data/agent.key` (local) **hoặc** env `AGENT_PRIVATE_KEY` (GitHub Actions secret `AGENT_PRIVATE_KEY`)
-- 2 nơi đều dùng **cùng một key** → chữ ký nhất quán giữa local và GitHub
-- Không bao giờ commit `data/agent.key`, `.env*`, `data/rwa.db`
+```
+commit + push → if there are changes: commit snapshot + posts + image back to repo main
+redeploy      → if there's a new commit: call Vercel Deploy Hook → site auto-updates
+```
 
-## 4. Guard chống attest trùng ngày
+## 3. Agent wallet & security
 
-Contract chỉ nhận **1 attestation/ngày** (`require date already attested`). Nếu không có guard, cron chạy lại lần 2 sẽ tạo hash khác (payload có `generated_at`) → lệch on-chain. Guard đọc contract trước khi attest:
+- Signing wallet = address `0x02B027ecd3004Fbb579bD4c64B6e22Fff369F846`
+- Key lives in `data/agent.key` (local) **or** env `AGENT_PRIVATE_KEY` (GitHub Actions secret `AGENT_PRIVATE_KEY`)
+- Both places use **the same key** → signatures are consistent between local and GitHub
+- Never commit `data/agent.key`, `.env*`, `data/rwa.db`
 
-- Hash ngày đã tồn tại → `exit 1` → giữ nguyên bản chính thức (đã publish từ lần đầu)
-- Chưa có → `exit 0` → mới attest + publish
+## 4. Guard against same-day duplicate attestation
 
-→ Chỉ **lần đầu chạy trong ngày** mới là bản chính thức lên chuỗi.
+The contract only accepts **1 attestation/day** (`require date already attested`). Without the guard, a second cron run would produce a different hash (payload includes `generated_at`) → on-chain mismatch. The guard reads the contract before attesting:
+
+- Hash for the date already exists → `exit 1` → keep the canonical version (published on first run)
+- Not present → `exit 0` → attest + publish fresh
+
+→ Only the **first run of the day** becomes the canonical on-chain version.
 
 ## 5. Data & deploy
 
-- API Vercel đọc trực tiếp `data/snapshots/*.json` (không cần SQLite)
-- Snapshot được commit về repo → Deploy Hook → Vercel rebuild → dashboard hiện data mới
+- Vercel API reads `data/snapshots/*.json` directly (no SQLite needed)
+- Snapshot is committed to the repo → Deploy Hook → Vercel rebuild → dashboard shows new data
 - Dashboard: https://rwa-dashboard-gamma.vercel.app
 - Repo: https://github.com/crytobot459/eurorwa
 
-## 6. Khi có lỗi — kiểm tra ở đâu
+## 6. When something breaks — where to look
 
-| Triệu chứng                                      | Nơi xem                                                                                                                             |
-| ------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------- |
-| Hôm nay không có file trong `docs/posts/<ngày>/` | `data/cron.log` (local) hoặc GitHub → Actions → pipeline                                                                            |
-| Attestation không publish                        | `data/attestations/<ngày>.json` thiếu `published.tx` → xem lỗi tx trên Sepolia scan                                                 |
-| Site không có data mới                           | GitHub Actions có commit không? Hook Vercel có chạy không?                                                                          |
-| Ảnh không sinh ra                                | Chrome bận (đang mở nhiều tab) — visual.ts đã có `--user-data-dir` riêng + timeout 30s, lỗi sẽ chỉ cảnh báo chứ không chặn pipeline |
+| Symptom                               | Where to look                                                                                                                         |
+| ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| No file in `docs/posts/<date>/` today | `data/cron.log` (local) or GitHub → Actions → pipeline                                                                                |
+| Attestation not published             | `data/attestations/<date>.json` missing `published.tx` → check tx error on Sepolia scan                                               |
+| Site doesn't show new data            | Did GitHub Actions commit? Did the Vercel hook run?                                                                                   |
+| Image not generated                   | Chrome busy (many tabs open) — visual.ts has its own `--user-data-dir` + 30s timeout, errors only warn, they don't block the pipeline |
 
-## 7. Chạy tay để test
+## 7. Manual run for testing
 
 ```bash
 bun run fetch && bun run ingest
-bun run posts      # sinh bài
-bun run visual     # sinh ảnh
-bun run verify     # verify attestation khớp chữ ký
-bun run scripts/bot-test.js  # test logic bot (không cần token)
+bun run posts      # generate posts
+bun run visual     # generate image
+bun run verify     # verify attestation matches signature
+bun run scripts/bot-test.js  # test bot logic (no token needed)
 ```
 
-## 8. Telegram bot (agent chat với khách)
+## 8. Telegram bot (agent chats with customers)
 
-- Endpoint: `POST /api/tg` (webhook Telegram trên Vercel) — `api/tg.ts` + `api/tgbot.js`
-- Trả lời từ `data/snapshots/*.json` + `data/attestations/*.json` (data mới mỗi khi pipeline redeploy)
-- Lệnh: `/today`, `/funds`, `/yields`, `/movers`, `/proof`, `/suggest <comment>`, hoặc gõ thẳng tên quỹ / câu hỏi
-- Token: đọc từ env `TG_TOKEN` (set trong Vercel → Settings → Environment Variables)
-- Đăng ký webhook: `TG_TOKEN=... bun run scripts/tg-webhook.js https://rwa-dashboard-gamma.vercel.app/api/tg`
-- Test local: `bun run scripts/bot-test.js`
+- Endpoint: `POST /api/tg` (Telegram webhook on Vercel) — `api/tg.ts` + `api/tgbot.js`
+- Answers from `data/snapshots/*.json` + `data/attestations/*.json` (fresh data each time the pipeline redeploys)
+- Commands: `/today`, `/funds`, `/yields`, `/movers`, `/proof`, `/suggest <comment>`, or just type a fund name / question
+- Token: read from env `TG_TOKEN` (set in Vercel → Settings → Environment Variables)
+- Register webhook: `TG_TOKEN=... bun run scripts/tg-webhook.js https://rwa-dashboard-gamma.vercel.app/api/tg`
+- Test locally: `bun run scripts/bot-test.js`

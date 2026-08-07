@@ -1,26 +1,26 @@
-# docs/posts — Bài đăng sẵn sàng mỗi ngày
+# docs/posts — Ready-to-post content, daily
 
-Pipeline tự động sinh **1 thư mục mỗi ngày**: `docs/posts/<YYYY-MM-DD>/`
+The pipeline auto-generates **1 folder per day**: `docs/posts/<YYYY-MM-DD>/`
 
-Mở thư mục ngày hôm nay là có đủ mọi thứ để đăng — không cần tìm gì thêm.
+Open today's folder and you have everything needed to post — no further searching.
 
-## Cấu trúc mỗi ngày
+## Daily structure
 
-| File          | Dùng để                                                         |
-| ------------- | --------------------------------------------------------------- |
-| `ready.md`    | Bài đăng đã soạn sẵn cho **X / Reddit / LinkedIn** (copy-paste) |
-| `visual.png`  | Ảnh chart 1200×630 — đính kèm khi đăng LinkedIn/X               |
-| `visual.html` | Nguồn HTML của ảnh (không cần đụng)                             |
+| File          | Purpose                                                      |
+| ------------- | ------------------------------------------------------------ |
+| `ready.md`    | Pre-written posts for **X / Reddit / LinkedIn** (copy-paste) |
+| `visual.png`  | 1200×630 chart image — attach when posting LinkedIn/X        |
+| `visual.html` | HTML source of the image (no need to touch)                  |
 
-## Cách đăng (2 phút)
+## How to post (2 minutes)
 
-1. Mở thư mục hôm nay: `docs/posts/<ngày>/`
-2. Mở `ready.md` → copy mục **X** sang X, mục **Reddit** sang Reddit, mục **LinkedIn** sang LinkedIn
-3. Đính kèm `visual.png` (LinkedIn/X)
-4. Sau khi đăng xong → ghi link bài vào `PROGRESS.md` (mục "Việc tiếp theo") để track
+1. Open today's folder: `docs/posts/<date>/`
+2. Open `ready.md` → copy the **X** section to X, the **Reddit** section to Reddit, the **LinkedIn** section to LinkedIn
+3. Attach `visual.png` (LinkedIn/X)
+4. After posting → log the post link in `PROGRESS.md` (under "Next steps") to track
 
-## Lưu ý
+## Notes
 
-- File được tạo bởi `bun run posts` + `bun run visual` (chạy trong `scripts/run.sh`)
-- Nếu 1 ngày không có file → pipeline hôm đó lỗi ở bước nào đó, xem `data/cron.log` (local) hoặc tab Actions của repo GitHub
-- `ready.md` luôn sinh theo snapshot mới nhất — đăng ngày nào thì dùng thư mục ngày đó
+- Files are created by `bun run posts` + `bun run visual` (run inside `scripts/run.sh`)
+- If a day has no files → the pipeline errored somewhere that day; check `data/cron.log` (local) or the repo's Actions tab
+- `ready.md` is always generated from the latest snapshot — use that day's folder for the day you post

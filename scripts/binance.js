@@ -5,7 +5,7 @@ const key = process.env.BINANCE_API_KEY
 const secret = process.env.BINANCE_API_SECRET
 
 async function signed(path, params = {}) {
-  if (!key || !secret) throw new Error("thiếu BINANCE_API_KEY / BINANCE_API_SECRET")
+  if (!key || !secret) throw new Error("missing BINANCE_API_KEY / BINANCE_API_SECRET")
   const qs = new URLSearchParams({ ...params, timestamp: Date.now() }).toString()
   const sig = createHmac("sha256", secret).update(qs).digest("hex")
   const res = await fetch(`${base}${path}?${qs}&signature=${sig}`, {

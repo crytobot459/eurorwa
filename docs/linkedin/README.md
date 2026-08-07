@@ -1,148 +1,148 @@
-# LinkedIn — Hồ sơ + Bài đăng (2026-08-06)
+# LinkedIn — Profile + Posts (2026-08-06)
 
-> Hồ sơ: https://www.linkedin.com/in/canh-pham-bot-dev/
-> Ảnh trong thư mục này: `avatar.png` (ảnh đại diện 400×400) · `banner.png` (ảnh bìa 1584×396) · `logo.png` (logo 900×280, dùng cho brand kit / bài viết)
-> Cả 3 ảnh **không có tên, không có mặt, không có số liệu** — avatar là logo mạng dữ liệu trừu tượng (network graph), banner/logo chỉ có thương hiệu "EuroRWA".
+> Profile: https://www.linkedin.com/in/canh-pham-bot-dev/
+> Images in this folder: `avatar.png` (profile picture 400×400) · `banner.png` (cover 1584×396) · `logo.png` (logo 900×280, for brand kit / posts)
+> All 3 images have **no name, no face, no numbers** — the avatar is an abstract data-network logo (network graph), banner/logo only carry the "EuroRWA" brand.
 
 ---
 
-## 0.5. LOGO ĐỂ ĐÂU? ✅
+## 0.5. WHERE DOES THE LOGO GO? ✅
 
-`logo.png` **KHÔNG dùng cho LinkedIn** (LinkedIn đã có avatar + banner). Logo dùng ở nơi khác:
+`logo.png` is **NOT for LinkedIn** (LinkedIn already has avatar + banner). The logo is used elsewhere:
 
 - GitHub repo `eurorwa` → README header
 - Website dashboard → footer / header
-- Telegram bot → ảnh đại diện bot, mô tả
-- Bài viết / bản tin / slides / chữ ký email
-- Trang docs, vercel.json branding
+- Telegram bot → bot avatar, description
+- Posts / newsletters / slides / email signature
+- Docs pages, vercel.json branding
 
-> Đã sửa: trước đây logo nền trong suốt nhưng chữ trắng → mất chữ trên nền sáng. Giờ có thẻ nền tối (card) → dùng được trên nền trắng lẫn tối.
+> Fixed: previously the logo had a transparent background but white text → text disappeared on light backgrounds. Now it has a dark card → works on both white and dark backgrounds.
 
 ---
 
-## 0.7. TELEGRAM CHO KHÁCH ✅
+## 0.7. TELEGRAM FOR CUSTOMERS ✅
 
-2 bot Telegram (đã có sẵn):
+2 Telegram bots (already exist):
 
-- **@EuroRWA_Data_bot** — bot dữ liệu công khai (khách hỏi số liệu, xem dashboard)
-- **@EuroRWA_Build_2026_bot** — bot nhận task/thuê build (khách báo giá, trả USDT 100% trước)
+- **@EuroRWA_Data_bot** — public data bot (customers ask for numbers, view dashboard)
+- **@EuroRWA_Build_2026_bot** — task/commission bot (customers get quoted, pay USDT 100% upfront)
 
-**Trên LinkedIn — thêm vào Contact info → Websites:**
+**On LinkedIn — add to Contact info → Websites:**
 
 - Website 1 (Portfolio): `https://rwa-dashboard-gamma.vercel.app`
-- Website 2 (Telegram): `https://t.me/EuroRWA_Build_2026_bot` (khách bấm → vào bot nhận task)
+- Website 2 (Telegram): `https://t.me/EuroRWA_Build_2026_bot` (customer clicks → enters the task bot)
 
-**Trên dashboard web:** đã thêm nút **💬 Telegram** ở header → mở @EuroRWA_Data_bot (đã deploy).
+**On the web dashboard:** added a **💬 Telegram** button in the header → opens @EuroRWA_Data_bot (deployed).
 
-> ✅ **Đã cập nhật (2026-08-06):** bot nhận task (freelance-core.js + freelance-bot.js) giờ **toàn tiếng Anh** — khách quốc tế từ LinkedIn hiểu ngay. Đã thêm:
+> ✅ **Updated (2026-08-06):** the task bot (freelance-core.js + freelance-bot.js) is now **fully in English** — international customers from LinkedIn understand it immediately. Added:
 >
-> - **Lead triage:** tự phân loại tin nhắn → `opportunity` (nhà tuyển dụng) / `task` (thuê build) / `spam`.
-> - **Luồng A:** tin nhắn nhà tuyển dụng KHÔNG tự trả lời — bot gửi bản nháp gợi ý (từ `data/templates.json`) cho chủ, chủ duyệt `/send <chatId>` hoặc soạn riêng `/draft <chatId> <text>` rồi mới gửi khách.
-> - **Luồng B:** sau khi bàn giao, chủ gõ `/deliver <taskId> <mô tả/đường dẫn>` → bot gửi thông báo hoàn thành cho khách; khách trả lời "ok" → đóng task, hoặc góp ý → về trạng thái review.
+> - **Lead triage:** auto-classifies messages → `opportunity` (recruiters) / `task` (commission) / `spam`.
+> - **Flow A:** recruiter messages are NOT auto-replied — the bot sends a suggested draft (from `data/templates.json`) to the owner, who approves via `/send <chatId>` or writes their own via `/draft <chatId> <text>`, then it goes to the customer.
+> - **Flow B:** after delivery, the owner types `/deliver <taskId> <description/path>` → bot sends the completion notice to the customer; customer replies "ok" → task closed, or gives feedback → back to review status.
 
 ---
 
-## 0.6. ĐÁNH GIÁ HỒ SƠ — HỌC TỪ NGƯỜI GIỎI 🎯
+## 0.6. PROFILE REVIEW — LEARNING FROM THE BEST 🎯
 
-> Kiểm tra 2026-08-06: bộ nội dung mới đang được áp dụng từng bước (ảnh + headline đã làm). Lưu ý: LinkedIn chặn bot nên tôi **không xem được hồ sơ live** — search engine vẫn còn cache headline cũ _"Machine Learning Engineer | Algorithmic Trading | Rust, Python"_. Sau khi sửa, kiểm tra trên chính tài khoản của bạn (chưa vào thì chưa lưu).
+> Checked 2026-08-06: new content being applied step by step (images + headline done). Note: LinkedIn blocks bots so I **can't view the live profile** — search engines still cache the old headline _"Machine Learning Engineer | Algorithmic Trading | Rust, Python"_. After editing, verify on your own account (not saved until you enter it).
 
-### Tên thật hay tên giả? → BẮT BUỘC tên thật ⚠️
+### Real name or fake name? → REAL NAME REQUIRED ⚠️
 
-LinkedIn **cấm tên giả / biệt danh / tên thương hiệu** trong ô tên (User Agreement + Professional Community Policies). Dùng tên giả = tài khoản bị khoá/restrict. Được phép dùng **"preferred professional name"** (tên gọn hơn của tên thật).
-→ **Giữ tên "Canh Pham"**, đưa thương hiệu "EuroRWA" vào **headline, About, Experience, Featured** — đúng như cách người giỏi làm (xem dưới đây).
+LinkedIn **forbids fake names / nicknames / brand names** in the name field (User Agreement + Professional Community Policies). Using a fake name = account locked/restricted. A **"preferred professional name"** (shorter version of your real name) is allowed.
+→ **Keep the name "Canh Pham"**, put the "EuroRWA" brand into the **headline, About, Experience, Featured** — exactly how the best profiles do it (see below).
 
-### Các hồ sơ giỏi làm sao? (học theo)
+### What do the good profiles do? (model after them)
 
-4 hồ sơ RWA/DeFi được săn đón:
+4 in-demand RWA/DeFi profiles:
 
-- **moazam abbasi** — headline nhét từ khoá: `Smart Contract Engineer | DeFi Protocol Development | MEV and Flash Loan Systems | RWA Tokenization ERC-3643 | Solidity and Rust | Arbitrum...`; About = hook + "what I'm building" + stack; dự án có SỐ đo ("$5M+", "sub-millisecond latency").
-- **almardan isaev** — dùng con số ấn tượng ("liquidated $5M+ positions, made $300K+"), viết bài chia sẻ trải nghiệm thật.
-- **devang patel (RWA.xyz)** — đăng/tái chia sẻ tin RWA mỗi tuần → tạo "authority".
-- **joachim lebrun (creator ERC-3643)** — About kể rõ mình "build infrastructure", vai trò, chuẩn.
+- **moazam abbasi** — headline packed with keywords: `Smart Contract Engineer | DeFi Protocol Development | MEV and Flash Loan Systems | RWA Tokenization ERC-3643 | Solidity and Rust | Arbitrum...`; About = hook + "what I'm building" + stack; projects have METRICS ("$5M+", "sub-millisecond latency").
+- **almardan isaev** — uses impressive numbers ("liquidated $5M+ positions, made $300K+"), writes posts sharing real experience.
+- **devang patel (RWA.xyz)** — posts/reposts RWA news weekly → builds "authority".
+- **joachim lebrun (creator ERC-3643)** — About clearly states he "builds infrastructure", roles, standards.
 
-**Điểm chung:** tên thật · headline giàu từ khoá · About hook + số liệu · Featured đầy đủ · kỹ năng liệt kê keyword · đăng bài đều về đúng chủ đề RWA/tokenization · không có bài đăng cảm xúc lạc chủ đề.
+**Common thread:** real name · keyword-rich headline · About hook + numbers · complete Featured · keyword skills · consistent posts on RWA/tokenization topics · no off-topic emotional posts.
 
-Chuẩn rút ra từ hồ sơ các dev RWA/DeFi được săn đón (moazam abbasi, almardan isaev, devang patel của RWA.xyz):
+Standards extracted from in-demand RWA/DeFi dev profiles (moazam abbasi, almardan isaev, devang patel from RWA.xyz):
 
-### Headline — nhét từ khoá, tối đa 220 ký tự
+### Headline — pack keywords, max 220 chars
 
 ```
 Bot Developer | On-chain RWA & DeFi data pipelines | AI agents + Telegram automation for tokenized money market funds
 ```
 
-(Thêm "DeFi", "AI agents" để tăng từ khoá tìm kiếm so với bản cũ.)
+(Added "DeFi", "AI agents" to increase search keywords vs the old version.)
 
-### About — câu mở đầu phải "hook" (chỉ ~3 dòng hiển thị trước "see more")
+### About — the opening line must "hook" (only ~3 lines visible before "see more")
 
-Đổi dòng đầu tiên thành:
+Change the first line to:
 
 ```
 I build small automated systems that turn public data into products people can verify — every number hashed & signed on-chain.
 ```
 
-Rồi mới tiếp đoạn "Currently building EuroRWA..." như cũ. Cuối About thêm CTA rõ:
+Then continue with the "Currently building EuroRWA..." paragraph as before. End the About with a clear CTA:
 
 ```
 Open to work on RWA / tokenization data, DeFi analytics, and automation projects. DM me or email...
 ```
 
-### Featured (mục nổi bật) — THÊM ngay, rất quan trọng
+### Featured — ADD NOW, very important
 
-Đưa 3 thứ lên Featured để hồ sơ "sống":
+Put 3 things in Featured to make the profile "alive":
 
-1. Link dashboard: https://rwa-dashboard-gamma.vercel.app
-2. Link GitHub: https://github.com/crytobot459/eurorwa
-3. Ảnh `visual.png` hoặc link NFT trên Etherscan (minh chứng on-chain)
+1. Dashboard link: https://rwa-dashboard-gamma.vercel.app
+2. GitHub link: https://github.com/crytobot459/eurorwa
+3. `visual.png` image or the NFT link on Etherscan (on-chain proof)
 
-### Kỹ năng (Skills) — thêm từ khoá để được tìm thấy
+### Skills — add keywords to be found
 
 `RWA · Tokenization · On-chain Data · DeFi · Telegram Bot · AI Agents · Data Pipeline · TypeScript · Bun · SQLite · Viem · Google Gemini · Solidity · Ethereum · Sepolia · Web3 · Automation`
 
-### Kinh nghiệm — bullet có SỐ đo
+### Experience — bullets with METRICS
 
-Bản hiện tại đã khá tốt; thêm số: "15 funds · 12h cadence · 30/90-day flows", "every snapshot keccak-256 signed on Sepolia".
+Current version is decent; add numbers: "15 funds · 12h cadence · 30/90-day flows", "every snapshot keccak-256 signed on Sepolia".
 
-### Việc cần làm trên LinkedIn (thủ công)
+### Things to do on LinkedIn (manual)
 
-1. Đổi headline (dán ở trên).
-2. Dán lại About mới (hook + CTA).
-3. Thêm 3 mục Featured.
-4. Xoá/ẩn bài đăng cũ kiểu cảm xúc, hoặc ghim bài RWA.
-5. Bật "Open to work" + điền location (Ho Chi Minh City).
-6. Đăng 1 bài mới kèm `visual.png` (mục 5) — đăng xong ghi link vào PROGRESS.md.
-
----
-
-## 1. CÁC BƯỚC ÁP DỤNG (2-3 phút, làm bằng tay)
-
-1. **Ảnh đại diện:** vào hồ sơ → ✏️ → Ảnh → Tải lên → chọn `avatar.png` (logo trừu tượng, không mặt).
-2. **Ảnh bìa:** hồ sơ → ✏️ → Ảnh nền → Tải lên → chọn `banner.png` (chỉ thương hiệu EuroRWA, không số liệu).
-3. **Logo riêng (`logo.png`):** dùng trong bài viết, trang web, chữ ký — không phải ảnh hồ sơ.
-4. **Headline:** dán dòng bên dưới (mục 2).
-5. **Phần Giới thiệu (About):** dán nội dung mục 3.
-6. **Kinh nghiệm:** thêm 1 mục (mục 4).
-7. **Đăng bài:** tạo bài đăng mới → dán mục 5 → đính kèm ảnh `visual.png` (docs/posts/2026-08-06/).
+1. Change the headline (paste above).
+2. Paste the new About (hook + CTA).
+3. Add 3 Featured items.
+4. Delete/hide old emotional posts, or pin an RWA post.
+5. Enable "Open to work" + fill in location (Ho Chi Minh City).
+6. Post 1 new post with `visual.png` (section 5) — after posting, log the link in PROGRESS.md.
 
 ---
 
-## 0. NFT ĐÃ MINT (2026-08-06) ✅
+## 1. STEPS TO APPLY (2-3 minutes, done by hand)
 
-**Đã mint xong, 100% miễn phí (Sepolia):**
-
-- **NFT:** EuroRWA Avatar #1 — ảnh (SVG) nằm thẳng **trên chuỗi**, không cần IPFS
-- **Hợp đồng:** `0x38d6c0c35da4288b6e34061e4e7b104135a7c1e0`
-- **Chủ sở hữu:** ví MetaMask của bạn `0x55833f4B385528dF3c711741a2dEa404806fd0Da`
-- **Xem:** https://sepolia.etherscan.io/token/0x38d6c0c35da4288b6e34061e4e7b104135a7c1e0
-
-**Xem trong MetaMask:** đổi mạng sang **Sepolia test network** → tab **NFT** → Import → nhập địa chỉ hợp đồng + Token ID `1`.
-
-**Chuyển sang Base mainnet (khi muốn NFT "thật"):** liên hệ tôi — ví đã có sẵn ~0.01 Sepolia ETH để trả gas chuyển NFT. Lưu ý ví này có gas tiền **testnet** nên cần nạp ETH thật (Base) nếu muốn mint/chuyển trên mainnet.
-
-> ⚠️ Khóa riêng tư của ví này **đã bị dán trong chat** → coi là đã lộ. Không nạp tiền thật vào. Muốn an toàn thì tạo ví mới và chuyển NFT sang sau.
+1. **Profile picture:** profile → ✏️ → Photo → Upload → choose `avatar.png` (abstract logo, no face).
+2. **Cover:** profile → ✏️ → Background photo → Upload → choose `banner.png` (EuroRWA brand only, no numbers).
+3. **Separate logo (`logo.png`):** use in posts, website, signature — not a profile photo.
+4. **Headline:** paste the line below (section 2).
+5. **About section:** paste the content from section 3.
+6. **Experience:** add 1 entry (section 4).
+7. **Post:** create a new post → paste section 5 → attach `visual.png` (docs/posts/2026-08-06/).
 
 ---
 
-## 2. HEADLINE (dán thẳng)
+## 0. NFT MINTED (2026-08-06) ✅
+
+**Minted, 100% free (Sepolia):**
+
+- **NFT:** EuroRWA Avatar #1 — image (SVG) stored directly **on-chain**, no IPFS needed
+- **Contract:** `0x38d6c0c35da4288b6e34061e4e7b104135a7c1e0`
+- **Owner:** your MetaMask wallet `0x55833f4B385528dF3c711741a2dEa404806fd0Da`
+- **View:** https://sepolia.etherscan.io/token/0x38d6c0c35da4288b6e34061e4e7b104135a7c1e0
+
+**View in MetaMask:** switch network to **Sepolia test network** → **NFT** tab → Import → enter the contract address + Token ID `1`.
+
+**Move to Base mainnet (when you want a "real" NFT):** contact me — the wallet already has ~0.01 Sepolia ETH for transfer gas. Note this wallet only has **testnet** gas, so you'd need real ETH (Base) to mint/transfer on mainnet.
+
+> ⚠️ This wallet's private key **was pasted in chat** → treat it as compromised. Don't deposit real funds. For safety, create a new wallet and move the NFT over later.
+
+---
+
+## 2. HEADLINE (paste directly)
 
 ```
 Bot Developer | On-chain RWA & DeFi data pipelines | AI agents + Telegram automation for tokenized money market funds
@@ -150,7 +150,7 @@ Bot Developer | On-chain RWA & DeFi data pipelines | AI agents + Telegram automa
 
 ---
 
-## 3. GIỚI THIỆU (About)
+## 3. ABOUT
 
 ```
 I build small automated systems that turn public data into products people can verify — every number hashed & signed on-chain.
@@ -169,12 +169,12 @@ Open to work on RWA / tokenization data, DeFi analytics, and automation projects
 
 ---
 
-## 4. KINH NGHIỆM (thêm 1 mục)
+## 4. EXPERIENCE (add 1 entry)
 
-**Vị trí:** Bot Developer — RWA Data & On-chain Verification
-**Công ty:** Self-employed · Freelance
-**Thời gian:** 2025 – Hiện tại
-**Mô tả:**
+**Title:** Bot Developer — RWA Data & On-chain Verification
+**Company:** Self-employed · Freelance
+**Dates:** 2025 – Present
+**Description:**
 
 ```
 • Built an AI agent system monitoring 15 tokenized money market funds (USYC, BUIDL, USDY, eurSAFO…) — TVL, APY, holders, 7/30/90-day flows
@@ -183,13 +183,13 @@ Open to work on RWA / tokenization data, DeFi analytics, and automation projects
 • Tech: TypeScript, Bun, Viem, SQLite, Hono, Google Gemini, Docker
 ```
 
-_(Nếu có kinh nghiệm làm việc trước đây thì thêm lên phía trên.)_
+_(If you have earlier work experience, add it above.)_
 
 ---
 
-## 5. BÀI ĐĂNG (đăng kèm ảnh visual.png)
+## 5. POST (publish with the visual.png image)
 
-> Bản mới 2026-08-07 — viết lại theo pattern từ các bài đăng RWA/DeFi chất lượng + data 2026 (hook <60 ký tự, số thật, story, câu hỏi cuối, link ở comment, 1-3 hashtag). Bản mới nhất luôn nằm trong `docs/posts/2026-08-06/ready.md`.
+> New version 2026-08-07 — rewritten following patterns from high-quality RWA/DeFi posts + 2026 data (hook <60 chars, real numbers, story, closing question, links in comments, 1-3 hashtags). The newest version always lives in `docs/posts/2026-08-06/ready.md`.
 
 ```
 $10.7B is parked in tokenized money funds. Nobody publishes what's actually inside them.
@@ -236,7 +236,7 @@ Which fund would you add to this list?
 #RWA #Tokenization #BuildingInPublic
 ```
 
-**Comment đầu tiên** (dán ngay sau khi đăng — link KHÔNG để trong thân bài):
+**First comment** (paste right after posting — links NOT in the body):
 
 ```
 Live dashboard: https://rwa-dashboard-gamma.vercel.app
@@ -246,8 +246,8 @@ Open source: https://github.com/crytobot459/eurorwa
 
 ---
 
-## GHI CHÚ
+## NOTES
 
-- Avatar là logo mạng dữ liệu trừu tượng — không tên, không mặt, không liên quan danh tính thật.
-- Hồ sơ bằng tiếng Anh (LinkedIn quốc tế). Nếu muốn song ngữ, thêm phần tiếng Việt ở cuối About.
-- Sau khi đăng xong → ghi link bài vào PROGRESS.md.
+- Avatar is an abstract data-network logo — no name, no face, unrelated to real identity.
+- Profile is in English (LinkedIn is international). If you want bilingual, add a Vietnamese section at the end of About.
+- After posting → log the post link in PROGRESS.md.

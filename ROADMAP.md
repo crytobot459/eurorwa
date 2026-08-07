@@ -1,215 +1,215 @@
 # EuroRWA — ROADMAP
 
-Agent được giao nhiệm vụ hoàn thiện dự án **EuroRWA** — dashboard theo dõi
-European Tokenized Money Market Funds, tích hợp **AI agent onchain**.
+Agent's task is to complete the **EuroRWA** project — a dashboard tracking
+European Tokenized Money Market Funds, with an **on-chain AI agent** integrated.
 
-> Nguyên tắc: đọc file này TRƯỚC, làm theo thứ tự phase, mỗi phase có tiêu chí
-> hoàn thành (Done = đúng/đủ). Sau khi xong mỗi phase, cập nhật `PROGRESS.md`.
-> Mỗi phiên opencode mới: đọc `AGENTS.md` → `ROADMAP.md` → `PROGRESS.md` rồi tiếp tục.
-
----
-
-## Tóm tắt 30 giây
-
-- **Sản phẩm**: dashboard theo dõi các quỹ money market tokenized ở châu Âu
-  (BlackRock/JPMorgan vừa mở $311 tỷ — rwa.xyz chưa cover đầy đủ).
-- **Cách kiếm tiền**: bán API/data → grant → được tuyển (JPMorgan Kinexys, Securitize).
-- **Điểm khác biệt**: tích hợp **AI agent onchain** publish dữ liệu lên blockchain
-  (attestation) — cái mà rwa.xyz không làm.
-- **Chi phí**: $0-15/tháng. **Thời gian**: 6-8 tuần MVP.
+> Rules: read this file FIRST, follow phases in order, each phase has a
+> completion criterion (Done = correct/complete). After each phase, update `PROGRESS.md`.
+> Each new opencode session: read `AGENTS.md` → `ROADMAP.md` → `PROGRESS.md`, then continue.
 
 ---
 
-## PHASE 1 — Nghiên cứu & setup (tuần 1)
+## 30-second summary
 
-### Nhiệm vụ
-
-1. Đọc 4 tài liệu nghiên cứu trong `docs/`:
-   - `docs/research-rwa-data.md` — dữ liệu RWA, API rwa.xyz, data gaps
-   - `docs/research-onchain-agent.md` — trend AI agent onchain, TEE, NEAR AI, IronClaw
-   - `docs/research-monetization.md` — cách kiếm tiền, khách hàng thật
-2. Lấy API key rwa.xyz:
-   - Đăng nhập [app.rwa.xyz](https://app.rwa.xyz/login) → API Tools → API Keys
-   - Set env: `RWA_API_KEY` trong `.env.local`
-   - Nếu chưa có quyền API: gửi email team@rwa.xyz
-3. Kiểm tra môi trường: `bun` (1.3.14 đã có), node, internet tới api.rwa.xyz + etherscan (đã test OK)
-4. Tạo `.env.local` mẫu từ `.env.example`
-
-### Tiêu chí hoàn thành (Done)
-
-- [ ] Đọc xong 3 file research trong `docs/`, ghi chú 3-5 insight quan trọng vào `PROGRESS.md`
-- [ ] Có `RWA_API_KEY` hoạt động: chạy `curl -G 'https://api.rwa.xyz/v4/assets' -H "Authorization: Bearer $RWA_API_KEY"` trả JSON
-- [ ] `.env.local` tồn tại, không commit (nằm trong `.gitignore`)
+- **Product**: dashboard tracking European tokenized money-market funds
+  (BlackRock/JPMorgan just opened $311B — rwa.xyz doesn't cover it fully yet).
+- **How it makes money**: sell API/data → grant → get hired (JPMorgan Kinexys, Securitize).
+- **Differentiator**: integrated **on-chain AI agent** publishing data to the blockchain
+  (attestation) — something rwa.xyz doesn't do.
+- **Cost**: $0-15/month. **Timeline**: 6-8 weeks MVP.
 
 ---
 
-## PHASE 2 — Script thu thập dữ liệu (tuần 2-3)
+## PHASE 1 — Research & setup (week 1)
 
-### Nhiệm vụ
+### Tasks
 
-1. Viết `src/fetch.ts` (Bun + TypeScript):
-   - Gọi rwa.xyz API `/v4/assets` → lọc 15-20 quỹ EU: EUTBL, UKTBL, bC3M, BUIDL, USYC, USDY, EURC + quỹ BlackRock mới
-   - Mỗi quỹ lấy: `circulating_market_value_dollar`, yield (APY/7-day), holder count, `chg_7d_pct`
-   - Gọi etherscan API (free) cho balance/supply 5 token: BUIDL, EURC, USYC, USDY, EUTBL
-   - Ghi JSON snapshot vào `data/snapshots/YYYY-MM-DD.json`
-2. Viết `src/ingest.ts`:
-   - Đọc snapshots → upsert vào SQLite `data/rwa.db`
-   - Bảng: `funds` (id, slug, name, ticker, asset_class), `snapshots` (date, fund_id, tvl, yield, holders, supply)
-   - Dùng `bun:sqlite` (không cần dependency)
-3. Viết `src/cron.ts` hoặc shell `scripts/run.sh` chạy mỗi 12h (cron/systemd timer)
+1. Read the 4 research documents in `docs/`:
+   - `docs/research-rwa-data.md` — RWA data, rwa.xyz API, data gaps
+   - `docs/research-onchain-agent.md` — AI agent onchain trend, TEE, NEAR AI, IronClaw
+   - `docs/research-monetization.md` — monetization, real customers
+2. Get an rwa.xyz API key:
+   - Log in at [app.rwa.xyz](https://app.rwa.xyz/login) → API Tools → API Keys
+   - Set env: `RWA_API_KEY` in `.env.local`
+   - If no API access yet: email team@rwa.xyz
+3. Check environment: `bun` (1.3.14 already present), node, internet to api.rwa.xyz + etherscan (tested OK)
+4. Create `.env.local` from `.env.example`
 
-### Yêu cầu code (tuân theo AGENTS.md gốc của repo)
+### Completion criteria (Done)
 
-- Biến 1 từ (const, not camelCase dài), không `any`, không try/catch trừ khi cần, dùng `Bun.file()`
-- `const db = new Database("data/rwa.db")` — dùng `bun:sqlite`
-
-### Tiêu chí hoàn thành (Done)
-
-- [x] `bun run src/fetch.ts` chạy được, tạo `data/snapshots/<ngày>.json` đầy đủ 15+ quỹ (11 quỹ EU/US, **data thật** scrape web)
-- [x] `bun run src/ingest.ts` ghi được vào SQLite, truy vấn ra bảng (idempotent, 0 orphan)
-- [x] Có lịch sử snapshot theo ngày (1 snapshot thật 08-05 + DB rebuild sạch)
-
-> Ghi chú: rwa.xyz từ chối cấp API key → **chuyển sang scrape trang công khai** `app.rwa.xyz/assets/<TICKER>` (parse `__NEXT_DATA__`, không cần login). Data thật, source:"rwa.xyz-web". Nếu rwa.xyz đổi cấu trúc trang → fetch.ts có fallback mock + cần kiểm tra log.
+- [ ] Read the 3 research files in `docs/`, note 3-5 key insights in `PROGRESS.md`
+- [ ] Working `RWA_API_KEY`: `curl -G 'https://api.rwa.xyz/v4/assets' -H "Authorization: Bearer $RWA_API_KEY"` returns JSON
+- [ ] `.env.local` exists, not committed (in `.gitignore`)
 
 ---
 
-## PHASE 3 — API (tuần 4)
+## PHASE 2 — Data collection script (weeks 2-3)
 
-### Nhiệm vụ
+### Tasks
 
-1. Viết `src/api.ts` (Bun + Hono):
-   - `GET /funds` — danh sách quỹ + TVL mới nhất
-   - `GET /funds/:slug` — chi tiết + lịch sử yield/flow
-   - `GET /yields` — so sánh APY toàn bộ
+1. Write `src/fetch.ts` (Bun + TypeScript):
+   - Call rwa.xyz API `/v4/assets` → filter 15-20 EU funds: EUTBL, UKTBL, bC3M, BUIDL, USYC, USDY, EURC + new BlackRock funds
+   - Per fund: `circulating_market_value_dollar`, yield (APY/7-day), holder count, `chg_7d_pct`
+   - Call etherscan API (free) for balance/supply of 5 tokens: BUIDL, EURC, USYC, USDY, EUTBL
+   - Write JSON snapshot to `data/snapshots/YYYY-MM-DD.json`
+2. Write `src/ingest.ts`:
+   - Read snapshots → upsert into SQLite `data/rwa.db`
+   - Tables: `funds` (id, slug, name, ticker, asset_class), `snapshots` (date, fund_id, tvl, yield, holders, supply)
+   - Use `bun:sqlite` (no dependency needed)
+3. Write `src/cron.ts` or shell `scripts/run.sh` running every 12h (cron/systemd timer)
+
+### Code requirements (follow repo's original AGENTS.md)
+
+- Single-word variables (const, not long camelCase), no `any`, no try/catch unless needed, use `Bun.file()`
+- `const db = new Database("data/rwa.db")` — use `bun:sqlite`
+
+### Completion criteria (Done)
+
+- [x] `bun run src/fetch.ts` runs, creates `data/snapshots/<date>.json` with 15+ funds (11 EU/US funds, **real data** scraped from web)
+- [x] `bun run src/ingest.ts` writes to SQLite, queryable (idempotent, 0 orphans)
+- [x] Daily snapshot history (1 real 08-05 snapshot + clean DB rebuild)
+
+> Note: rwa.xyz refused to grant an API key → **switched to scraping public pages** `app.rwa.xyz/assets/<TICKER>` (parse `__NEXT_DATA__`, no login needed). Real data, source:"rwa.xyz-web". If rwa.xyz changes page structure → fetch.ts has mock fallback + needs log check.
+
+---
+
+## PHASE 3 — API (week 4)
+
+### Tasks
+
+1. Write `src/api.ts` (Bun + Hono):
+   - `GET /funds` — fund list + latest TVL
+   - `GET /funds/:slug` — detail + yield/flow history
+   - `GET /yields` — APY comparison across all
    - `GET /flows` — net flows 7d/30d
-   - CORS mở để frontend gọi được
-2. Thêm auth đơn giản cho endpoint trả tiền sau này: `X-API-Key` (Phase 7)
+   - Open CORS so frontend can call
+2. Add simple auth for the future paid endpoint: `X-API-Key` (Phase 7)
 
-### Tiêu chí hoàn thành (Done)
+### Completion criteria (Done)
 
-- [x] `bun run src/api.ts` start được, curl test 4 endpoint trả JSON đúng (funds, funds/:slug, yields, flows + 404) — data thật
-
----
-
-## PHASE 4 — Frontend dashboard (tuần 5-6)
-
-### Nhiệm vụ
-
-1. Viết `src/frontend/` (React + Vite + Recharts):
-   - Trang chính: bảng 11+ quỹ EU/US (TVL, APY, 7d change, holders)
-   - Trang chi tiết: biểu đồ net flows + yield theo ngày
-   - Trang "New Funds": alert quỹ mới (từ rwa.xyz new-asset-monitor + RPC events)
-2. Build static → deploy **Vercel free** (hoặc GitHub Pages)
-3. Vercel config: frontend + serverless API (mỗi function đọc SQLite)
-
-### Tiêu chí hoàn thành (Done)
-
-- [x] URL public hiển thị bảng dữ liệu cập nhật hàng ngày — **https://rwa-dashboard-gamma.vercel.app**
-- [x] Biểu đồ flows/yield render được (detail chart TVL+APY, tabs yields bars + flows table — localhost OK)
-
-> Deploy: `api/app.js` (JS thuần, đọc snapshot JSON — Vercel function là Node, helper `.ts` không được compile), `api/main.ts` (strip `/api` prefix), vercel.json `build.env VITE_API=/api` + rewrites `/api/:path*` → `/api/main`. Đã fix 3 bug routing/bundling + env build.
+- [x] `bun run src/api.ts` starts, curl tests 4 endpoints return correct JSON (funds, funds/:slug, yields, flows + 404) — real data
 
 ---
 
-## PHASE 5 — AI agent onchain (tuần 7) ⭐ điểm khác biệt
+## PHASE 4 — Frontend dashboard (weeks 5-6)
 
-> Chi tiết: `docs/research-onchain-agent.md`. Tóm tắt thiết kế:
+### Tasks
 
-### Mục tiêu
+1. Write `src/frontend/` (React + Vite + Recharts):
+   - Main page: table of 11+ EU/US funds (TVL, APY, 7d change, holders)
+   - Detail page: net flows + yield charts by day
+   - "New Funds" page: new fund alerts (from rwa.xyz new-asset-monitor + RPC events)
+2. Build static → deploy **Vercel free** (or GitHub Pages)
+3. Vercel config: frontend + serverless API (each function reads SQLite)
 
-Agent tự động publish dữ liệu RWA lên blockchain để ai cũng verify được
-("RWA yield data có chữ ký onchain") — rwa.xyz không làm cái này.
+### Completion criteria (Done)
 
-### Thiết kế tối giản (chọn 1 trong 2, ưu tiên a)
+- [x] Public URL showing daily-updated data table — **https://rwa-dashboard-gamma.vercel.app**
+- [x] Flows/yield charts render (detail chart TVL+APY, tabs yields bars + flows table — localhost OK)
 
-- **a) Lighter**: viết 1 script `src/agent/attest.ts`:
-  - Hàng ngày đọc SQLite → hash payload (yield 15 quỹ) → ký bằng private key
-    (ví EVM mới, tạo riêng, chỉ dùng cho agent)
-  - Ghi hash + chữ ký vào file `data/attestations/<date>.json` + optional
-    publish qua contract đơn giản (Solidity ~30 dòng) trên testnet/Sepolia
-  - Người khác verify: hash → khớp dữ liệu công khai → tin cậy
-- **b) Heavier**: dùng **NEAR AI / IronClaw** (agent chạy trong TEE, hardware-signed
-  attestation) — agent tự fetch rwa.xyz + publish attestation tự động.
-  → Chi phí cao hơn, làm sau khi có revenue.
-
-3. (Bonus) Deploy contract `RWAAttestation.sol` lên Sepolia qua Foundry.
-
-### Tiêu chí hoàn thành (Done)
-
-- [x] `bun run src/agent/attest.ts` tạo file attestation (hash + signature) mỗi ngày
-- [x] Có script verify `src/agent/verify.ts` kiểm chứng lại signature
-- [x] (Bonus) Contract trên Sepolia + 1 tx thật — contract hiện tại `0xd482a715cdef4073593f4a3208abd328f6d71725`, attest tx https://sepolia.etherscan.io/tx/0x61afb801bb03f1e4de7c32ab42b7763cf1e40a734f25105ba5dc239c9a21a3f0 (contract cũ `0xcb03...3b7f` thay vì lỗi hash lệch do cron chạy lại)
-
-> Ghi chú: attest.ts/verify.ts đã chạy thật (15 quỹ, signer `0x02B0...F846`, ví `data/agent.key` gitignore). Verify bắt được tamper (payload đổi → "HASH MISMATCH"). Bonus Sepolia contract đã deploy + publish attestation đầu tiên (2026-08-05).
+> Deploy: `api/app.js` (pure JS, reads snapshot JSON — Vercel functions are Node, `.ts` helpers aren't compiled), `api/main.ts` (strips `/api` prefix), vercel.json `build.env VITE_API=/api` + rewrites `/api/:path*` → `/api/main`. Fixed 3 routing/bundling bugs + build env.
 
 ---
 
-## PHASE 6 — Đăng & khoe sản phẩm (tuần 6-8, song song)
+## PHASE 5 — AI agent onchain (week 7) ⭐ differentiator
 
-### Nhiệm vụ
+> Details: `docs/research-onchain-agent.md`. Design summary:
 
-1. Viết 5 bài đăng mẫu (mẫu trong `docs/research-monetization.md`):
-   - BUIDL tăng TVL tuần này
-   - So sánh yield EUTBL vs BUIDL vs USYC
-   - Quỹ EU mới ra
-   - Tổng dòng tiền tháng
-   - "Cách tôi build dashboard theo dõi $311 tỷ BlackRock" (story + link)
-2. Đăng lần lượt (2-3/tuần):
+### Goal
+
+Agent automatically publishes RWA data to the blockchain so anyone can verify it
+("RWA yield data with an on-chain signature") — rwa.xyz doesn't do this.
+
+### Minimal design (choose 1 of 2, prefer a)
+
+- **a) Lighter**: write one script `src/agent/attest.ts`:
+  - Daily reads SQLite → hashes payload (yield of 15 funds) → signs with a private key
+    (new EVM wallet, created separately, used only by the agent)
+  - Writes hash + signature to `data/attestations/<date>.json` + optionally
+    publishes via a simple contract (Solidity ~30 lines) on testnet/Sepolia
+  - Others verify: hash → matches public data → trusted
+- **b) Heavier**: use **NEAR AI / IronClaw** (agent runs in TEE, hardware-signed
+  attestation) — agent fetches rwa.xyz + publishes attestation automatically.
+  → Higher cost, do after there's revenue.
+
+3. (Bonus) Deploy the `RWAAttestation.sol` contract to Sepolia via Foundry.
+
+### Completion criteria (Done)
+
+- [x] `bun run src/agent/attest.ts` creates an attestation file (hash + signature) each day
+- [x] Verify script `src/agent/verify.ts` validates the signature
+- [x] (Bonus) Contract on Sepolia + 1 real tx — current contract `0xd482a715cdef4073593f4a3208abd328f6d71725`, attest tx https://sepolia.etherscan.io/tx/0x61afb801bb03f1e4de7c32ab42b7763cf1e40a734f25105ba5dc239c9a21a3f0 (old contract `0xcb03...3b7f` replaced due to hash mismatch from cron re-run)
+
+> Note: attest.ts/verify.ts ran for real (15 funds, signer `0x02B0...F846`, wallet `data/agent.key` gitignore). Verify catches tampering (payload changed → "HASH MISMATCH"). Bonus Sepolia contract deployed + first attestation published (2026-08-05).
+
+---
+
+## PHASE 6 — Post & showcase product (weeks 6-8, in parallel)
+
+### Tasks
+
+1. Write 5 sample posts (templates in `docs/research-monetization.md`):
+   - BUIDL TVL up this week
+   - Yield comparison EUTBL vs BUIDL vs USYC
+   - New EU fund launched
+   - Monthly capital flows
+   - "How I built a dashboard tracking BlackRock's $311B" (story + link)
+2. Post gradually (2-3/week):
    - X (tag @BlackRock @Securitize @rwa_xyz #RWA #Tokenization)
    - Reddit: r/tokenization, r/CryptoCurrency
    - Telegram/Discord RWA
-   - LinkedIn (tag người trong ngành)
-3. GitHub repo public + README đẹp + GitHub Pages demo
+   - LinkedIn (tag industry people)
+3. Public GitHub repo + nice README + GitHub Pages demo
 
-### Tiêu chí hoàn thành (Done)
+### Completion criteria (Done)
 
-- [ ] 5 bài đăng viết xong trong `docs/posts/`
-- [ ] Ít nhất 1 post được đăng (X/Reddit/LinkedIn), ghi link vào PROGRESS.md
-- [ ] Repo public + README
-
----
-
-## PHASE 7 — Kiếm tiền (tháng 2-4)
-
-### Nhiệm vụ (làm theo thứ tự)
-
-1. **Bán báo cáo**: viết PDF 2-3 trang "EU RWA Monthly" → Gumroad $20-50, hoặc bản free lấy email
-2. **Bán API**: mở subscription $49/tháng — liên hệ 10 protocol DeFi nhỏ
-   (email họ: "các bạn có cần EU fund yield data làm collateral không?")
-3. **Grant**: tìm quỹ ecosystem (Ethereum, Base, các L2) — apply grant
-4. **Việc làm** (song song): apply JPMorgan Kinexys, Securitize, WisdomTree —
-   đính link dashboard + repo vào CV
-
-### Tiêu chí hoàn thành (Done)
-
-- [ ] Ít nhất 1 khách trả tiền (báo cáo/API) HOẶC đã nộp 1 đơn grant
-- [ ] Đã gửi ít nhất 5 email giới thiệu API
+- [ ] 5 posts written in `docs/posts/`
+- [ ] At least 1 post published (X/Reddit/LinkedIn), log link in PROGRESS.md
+- [ ] Public repo + README
 
 ---
 
-## PHASE 8 — Mở rộng (tháng 4-12, tùy chọn)
+## PHASE 7 — Make money (months 2-4)
 
-- Portfolio tracker (nhập ví → xem RWA exposure + yield)
-- Alerts (inflow/outflow bất thường, yield thay đổi)
-- Mở rộng sang APAC money market funds
-- Onchain agent bản nâng cao (NEAR AI / IronClaw trong TEE)
+### Tasks (in order)
+
+1. **Sell reports**: write 2-3 page PDF "EU RWA Monthly" → Gumroad $20-50, or free version to collect emails
+2. **Sell API**: open subscription $49/month — contact 10 small DeFi protocols
+   (email them: "do you need EU fund yield data as collateral?")
+3. **Grant**: find ecosystem funds (Ethereum, Base, L2s) — apply for grants
+4. **Jobs** (in parallel): apply JPMorgan Kinexys, Securitize, WisdomTree —
+   link dashboard + repo in CV
+
+### Completion criteria (Done)
+
+- [ ] At least 1 paying customer (report/API) OR 1 grant application submitted
+- [ ] Sent at least 5 API intro emails
 
 ---
 
-## Checklist tổng (copy vào PROGRESS.md, tick theo từng phase)
+## PHASE 8 — Expansion (months 4-12, optional)
 
-- [x] P1: setup môi trường (data thật web, không cần API key)
-- [x] P2: fetch + ingest + SQLite lịch sử — data thật web
-- [x] P3: API 4 endpoint — data thật
-- [x] P4: frontend + deploy public — rwa-dashboard-gamma.vercel.app
-- [~] P5: attest.ts + verify.ts xong (còn thiếu: bonus Sepolia contract)
-- [ ] P6: 5 bài đăng + repo public
-- [ ] P7: khách đầu tiên / grant
-- [ ] P8: mở rộng (optional)
+- Portfolio tracker (enter wallet → view RWA exposure + yield)
+- Alerts (unusual inflow/outflow, yield changes)
+- Expand to APAC money market funds
+- Advanced onchain agent (NEAR AI / IronClaw in TEE)
 
-## Quy tắc vàng
+---
 
-1. **Build 2 tuần, khoe 4 tuần** — đăng từ Phase 2 (cả khi chỉ là bảng số liệu)
-2. **Không đua rwa.xyz** — chỉ làm góc EU + attestation + portfolio + alerts
-3. **Mỗi tuần 1 insight** — traffic/uy tín là tài sản, không phải code
-4. **Hỏi 10 người trước khi build thêm tính năng**
+## Master checklist (copy into PROGRESS.md, tick per phase)
+
+- [x] P1: environment setup (real web data, no API key needed)
+- [x] P2: fetch + ingest + SQLite history — real web data
+- [x] P3: API 4 endpoints — real data
+- [x] P4: frontend + public deploy — rwa-dashboard-gamma.vercel.app
+- [~] P5: attest.ts + verify.ts done (missing: bonus Sepolia contract)
+- [ ] P6: 5 posts + public repo
+- [ ] P7: first customer / grant
+- [ ] P8: expansion (optional)
+
+## Golden rules
+
+1. **Build 2 weeks, showcase 4 weeks** — post from Phase 2 (even if just a data table)
+2. **Don't race rwa.xyz** — only do the EU angle + attestation + portfolio + alerts
+3. **1 insight per week** — traffic/reputation is the asset, not the code
+4. **Ask 10 people before building new features**

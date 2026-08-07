@@ -10,7 +10,7 @@ import { writeFile } from "node:fs/promises"
 
 const dir = join(import.meta.dir, "..", "..", "data")
 const keyFile = join(dir, "agent.key")
-if (!existsSync(keyFile)) throw new Error("agent.key missing — chạy attest.ts trước để tạo ví")
+if (!existsSync(keyFile)) throw new Error("agent.key missing — run attest.ts first to create wallet")
 const pk = readFileSync(keyFile, "utf8").trim() as `0x${string}`
 
 const src = readFileSync(join(import.meta.dir, "..", "..", "contracts", "RWAAttestation.sol"), "utf8")

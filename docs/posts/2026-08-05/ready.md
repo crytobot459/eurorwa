@@ -1,7 +1,7 @@
-# Bài đăng sẵn sàng — 2026-08-05
+# Post ready — 2026-08-05
 
-> Sinh tự động từ snapshot 2026-08-05. Copy-paste từng mục là đăng được.
-> 📸 **Đính kèm ảnh (LinkedIn/X):** `visual.png` (cùng thư mục, chart 1200x630).
+> Auto-generated from snapshot 2026-08-05. Copy-paste each section to publish.
+> 📸 **Attach image (LinkedIn/X):** `visual.png` (same folder, 1200x630 chart).
 
 ## X (Twitter)
 

@@ -8,7 +8,7 @@ import type { Abi } from "viem"
 const dir = join(import.meta.dir, "..", "..", "data")
 const cf = join(dir, "contract.json")
 if (!existsSync(cf)) {
-  console.warn("chưa deploy contract — chạy bun run src/agent/deploy.ts trước")
+  console.warn("contract not deployed — run bun run src/agent/deploy.ts first")
   process.exit(1)
 }
 const { address, abi } = JSON.parse(readFileSync(cf, "utf8")) as { address: `0x${string}`; abi: Abi }
@@ -22,7 +22,7 @@ const files = readdirSync(join(dir, "attestations"))
   .sort()
 const file = files.at(-1)
 if (!file) {
-  console.warn("chưa có attestation")
+  console.warn("no attestation yet")
   process.exit(1)
 }
 const att = JSON.parse(readFileSync(join(dir, "attestations", file), "utf8"))
@@ -33,7 +33,7 @@ const contract = getContract({ address, abi, client: walletClient })
 
 const existing = (await contract.read.getHash([att.date])) as string
 if (existing !== "0x0000000000000000000000000000000000000000000000000000000000000000") {
-  console.log(`đã attest rồi: ${att.date} -> ${existing}`)
+  console.log(`already attested: ${att.date} -> ${existing}`)
   process.exit(0)
 }
 

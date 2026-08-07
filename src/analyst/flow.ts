@@ -53,7 +53,7 @@ export async function analyzeFlow(snap: ReturnType<typeof latestSnapshot>, funds
         supply_7d_pct: 0,
         tvl_7d_pct: f.chg_7d_pct,
         direction: "flat",
-        note: "không lấy được on-chain live — dùng snapshot",
+        note: "no live on-chain data — using snapshot",
       })
       return
     }
@@ -68,10 +68,10 @@ export async function analyzeFlow(snap: ReturnType<typeof latestSnapshot>, funds
       direction: dir,
       note:
         dir === "inflow"
-          ? `holders +${live.holders_7d_pct.toFixed(1)}% (${live.holders}) — tổ chức đang vào`
+          ? `holders +${live.holders_7d_pct.toFixed(1)}% (${live.holders}) — institutions entering`
           : dir === "outflow"
-            ? `holders ${live.holders_7d_pct.toFixed(1)}% (${live.holders}) — có dấu hiệu rút`
-            : `holders ổn định (${live.holders})`,
+            ? `holders ${live.holders_7d_pct.toFixed(1)}% (${live.holders}) — signs of withdrawal`
+            : `holders stable (${live.holders})`,
     })
   })
   return out

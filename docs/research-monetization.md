@@ -1,103 +1,103 @@
-# Nghiên cứu: Cách kiếm tiền từ EuroRWA + mẫu bài đăng
+# Research: How to make money from EuroRWA + post templates
 
-> Cập nhật: 2026-08-04. Phục vụ Phase 6 (đăng khoe) và Phase 7 (kiếm tiền).
+> Updated: 2026-08-04. Serves Phase 6 (posting/showcasing) and Phase 7 (monetization).
 
-## 1. Khách hàng thật (ai sẽ trả tiền)
+## 1. Real customers (who will pay)
 
-| Ai cần                             | Họ mua gì                           | Trả bao nhiêu       |
-| ---------------------------------- | ----------------------------------- | ------------------- |
-| Protocol DeFi EU                   | API dữ liệu yield EU làm collateral | $50-200/tháng       |
-| Family office / corporate treasury | Báo cáo + dashboard riêng           | $200-500/dự án      |
-| Issuer tokenization nhỏ            | Quảng cáo + benchmark               | $100-300/tháng      |
-| Nhà báo / research                 | Số liệu độc quyền                   | Trích dẫn = traffic |
-| Nhà tuyển dụng                     | Bạn (proof of work)                 | $150K/năm           |
+| Who needs it                       | What they buy                   | How much              |
+| ---------------------------------- | ------------------------------- | --------------------- |
+| EU DeFi protocols                  | EU yield data API as collateral | $50-200/month         |
+| Family office / corporate treasury | Report + dedicated dashboard    | $200-500/project      |
+| Small tokenization issuers         | Advertising + benchmark         | $100-300/month        |
+| Journalists / research             | Exclusive data                  | Attribution = traffic |
+| Recruiters                         | You (proof of work)             | $150K/year            |
 
-## 2. 3 giai đoạn kiếm tiền
+## 2. 3 monetization stages
 
-### GĐ1 (tháng 2-4): Báo cáo + chú ý — $0-500/tháng
+### Stage 1 (months 2-4): Reports + attention — $0-500/month
 
-- Bán báo cáo "EU RWA Monthly" (PDF 2-3 trang) qua **Gumroad** $20-50,
-  hoặc bản free để thu email
-- Traffic + uy tín → issuer nhỏ trả tiền hiển thị quỹ (sponsor $100-300/tháng)
+- Sell the "EU RWA Monthly" report (2-3 page PDF) via **Gumroad** $20-50,
+  or a free version to collect emails
+- Traffic + credibility → small issuers pay to feature their fund (sponsor $100-300/month)
 
-### GĐ2 (tháng 4-8): Bán data/API — $200-1,000/tháng
+### Stage 2 (months 4-8): Sell data/API — $200-1,000/month
 
-- Subscription API $49/tháng — 1-2 protocol DeFi dùng dữ liệu yield EU
-- Email 10 protocol DeFi nhỏ: "bạn có cần EU fund yield data không?"
+- API subscription $49/month — 1-2 DeFi protocols using EU yield data
+- Email 10 small DeFi protocols: "do you need EU fund yield data?"
 
-### GĐ3 (tháng 8-12): Việc làm / grant — $100K+/năm
+### Stage 3 (months 8-12): Job / grant — $100K+/year
 
-- JPMorgan Kinexys (đang hợp tác BlackRock làm chính cái này)
-- Securitize (issuer BUIDL), WisdomTree, issuer EU
-- Grant từ quỹ ecosystem (Ethereum, Base, L2)
+- JPMorgan Kinexys (currently building exactly this with BlackRock)
+- Securitize (BUIDL issuer), WisdomTree, EU issuers
+- Grants from ecosystem funds (Ethereum, Base, L2s)
 
-## 3. Cách tiếp cận khách hàng (email mẫu)
+## 3. Customer outreach (sample email)
 
 ```
-Chủ đề: EU tokenized money market yield data — chúng tôi có API
+Subject: EU tokenized money market yield data — we have an API
 
-Chào [tên],
+Hi [name],
 
-Chúng tôi theo dõi các quỹ money market tokenized ở châu Âu
-(BlackRock/JPMorgan vừa mở $311 tỷ — hầu hết chưa ai cover).
-Chúng tôi có API dữ liệu yield/TVL/flow hàng ngày, mỗi điểm dữ liệu
-có attestation onchain (có thể verify).
+We track tokenized money market funds in Europe
+(BlackRock/JPMorgan just opened $311B — mostly not covered by anyone yet).
+We have an API for daily yield/TVL/flow data, and every data point
+has an onchain attestation (verifiable).
 
-Giá: $49/tháng cho 5 quỹ, $149/tháng cho toàn bộ.
+Pricing: $49/month for 5 funds, $149/month for everything.
 
-Quý công ty có cần loại dữ liệu này không?
+Does your company need this kind of data?
 ```
 
-## 4. Nơi đăng & cách đăng (Phase 6)
+## 4. Where to post & how (Phase 6)
 
-### Kênh (xếp theo hiệu quả)
+### Channels (ordered by effectiveness)
 
 1. **X (Twitter)** — #RWA #Tokenization #BUIDL #MoneyMarketFunds; tag @BlackRock @Securitize @rwa_xyz
 2. **Reddit**: r/tokenization, r/CryptoCurrency, r/defi
-3. **Telegram/Discord RWA** (tìm "RWA" trong discord servers)
-4. **GitHub** — repo public + README đẹp (= CV)
-5. **LinkedIn** — tag người trong ngành tokenization
+3. **Telegram/Discord RWA** (search "RWA" in discord servers)
+4. **GitHub** — public repo + nice README (= CV)
+5. **LinkedIn** — tag tokenization industry people
 
-### Lịch đăng: 2-3 bài/tuần, mỗi bài 1 insight + screenshot
+### Posting schedule: 2-3 posts/week, each with 1 insight + screenshot
 
-## 5. MẪU 5 BÀI ĐĂNG (sửa số liệu theo data thật khi đăng)
+## 5. 5 SAMPLE POSTS (update numbers with real data when posting)
 
-### Bài 1 — Dòng tiền vào EU
+### Post 1 — Capital flowing into EU
 
-> "BUIDL vừa tăng X% TVL tuần này — dòng tiền châu Âu đang chuyển sang
-> tokenized money market funds. $311 tỷ BlackRock mới mở đang hút.
-> Dashboard của chúng tôi theo dõi từng quỹ theo ngày: [link]"
+> "BUIDL just grew X% TVL this week — European capital is shifting into
+> tokenized money market funds. BlackRock's new $311B is pulling it in.
+> Our dashboard tracks each fund daily: [link]"
 >
-> - biểu đồ
+> - chart
 
-### Bài 2 — So sánh yield
+### Post 2 — Yield comparison
 
-> "Cùng $10K: EUTBL 3.2% vs BUIDL 4.1% vs USYC 3.9% — sau phí thực nhận bao nhiêu?
-> Chúng tôi so sánh APY thật của 15 quỹ EU, cập nhật mỗi ngày: [link]"
+> "Same $10K: EUTBL 3.2% vs BUIDL 4.1% vs USYC 3.9% — what do you actually keep after fees?
+> We compare real APYs across 15 EU funds, updated daily: [link]"
 >
-> - bảng
+> - table
 
-### Bài 3 — Quỹ mới
+### Post 3 — New fund
 
-> "Quỹ tokenized EU vừa ra mắt: [tên]. TVL X trong Y ngày.
-> Đây là 1 trong N quỹ chúng tôi đang theo dõi. Xem new funds monitor: [link]"
+> "A new EU tokenized fund just launched: [name]. TVL X in Y days.
+> This is 1 of N funds we track. See the new funds monitor: [link]"
 
-### Bài 4 — Tổng kết tháng
+### Post 4 — Monthly summary
 
-> "Tháng này $X tỷ chảy vào EU money market funds onchain. Breakdown theo quỹ:
-> EUTBL, BUIDL, USYC... Đầy đủ trong dashboard: [link]"
+> "This month $X B flowed into EU onchain money market funds. Breakdown by fund:
+> EUTBL, BUIDL, USYC... Full detail in the dashboard: [link]"
 
-### Bài 5 — Câu chuyện build
+### Post 5 — Build story
 
-> "Tôi build dashboard theo dõi $311 tỷ BlackRock tokenized funds như thế nào:
+> "How I built a dashboard tracking BlackRock's $311B tokenized funds:
 >
-> - Lấy dữ liệu từ rwa.xyz API + onchain balance
-> - Snapshot mỗi 12h vào SQLite
-> - Mỗi điểm dữ liệu có chữ ký onchain (attestation) — ai cũng verify được
->   Mã nguồn: [github link]"
+> - Getting data from the rwa.xyz API + onchain balances
+> - Snapshotting every 12h into SQLite
+> - Every data point has an onchain signature (attestation) — anyone can verify
+>   Source: [github link]"
 
-## 6. Lưu ý
+## 6. Notes
 
-- Mỗi tuần 1 insight — traffic/uy tín là tài sản chính
-- Đừng đua rwa.xyz — chỉ làm góc EU + attestation + portfolio + alerts
-- Hỏi 10 người trước khi build thêm tính năng
+- 1 insight per week — traffic/reputation is the main asset
+- Don't race rwa.xyz — only do the EU angle + attestation + portfolio + alerts
+- Ask 10 people before building new features

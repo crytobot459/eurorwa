@@ -19,7 +19,7 @@ const files = readdirSync(dir)
   .filter((f) => f.endsWith(".json"))
   .sort()
 const file = files.at(-1)
-if (!file) throw new Error("chưa có snapshot — chạy bun run fetch trước")
+if (!file) throw new Error("no snapshot yet — run bun run fetch first")
 
 const snap = JSON.parse(readFileSync(join(dir, file), "utf8")) as { date: string; funds: Fund[] }
 const { date, funds } = snap
@@ -150,7 +150,7 @@ Live proof for this snapshot (Sepolia):
 • Contract: ${att.published.contract}
 • Hash: ${att.hash.slice(0, 10)}…`
   }
-} catch {} // chưa attest/publish — bỏ qua
+} catch {} // not yet attested/published — skip
 
 const linkedin = `${fmt(total)} is sitting in tokenized money market funds — and almost nobody can tell you exactly what's inside them.
 
@@ -198,10 +198,10 @@ What's the one fund you'd add to this list?
 
 #RWA #Tokenization #FixedIncome #DigitalAssets #MoneyMarketFunds`
 
-const out = `# Bài đăng sẵn sàng — ${date}
+const out = `# Post ready — ${date}
 
-> Sinh tự động từ snapshot ${date}. Copy-paste từng mục là đăng được.
-> 📸 **Đính kèm ảnh (LinkedIn/X):** \`visual.png\` (cùng thư mục, chart 1200x630).
+> Auto-generated from snapshot ${date}. Copy-paste each section to publish.
+> 📸 **Attach image (LinkedIn/X):** \`visual.png\` (same folder, 1200x630 chart).
 
 ## X (Twitter)
 

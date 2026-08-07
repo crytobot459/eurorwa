@@ -13,7 +13,7 @@ const files = readdirSync(dir)
   .filter((f) => f.endsWith(".json"))
   .sort()
 const file = files.at(-1)
-if (!file) throw new Error("chưa có snapshot — chạy bun run fetch trước")
+if (!file) throw new Error("no snapshot yet — run bun run fetch first")
 
 const snap = JSON.parse(readFileSync(join(dir, file), "utf8")) as { date: string; funds: Fund[] }
 const { date, funds } = snap
@@ -114,7 +114,7 @@ const res = Bun.spawnSync(
   { timeout: 30000 },
 )
 if (res.exitCode !== 0) {
-  console.warn(`chrome screenshot failed (code ${res.exitCode}) — bỏ qua ảnh lần này`)
+  console.warn(`chrome screenshot failed (code ${res.exitCode}) — skipping image this time`)
   process.exit(0)
 }
 

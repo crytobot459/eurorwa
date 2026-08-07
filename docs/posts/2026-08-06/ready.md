@@ -1,7 +1,7 @@
-# Bài đăng sẵn sàng — 2026-08-06
+# Post ready — 2026-08-06
 
-> Sinh tự động từ snapshot 2026-08-06. Copy-paste từng mục là đăng được.
-> 📸 **Đính kèm ảnh (LinkedIn/X):** `visual.png` (cùng thư mục, chart 1200x630).
+> Auto-generated from snapshot 2026-08-06. Copy-paste each section to publish.
+> 📸 **Attach image (LinkedIn/X):** `visual.png` (same folder, 1200x630 chart).
 
 ## X (Twitter)
 
@@ -43,7 +43,7 @@ Happy to add funds I missed — suggestions welcome.
 
 ## LinkedIn
 
-> Bài đăng (bản mới 2026-08-07, viết lại theo pattern nghiên cứu: hook <60 ký tự, số thật, story, câu hỏi cuối, link ở comment đầu, 1-3 hashtag).
+> Post (new 2026-08-07 version, rewritten following researched patterns: hook <60 chars, real numbers, story, closing question, links in the first comment, 1-3 hashtags).
 
 ---
 
@@ -92,7 +92,7 @@ Which fund would you add to this list?
 
 ---
 
-### COMMENT ĐẦU TIÊN (dán ngay sau khi đăng — link để ở đây, KHÔNG để trong thân bài)
+### FIRST COMMENT (paste right after posting — links go here, NOT in the body)
 
 ```
 Live dashboard: https://rwa-dashboard-gamma.vercel.app
@@ -100,9 +100,9 @@ On-chain proof (Sepolia tx): https://sepolia.etherscan.io/tx/0xb70f48ba50e5260e1
 Open source: https://github.com/crytobot459/eurorwa
 ```
 
-### LƯU Ý KHI ĐĂNG (theo nghiên cứu 2026)
+### POSTING NOTES (from 2026 research)
 
-- Đăng kèm ảnh `visual.png` (cùng thư mục).
-- Khung giờ tốt: 8-10h sáng thứ 3, 4 hoặc 5 (giờ đối tượng chính) — giờ HN khoảng 14-16h.
-- Reply mọi comment trong 60-90 phút đầu (thuật toán ưu tiên "golden hour").
-- Sau khi đăng: ghi link bài vào PROGRESS.md.
+- Post with the `visual.png` image attached (same folder).
+- Best posting times: 8-10am Tuesday, Thursday or Friday (target audience time) — ~14-16h Vietnam time.
+- Reply to every comment in the first 60-90 minutes (the algorithm favors the "golden hour").
+- After posting: log the post link in PROGRESS.md.

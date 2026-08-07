@@ -27,7 +27,7 @@ const curRep = reps.at(-1) ?? null
 const prevRep = reps.at(-2) ?? null
 
 if (!curSnap) {
-  console.log("chưa có snapshot — skip alerts")
+  console.log("no snapshot yet — skip alerts")
   process.exit(0)
 }
 

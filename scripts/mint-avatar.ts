@@ -10,7 +10,7 @@ const dir = join(import.meta.dir, "..", "data")
 mkdirSync(dir, { recursive: true })
 
 const userPk = process.env.AVATAR_KEY as Hex | undefined
-if (!userPk || !/^0x[0-9a-fA-F]{64}$/.test(userPk)) throw new Error("AVATAR_KEY không hợp lệ trong .env.local")
+if (!userPk || !/^0x[0-9a-fA-F]{64}$/.test(userPk)) throw new Error("AVATAR_KEY invalid in .env.local")
 const user = privateKeyToAccount(userPk)
 
 const keyFile = join(dir, "agent.key")
@@ -32,7 +32,7 @@ const depBal = await publicClient.getBalance({ address: deployer.address })
 console.log(`user balance:     ${userBal} wei`)
 console.log(`deployer balance: ${depBal} wei`)
 
-if (depBal < 5_000_000_000_000_000n) throw new Error(`deployer thiếu Sepolia ETH (cần ~0.005)`)
+if (depBal < 5_000_000_000_000_000n) throw new Error(`deployer short on Sepolia ETH (needs ~0.005)`)
 if (userBal === 0n) {
   const amt = 10_000_000_000_000_000n
   console.log(`funding user wallet with ${amt} wei (0.01 Sepolia ETH) from deployer...`)

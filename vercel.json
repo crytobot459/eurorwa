@@ -9,6 +9,7 @@
   },
   "rewrites": [
     { "source": "/mcp", "destination": "/api/main" },
+    { "source": "/openapi.json", "destination": "/.well-known/openapi.json" },
     { "source": "/api/:path*", "destination": "/api/main" }
   ]
 }
