@@ -13,11 +13,18 @@
 - **Circle Agent Marketplace form SUBMITTED ✅** (2026-08-08) — user submitted the interest form (google form, email crytobot459@gmail.com). Service: EuroRWA, $0.05/call x402, 2 paid endpoints, OpenAPI spec uploaded as PDF (`openapi.json.pdf` — form doesn't accept .json, converted via headless Chrome). Awaiting manual review. Listing decision may take days; will check `agents.circle.com/services` periodically.
 - **Circle Agent Marketplace form SUBMITTED ✅** (2026-08-08) — user submitted the interest form (google form, email crytobot459@gmail.com). Service: EuroRWA, $0.05/call x402, 2 paid endpoints, OpenAPI spec uploaded as PDF (`openapi.json.pdf` — form doesn't accept .json, converted via headless Chrome). Awaiting manual review. Listing decision may take days; will check `agents.circle.com/services` periodically.
 - **Cloudflare Monetization Gateway waitlist SUBMITTED ✅** (2026-08-08) — user submitted the early access form ("Your response has been recorded"). Fields: Name `PHAM MINH CANH`, Title `Independent Developer — on-chain RWA data agent`, Website `https://rwa-dashboard-gamma.vercel.app`, service description (EuroRWA x402 API + MCP, $0.05/call), interest `5 (Ready to implement)`, feature requests (per-tool MCP pricing, subscriptions, USDC Base, seller analytics). Note: automated POST was blocked by Google abuse detection; user submitted via browser. Form link: `docs.google.com/forms/d/e/1FAIpQLSfq6yaIgp57FCGFg7riXlSWTeD8d8Adur2c8tWaKY4SuzweiQ/viewform`. Email auto-captured from Google account (`Crytobot459@gmail.com`). Note: blog `cfl.re/44Gw82m` redirects to the blog post, NOT the form — the real form link is embedded in the blog.
-- **Virtuals ACP** — NOT started (needs wallet connection at app.virtuals.io/acp/join, role Provider).
+- **Virtuals ACP REGISTERED ✅** (2026-08-08) — full provider registration done:
+  - Installed CLI `@virtuals-protocol/acp-cli` v1.0.30 (npm -g), OAuth sign-in via browser (account AvatarChain `0xEd6e...1799`).
+  - **Agent created**: EuroRWA (`019fdf34-e95e-71c7-a952-ed493b45b1bd`), role **HYBRID**, wallet `0xa6a496b068fa75774c4fb784c2c75e743b3d84eb` (EVM) + `Gxtafy...NdW87` (Solana), email `eurorwa@agents.world`, builder code `bc_ywb8283c`.
+  - **Signer added** (P256, policy restricted→ACP_ONLY, approved in browser): `o1zbz01ys0x2mahlomdhorfv`.
+  - **Resource created**: `RWA Analyst Report (x402)` → `https://rwa-dashboard-gamma.vercel.app/api/analyst` (`019fdf3e-be64-...`), visible.
+  - **Offering created**: `RWA Analyst Report` — fixed `0.05 USDC`, SLA 5 min, requirement `{date}`, deliverable JSON report + on-chain attestation hash (`019fdf3e-ec21-...`), visible, no required funds.
+  - Note: CLI 1.0.30 has no `acp serve` subcommand (docs describe a newer/separate flow) — used `resource create` + `offering create` directly, which is the working path.
+- **Virtuals ACP TODO**: fund the agent wallet to actually settle jobs (topup via `acp wallet topup`), set up event listener (`acp events listen`) + job handler to auto-fulfill `job.created` → `provider set-budget` → `submit`. x402-side settlement already works via our own `api/_x402.js`; ACP native escrow path needs the event handler running.
 
 **Next (ranked):**
 
-1. **Virtuals ACP** registration — needs wallet connect + Provider role (user), then scaffold offering via `acp offering create`.
+1. Fund Virtuals agent wallet + run `acp events listen` + job handler to fulfill ACP escrow jobs.
 2. Publish **RWA-perps post** (draft in `docs/posts/2026-08-07/rwa-perps.md`), log link in PROGRESS.md.
 3. Fund mainnet wallets → `X402_NETWORK=8453` → x402scan + CDP Bazaar (unblocks real demand channels).
 4. Follow up on Circle Marketplace + Cloudflare waitlist decisions.
