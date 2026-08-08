@@ -5,10 +5,10 @@
 
 ## X (Twitter)
 
-Tokenized MMFs: $10.71B across 15 EU/US funds (2026-08-08)
+Tokenized MMFs: $10.73B across 15 EU/US funds (2026-08-08)
 🥇 USYC $3.00B
-📈 Top yield: CETES 4.60% · SAFO 4.04% · UKTBL 3.78%
-🔄 7d: eurSAFO +7.28%
+📈 Top yield: CETES 4.56% · SAFO 4.04% · UKTBL 3.78%
+🔄 7d: eurSAFO +10.11%
 Onchain-verified daily: https://rwa-dashboard-gamma.vercel.app
 #RWA #Tokenization #MoneyMarketFunds
 
@@ -16,23 +16,23 @@ Onchain-verified daily: https://rwa-dashboard-gamma.vercel.app
 
 ## Reddit (r/tokenization)
 
-**Title:** Tokenized money market funds: $10.71B across 15 EU/US funds (2026-08-08)
+**Title:** Tokenized money market funds: $10.73B across 15 EU/US funds (2026-08-08)
 
 Live data, refreshed daily (onchain-verified — each snapshot is hashed + signed).
 
 Top 5 by TVL:
 | Ticker | TVL | APY | 7d | Holders |
 |---|---|---|---|---|
-| USYC | $3.00B | 3.18% | -0.05% | 37 |
-| BUIDL | $2.70B | 3.43% | 0.83% | 114 |
-| USDY | $2.12B | 3.49% | -0.25% | 15604 |
-| eurSAFO | $989.7M | 2.56% | 7.28% | 7651 |
-| EUTBL | $919.3M | 2.11% | 0.59% | 3844 |
+| USYC | $3.00B | 3.19% | -0.04% | 37 |
+| BUIDL | $2.68B | 3.42% | 0.24% | 115 |
+| USDY | $2.12B | 3.49% | -0.43% | 15615 |
+| eurSAFO | $1.02B | 2.56% | 10.11% | 7709 |
+| EUTBL | $924.1M | 2.11% | 0.50% | 3846 |
 
-Top yields: CETES 4.60%, SAFO 4.04%, UKTBL 3.78%, USDY 3.49%, USTBL 3.48%
-Biggest 7d mover: eurSAFO +7.28%, SAFO -8.97%
+Top yields: CETES 4.56%, SAFO 4.04%, UKTBL 3.78%, USDY 3.49%, USTBL 3.48%
+Biggest 7d mover: eurSAFO +10.11%, SAFO -8.71%
 
-What the numbers mean: $7.82B (~73%) is in just 3 funds. Yields span 2.49 points (2.11% → 4.60%). USDY has 15,604 holders vs 114 for BUIDL.
+What the numbers mean: $7.80B (~73%) is in just 3 funds. Yields span 2.45 points (2.11% → 4.56%). USDY has 15,615 holders vs 115 for BUIDL.
 
 Dashboard: https://rwa-dashboard-gamma.vercel.app
 Repo (attestation code): https://github.com/crytobot459/eurorwa
@@ -43,27 +43,27 @@ Happy to add funds I missed — suggestions welcome.
 
 ## LinkedIn
 
-$10.71B is sitting in tokenized money market funds — and almost nobody can tell you exactly what's inside them.
+$10.73B is sitting in tokenized money market funds — and almost nobody can tell you exactly what's inside them.
 
 I built a live dashboard to change that. Here's what the data says today, and the part I couldn't get from any other data provider.
 
 THE NUMBERS (2026-08-08)
 
-$10.71B across 15 EU + US funds:
-• USYC (Circle) — $3.00B · yield 3.18%
-• BUIDL (BlackRock) — $2.70B · yield 3.43%
+$10.73B across 15 EU + US funds:
+• USYC (Circle) — $3.00B · yield 3.19%
+• BUIDL (BlackRock) — $2.68B · yield 3.42%
 • USDY (Ondo) — $2.12B · yield 3.49%
-• eurSAFO (Spiko) — $989.7M · yield 2.56%
-• EUTBL (Spiko) — $919.3M · yield 2.11%
+• eurSAFO (Spiko) — $1.02B · yield 2.56%
+• EUTBL (Spiko) — $924.1M · yield 2.11%
 
-Top yields today: CETES 4.60% · SAFO 4.04% · UKTBL 3.78% · USDY 3.49% · USTBL 3.48%
+Top yields today: CETES 4.56% · SAFO 4.04% · UKTBL 3.78% · USDY 3.49% · USTBL 3.48%
 
 WHAT THE NUMBERS MEAN
 
-• $7.82B — 73% of the total — sits in just 3 funds (USYC, BUIDL, USDY). The market is consolidating behind the biggest issuers, fast.
-• Yield on offer runs from 2.11% to 4.60% — a 2.49-point gap for the same "park cash safely" trade. Which treasury you pick is now a real decision.
-• USDY counts 15,604 holders; BUIDL counts 114. Same asset class, two worlds: retail wallets vs institutions parking billions.
-• eurSAFO is the 7-day mover (+7.28%), while SAFO cooled off (-8.97%). Capital is rotating, not leaving the asset class.
+• $7.80B — 73% of the total — sits in just 3 funds (USYC, BUIDL, USDY). The market is consolidating behind the biggest issuers, fast.
+• Yield on offer runs from 2.11% to 4.56% — a 2.45-point gap for the same "park cash safely" trade. Which treasury you pick is now a real decision.
+• USDY counts 15,615 holders; BUIDL counts 115. Same asset class, two worlds: retail wallets vs institutions parking billions.
+• eurSAFO is the 7-day mover (+10.11%), while SAFO cooled off (-8.71%). Capital is rotating, not leaving the asset class.
 
 WHY THIS MATTERS
 
@@ -88,7 +88,7 @@ Live proof for this snapshot (Sepolia):
 
 WHAT THE DATA SAYS RIGHT NOW
 
-eurSAFO is the 7-day mover (+7.28%), while SAFO cooled off (-8.97%). The rotation between EUR and USD funds is the story to watch.
+eurSAFO is the 7-day mover (+10.11%), while SAFO cooled off (-8.71%). The rotation between EUR and USD funds is the story to watch.
 
 Live dashboard: https://rwa-dashboard-gamma.vercel.app
 Open source: https://github.com/crytobot459/eurorwa

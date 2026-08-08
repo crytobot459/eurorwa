@@ -1,6 +1,6 @@
 {
   "date": "2026-08-08",
-  "generated_at": "2026-08-08T09:20:21.664Z",
+  "generated_at": "2026-08-08T13:28:26.276Z",
   "benchmarks": {
     "estr": 2.185,
     "sofr": 3.65,
@@ -17,7 +17,7 @@
     {
       "ticker": "BUIDL",
       "bucket": "usd",
-      "yield": 3.428202055171549,
+      "yield": 3.4244511142392478,
       "hedged": null
     },
     {
@@ -65,8 +65,8 @@
     {
       "ticker": "EUROB",
       "bucket": "eur",
-      "yield": 1.461398680320961,
-      "hedged": 2.926398680320961
+      "yield": 1.4613204654093501,
+      "hedged": 2.9263204654093498
     }
   ],
   "best_eur": {
