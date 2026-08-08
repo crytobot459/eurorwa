@@ -259,7 +259,17 @@ function FlowsBar({ rows }: { rows: { ticker: string; flow: number | null }[] })
   )
 }
 
-function OverviewView({ ov, funds, points }: { ov: Overview; funds: FundRow[]; points: HistoryPoint[] }) {
+function OverviewView({
+  ov,
+  funds,
+  points,
+  ver,
+}: {
+  ov: Overview
+  funds: FundRow[]
+  points: HistoryPoint[]
+  ver: Verification | null
+}) {
   const m = ov.macro
   const ok = funds.filter((f) => f.integrity === "ok").length
   const warn = funds.filter((f) => f.integrity === "warn").length
@@ -339,6 +349,12 @@ function OverviewView({ ov, funds, points }: { ov: Overview; funds: FundRow[]; p
               </div>
             )}
           </div>
+          {ver && ver.funds.length > 0 && (
+            <div className="grid-2">
+              <CoverageChart funds={ver.funds} />
+              <ConsensusDonut consensus={ver.consensus ?? {}} />
+            </div>
+          )}
           <div className="meta">
             {ov.verified.hash_ok ? "hash matches report body" : "hash mismatch"} ·{" "}
             {ov.verified.sig_ok ? "signature valid" : "signature invalid"} · signer {ov.verified.signer.slice(0, 10)}…
@@ -754,6 +770,96 @@ function AnalyticsView({ a }: { a: Analytics }) {
 
 const sevClass = (s: string) => (s === "high" ? "bad" : s === "warning" ? "warn" : "ok")
 
+const covCol = (status: string) =>
+  status === "ok" ? "#4ade80" : status === "fail" ? "#f87171" : status === "warn" ? "#fbbf24" : "#64748b"
+
+const conCol = (name: string) =>
+  name === "ok" ? "#4ade80" : name === "single" ? "#2563eb" : name === "mismatch" ? "#f87171" : "#64748b"
+
+function CoverageChart({ funds }: { funds: Verification["funds"] }) {
+  const list = [...funds]
+    .map((f) => ({ ticker: f.ticker, coverage: f.coverage ?? 0, status: f.status }))
+    .sort((a, b) => b.coverage - a.coverage)
+  if (!list.length) return null
+  return (
+    <div className="agent">
+      <h2>🧬 On-chain coverage</h2>
+      <div className="chart">
+        <ResponsiveContainer width="100%" height={240}>
+          <BarChart data={list}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
+            <XAxis
+              dataKey="ticker"
+              stroke="#94a3b8"
+              tickLine={false}
+              axisLine={false}
+              interval={0}
+              angle={-35}
+              textAnchor="end"
+              height={70}
+            />
+            <YAxis
+              stroke="#94a3b8"
+              tickLine={false}
+              axisLine={false}
+              domain={[0, 1.1]}
+              tickFormatter={(v: number) => `${Math.round(v * 100)}%`}
+              width={50}
+            />
+            <Tooltip contentStyle={tipStyle} formatter={(v: number | string) => `${(Number(v) * 100).toFixed(1)}%`} />
+            <Bar dataKey="coverage" name="Coverage" radius={[4, 4, 0, 0]}>
+              {list.map((f) => (
+                <Cell key={f.ticker} fill={covCol(f.status)} />
+              ))}
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+      <div className="meta">
+        On-chain supply read as % of reported supply — green = fully verified, amber = partial, gray = no on-chain data.
+      </div>
+    </div>
+  )
+}
+
+function ConsensusDonut({ consensus }: { consensus: Record<string, number> }) {
+  const data = (Object.entries(consensus).filter(([, v]) => v > 0) as [string, number][]).map(([name, value]) => ({
+    name,
+    value,
+  }))
+  if (!data.length) return null
+  return (
+    <div className="agent">
+      <h2>🔗 RPC node consensus</h2>
+      <div className="chart">
+        <ResponsiveContainer width="100%" height={240}>
+          <PieChart>
+            <Pie
+              data={data}
+              dataKey="value"
+              nameKey="name"
+              innerRadius={55}
+              outerRadius={90}
+              paddingAngle={2}
+              stroke="var(--bg)"
+            >
+              {data.map((d) => (
+                <Cell key={d.name} fill={conCol(d.name)} />
+              ))}
+            </Pie>
+            <Tooltip contentStyle={tipStyle} formatter={(v: number | string) => Number(v)} />
+            <Legend wrapperStyle={{ fontSize: 12 }} />
+          </PieChart>
+        </ResponsiveContainer>
+      </div>
+      <div className="meta">
+        Per-chain node agreement — ok = both RPC nodes agree, single = one node read, mismatch = nodes disagree, none =
+        no RPC for chain.
+      </div>
+    </div>
+  )
+}
+
 function StrategyView({ rot, strat, ver }: { rot: Rotation | null; strat: Strategy | null; ver: Verification | null }) {
   return (
     <div>
@@ -859,10 +965,10 @@ function StrategyView({ rot, strat, ver }: { rot: Rotation | null; strat: Strate
               <span>Not readable</span>
             </div>
           </div>
-          {ver.consensus && (
-            <div className="meta">
-              RPC node consensus — ok {ver.consensus.ok ?? 0} · single {ver.consensus.single ?? 0} · mismatch{" "}
-              {ver.consensus.mismatch ?? 0} · no RPC {ver.consensus.none ?? 0}
+          {ver.funds.length > 0 && (
+            <div className="grid-2">
+              <CoverageChart funds={ver.funds} />
+              <ConsensusDonut consensus={ver.consensus ?? {}} />
             </div>
           )}
           {ver.recon && ver.recon.some((r) => !r.reconciled) && (
@@ -964,6 +1070,9 @@ export default function App() {
       getHistory()
         .then((b) => setHist(b.points))
         .catch(() => setHist([]))
+      getVerification()
+        .then(setVer)
+        .catch(() => setVer(null))
     }
   }, [tab])
   useEffect(() => {
@@ -1066,7 +1175,11 @@ export default function App() {
       )}
 
       {tab === "overview" &&
-        (ov && funds ? <OverviewView ov={ov} funds={funds} points={hist ?? []} /> : <p className="muted">loading…</p>)}
+        (ov && funds ? (
+          <OverviewView ov={ov} funds={funds} points={hist ?? []} ver={ver} />
+        ) : (
+          <p className="muted">loading…</p>
+        ))}
 
       {tab === "funds" &&
         (funds ? (

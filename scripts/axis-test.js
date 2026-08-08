@@ -199,6 +199,12 @@ for (const p of ["/verification", "/rotation", "/strategy"]) {
   const b = await r.json()
   assert(`${p} has date`, typeof b.date === "string")
 }
+const verFull = await app.fetch(new Request("http://localhost/verification")).then((r) => r.json())
+assert(
+  "/verification has consensus counts",
+  typeof verFull.consensus?.ok === "number" && typeof verFull.consensus?.single === "number",
+)
+assert("/verification funds have coverage", typeof verFull.funds?.[0]?.coverage === "number")
 const pf = await app.fetch(new Request("http://localhost/portfolio?wallet=0x0000000000000000000000000000000000000000"))
 assert("/portfolio → 200", pf.status === 200)
 const pfBody = await pf.json()

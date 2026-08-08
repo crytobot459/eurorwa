@@ -308,7 +308,7 @@ app.get("/verification", (c) => {
       recon: (j.recon ?? []).filter((r) => !r.reconciled).map((r) => ({ ticker: r.ticker, delta_pct: r.delta_pct })),
       funds: (j.funds ?? []).map((f) => ({ ticker: f.ticker, status: f.status, coverage: f.coverage })),
     })
-  return c.json(j)
+  return c.json(j.date ? { ...j, consensus: consensusCount(j.funds ?? []) } : j)
 })
 
 app.get("/rotation", (c) => {
