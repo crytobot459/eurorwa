@@ -1,5 +1,21 @@
 import { useEffect, useState } from "react"
-import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend } from "recharts"
+import {
+  Area,
+  AreaChart,
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Cell,
+  Legend,
+  Line,
+  LineChart,
+  Pie,
+  PieChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts"
 import {
   API,
   FundRow,
@@ -11,11 +27,14 @@ import {
   Rotation,
   Strategy,
   Verification,
+  HistoryPoint,
+  SplitRow,
   getFunds,
   getFund,
   getFlows,
   getOverview,
   getAnalytics,
+  getHistory,
   getAlerts,
   getRotation,
   getStrategy,
@@ -97,7 +116,150 @@ function Chips({ funds }: { funds: FundRow[] }) {
 
 const badge = (action: string) => <span className={`badge ${action}`}>{action}</span>
 
-function OverviewView({ ov, funds }: { ov: Overview; funds: FundRow[] }) {
+const tipStyle = { background: "#1e293b", border: "1px solid #334155", borderRadius: 8, fontSize: 12 }
+
+const donutColors = ["#2563eb", "#16a34a", "#f59e0b", "#a855f7", "#ec4899", "#06b6d4", "#64748b"]
+
+function TrendChart({ points }: { points: HistoryPoint[] }) {
+  if (points.length < 2) return null
+  return (
+    <div className="agent">
+      <h2>📈 Sector size &amp; yield over time</h2>
+      <div className="chart">
+        <ResponsiveContainer width="100%" height={260}>
+          <AreaChart data={points}>
+            <defs>
+              <linearGradient id="tvlGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#2563eb" stopOpacity={0.45} />
+                <stop offset="100%" stopColor="#2563eb" stopOpacity={0} />
+              </linearGradient>
+            </defs>
+            <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
+            <XAxis dataKey="date" stroke="#94a3b8" tickLine={false} axisLine={false} />
+            <YAxis
+              yAxisId="l"
+              stroke="#94a3b8"
+              tickLine={false}
+              axisLine={false}
+              tickFormatter={(v: number) => fmtUsd(v)}
+              width={72}
+            />
+            <YAxis
+              yAxisId="r"
+              orientation="right"
+              stroke="#94a3b8"
+              tickLine={false}
+              axisLine={false}
+              tickFormatter={(v: number) => `${v.toFixed(2)}%`}
+              width={50}
+            />
+            <Tooltip
+              contentStyle={tipStyle}
+              formatter={(v: number | string, n: string) =>
+                n === "Total TVL" ? fmtUsd(Number(v)) : `${Number(v).toFixed(2)}%`
+              }
+            />
+            <Legend wrapperStyle={{ fontSize: 12 }} />
+            <Area
+              yAxisId="l"
+              type="monotone"
+              dataKey="total_tvl"
+              name="Total TVL"
+              stroke="#2563eb"
+              strokeWidth={2}
+              fill="url(#tvlGrad)"
+            />
+            <Line
+              yAxisId="r"
+              type="monotone"
+              dataKey="median_yield"
+              name="Median yield"
+              stroke="#16a34a"
+              strokeWidth={2}
+              dot={{ r: 3 }}
+              connectNulls
+            />
+          </AreaChart>
+        </ResponsiveContainer>
+      </div>
+      <div className="meta">
+        Total TVL across tracked money-market funds with the median fund yield at each snapshot date.
+      </div>
+    </div>
+  )
+}
+
+function Donut({ title, rows, sub }: { title: string; rows: (SplitRow & { name: string })[]; sub: string }) {
+  if (!rows.length) return null
+  const top = rows.slice(0, 6)
+  const other = rows.slice(6).reduce((a, r) => a + r.tvl, 0)
+  const data: (SplitRow & { name: string })[] =
+    other > 0 ? [...top, { name: "Other", tvl: other, count: 0, share: 0 }] : top
+  return (
+    <div className="agent">
+      <h2>{title}</h2>
+      <div className="chart">
+        <ResponsiveContainer width="100%" height={240}>
+          <PieChart>
+            <Pie
+              data={data}
+              dataKey="tvl"
+              nameKey="name"
+              innerRadius={55}
+              outerRadius={90}
+              paddingAngle={2}
+              stroke="var(--bg)"
+            >
+              {data.map((d) => (
+                <Cell key={d.name} fill={donutColors[data.indexOf(d) % donutColors.length]} />
+              ))}
+            </Pie>
+            <Tooltip contentStyle={tipStyle} formatter={(v: number | string) => fmtUsd(Number(v))} />
+            <Legend wrapperStyle={{ fontSize: 12 }} />
+          </PieChart>
+        </ResponsiveContainer>
+      </div>
+      <div className="meta">{sub}</div>
+    </div>
+  )
+}
+
+function FlowsBar({ rows }: { rows: { ticker: string; flow: number | null }[] }) {
+  const list = [...rows]
+    .filter((r) => r.flow != null)
+    .sort((a, b) => Math.abs(b.flow ?? 0) - Math.abs(a.flow ?? 0))
+    .slice(0, 12)
+  if (!list.length) return null
+  return (
+    <div className="agent">
+      <h2>↔️ Net flows by fund</h2>
+      <div className="chart">
+        <ResponsiveContainer width="100%" height={240}>
+          <BarChart data={list}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
+            <XAxis dataKey="ticker" stroke="#94a3b8" tickLine={false} axisLine={false} />
+            <YAxis
+              stroke="#94a3b8"
+              tickLine={false}
+              axisLine={false}
+              tickFormatter={(v: number) => fmtUsd(v)}
+              width={72}
+            />
+            <Tooltip contentStyle={tipStyle} formatter={(v: number | string) => fmtUsd(Number(v))} />
+            <Bar dataKey="flow" name="Net flow" radius={[4, 4, 0, 0]}>
+              {list.map((r) => (
+                <Cell key={r.ticker} fill={(r.flow ?? 0) >= 0 ? "#4ade80" : "#f87171"} />
+              ))}
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+      <div className="meta">24h TVL change per fund vs the previous snapshot.</div>
+    </div>
+  )
+}
+
+function OverviewView({ ov, funds, points }: { ov: Overview; funds: FundRow[]; points: HistoryPoint[] }) {
   const m = ov.macro
   const ok = funds.filter((f) => f.integrity === "ok").length
   const warn = funds.filter((f) => f.integrity === "warn").length
@@ -137,6 +299,8 @@ function OverviewView({ ov, funds }: { ov: Overview; funds: FundRow[] }) {
           <span>RWA vs T-bill spread</span>
         </div>
       </div>
+
+      <TrendChart points={points} />
 
       {ov.verified && (
         <div className="agent">
@@ -486,8 +650,6 @@ function AnalyticsView({ a }: { a: Analytics }) {
   const c = a.concentration
   const b = a.breadth
   const maxChain = a.chains[0]?.tvl ?? 1
-  const maxIssuer = a.issuers[0]?.tvl ?? 1
-  const maxFlow = Math.max(...a.day_flows.map((f) => Math.abs(f.flow ?? 0)), 1)
   return (
     <div>
       <div className="agent">
@@ -560,24 +722,13 @@ function AnalyticsView({ a }: { a: Analytics }) {
         </div>
       </div>
 
-      <div className="agent">
-        <h2>🏢 Issuer concentration</h2>
-        <div className="bars">
-          {a.issuers.map((n) => (
-            <div className="bar-row" key={n.name}>
-              <span className="bar-label">
-                {n.name}{" "}
-                <i>
-                  {n.count} fund{n.count > 1 ? "s" : ""}
-                </i>
-              </span>
-              <div className="bar-track">
-                <div className="bar-fill" style={{ width: `${(n.tvl / maxIssuer) * 100}%` }} />
-              </div>
-              <span className="bar-val">{n.share.toFixed(1)}%</span>
-            </div>
-          ))}
-        </div>
+      <div className="grid-2">
+        <Donut
+          title="🏢 Issuer concentration"
+          rows={a.issuers}
+          sub="Share of total TVL by issuer — top 6 + the rest aggregated."
+        />
+        <FlowsBar rows={a.day_flows} />
       </div>
 
       {Object.keys(a.currency).length > 0 && (
@@ -592,26 +743,6 @@ function AnalyticsView({ a }: { a: Analytics }) {
                 <span>
                   {fmtUsd(v.tvl)} · {v.count} fund{v.count > 1 ? "s" : ""}
                 </span>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {a.day_flows.length > 0 && (
-        <div className="agent">
-          <h2>↔️ Top daily flows</h2>
-          <div className="bars">
-            {a.day_flows.slice(0, 5).map((f) => (
-              <div className="bar-row" key={f.ticker}>
-                <span className="bar-label">{f.ticker}</span>
-                <div className="bar-track">
-                  <div
-                    className={`bar-fill ${(f.flow ?? 0) >= 0 ? "pos-fill" : "neg-fill"}`}
-                    style={{ width: `${(Math.abs(f.flow ?? 0) / maxFlow) * 100}%` }}
-                  />
-                </div>
-                <span className="bar-val">{f.flow == null ? "—" : fmtUsd(f.flow)}</span>
               </div>
             ))}
           </div>
@@ -805,6 +936,7 @@ export default function App() {
   const [funds, setFunds] = useState<FundRow[] | null>(null)
   const [flows, setFlows] = useState<Flow[] | null>(null)
   const [ov, setOv] = useState<Overview | null>(null)
+  const [hist, setHist] = useState<HistoryPoint[] | null>(null)
   const [an, setAn] = useState<Analytics | null>(null)
   const [al, setAl] = useState<AlertItem[] | null>(null)
   const [rot, setRot] = useState<Rotation | null>(null)
@@ -825,10 +957,14 @@ export default function App() {
         .catch((e) => setErr(String(e)))
   }, [tab])
   useEffect(() => {
-    if (tab === "overview")
+    if (tab === "overview") {
       getOverview()
         .then(setOv)
         .catch(() => setOv(null))
+      getHistory()
+        .then((b) => setHist(b.points))
+        .catch(() => setHist([]))
+    }
   }, [tab])
   useEffect(() => {
     if (tab === "analytics")
@@ -929,7 +1065,8 @@ export default function App() {
         </div>
       )}
 
-      {tab === "overview" && (ov && funds ? <OverviewView ov={ov} funds={funds} /> : <p className="muted">loading…</p>)}
+      {tab === "overview" &&
+        (ov && funds ? <OverviewView ov={ov} funds={funds} points={hist ?? []} /> : <p className="muted">loading…</p>)}
 
       {tab === "funds" &&
         (funds ? (

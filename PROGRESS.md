@@ -2,6 +2,25 @@
 
 > Updated after each opencode session. See `ROADMAP.md` for phase details.
 
+## Most recent session: 2026-08-08 (session 24) — WEB DASHBOARD: CHARTS OVER TEXT
+
+> Studied public dashboard design (rwa.xyz treasuries, eco.com multi-chain treasury guide, rwa.io, Khalil Ahmed's DeFi-dashboard guide, Dee Kargaev/Merlin institutional design, Masterly fintech R-M-D-A, CMM redesign) then applied: charts answer one insight each, fixed chart heights, dark-theme tooltips, dense tables kept for detail.
+
+**What was done:**
+
+- **`GET /history` endpoint ✅** — `api/_app.js` aggregates every daily snapshot into a time series: `{date, total_tvl, median_yield, top_yield, top_ticker, holders, flow}` (flow = Δ vs previous snapshot). Built on the existing `median()` helper. Listed on `/`. First 4 points: TVL $10.64B → $10.71B, median yield ~3.44–3.46%, top yield CETES ~4.6%.
+- **Overview trend chart ✅** — `App.tsx` `TrendChart`: recharts **AreaChart** (total TVL with gradient fill, left axis) + dual-axis **Line** (median fund yield, right axis, % formatter). Sparse `CartesianGrid` (vertical off), dark tooltips, clickable legend. Answers "is the sector growing?" — one chart, one insight.
+- **Analytics charts ✅** — `Donut` (PieChart, inner radius, issuer allocation top 6 + "Other" bucket, distinct palette) replaces the old issuer div-bars; `FlowsBar` (BarChart, green/red cells for in/out) replaces the old top-flows div-bars. Paired in a responsive `.grid-2` row (collapses to 1 column < 720px). Chain/concentration/currency sections keep their compact tables/bars.
+- **Tests ✅** — `scripts/axis-test.js` **51 → 54 checks** (3 new `/history` checks: 200 + ≥2 points + point shape). Root typecheck, frontend `tsc --noEmit`, and `vite build` all green.
+
+**Next (ranked):**
+
+1. Publish the RWA-perps post (`docs/posts/2026-08-07/rwa-perps.md`) — still the top unpublished narrative asset.
+2. Test portfolio agent with a real fund-holding wallet (known USYC/BUIDL holder).
+3. Fund Virtuals agent wallet + ACP event listener; fund mainnet wallets → `X402_NETWORK=8453`.
+4. Add `outputSchema` to the OpenAPI spec + regenerate `openapi.json` for the MCP server.
+5. Extend charts once snapshots accumulate: stacked TVL by issuer over time + per-fund yield trend on the yields tab.
+
 ## Most recent session: 2026-08-08 (session 23) — QUALITY PASS: DUAL-NODE RPC CONSENSUS + DETERMINISTIC SCORES + MCP UPGRADE
 
 > Applied the 4 research groups (MCP design, data attestation, AI-analyst scoring, eval regression) learned from GitHub/public sources to harden the agents.

@@ -247,6 +247,23 @@ tbody tr:hover {
   margin-top: 8px;
 }
 
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.grid-2 .agent {
+  margin-bottom: 0;
+}
+
+@media (max-width: 720px) {
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
 .bars {
   display: flex;
   flex-direction: column;

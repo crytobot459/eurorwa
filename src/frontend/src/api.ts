@@ -73,6 +73,16 @@ export interface Analytics {
   day_flows: { ticker: string; flow: number | null }[]
 }
 
+export interface HistoryPoint {
+  date: string
+  total_tvl: number
+  median_yield: number | null
+  top_yield: number | null
+  top_ticker: string | null
+  holders: number
+  flow: number | null
+}
+
 export interface AlertItem {
   id: string
   type: string
@@ -223,6 +233,7 @@ export const getFunds = () => get<{ funds: FundRow[] }>("/funds")
 export const getFund = (slug: string) => get<FundDetail>(`/funds/${slug}`)
 export const getFlows = () => get<{ flows: Flow[] }>("/flows")
 export const getAnalytics = () => get<Analytics>("/analytics")
+export const getHistory = () => get<{ points: HistoryPoint[] }>("/history")
 export const getAlerts = () => get<{ updated_at: string | null; alerts: AlertItem[] }>("/alerts")
 export const getRotation = () => get<Rotation>("/rotation")
 export const getStrategy = () => get<Strategy>("/strategy")

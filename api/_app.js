@@ -55,6 +55,12 @@ app.use("*", cors())
 
 const bySlug = (slug) => (f) => f.slug === slug
 
+function median(xs) {
+  const s = [...xs].sort((a, b) => a - b)
+  const m = Math.floor(s.length / 2)
+  return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2
+}
+
 function consensusCount(funds) {
   const c = { ok: 0, single: 0, mismatch: 0, none: 0 }
   for (const f of funds) for (const ch of f.chains ?? []) c[ch.consensus] = (c[ch.consensus] ?? 0) + 1
@@ -74,6 +80,7 @@ app.get("/", (c) =>
       "/yields",
       "/flows",
       "/analytics",
+      "/history",
       "/alerts",
       "/verification",
       "/rotation",
@@ -247,6 +254,32 @@ app.get("/analytics", (c) => {
   const last = all.at(-1)
   if (!last) return c.json({ date: null })
   return c.json(institutionMetrics(last, all.at(-2)))
+})
+
+app.get("/history", (c) => {
+  const all = snaps()
+  if (!all.length) return c.json({ points: [] })
+  let prevTotal = 0
+  const points = all.map((s, i) => {
+    const funds = s.funds ?? []
+    const total = funds.reduce((a, f) => a + (f.tvl ?? 0), 0)
+    const paying = funds.filter((f) => (f.yield ?? 0) > 0)
+    const ys = paying.map((f) => f.yield)
+    const holders = funds.reduce((a, f) => a + (f.holders ?? 0), 0)
+    const top = [...funds].sort((x, y) => (y.yield ?? 0) - (x.yield ?? 0))[0]
+    const flow = i ? total - prevTotal : null
+    prevTotal = total
+    return {
+      date: s.date,
+      total_tvl: total,
+      median_yield: ys.length ? median(ys) : null,
+      top_yield: top?.yield ?? null,
+      top_ticker: top?.ticker ?? null,
+      holders,
+      flow,
+    }
+  })
+  return c.json({ points })
 })
 
 const aFile = (() => {

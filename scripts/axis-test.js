@@ -107,6 +107,16 @@ assert("/alerts → 200", al.status === 200)
 const alBody = await al.json()
 assert("/alerts returns array", Array.isArray(alBody.alerts))
 
+const hb = await app.fetch(new Request("http://localhost/history"))
+assert("/history → 200", hb.status === 200)
+const hbBody = await hb.json()
+assert("/history returns points", Array.isArray(hbBody.points) && hbBody.points.length >= 2)
+const h0 = hbBody.points.at(-1)
+assert(
+  "/history point has total_tvl + median_yield + flow",
+  typeof h0?.total_tvl === "number" && h0.total_tvl > 0 && typeof h0.median_yield === "number" && "flow" in h0,
+)
+
 console.log("rotation — computeRotation")
 const rotFunds = [
   { ticker: "eurSAFO", yield: 3.0, tvl: 100, holders: 10 },
