@@ -11,16 +11,16 @@
 - **Repo pushed to origin/main ✅** — rebased cleanly over pipeline bot commit `f4d043e` (conflict in `ready.md` resolved in favor of the hand-written quality post). 5 commits pushed: `4754945` translation+analytics+registration, `ac76ab2` quality post, `0ed6f74` post link, `e7155c8` news scan, `aacaece` paid MCP tool. All green.
 - **RWA-perps post draft written** — `docs/posts/2026-08-07/rwa-perps.md` (X + Reddit + LinkedIn, rides $347B/mo RWA-perps narrative, keeps verifiable-MMF-data differentiation). Commit `ea7fa6f`, pushed.
 - **Circle Agent Marketplace form SUBMITTED ✅** (2026-08-08) — user submitted the interest form (google form, email crytobot459@gmail.com). Service: EuroRWA, $0.05/call x402, 2 paid endpoints, OpenAPI spec uploaded as PDF (`openapi.json.pdf` — form doesn't accept .json, converted via headless Chrome). Awaiting manual review. Listing decision may take days; will check `agents.circle.com/services` periodically.
-- **Cloudflare Monetization Gateway waitlist** — NOT yet submitted (needs user to fill form: https://cfl.re/44Gw82m, fields: Email, Name, Title, Website, service description, interest level, feature requests).
+- **Circle Agent Marketplace form SUBMITTED ✅** (2026-08-08) — user submitted the interest form (google form, email crytobot459@gmail.com). Service: EuroRWA, $0.05/call x402, 2 paid endpoints, OpenAPI spec uploaded as PDF (`openapi.json.pdf` — form doesn't accept .json, converted via headless Chrome). Awaiting manual review. Listing decision may take days; will check `agents.circle.com/services` periodically.
+- **Cloudflare Monetization Gateway waitlist SUBMITTED ✅** (2026-08-08) — user submitted the early access form ("Your response has been recorded"). Fields: Name `PHAM MINH CANH`, Title `Independent Developer — on-chain RWA data agent`, Website `https://rwa-dashboard-gamma.vercel.app`, service description (EuroRWA x402 API + MCP, $0.05/call), interest `5 (Ready to implement)`, feature requests (per-tool MCP pricing, subscriptions, USDC Base, seller analytics). Note: automated POST was blocked by Google abuse detection; user submitted via browser. Form link: `docs.google.com/forms/d/e/1FAIpQLSfq6yaIgp57FCGFg7riXlSWTeD8d8Adur2c8tWaKY4SuzweiQ/viewform`. Email auto-captured from Google account (`Crytobot459@gmail.com`). Note: blog `cfl.re/44Gw82m` redirects to the blog post, NOT the form — the real form link is embedded in the blog.
 - **Virtuals ACP** — NOT started (needs wallet connection at app.virtuals.io/acp/join, role Provider).
 
 **Next (ranked):**
 
-1. Join **Cloudflare Monetization Gateway waitlist** — form: https://cfl.re/44Gw82m (user to fill).
-2. **Virtuals ACP** registration — needs wallet connect + Provider role (user), then scaffold offering via `acp offering create`.
-3. Publish **RWA-perps post** (draft in `docs/posts/2026-08-07/rwa-perps.md`), log link in PROGRESS.md.
-4. Fund mainnet wallets → `X402_NETWORK=8453` → x402scan + CDP Bazaar (unblocks real demand channels).
-5. Follow up on Circle Marketplace listing decision.
+1. **Virtuals ACP** registration — needs wallet connect + Provider role (user), then scaffold offering via `acp offering create`.
+2. Publish **RWA-perps post** (draft in `docs/posts/2026-08-07/rwa-perps.md`), log link in PROGRESS.md.
+3. Fund mainnet wallets → `X402_NETWORK=8453` → x402scan + CDP Bazaar (unblocks real demand channels).
+4. Follow up on Circle Marketplace + Cloudflare waitlist decisions.
 
 ## Most recent session: 2026-08-07 (session 20) — 402 INDEX VERIFIED + POST PUBLISHED + NEWS SCAN
 
