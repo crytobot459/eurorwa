@@ -49,7 +49,12 @@ interface Asset {
   tokens?: Token[]
 }
 
-interface Fund {
+export interface TokenDl {
+  network: string
+  address: string
+}
+
+export interface Fund {
   ticker: string
   slug: string
   name: string
@@ -69,6 +74,7 @@ interface Fund {
   holders_30d_pct: number
   supply: number
   networks: string[]
+  tokens: TokenDl[]
 }
 
 const pickNum = (
@@ -112,6 +118,9 @@ function norm(a: Asset): Fund {
     holders_30d_pct: pickNum(hold, "chg_30d_pct") ?? 0,
     supply: pickNum(sup, "val") ?? 0,
     networks: (a.tokens ?? []).map((t) => t.network_name ?? "").filter(Boolean),
+    tokens: (a.tokens ?? [])
+      .map((t) => ({ network: t.network_name ?? "", address: t.address ?? "" }))
+      .filter((t) => t.network && /^0x/i.test(t.address)),
   }
 }
 
@@ -165,6 +174,7 @@ function mock(): Fund[] {
     holders_30d_pct: 0,
     supply,
     networks: [],
+    tokens: [],
   }))
 }
 

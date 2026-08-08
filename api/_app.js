@@ -15,6 +15,16 @@ const dir = cands.find((d) => existsSync(d)) ?? cands[0]
 const aCands = [join(cwd, "data", "analyst"), join(here, "..", "data", "analyst"), join(here, "data", "analyst")]
 const adir = aCands.find((d) => existsSync(d)) ?? aCands[0]
 
+function subDir(name) {
+  const cands = [join(cwd, "data", name), join(here, "..", "data", name), join(here, "data", name)]
+  return cands.find((d) => existsSync(d)) ?? cands[0]
+}
+
+const vdir = subDir("verification")
+const rdir = subDir("rotation")
+const sdir = subDir("strategy")
+const pdir = subDir("portfolio")
+
 function snaps() {
   if (!existsSync(dir)) return []
   return readdirSync(dir)
@@ -29,6 +39,15 @@ function reports() {
     .filter((f) => f.endsWith(".json"))
     .sort()
     .map((f) => JSON.parse(readFileSync(join(adir, f), "utf8")))
+}
+
+function latestJson(dir) {
+  if (!existsSync(dir)) return null
+  const files = readdirSync(dir)
+    .filter((f) => f.endsWith(".json"))
+    .sort()
+  if (!files.length) return null
+  return JSON.parse(readFileSync(join(dir, files.at(-1)), "utf8"))
 }
 
 export const app = new Hono()
@@ -50,6 +69,10 @@ app.get("/", (c) =>
       "/flows",
       "/analytics",
       "/alerts",
+      "/verification",
+      "/rotation",
+      "/strategy",
+      "/portfolio?wallet=0x...",
       "/analyst (x402 paid)",
     ],
   }),
@@ -88,10 +111,13 @@ app.get("/funds", (c) => {
   if (!last) return c.json({ date: null, funds: [] })
   const v = verifySnapshot(last, all.at(-2))
   const vBy = new Map(v.funds.map((f) => [f.slug, f]))
+  const ov = latestJson(vdir)
+  const ocBy = new Map((ov?.funds ?? []).map((f) => [f.ticker, f]))
   const funds = [...last.funds]
     .sort((x, y) => y.tvl - x.tvl)
     .map((f) => {
       const vf = vBy.get(f.slug)
+      const oc = ocBy.get(f.ticker)
       return {
         slug: f.slug,
         ticker: f.ticker,
@@ -107,6 +133,14 @@ app.get("/funds", (c) => {
         nav: vf?.nav ?? null,
         integrity: vf?.integrity ?? "na",
         checks: vf?.checks ?? null,
+        onchain: oc
+          ? {
+              status: oc.status,
+              coverage: oc.coverage,
+              verified: oc.verified,
+              supply: oc.supply,
+            }
+          : null,
         date: last.date,
       }
     })
@@ -199,6 +233,24 @@ app.get("/alerts", (c) => {
   if (!existsSync(aFile)) return c.json({ updated_at: null, alerts: [] })
   const j = JSON.parse(readFileSync(aFile, "utf8"))
   return c.json({ updated_at: j.updated_at ?? null, alerts: (j.alerts ?? []).slice(-40).reverse() })
+})
+
+app.get("/verification", (c) => c.json(latestJson(vdir) ?? { date: null }))
+
+app.get("/rotation", (c) => c.json(latestJson(rdir) ?? { date: null }))
+
+app.get("/strategy", (c) => c.json(latestJson(sdir) ?? { date: null }))
+
+app.get("/portfolio", (c) => {
+  const w = c.req.query("wallet")?.toLowerCase()
+  if (!w) return c.json({ error: "wallet query required" }, 400)
+  if (!existsSync(pdir)) return c.json({ wallet: w, date: null })
+  const files = readdirSync(pdir).filter((f) => f.endsWith(".json"))
+  for (const f of files) {
+    const j = JSON.parse(readFileSync(join(pdir, f), "utf8"))
+    if (j.wallet === w) return c.json(j)
+  }
+  return c.json({ wallet: w, date: null })
 })
 
 app.post("/analyst", async (c) => {

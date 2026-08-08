@@ -1,6 +1,9 @@
 import { institutionMetrics } from "../api/_analytics.js"
 import { detectAlerts } from "../src/analyst/alerts.ts"
 import { app } from "../api/_app.js"
+import { computeRotation } from "../src/analyst/rotation.ts"
+import { computeStrategy } from "../src/analyst/strategy.ts"
+import { classify } from "../src/verify/onchain.ts"
 
 let passed = 0
 const assert = (name, cond) => {
@@ -101,5 +104,59 @@ const al = await app.fetch(new Request("http://localhost/alerts"))
 assert("/alerts → 200", al.status === 200)
 const alBody = await al.json()
 assert("/alerts returns array", Array.isArray(alBody.alerts))
+
+console.log("rotation — computeRotation")
+const rotFunds = [
+  { ticker: "eurSAFO", yield: 3.0, tvl: 100, holders: 10 },
+  { ticker: "EUTBL", yield: 2.0, tvl: 100, holders: 10 },
+  { ticker: "USYC", yield: 3.5, tvl: 100, holders: 10 },
+  { ticker: "UKTBL", yield: 4.0, tvl: 100, holders: 10 },
+]
+const rot = computeRotation("2026-01-01", rotFunds, 2.0, 3.5, "ecb+fred")
+assert(
+  "best hedged EUR = eurSAFO 4.5",
+  rot.best_eur?.ticker === "eurSAFO" && Math.abs(rot.best_eur.hedged - 4.5) < 1e-9,
+)
+assert("best USD = USYC 3.5", rot.best_usd?.ticker === "USYC" && Math.abs(rot.best_usd.yield - 3.5) < 1e-9)
+assert("gap = 1.0", Math.abs(rot.gap_pt - 1.0) < 1e-9)
+assert("signal ROTATE_EUR", rot.signal === "ROTATE_EUR")
+assert("GBP bucket", rot.rows.find((r) => r.ticker === "UKTBL")?.bucket === "gbp")
+
+console.log("strategy — computeStrategy")
+const strat = computeStrategy(
+  "2026-01-01",
+  rotFunds,
+  2.0,
+  3.5,
+  new Map([
+    ["eurSAFO", 1],
+    ["USYC", 1],
+    ["EUTBL", 0.5],
+  ]),
+)
+assert("top collateral = USYC", strat.top === "USYC")
+assert("USYC carry = 0", Math.abs(strat.rows.find((r) => r.ticker === "USYC").carry) < 1e-9)
+const pair = strat.pairs.find((p) => p.a === "eurSAFO" && p.b === "SAFO")
+assert("SAFO pair skipped (no SAFO data)", pair === undefined)
+assert("ranking is sorted", strat.ranking.length === 4)
+assert("carry of USYC included", typeof strat.rows.find((r) => r.ticker === "USYC").carry === "number")
+
+console.log("verifier — classify")
+assert("full coverage = ok", classify(100, 100, 1, [{}]).status === "ok")
+assert("partial coverage = warn", classify(50, 100, 1, [{}]).status === "warn")
+assert("over-supply = fail", classify(110, 100, 1, [{}]).status === "fail")
+assert("no readable = na", classify(0, 100, 0, []).status === "na")
+
+console.log("endpoints — verification/rotation/strategy (live data)")
+for (const p of ["/verification", "/rotation", "/strategy"]) {
+  const r = await app.fetch(new Request(`http://localhost${p}`))
+  assert(`${p} → 200`, r.status === 200)
+  const b = await r.json()
+  assert(`${p} has date`, typeof b.date === "string")
+}
+const pf = await app.fetch(new Request("http://localhost/portfolio?wallet=0x0000000000000000000000000000000000000000"))
+assert("/portfolio → 200", pf.status === 200)
+const pfBody = await pf.json()
+assert("/portfolio has signal EMPTY", pfBody.signal === "EMPTY")
 
 console.log(`\naxis: ${passed} checks passed`)

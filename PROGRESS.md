@@ -2,6 +2,23 @@
 
 > Updated after each opencode session. See `ROADMAP.md` for phase details.
 
+## Most recent session: 2026-08-08 (session 22) — 4 NEW AGENTS: VERIFIER + ROTATION + PORTFOLIO + STRATEGY
+
+**What was done:**
+
+- **Agent A — On-chain Verifier (the moat) BUILT ✅** — `src/verify/rpc.ts` (raw `fetch` + `AbortSignal.timeout(7000)`, no viem — viem's `http()` transport does not abort hanging sockets) + `src/verify/onchain.ts` (`verifyFunds` reads `totalSupply()`/`decimals` per token, `classify` → `ok`/`warn`/`fail`/`na`) + `src/verify/index.ts` CLI → `data/verification/2026-08-08.json`. Result: `{ok:4, warn:10, fail:0, na:1}` — USYC/NRW1/bC3M/bIB01 100% verified; others partial because listings also sit on Solana/Stellar/Aptos (non-EVM, unrpc'd) or duplicate Ethereum rows. Runs ~40s, exit 0.
+- **Agent B — Yield Rotation BUILT + RAN ✅** — `src/analyst/rotation.ts`: `fetchEstr()` (ECB SDMX, 2.185%) + `fetchSofr()` (FRED CSV, no key, 3.65%), hedged EUR yield = fund yield + (SOFR−ESTR), buckets eur/usd/gbp/other. Signal: **ROTATE_USD** (best hedged EUR eurSAFO 4.02% vs best USD CETES 4.56%, gap −0.53pt). Output → `data/rotation/2026-08-08.json`.
+- **Agent C — Portfolio Alerts BUILT ✅** — `src/analyst/portfolio.ts`: wallet arg (or `PORTFOLIO_WALLET`) → `readBalance()` across all fund tokens/chains → net weighted yield + `ROTATE`/`HOLD`/`EMPTY` signal. Validated with zero-wallet (EMPTY). Output → `data/portfolio/<date>-<wallet10>.json`.
+- **Agent D — Strategy Signals (ecosystem angle) BUILT ✅** — `src/analyst/strategy.ts`: collateral ranking (yield 0.4 + TVL 0.2 + holders 0.15 + on-chain coverage 0.25), delta-neutral carry = yield − benchmark (ESTR/SOFR), currency-pair spreads (eurSAFO/SAFO, EUTBL/USTBL, EUROB/USDY, NRW1/USTBL). Signal: **PARK** (no positive carry vs benchmarks) — rides the $347B/mo RWA-perps narrative. Output → `data/strategy/2026-08-08.json`.
+- **Wired everywhere**: `scripts/run.sh` (verify → rotation → strategy → portfolio-if-env, each guarded `|| echo FAILED >> data/cron.log`), `package.json` scripts (`onchain`, `rotation`, `portfolio`, `strategy`), API endpoints `/verification` `/rotation` `/strategy` `/portfolio?wallet=`, MCP tools `verify` `rotation` `strategy` `portfolio` (portfolio takes `wallet` arg; `API_PATH` map added). `bun run axis-test` → **43/43 pass** (new tests for rotation/strategy/classify + new endpoints). Root + frontend typecheck clean.
+- **Frontend**: funds table shows on-chain mark (`⛓✓/⛓⚠/⛓✗/⛓—`) with coverage tooltip (from `/funds.onchain`); new **strategy tab** renders rotation signal + strategy ranking/pairs + verification table.
+
+**Next (ranked):**
+
+1. Test portfolio agent with a real fund-holding wallet (use a known USYC/BUIDL holder address) and publish the RWA-perps post.
+2. Fund Virtuals agent wallet + ACP event listener; fund mainnet wallets → `X402_NETWORK=8453`.
+3. Follow up on Circle Marketplace + Cloudflare waitlist.
+
 ## Most recent session: 2026-08-08 (session 21) — PAID MCP TOOL LIVE + CIRCLE FORM SUBMITTED
 
 **What was done:**

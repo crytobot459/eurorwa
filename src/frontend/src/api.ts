@@ -13,6 +13,7 @@ export interface FundRow {
   nav: number | null
   integrity: string
   checks: { self?: boolean; nav?: boolean; yield?: boolean } | null
+  onchain: { status: string; coverage: number; verified: number; supply: number } | null
   date: string
 }
 
@@ -89,6 +90,54 @@ export interface Signal {
   reasons: string[]
 }
 
+export interface Rotation {
+  date: string
+  generated_at: string
+  benchmarks: { estr: number | null; sofr: number | null; tbill: number; src: string }
+  rows: { ticker: string; bucket: string; yield: number; hedged: number | null }[]
+  best_eur: { ticker: string; bucket: string; yield: number; hedged: number | null } | null
+  best_usd: { ticker: string; bucket: string; yield: number; hedged: number | null } | null
+  signal: "ROTATE_EUR" | "ROTATE_USD" | "HOLD" | "N/A"
+  gap_pt: number | null
+  note: string
+}
+
+export interface Strategy {
+  date: string
+  generated_at: string
+  benchmarks: { estr: number | null; sofr: number | null; tbill: number }
+  rows: {
+    ticker: string
+    bucket: string
+    yield: number
+    tvl: number
+    holders: number
+    coverage: number | null
+    collateral: number
+    carry: number | null
+  }[]
+  ranking: string[]
+  pairs: { a: string; b: string; spread_pt: number; long: string; short: string; note: string }[]
+  top: string | null
+  signal: string
+  note: string
+}
+
+export interface Verification {
+  date: string
+  verified_at: string
+  summary: Record<string, number>
+  funds: {
+    ticker: string
+    slug: string
+    supply: number
+    verified: number
+    coverage: number
+    status: string
+    note: string
+  }[]
+}
+
 export interface CryptoData {
   mcap: { usd: number; chg_24h_pct: number }
   volume: { usd: number }
@@ -148,3 +197,6 @@ export const getFund = (slug: string) => get<FundDetail>(`/funds/${slug}`)
 export const getFlows = () => get<{ flows: Flow[] }>("/flows")
 export const getAnalytics = () => get<Analytics>("/analytics")
 export const getAlerts = () => get<{ updated_at: string | null; alerts: AlertItem[] }>("/alerts")
+export const getRotation = () => get<Rotation>("/rotation")
+export const getStrategy = () => get<Strategy>("/strategy")
+export const getVerification = () => get<Verification>("/verification")

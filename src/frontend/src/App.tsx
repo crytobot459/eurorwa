@@ -8,15 +8,21 @@ import {
   Overview,
   Analytics,
   AlertItem,
+  Rotation,
+  Strategy,
+  Verification,
   getFunds,
   getFund,
   getFlows,
   getOverview,
   getAnalytics,
   getAlerts,
+  getRotation,
+  getStrategy,
+  getVerification,
 } from "./api"
 
-type Tab = "overview" | "funds" | "yields" | "flows" | "analytics" | "alerts"
+type Tab = "overview" | "funds" | "yields" | "flows" | "analytics" | "alerts" | "strategy"
 
 const fmtUsd = (n: number) => {
   if (n >= 1e9) return `$${(n / 1e9).toFixed(2)}B`
@@ -308,6 +314,18 @@ function Table({ rows }: { rows: FundRow[] }) {
             <td>
               <span className={`vmark ${r.integrity}`} title={checkFail(r.checks)}>
                 {r.integrity === "ok" ? "✓" : r.integrity === "warn" ? "⚠" : r.integrity === "fail" ? "✗" : "—"}
+              </span>{" "}
+              <span
+                className={`vmark ${r.onchain?.status ?? "na"}`}
+                title={`on-chain supply: ${r.onchain ? `${(r.onchain.coverage * 100).toFixed(0)}% verified (${r.onchain.verified.toFixed(0)}/${r.onchain.supply.toFixed(0)})` : "no on-chain data"}`}
+              >
+                {r.onchain?.status === "ok"
+                  ? "⛓✓"
+                  : r.onchain?.status === "warn"
+                    ? "⛓⚠"
+                    : r.onchain?.status === "fail"
+                      ? "⛓✗"
+                      : "⛓—"}
               </span>
             </td>
           </tr>
@@ -554,6 +572,144 @@ function AnalyticsView({ a }: { a: Analytics }) {
 
 const sevClass = (s: string) => (s === "high" ? "bad" : s === "warning" ? "warn" : "ok")
 
+function StrategyView({ rot, strat, ver }: { rot: Rotation | null; strat: Strategy | null; ver: Verification | null }) {
+  return (
+    <div>
+      {rot && (
+        <div className="agent">
+          <h2>🔄 EUR vs USD rotation — {rot.date}</h2>
+          <div className="chips">
+            <div className="chip">
+              <b>{rot.signal}</b>
+              <span>Rotation signal</span>
+            </div>
+            <div className="chip">
+              <b>{rot.benchmarks.estr != null ? `${rot.benchmarks.estr.toFixed(3)}%` : "—"}</b>
+              <span>ESTR (ECB)</span>
+            </div>
+            <div className="chip">
+              <b>{rot.benchmarks.sofr != null ? `${rot.benchmarks.sofr.toFixed(2)}%` : "—"}</b>
+              <span>SOFR (FRED)</span>
+            </div>
+            <div className="chip">
+              <b className={rot.gap_pt != null && rot.gap_pt >= 0 ? "pos" : "neg"}>
+                {rot.gap_pt == null ? "—" : `${rot.gap_pt >= 0 ? "+" : ""}${rot.gap_pt.toFixed(2)}pt`}
+              </b>
+              <span>Hedged EUR vs best USD gap</span>
+            </div>
+          </div>
+          {rot.best_eur && rot.best_usd && (
+            <div className="meta">
+              best hedged EUR <b>{rot.best_eur.ticker}</b> {rot.best_eur.hedged?.toFixed(2)}% vs best USD{" "}
+              <b>{rot.best_usd.ticker}</b> {rot.best_usd.yield.toFixed(2)}%
+            </div>
+          )}
+          <p className="meta">{rot.note}</p>
+        </div>
+      )}
+
+      {strat && (
+        <div className="agent">
+          <h2>🎯 RWA-perp strategy signals — {strat.date}</h2>
+          <div className="chips">
+            <div className="chip">
+              <b>{strat.signal}</b>
+              <span>Signal</span>
+            </div>
+            <div className="chip">
+              <b>{strat.top ?? "—"}</b>
+              <span>Top collateral</span>
+            </div>
+          </div>
+          <p className="meta">{strat.note}</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Ticker</th>
+                <th>CCY</th>
+                <th>APY</th>
+                <th>On-chain</th>
+                <th>Score</th>
+                <th>Carry</th>
+              </tr>
+            </thead>
+            <tbody>
+              {strat.rows.map((r) => (
+                <tr key={r.ticker}>
+                  <td className="ticker">{r.ticker}</td>
+                  <td>{r.bucket.toUpperCase()}</td>
+                  <td>{r.yield.toFixed(2)}%</td>
+                  <td>{r.coverage == null ? "—" : `${(r.coverage * 100).toFixed(0)}%`}</td>
+                  <td>{(r.collateral * 100).toFixed(0)}</td>
+                  <td className={r.carry != null && r.carry >= 0 ? "pos" : "neg"}>
+                    {r.carry == null ? "—" : `${r.carry >= 0 ? "+" : ""}${r.carry.toFixed(2)}`}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          {strat.pairs.length > 0 && (
+            <div className="meta">
+              Pairs: {strat.pairs.map((p) => `${p.long} vs ${p.short} (${p.note})`).join(" · ")}
+            </div>
+          )}
+        </div>
+      )}
+
+      {ver && (
+        <div className="agent">
+          <h2>🛡️ On-chain verification — {ver.date}</h2>
+          <div className="chips">
+            <div className="chip">
+              <b>{ver.summary.ok}</b>
+              <span>Verified ✓</span>
+            </div>
+            <div className="chip">
+              <b>{ver.summary.warn}</b>
+              <span>Partial ⚠</span>
+            </div>
+            <div className="chip">
+              <b>{ver.summary.fail}</b>
+              <span>Mismatch ✗</span>
+            </div>
+            <div className="chip">
+              <b>{ver.summary.na}</b>
+              <span>Not readable</span>
+            </div>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Ticker</th>
+                <th>Reported</th>
+                <th>On-chain</th>
+                <th>Cov</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {ver.funds.map((f) => (
+                <tr key={f.ticker}>
+                  <td className="ticker">{f.ticker}</td>
+                  <td>{f.supply.toFixed(0)}</td>
+                  <td>{f.verified.toFixed(0)}</td>
+                  <td>{(f.coverage * 100).toFixed(0)}%</td>
+                  <td>
+                    <span className={`vmark ${f.status}`} title={f.note}>
+                      {f.status === "ok" ? "✓" : f.status === "warn" ? "⚠" : f.status === "fail" ? "✗" : "—"}
+                    </span>{" "}
+                    {f.note}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </div>
+  )
+}
+
 function AlertsView({ alerts }: { alerts: AlertItem[] }) {
   if (!alerts.length) return <p className="muted">No alerts — all quiet.</p>
   return (
@@ -585,6 +741,9 @@ export default function App() {
   const [ov, setOv] = useState<Overview | null>(null)
   const [an, setAn] = useState<Analytics | null>(null)
   const [al, setAl] = useState<AlertItem[] | null>(null)
+  const [rot, setRot] = useState<Rotation | null>(null)
+  const [strat, setStrat] = useState<Strategy | null>(null)
+  const [ver, setVer] = useState<Verification | null>(null)
   const [err, setErr] = useState("")
   const [slug, setSlug] = useState<string | null>(null)
 
@@ -616,6 +775,19 @@ export default function App() {
       getAlerts()
         .then((b) => setAl(b.alerts))
         .catch(() => setAl([]))
+  }, [tab])
+  useEffect(() => {
+    if (tab === "strategy") {
+      getRotation()
+        .then(setRot)
+        .catch(() => setRot(null))
+      getStrategy()
+        .then(setStrat)
+        .catch(() => setStrat(null))
+      getVerification()
+        .then(setVer)
+        .catch(() => setVer(null))
+    }
   }, [tab])
 
   return (
@@ -674,7 +846,7 @@ export default function App() {
         </div>
         <p>EU tokenized money market funds — data via rwa.xyz + on-chain, snapshotted daily.</p>
         <div className="tabs">
-          {(["overview", "funds", "yields", "flows", "analytics", "alerts"] as Tab[]).map((t) => (
+          {(["overview", "funds", "yields", "flows", "analytics", "alerts", "strategy"] as Tab[]).map((t) => (
             <button key={t} className={tab === t ? "active" : ""} onClick={() => setTab(t)}>
               {t}
             </button>
@@ -716,6 +888,8 @@ export default function App() {
       {tab === "analytics" && (an ? <AnalyticsView a={an} /> : <p className="muted">loading…</p>)}
 
       {tab === "alerts" && (al ? <AlertsView alerts={al} /> : <p className="muted">loading…</p>)}
+
+      {tab === "strategy" && <StrategyView rot={rot} strat={strat} ver={ver} />}
     </main>
   )
 }

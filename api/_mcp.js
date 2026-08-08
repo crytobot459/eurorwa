@@ -26,10 +26,41 @@ const TOOLS = {
       "Latest operational alerts from the EuroRWA monitor: yield breakouts, yield cohort changes, TVL spikes, holder surges and macro regime flips, with severity.",
     inputSchema: { type: "object", properties: {} },
   },
+  verify: {
+    description:
+      "On-chain verification of fund supply: for each tracked fund, the reported supply is cross-checked against on-chain totalSupply() across EVM deployments (USYC, BUIDL, eurSAFO…). Returns per-fund coverage and a status (ok / warn / fail / na) — our trustless data moat.",
+    inputSchema: { type: "object", properties: {} },
+  },
+  rotation: {
+    description:
+      "EUR vs USD yield rotation signal: hedged EUR yield (fund yield + SOFR − ESTR) vs best USD yield, with a ROTATE_EUR / ROTATE_USD / HOLD signal and gap in points.",
+    inputSchema: { type: "object", properties: {} },
+  },
+  strategy: {
+    description:
+      "Strategy signals for the RWA-perp ecosystem: collateral ranking (yield, TVL, holders, on-chain coverage), delta-neutral carry per fund vs benchmark, and currency-pair spreads (e.g. eurSAFO vs SAFO).",
+    inputSchema: { type: "object", properties: {} },
+  },
+  portfolio: {
+    description:
+      "Wallet portfolio analysis: given a wallet address, reads balances on-chain across all tracked fund tokens, computes net yield and returns a ROTATE / HOLD signal. Requires a wallet argument.",
+    inputSchema: {
+      type: "object",
+      properties: { wallet: { type: "string", description: "EVM wallet address (0x…)" } },
+      required: ["wallet"],
+    },
+  },
 }
 
 const PAID_TOOLS = new Set(["overview"])
 const MCP_ORIGIN = "https://rwa-dashboard-gamma.vercel.app"
+
+const API_PATH = {
+  verify: "verification",
+  rotation: "rotation",
+  strategy: "strategy",
+  portfolio: "portfolio",
+}
 
 const RESOURCES = [
   {
@@ -52,8 +83,10 @@ async function getApi(path) {
   return JSON.stringify(await res.json(), null, 2)
 }
 
-async function callTool(name) {
-  return getApi(`/${name}`)
+async function callTool(name, args) {
+  const path = API_PATH[name] ?? name
+  const q = args?.wallet ? `?wallet=${encodeURIComponent(args.wallet)}` : ""
+  return getApi(`/${path}${q}`)
 }
 
 async function readResource(uri) {
@@ -74,7 +107,7 @@ async function handle(msg) {
         capabilities: { tools: {}, resources: {} },
         serverInfo: SERVER_INFO,
         instructions:
-          "Tokenized money-market fund analysis (RWA). Tools return the latest report, fund snapshot, institutional analytics and alerts. Data is fetched on-chain and signed/attested for independent verification.",
+          "Tokenized money-market fund analysis (RWA). Tools return the latest report, fund snapshot, institutional analytics, alerts, on-chain supply verification, EUR/USD rotation signal, RWA-perp strategy signals and wallet portfolio analysis. Data is fetched on-chain and signed/attested for independent verification.",
       })
     case "ping":
       return ok(id, {})
@@ -85,7 +118,7 @@ async function handle(msg) {
       const tool = TOOLS[name]
       if (!tool) return err(id, -32602, `Unknown tool: ${name}`)
       try {
-        return ok(id, { content: [{ type: "text", text: await callTool(name) }] })
+        return ok(id, { content: [{ type: "text", text: await callTool(name, params?.arguments) }] })
       } catch (e) {
         return ok(id, { content: [{ type: "text", text: String(e?.message ?? e) }], isError: true })
       }

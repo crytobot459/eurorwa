@@ -1,0 +1,16 @@
+{
+  "date": "2026-08-08",
+  "wallet": "0x0000000000000000000000000000000000000000",
+  "generated_at": "2026-08-08T09:22:38.179Z",
+  "total": 0,
+  "net_yield_pct": 0,
+  "est_yield": 0,
+  "holds": [],
+  "top": null,
+  "best_avail": {
+    "ticker": "CETES",
+    "yield": 4.556428093264953
+  },
+  "signal": "EMPTY",
+  "note": "wallet holds no tracked fund tokens"
+}
