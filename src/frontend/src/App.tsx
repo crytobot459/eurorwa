@@ -160,6 +160,14 @@ function OverviewView({ ov, funds }: { ov: Overview; funds: FundRow[] }) {
                 <span>Attested on-chain</span>
               </div>
             )}
+            {ov.hit_rate?.rate != null && (
+              <div className="chip">
+                <b className={ov.hit_rate.rate >= 0.5 ? "ok" : "warn"}>{Math.round(ov.hit_rate.rate * 100)}%</b>
+                <span>
+                  Signal hit-rate ({ov.hit_rate.hits}/{ov.hit_rate.n})
+                </span>
+              </div>
+            )}
             {ov.snapshot && (
               <div className="chip">
                 <b className={`lag ${ov.snapshot.lag}`}>{ov.snapshot.age_hours.toFixed(1)}h</b>
@@ -263,6 +271,49 @@ function OverviewView({ ov, funds }: { ov: Overview; funds: FundRow[] }) {
               Top chains: {ov.chain.defi.top.map((t) => `${t.name} ${fmtUsd(t.tvl)}`).join(" · ")}
             </div>
           )}
+        </div>
+      )}
+
+      {ov.scores && ov.scores.length > 0 && (
+        <div className="agent">
+          <h2>🧮 Fund scores — deterministic</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Ticker</th>
+                <th>Score</th>
+                <th>Yield</th>
+                <th>Momentum</th>
+                <th>Flow</th>
+                <th>Stability</th>
+                <th>Confidence</th>
+              </tr>
+            </thead>
+            <tbody>
+              {[...ov.scores]
+                .sort((a, b) => b.score - a.score)
+                .slice(0, 8)
+                .map((s) => (
+                  <tr key={s.ticker}>
+                    <td className="ticker">{s.ticker}</td>
+                    <td>
+                      <b>{s.score.toFixed(1)}</b>
+                    </td>
+                    <td>{s.yield_p.toFixed(1)}</td>
+                    <td>{s.momentum.toFixed(1)}</td>
+                    <td>{s.flow.toFixed(1)}</td>
+                    <td>{s.stability.toFixed(1)}</td>
+                    <td>
+                      <span className="conf">{s.confidence}</span>
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+          <div className="meta">
+            Deterministic composite score (0–100) from yield percentile, momentum, flows and stability — reproducible,
+            not model-dependent.
+          </div>
         </div>
       )}
 
@@ -677,6 +728,21 @@ function StrategyView({ rot, strat, ver }: { rot: Rotation | null; strat: Strate
               <span>Not readable</span>
             </div>
           </div>
+          {ver.consensus && (
+            <div className="meta">
+              RPC node consensus — ok {ver.consensus.ok ?? 0} · single {ver.consensus.single ?? 0} · mismatch{" "}
+              {ver.consensus.mismatch ?? 0} · no RPC {ver.consensus.none ?? 0}
+            </div>
+          )}
+          {ver.recon && ver.recon.some((r) => !r.reconciled) && (
+            <div className="meta">
+              ⚠ Supply reconciliation —{" "}
+              {ver.recon
+                .filter((r) => !r.reconciled)
+                .map((r) => `${r.ticker} ${r.delta_pct.toFixed(0)}%`)
+                .join(" · ")}
+            </div>
+          )}
           <table>
             <thead>
               <tr>

@@ -5,6 +5,7 @@ import { analyzeMacro } from "./macro"
 import { analyzeCrypto, emptyCrypto } from "./crypto"
 import { analyzeChain, emptyChain } from "./chain"
 import { analyze } from "./analyst"
+import { hitRate } from "./score"
 import { store } from "./store"
 import { postSummary } from "./tg"
 
@@ -62,6 +63,7 @@ const report = await analyze(
   cryptoSignal,
   chainSignal,
 )
+report.hit_rate = hitRate()
 
 console.log(`\n=== MARKET VIEW ===`)
 console.log(report.market_view)
@@ -74,6 +76,20 @@ report.signals.forEach((s) => {
   console.log(`  ${s.action.padEnd(5)} ${s.ticker.padEnd(7)} (${s.confidence})`)
   s.reasons.forEach((r) => console.log(`      - ${r}`))
 })
+console.log(`\n=== SCORES (deterministic) ===`)
+console.log(
+  [...report.scores]
+    .sort((a, b) => b.score - a.score)
+    .map(
+      (s) =>
+        `  ${s.score.toFixed(1).padStart(5)} ${s.ticker.padEnd(7)} (y${s.yield_p.toFixed(1)} m${s.momentum.toFixed(1)} f${s.flow.toFixed(1)} s${s.stability.toFixed(1)} ${s.confidence})`,
+    )
+    .join("\n"),
+)
+if (report.hit_rate?.rate != null)
+  console.log(
+    `hit-rate (past BUY/SELL): ${(report.hit_rate.rate * 100).toFixed(0)}% (${report.hit_rate.hits}/${report.hit_rate.n})`,
+  )
 
 const { file, hash } = await store(report)
 console.log(`\ndone: ${file}`)

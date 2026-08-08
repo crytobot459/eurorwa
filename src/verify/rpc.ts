@@ -9,6 +9,16 @@ export const NET_RPC: Record<string, { url: string; alt?: string }> = {
   Gnosis: { url: "https://rpc.gnosischain.com" },
 }
 
+export type Consensus = "ok" | "mismatch" | "single" | "none"
+
+export interface NodeHit {
+  url: string
+  ok: boolean
+  value: number | null
+  decimals: number | null
+  err?: string
+}
+
 const SEL = {
   supply: "0x18160ddd",
   decimals: "0x313ce567",
@@ -16,6 +26,7 @@ const SEL = {
 }
 
 const TIMEOUT = 7000
+const MATCH_TOL = 1e-3
 
 function fmtUnits(wei: bigint, dec: number): number {
   const d = BigInt(dec)
@@ -46,58 +57,104 @@ function calldataBalance(wallet: string): string {
   return `${SEL.balance}${addr.padStart(64, "0")}`
 }
 
-async function withFallback(
-  network: string,
-  run: (url: string) => Promise<unknown>,
-): Promise<{ ok: boolean; err?: string }> {
+async function readValue(url: string, address: string, wallet?: string): Promise<{ value: number; decimals: number }> {
+  const [decHex, valHex] = await Promise.all([
+    ethCall(url, address, SEL.decimals),
+    ethCall(url, address, wallet ? calldataBalance(wallet) : SEL.supply),
+  ])
+  const dec = Number(asBig(decHex))
+  if (dec > 30) throw new Error(`implausible decimals ${dec}`)
+  return { value: fmtUnits(asBig(valHex), dec), decimals: dec }
+}
+
+interface ReadResult {
+  value: number | null
+  decimals: number | null
+  consensus: Consensus
+  delta: number | null
+  nodes: NodeHit[]
+  error?: string
+}
+
+async function dualRead(network: string, address: string, wallet?: string): Promise<ReadResult> {
   const cfg = NET_RPC[network]
-  if (!cfg) return { ok: false, err: `no rpc for ${network}` }
+  if (!cfg)
+    return { value: null, decimals: null, consensus: "none", delta: null, nodes: [], error: `no rpc for ${network}` }
   const urls = [cfg.url, cfg.alt].filter((u): u is string => Boolean(u))
-  for (const url of urls) {
-    try {
-      await run(url)
-      return { ok: true }
-    } catch (err) {
-      if (url === urls.at(-1)) return { ok: false, err: (err as Error).message }
+  const settled = await Promise.allSettled(urls.map((url) => readValue(url, address, wallet)))
+  const nodes: NodeHit[] = settled.map((s, i) =>
+    s.status === "fulfilled"
+      ? { url: urls[i], ok: true, value: s.value.value, decimals: s.value.decimals }
+      : { url: urls[i], ok: false, value: null, decimals: null, err: String((s as PromiseRejectedResult).reason) },
+  )
+  const hits = nodes.filter((n) => n.ok)
+  if (!hits.length)
+    return {
+      value: null,
+      decimals: null,
+      consensus: "none",
+      delta: null,
+      nodes,
+      error:
+        nodes
+          .map((n) => n.err)
+          .filter((e): e is string => Boolean(e))
+          .join("; ") || "rpc fail",
     }
-  }
-  return { ok: false, err: "rpc fail" }
+  if (hits.length === 1)
+    return { value: hits[0].value, decimals: hits[0].decimals, consensus: "single", delta: null, nodes }
+  const [a, b] = hits
+  const aVal = a.value ?? 0
+  const bVal = b.value ?? 0
+  const denom = Math.max(Math.abs(aVal), Math.abs(bVal))
+  const agree =
+    a.value != null && b.value != null && a.decimals === b.decimals && Math.abs(aVal - bVal) <= denom * MATCH_TOL
+  const delta = a.value != null && b.value != null ? (denom > 0 ? Math.abs(aVal - bVal) / denom : 0) : null
+  if (agree) return { value: a.value, decimals: a.decimals, consensus: "ok", delta, nodes }
+  return { value: a.value, decimals: a.decimals, consensus: "mismatch", delta, nodes }
 }
 
 export async function readSupply(
   network: string,
   address: string,
-): Promise<{ supply: number | null; decimals: number | null; error?: string }> {
-  let supply: number | null = null
-  let decimals: number | null = null
-  const res = await withFallback(network, async (url) => {
-    const [decHex, supHex] = await Promise.all([ethCall(url, address, SEL.decimals), ethCall(url, address, SEL.supply)])
-    const dec = Number(asBig(decHex))
-    if (dec > 30) throw new Error(`implausible decimals ${dec}`)
-    decimals = dec
-    supply = fmtUnits(asBig(supHex), dec)
-  })
-  if (!res.ok) return { supply: null, decimals: null, error: res.err }
-  return { supply, decimals }
+): Promise<{
+  supply: number | null
+  decimals: number | null
+  consensus: Consensus
+  delta: number | null
+  nodes: NodeHit[]
+  error?: string
+}> {
+  const r = await dualRead(network, address)
+  return {
+    supply: r.value,
+    decimals: r.decimals,
+    consensus: r.consensus,
+    delta: r.delta,
+    nodes: r.nodes,
+    ...(r.error ? { error: r.error } : {}),
+  }
 }
 
 export async function readBalance(
   network: string,
   address: string,
   wallet: string,
-): Promise<{ balance: number | null; decimals: number | null; error?: string }> {
-  let balance: number | null = null
-  let decimals: number | null = null
-  const res = await withFallback(network, async (url) => {
-    const [decHex, balHex] = await Promise.all([
-      ethCall(url, address, SEL.decimals),
-      ethCall(url, address, calldataBalance(wallet)),
-    ])
-    const dec = Number(asBig(decHex))
-    if (dec > 30) throw new Error(`implausible decimals ${dec}`)
-    decimals = dec
-    balance = fmtUnits(asBig(balHex), dec)
-  })
-  if (!res.ok) return { balance: null, decimals: null, error: res.err }
-  return { balance, decimals }
+): Promise<{
+  balance: number | null
+  decimals: number | null
+  consensus: Consensus
+  delta: number | null
+  nodes: NodeHit[]
+  error?: string
+}> {
+  const r = await dualRead(network, address, wallet)
+  return {
+    balance: r.value,
+    decimals: r.decimals,
+    consensus: r.consensus,
+    delta: r.delta,
+    nodes: r.nodes,
+    ...(r.error ? { error: r.error } : {}),
+  }
 }

@@ -1,4 +1,6 @@
 import { jsonChat } from "./llm"
+import { computeScores } from "./score"
+import type { Score } from "./score"
 import type { Indicator, YieldRank } from "./data"
 import type { NewsSignal } from "./news"
 import type { FlowSignal } from "./flow"
@@ -20,6 +22,8 @@ export interface Report {
   crypto_view: string
   chain_view: string
   signals: Signal[]
+  scores: Score[]
+  hit_rate: { n: number; hits: number; rate: number | null } | null
   news_used: NewsSignal[]
   flow_used: FlowSignal[]
   macro_used: MacroSignal
@@ -157,6 +161,8 @@ ${chain.note}`
       crypto_view: str(body.crypto_view) || rules.crypto_view,
       chain_view: str(body.chain_view) || rules.chain_view,
       signals,
+      scores: computeScores(funds, ranks),
+      hit_rate: null,
       news_used: news,
       flow_used: flow,
       macro_used: macro,
@@ -269,6 +275,8 @@ function fallback(
     crypto_view: ruleViews(macro, crypto, chain).crypto_view,
     chain_view: ruleViews(macro, crypto, chain).chain_view,
     signals: ruleSignals(funds, ranks, flow),
+    scores: computeScores(funds, ranks),
+    hit_rate: null,
     news_used: news,
     flow_used: flow,
     macro_used: macro,

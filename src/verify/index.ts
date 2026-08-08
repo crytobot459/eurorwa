@@ -33,7 +33,21 @@ console.table(
     reported: f.supply.toFixed(0),
     onchain: f.verified.toFixed(0),
     cov: `${(f.coverage * 100).toFixed(0)}%`,
+    rpc: (() => {
+      const attempted = f.chains.filter((c) => c.consensus !== "none")
+      if (!attempted.length) return "none"
+      if (attempted.some((c) => c.consensus === "mismatch")) return "mismatch"
+      if (attempted.some((c) => c.consensus === "single")) return "single"
+      return "ok"
+    })(),
     status: f.status,
   })),
 )
 console.log(`summary: ${JSON.stringify(res.summary)} -> ${outFile}`)
+const rec = res.recon.filter((r) => !r.reconciled)
+if (rec.length) {
+  console.log(`reconciliation: ${rec.length} fund(s) diverge from reported supply`)
+  for (const r of rec) console.log(`  - ${r.ticker}: ${r.note}`)
+} else {
+  console.log("reconciliation: all funds match reported supply within tolerance")
+}

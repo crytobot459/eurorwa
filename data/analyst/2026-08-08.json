@@ -1,18 +1,18 @@
 {
   "date": "2026-08-08",
-  "generated_at": "2026-08-08T02:29:22.966Z",
-  "market_view": "The market is currently in a cautious state with a Fear & Greed index of 30, reflecting investor anxiety despite a slight recovery in BTC price. Macro headwinds from low US job growth are pressuring treasury yields, shifting the focus toward RWA funds with higher spreads over T-bills.",
-  "crypto_view": "Regime: Fear (F&G 30) with total mcap at $2.29T showing consolidation.\nRotation: BTC dominance remains high at 56.8%, with capital flowing into specific gainers like BTW (+26.6%) and XAUT (+2.5%).\nWhat to watch: BTC $65k level and upcoming Fed rate decision based on job data.",
-  "chain_view": "Liquidity: Stablecoins steady at $307.3B and DeFi TVL at $142.7B.\nActivity: High network throughput with ETH processing 2.4M tx/24h and BTC fees at $0.37.\nWatch: Institutional inflow trends into EUR-denominated RWA assets.",
+  "generated_at": "2026-08-08T10:01:44.470Z",
+  "market_view": "The tokenized RWA money-market sector shows strong capital concentration into high-yielding assets like CETES (4.56%) and expanding products like eurSAFO (2.56%), while funds with dropping yields face outflows. Macro sentiment remains cautious with the Fear & Greed index at 30, suppressing overall risk-taking despite stable stablecoin market capitalization at $307.3B. Overall crypto market capitalization holds at $2.30T (+0.26%), reflecting a selective rebalancing phase across tokenized treasuries.",
+  "crypto_view": "Regime: risk_off with Fear & Greed at 30 and Total Market Cap flat at $2.30T (+0.26%).\nRotation: Capital favors BTC dominance (56.7%) and select gainers (BEAT +6.70%, OKB +6.00%) while CRO (-12.80%) drops; trending tokens include CYS, SUI, BICO, PENGU, and ONDO.\nWhat to watch: BTC maintaining $65,000 support and Fear & Greed breaking above 40 to trigger a potential regime flip.",
+  "chain_view": "Liquidity: DeFi TVL at $143.0B with stablecoin supply expanding to $307.3B (+0.11%).\nActivity: BTC transaction fees low at $0.30 with 687k daily transactions; ETH processing 1.80M daily transactions.\nWatch: XRPL protocol amendments expanding institutional infrastructure for $530M in tokenized assets.",
   "signals": [
     {
       "ticker": "USYC",
       "action": "SELL",
-      "confidence": "medium",
+      "confidence": "high",
       "reasons": [
-        "Yield is in the lowest cohort (pctile 0) at 3.18%",
-        "On-chain outflows with holders down 2.63% (7d) and 21.28% (30d)",
-        "Negative news regarding Fed rate cut expectations"
+        "Yield of 3.19% lags T-bill benchmark by -0.30pt",
+        "Holder count declined -2.63% (7d) and -21.28% (30d)",
+        "Outflow on-chain signal with 7d supply contracting -0.1%"
       ]
     },
     {
@@ -20,19 +20,19 @@
       "action": "BUY",
       "confidence": "high",
       "reasons": [
-        "Strong TVL growth of +20.65% (30d) and +10.32% (90d)",
-        "Yield rising (+1.30% in 30d) and in the top cohort (pctile 1)",
-        "Positive holder growth of +2.70% (30d)"
+        "30d yield expanded strongly by +1.30% to 3.43%",
+        "Strong institutional inflows with 30d TVL up +20.65% and 90d TVL up +10.32%",
+        "On-chain holder count grew +1.8% in 7d with +0.2% supply expansion"
       ]
     },
     {
       "ticker": "USDY",
       "action": "HOLD",
-      "confidence": "medium",
+      "confidence": "high",
       "reasons": [
-        "Yield is stable at 3.49% (pctile 1)",
-        "On-chain flows are flat with holders stable (15604)",
-        "Neutral 30d yield change (0.00%)"
+        "Yield of 3.49% is inline with T-bill benchmark (+0.01pt)",
+        "30d yield change is flat (+0.00%) with stable TVL (-0.12% 30d)",
+        "Holder base remains large and stable at 15,615 (+0.41% 7d)"
       ]
     },
     {
@@ -40,56 +40,55 @@
       "action": "BUY",
       "confidence": "high",
       "reasons": [
-        "Massive TVL growth of +37.83% (30d) and +163.22% (90d)",
-        "Strong yield increase of +3.13% (30d)",
-        "Clear institutional inflow with holders up 4.91% (7d)"
+        "EUR sector leader with 2.56% yield and strong 30d yield surge of +3.13%",
+        "Massive TVL growth across 7d (+7.28%), 30d (+37.83%), and 90d (+163.22%)",
+        "On-chain institutional inflows with 7d holders up +5.3% and supply up +9.5%"
       ]
     },
     {
       "ticker": "EUTBL",
-      "action": "SELL",
+      "action": "HOLD",
       "confidence": "medium",
       "reasons": [
-        "Yield falling strongly (-2.68% in 30d) and in lowest cohort (pctile 0)",
-        "TVL declining -7.63% over 30 days",
-        "Negative news signal regarding rate expectations"
+        "Yield of 2.11% lags EUR leader eurSAFO by -0.45pt",
+        "30d TVL contracted -7.61% despite 30d yield rise of +1.98%",
+        "Holder count remains flat (+0.10% 7d)"
       ]
     },
     {
       "ticker": "EURC",
       "action": "HOLD",
-      "confidence": "medium",
+      "confidence": "high",
       "reasons": [
-        "Missing yield data",
-        "Stable holder growth (+5.87% 30d)"
+        "missing data"
       ]
     },
     {
       "ticker": "USTBL",
       "action": "SELL",
-      "confidence": "high",
+      "confidence": "medium",
       "reasons": [
-        "Severe yield drop of -13.27% (30d)",
-        "TVL declining -11.03% (30d)",
-        "Negative news signal regarding Fed rate cuts"
+        "Yield dropped sharply by -3.33% over 30d to 3.48%",
+        "TVL contracted -4.57% over 30d and -5.32% over 90d",
+        "Flat 7d holder growth (0.00%) shows stalled demand"
       ]
     },
     {
       "ticker": "SAFO",
-      "action": "BUY",
+      "action": "HOLD",
       "confidence": "medium",
       "reasons": [
-        "High yield of 4.04% with a positive spread of +0.55pt vs T-bill",
-        "Yield rising (+1.22% 30d) and in top cohort (pctile 1)",
-        "Holders increasing +18.41% (30d)"
+        "Yield is strong at 4.04% (+0.55pt vs T-bill) with 30d yield up +1.22%",
+        "7d TVL pulled back -8.97% signaling profit-taking",
+        "Holder count expanded +5.71% (7d) and +18.41% (30d)"
       ]
     },
     {
       "ticker": "NRW1",
       "action": "HOLD",
-      "confidence": "low",
+      "confidence": "high",
       "reasons": [
-        "Missing yield data"
+        "missing data"
       ]
     },
     {
@@ -97,62 +96,205 @@
       "action": "SELL",
       "confidence": "high",
       "reasons": [
-        "Sharp yield decline of -12.83% (30d)",
-        "Significant TVL drop of -13.74% (30d) and -25.24% (90d)"
+        "Yield crashed -12.83% over 30d to 3.78%",
+        "Severe TVL outflows across 7d (-2.23%), 30d (-13.74%), and 90d (-25.24%)",
+        "Supply contracted -2.6% over 7d"
       ]
     },
     {
       "ticker": "AAULF",
       "action": "HOLD",
-      "confidence": "low",
+      "confidence": "high",
       "reasons": [
-        "Missing yield data"
+        "missing data"
       ]
     },
     {
       "ticker": "bC3M",
       "action": "HOLD",
-      "confidence": "low",
+      "confidence": "high",
       "reasons": [
-        "Missing yield data"
+        "missing data"
       ]
     },
     {
       "ticker": "bIB01",
       "action": "HOLD",
-      "confidence": "low",
+      "confidence": "high",
       "reasons": [
-        "Missing yield data"
+        "missing data"
       ]
     },
     {
       "ticker": "CETES",
-      "action": "HOLD",
+      "action": "BUY",
       "confidence": "medium",
       "reasons": [
-        "Highest yield in set (4.60%) with wide spread (+1.12pt)",
-        "Yield is falling (-3.19% 30d) and negative news signal",
-        "TVL remains slightly positive (+2.77% 30d)"
+        "Highest yield in cohort at 4.56%, providing a +1.07pt spread over T-bills",
+        "Continued TVL inflows of +1.29% (7d) and +3.16% (30d)",
+        "Large stable holder base at 5,140"
       ]
     },
     {
       "ticker": "EUROB",
       "action": "SELL",
-      "confidence": "medium",
+      "confidence": "high",
       "reasons": [
-        "Low yield (1.46%) in lowest cohort (pctile 0)",
-        "Yield falling (-3.47% 30d)",
-        "Negative spread of -1.10pt vs EUR leader"
+        "Lowest yield cohort at 1.46%, underperforming EUR leader by -1.10pt",
+        "30d yield dropped -3.47%",
+        "90d TVL down -1.63% with negligible holder activity"
       ]
     }
   ],
+  "scores": [
+    {
+      "ticker": "USYC",
+      "score": 41.5,
+      "yield_p": 16,
+      "momentum": 12.9,
+      "flow": 8.7,
+      "stability": 3.9,
+      "confidence": "high"
+    },
+    {
+      "ticker": "BUIDL",
+      "score": 49.3,
+      "yield_p": 20,
+      "momentum": 13.3,
+      "flow": 10.9,
+      "stability": 5.1,
+      "confidence": "high"
+    },
+    {
+      "ticker": "USDY",
+      "score": 61,
+      "yield_p": 28,
+      "momentum": 12.5,
+      "flow": 10,
+      "stability": 10.5,
+      "confidence": "high"
+    },
+    {
+      "ticker": "eurSAFO",
+      "score": 52.3,
+      "yield_p": 12,
+      "momentum": 14.5,
+      "flow": 16.1,
+      "stability": 9.7,
+      "confidence": "high"
+    },
+    {
+      "ticker": "EUTBL",
+      "score": 41,
+      "yield_p": 8,
+      "momentum": 13.7,
+      "flow": 10.3,
+      "stability": 9,
+      "confidence": "high"
+    },
+    {
+      "ticker": "EURC",
+      "score": 22.9,
+      "yield_p": 0,
+      "momentum": 0,
+      "flow": 10.1,
+      "stability": 12.8,
+      "confidence": "low"
+    },
+    {
+      "ticker": "USTBL",
+      "score": 51.9,
+      "yield_p": 24,
+      "momentum": 10.4,
+      "flow": 10.1,
+      "stability": 7.4,
+      "confidence": "high"
+    },
+    {
+      "ticker": "SAFO",
+      "score": 64.3,
+      "yield_p": 36,
+      "momentum": 13.3,
+      "flow": 8.4,
+      "stability": 6.7,
+      "confidence": "high"
+    },
+    {
+      "ticker": "NRW1",
+      "score": 10.1,
+      "yield_p": 0,
+      "momentum": 0,
+      "flow": 10.1,
+      "stability": 0,
+      "confidence": "low"
+    },
+    {
+      "ticker": "UKTBL",
+      "score": 52.3,
+      "yield_p": 32,
+      "momentum": 4.5,
+      "flow": 9.2,
+      "stability": 6.6,
+      "confidence": "high"
+    },
+    {
+      "ticker": "AAULF",
+      "score": 12.8,
+      "yield_p": 0,
+      "momentum": 0,
+      "flow": 10,
+      "stability": 2.8,
+      "confidence": "low"
+    },
+    {
+      "ticker": "bC3M",
+      "score": 11.3,
+      "yield_p": 0,
+      "momentum": 0,
+      "flow": 10.1,
+      "stability": 1.2,
+      "confidence": "low"
+    },
+    {
+      "ticker": "bIB01",
+      "score": 16.1,
+      "yield_p": 0,
+      "momentum": 0,
+      "flow": 11.2,
+      "stability": 4.8,
+      "confidence": "low"
+    },
+    {
+      "ticker": "CETES",
+      "score": 69.8,
+      "yield_p": 40,
+      "momentum": 9.9,
+      "flow": 10.6,
+      "stability": 9.3,
+      "confidence": "high"
+    },
+    {
+      "ticker": "EUROB",
+      "score": 28.2,
+      "yield_p": 4,
+      "momentum": 10.3,
+      "flow": 10,
+      "stability": 3.9,
+      "confidence": "high"
+    }
+  ],
+  "hit_rate": {
+    "n": 18,
+    "hits": 7,
+    "rate": 0.3888888888888889
+  },
   "news_used": [
     {
-      "topic": "Fed rate expectations",
-      "fund": "USYC, BUIDL, USDY, EUTBL, USTBL, CETES",
-      "direction": "down",
-      "confidence": 2,
-      "reason": "Unexpectedly low US job growth (shedding 23,000 jobs) puts Fed rate hikes in question and increases likelihood of rate cuts, which negatively impacts the yield of treasury-backed RWA funds."
+      "topic": "XRPL Amendments for Tokenized Assets",
+      "fund": "RWA",
+      "direction": "positive",
+      "confidence": 1,
+      "reason": "New XRP Ledger protocol amendments target $530 million in tokenized Wall Street assets, enhancing infrastructure for institutional tokenized assets."
     }
   ],
   "flow_used": [
@@ -160,46 +302,46 @@
       "ticker": "USYC",
       "holders": 37,
       "holders_7d_pct": -2.631578947368421,
-      "supply_7d_pct": -0.10115695552090836,
-      "tvl_7d_pct": -0.04885578958186488,
+      "supply_7d_pct": -0.10019157908957924,
+      "tvl_7d_pct": -0.03915826277155968,
       "direction": "outflow",
       "note": "holders -2.6% (37) — signs of withdrawal"
     },
     {
       "ticker": "BUIDL",
-      "holders": 114,
-      "holders_7d_pct": 0.8849557522123894,
-      "supply_7d_pct": 0.826810107579434,
-      "tvl_7d_pct": 0.826810107579434,
-      "direction": "flat",
-      "note": "holders stable (114)"
+      "holders": 115,
+      "holders_7d_pct": 1.7699115044247788,
+      "supply_7d_pct": 0.2448688439793278,
+      "tvl_7d_pct": 0.2448688439793278,
+      "direction": "inflow",
+      "note": "holders +1.8% (115) — institutions entering"
     },
     {
       "ticker": "USDY",
-      "holders": 15604,
-      "holders_7d_pct": 0.34081409555655584,
-      "supply_7d_pct": -0.31148709093532123,
-      "tvl_7d_pct": -0.25430426112529675,
+      "holders": 15615,
+      "holders_7d_pct": 0.41154909652112404,
+      "supply_7d_pct": -0.48566611444045976,
+      "tvl_7d_pct": -0.4285825490753319,
       "direction": "flat",
-      "note": "holders stable (15604)"
+      "note": "holders stable (15615)"
     },
     {
       "ticker": "eurSAFO",
-      "holders": 7651,
-      "holders_7d_pct": 4.908816673522556,
-      "supply_7d_pct": 6.6961930591119945,
-      "tvl_7d_pct": 7.2777416588047235,
+      "holders": 7709,
+      "holders_7d_pct": 5.256690333151283,
+      "supply_7d_pct": 9.512787152662357,
+      "tvl_7d_pct": 10.10968762484506,
       "direction": "inflow",
-      "note": "holders +4.9% (7651) — institutions entering"
+      "note": "holders +5.3% (7709) — institutions entering"
     },
     {
       "ticker": "EUTBL",
-      "holders": 3844,
-      "holders_7d_pct": 0.49673202614379086,
-      "supply_7d_pct": 0.05790363845616618,
-      "tvl_7d_pct": 0.594613040985467,
+      "holders": 3846,
+      "holders_7d_pct": 0.10411244143675169,
+      "supply_7d_pct": 0.5869170190305879,
+      "tvl_7d_pct": 0.5011227877209615,
       "direction": "flat",
-      "note": "holders stable (3844)"
+      "note": "holders stable (3846)"
     },
     {
       "ticker": "EURC",
@@ -214,8 +356,8 @@
       "ticker": "USTBL",
       "holders": 924,
       "holders_7d_pct": 0,
-      "supply_7d_pct": -0.5549972386035966,
-      "tvl_7d_pct": -0.4885649717240702,
+      "supply_7d_pct": 0.08901336449302748,
+      "tvl_7d_pct": 0.14523057602668363,
       "direction": "flat",
       "note": "holders stable (924)"
     },
@@ -233,25 +375,25 @@
       "holders": 1,
       "holders_7d_pct": 0,
       "supply_7d_pct": 0,
-      "tvl_7d_pct": -0.08462100022635803,
+      "tvl_7d_pct": 0.21631116208884585,
       "direction": "flat",
       "note": "holders stable (1)"
     },
     {
       "ticker": "UKTBL",
-      "holders": 440,
-      "holders_7d_pct": 0.6864988558352403,
-      "supply_7d_pct": -2.9249229577593705,
-      "tvl_7d_pct": -2.2253046120889763,
+      "holders": 441,
+      "holders_7d_pct": 0.9153318077803204,
+      "supply_7d_pct": -2.6457163998843103,
+      "tvl_7d_pct": -1.944085817540266,
       "direction": "flat",
-      "note": "holders stable (440)"
+      "note": "holders stable (441)"
     },
     {
       "ticker": "AAULF",
       "holders": 13,
       "holders_7d_pct": 0,
-      "supply_7d_pct": 0,
-      "tvl_7d_pct": 0,
+      "supply_7d_pct": 0.30055232949375704,
+      "tvl_7d_pct": 0.30055232949375704,
       "direction": "flat",
       "note": "holders stable (13)"
     },
@@ -260,7 +402,7 @@
       "holders": 3,
       "holders_7d_pct": 0,
       "supply_7d_pct": 0,
-      "tvl_7d_pct": 0.2959865563622657,
+      "tvl_7d_pct": -0.10452668542077351,
       "direction": "flat",
       "note": "holders stable (3)"
     },
@@ -275,19 +417,19 @@
     },
     {
       "ticker": "CETES",
-      "holders": 5141,
-      "holders_7d_pct": -0.038887808671981335,
-      "supply_7d_pct": -0.00010753284875326376,
-      "tvl_7d_pct": 0.8430053063521616,
+      "holders": 5140,
+      "holders_7d_pct": -0.019451468585878234,
+      "supply_7d_pct": -0.00010753284873443741,
+      "tvl_7d_pct": 1.2923723186982152,
       "direction": "flat",
-      "note": "holders stable (5141)"
+      "note": "holders stable (5140)"
     },
     {
       "ticker": "EUROB",
       "holders": 36,
       "holders_7d_pct": 0,
       "supply_7d_pct": 0,
-      "tvl_7d_pct": -0.02642977996287183,
+      "tvl_7d_pct": 0.2815237086296055,
       "direction": "flat",
       "note": "holders stable (36)"
     }
@@ -298,133 +440,133 @@
       "label": "Fear"
     },
     "btc": {
-      "usd": 64881,
-      "chg_24h": 0.9334883564978312
+      "usd": 64953,
+      "chg_24h": 0.2376035247007528
     },
     "tbill_yield": 3.4833004227330377,
-    "max_rwa_yield": 4.600708417116382,
-    "spread": 1.1174079943833446,
+    "max_rwa_yield": 4.556428093264953,
+    "spread": 1.0731276705319148,
     "risk_level": "risk_off",
-    "note": "Fear & Greed 30 (Fear); BTC $64881 (+0.93%); top RWA yield 4.60% vs T-bill ~3.48% → spread +1.12pt"
+    "note": "Fear & Greed 30 (Fear); BTC $64953 (+0.24%); top RWA yield 4.56% vs T-bill ~3.48% → spread +1.07pt"
   },
   "crypto_used": {
     "mcap": {
-      "usd": 2293156003124.1006,
-      "chg_24h_pct": 0.5704247276900183,
-      "btc": 56.77645141767142,
-      "eth": 10.061181064131915,
-      "vol": 53442105468.694374
+      "usd": 2297047114598.4766,
+      "chg_24h_pct": 0.25950615906174823,
+      "btc": 56.744992498389514,
+      "eth": 10.07530479160633,
+      "vol": 47845427535.82606
     },
     "volume": {
-      "usd": 53442105468.694374
+      "usd": 47845427535.82606
     },
     "btc": {
-      "usd": 64878,
-      "chg_24h": 0.9035193814270784
+      "usd": 64954,
+      "chg_24h": 0.25425562679367797
     },
     "eth": {
-      "usd": 1911.61,
-      "chg_24h": 0.5965586807838683
+      "usd": 1917.72,
+      "chg_24h": 0.31012355918534945
     },
     "dominance": {
-      "btc": 56.77645141767142,
-      "eth": 10.061181064131915
+      "btc": 56.744992498389514,
+      "eth": 10.07530479160633
     },
     "movers": {
       "gainers": [
         {
-          "sym": "BTW",
-          "pct": 26.6
+          "sym": "BEAT",
+          "pct": 6.7
         },
         {
           "sym": "OKB",
-          "pct": 7.9
+          "pct": 6
+        },
+        {
+          "sym": "MNT",
+          "pct": 5.7
         },
         {
           "sym": "BDX",
-          "pct": 3.3
+          "pct": 3.4
         },
         {
           "sym": "XMR",
-          "pct": 3
-        },
-        {
-          "sym": "XAUT",
-          "pct": 2.5
+          "pct": 2.9
         }
       ],
       "losers": [
         {
-          "sym": "PUMP",
-          "pct": -5.4
+          "sym": "CRO",
+          "pct": -12.8
         },
         {
           "sym": "NEAR",
-          "pct": -3.8
+          "pct": -2.8
+        },
+        {
+          "sym": "ALGO",
+          "pct": -2.7
+        },
+        {
+          "sym": "JUP",
+          "pct": -2.6
         },
         {
           "sym": "LIT",
-          "pct": -3.8
-        },
-        {
-          "sym": "CRO",
-          "pct": -3.6
-        },
-        {
-          "sym": "MORPHO",
-          "pct": -3.2
+          "pct": -2.2
         }
       ]
     },
     "trending": [
+      "CYS",
+      "SUI",
+      "BICO",
       "PENGU",
-      "PI",
-      "HEI",
-      "PUMP",
-      "ETH"
+      "ONDO"
     ],
-    "note": "total mcap $2.29T (+0.57%); 24h vol $53.4B; BTC $64878 (+0.90%); ETH $1912 (+0.60%); BTC dominance 56.8%; gainers BTW +26.60%, OKB +7.90%, BDX +3.30%, XMR +3.00%, XAUT +2.50%; losers PUMP -5.40%, NEAR -3.80%, LIT -3.80%, CRO -3.60%, MORPHO -3.20%; trending PENGU, PI, HEI, PUMP, ETH"
+    "note": "total mcap $2.30T (+0.26%); 24h vol $47.8B; BTC $64954 (+0.25%); ETH $1918 (+0.31%); BTC dominance 56.7%; gainers BEAT +6.70%, OKB +6.00%, MNT +5.70%, BDX +3.40%, XMR +2.90%; losers CRO -12.80%, NEAR -2.80%, ALGO -2.70%, JUP -2.60%, LIT -2.20%; trending CYS, SUI, BICO, PENGU, ONDO"
   },
   "chain_used": {
     "defi": {
-      "tvl_usd": 142651022812.22998,
+      "tvl_usd": 143021322805.64316,
       "top": [
         {
           "name": "Ethereum",
-          "tvl": 89155816306.17357
+          "tvl": 89232915969.57022
         },
         {
           "name": "Solana",
-          "tvl": 10134237841.104427
+          "tvl": 10247207996.081297
         },
         {
           "name": "Base",
-          "tvl": 7849529728.25393
+          "tvl": 7845182697.045279
         }
       ],
-      "stables_usd": 307262269051.3218,
-      "stables_chg_24h_pct": 0.10407039954781803
+      "stables_usd": 307258440549.73004,
+      "stables_chg_24h_pct": 0.11428730752263334
     },
     "btc": {
-      "tx_24h": 691336,
-      "avg_fee_usd": 0.369796885492785,
-      "blocks_24h": 152
+      "tx_24h": 687204,
+      "avg_fee_usd": 0.3045346754736294,
+      "blocks_24h": 151
     },
     "eth": {
-      "tx_24h": 2426955,
-      "blocks_24h": 7168
+      "tx_24h": 1804533,
+      "blocks_24h": 7152
     },
-    "note": "DeFi TVL $142.7B; stablecoins $307.3B (+0.10%); BTC fee $0.37 (691,336 tx/24h); ETH 2,426,955 tx/24h"
+    "note": "DeFi TVL $143.0B; stablecoins $307.3B (+0.11%); BTC fee $0.30 (687,204 tx/24h); ETH 1,804,533 tx/24h"
   },
   "signer": "0x02B027ecd3004Fbb579bD4c64B6e22Fff369F846",
-  "hash": "0x06b4f16f170f40d129367f50ccbda49925ba411f2e7d8bf6be013dd05706b79a",
-  "signature": "0xfaa7f97834466d0e2697241629396f0ec3cd4ac7b44decee4708759e3e52f50d4c736645132d8de34d2c15f40f6b86e352b2b1e051c77f43a48c3fb1f9397d321c",
+  "hash": "0xa4f1cfea9d49dd3d534b84a71a5390c8ab580e8bc36147ae99ba68fc3f960ba4",
+  "signature": "0x9e55b1c254dde0b0a643c581fe097ebbbb91dcb88ffe2ae47cd6937c9a0da63b55fcc7b265c360378ca585e1aa89577f95e0a6c7ceecf488aef457e24a4c90d11c",
   "attestation": {
-    "key": "2026-08-08-analyst",
-    "hash": "0x06b4f16f170f40d129367f50ccbda49925ba411f2e7d8bf6be013dd05706b79a",
+    "key": "2026-08-08-analyst-2",
+    "hash": "0xa4f1cfea9d49dd3d534b84a71a5390c8ab580e8bc36147ae99ba68fc3f960ba4",
     "signer": "0x02B027ecd3004Fbb579bD4c64B6e22Fff369F846",
-    "tx": "0xc55eca603849cc616f1d26ee7a51213be146187a0d96b18fa5813ecdb84cd7e3",
-    "block": 11442343,
-    "timestamp": 1786156192
+    "tx": "0x32a9c76b6eb6ab395ed170bfb1cc9014b6a7d4505aed5fbd1225b2600b848e3a",
+    "block": 11444541,
+    "timestamp": 1786183325
   }
 }

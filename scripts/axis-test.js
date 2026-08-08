@@ -4,6 +4,8 @@ import { app } from "../api/_app.js"
 import { computeRotation } from "../src/analyst/rotation.ts"
 import { computeStrategy } from "../src/analyst/strategy.ts"
 import { classify } from "../src/verify/onchain.ts"
+import { computeScores, hitRate } from "../src/analyst/score.ts"
+import { analyze as ind } from "../src/analyst/data.ts"
 
 let passed = 0
 const assert = (name, cond) => {
@@ -146,6 +148,39 @@ assert("full coverage = ok", classify(100, 100, 1, [{}]).status === "ok")
 assert("partial coverage = warn", classify(50, 100, 1, [{}]).status === "warn")
 assert("over-supply = fail", classify(110, 100, 1, [{}]).status === "fail")
 assert("no readable = na", classify(0, 100, 0, []).status === "na")
+assert("node mismatch = warn", classify(100, 100, 1, [{ consensus: "mismatch" }]).status === "warn")
+assert("node consensus ok = ok", classify(100, 100, 1, [{ consensus: "ok" }]).status === "ok")
+
+console.log("score — computeScores (golden)")
+const sc = (ticker, y, ychg, holders, h7, c7) => ({
+  ticker,
+  yield: y,
+  yield_30d: y,
+  yield_chg_30d_pct: ychg,
+  yield_chg_90d_pct: ychg,
+  chg_7d_pct: c7,
+  chg_30d_pct: c7,
+  chg_90d_pct: c7,
+  holders,
+  holders_7d_pct: h7,
+  holders_30d_pct: h7,
+  tvl: 100,
+  tvl_7d: 10,
+})
+const scFunds = [sc("TOP", 5, 20, 1000, 5, 5), sc("MID", 3, 0, 10, 0, 0), sc("BOT", 1, -20, 5, -5, -5)]
+const ranks = ind({ date: "2026-01-01", funds: scFunds }).ranks
+const a = computeScores(scFunds, ranks)
+const b = computeScores(scFunds, ranks)
+assert("scores are deterministic", JSON.stringify(a) === JSON.stringify(b))
+const top = a.find((s) => s.ticker === "TOP")
+const mid = a.find((s) => s.ticker === "MID")
+const bot = a.find((s) => s.ticker === "BOT")
+assert("top yield score = 40", Math.abs(top.yield_p - 40) < 1e-9)
+assert("top score > mid > bot", top.score > mid.score && mid.score > bot.score)
+assert("top confidence high", top.confidence === "high")
+assert("mid flat trend = medium confidence", mid.confidence === "medium")
+const hr = hitRate()
+assert("hit-rate shape", typeof hr === "object" && Number.isInteger(hr.n) && Number.isInteger(hr.hits))
 
 console.log("endpoints — verification/rotation/strategy (live data)")
 for (const p of ["/verification", "/rotation", "/strategy"]) {

@@ -2,6 +2,26 @@
 
 > Updated after each opencode session. See `ROADMAP.md` for phase details.
 
+## Most recent session: 2026-08-08 (session 23) — QUALITY PASS: DUAL-NODE RPC CONSENSUS + DETERMINISTIC SCORES + MCP UPGRADE
+
+> Applied the 4 research groups (MCP design, data attestation, AI-analyst scoring, eval regression) learned from GitHub/public sources to harden the agents.
+
+**What was done:**
+
+- **Group 2 — data reliability ✅** — `src/verify/rpc.ts` now queries **both** RPC nodes in parallel (`dualRead`, `Promise.allSettled`) instead of first-success fallback. Returns `consensus` (`ok` = nodes agree ≤0.1%, `mismatch` = disagree, `single` = one node, `none` = unrpc'd network), relative `delta`, and per-node `nodes[]`. `src/verify/onchain.ts`: `ChainCheck` gains `consensus`/`nodes`/`delta`/`fetched_at` (freshness), `classify` downgrades to **warn** on node disagreement, new `recon[]` reconciliation log (reported vs on-chain delta_pct per fund). CLI prints an `rpc` column (mismatch/single/ok/none across attempted chains) + reconciliation summary. Result: `{ok:4, warn:10, fail:0, na:1}`, consensus `{ok:11, single:31, mismatch:0, none:19}`, 11 funds diverge from reported (non-EVM/rwa.xyz totals). `data/verification/2026-08-08.json` rewritten with new fields.
+- **Group 3 — deterministic scoring + calibration ✅** — new `src/analyst/score.ts`: `computeScores(funds, ranks)` → reproducible composite 0–100 (yield percentile 40 + momentum 25 + flows 20 + stability 15, weights sum 100) with deterministic `confidence` (low/medium/high from cohort size + feature presence); `hitRate()` → empirical calibration of past BUY/SELL signals vs the next day's actual yield (currently **7/18 = 39%** — surfaced honestly, not hidden). Both wired into `Report` (scores + hit_rate), attested on-chain with each report. 08-08 report regenerated + re-attested (`2026-08-08-analyst-2`, tx `0x32a9…48e3a`, block 11444541). Analyst CLI prints a scores table.
+- **Group 1 — MCP upgrade ✅** — `api/_mcp.js`: every tool gains **`outputSchema`** (2025-06-18 spec) for programmatic validation; new **`prompts`** capability + 3 SOP prompts (`analyze-wallet`, `verify-funds`, `rotate-usd-eur`) served via `prompts/list` + `prompts/get`; tools now default to **summary-first output** (`?summary=true` — pass `summary:false` for full JSON); **recovery-error messages** (portfolio missing wallet, `date:null` no-data hint with the local `bun run fetch` command). `api/_app.js` gained `?summary=true` compact shapes on `/overview /funds /verification /rotation /strategy /portfolio` + `consensus` aggregation on verification.
+- **Group 4 — eval regression gate ✅** — `scripts/axis-test.js` extended to **51 checks** (was 43): node-mismatch → warn, consensus-ok → ok, score determinism (double-run equality), top-yield score = 40, monotonic ranking, high/medium confidence paths, hit-rate shape.
+- **Frontend wired** — strategy tab shows RPC consensus counts + supply-reconciliation divergences; overview tab shows a deterministic scores table (top 8, components + confidence) and a signal hit-rate chip.
+
+**Next (ranked):**
+
+1. Publish the RWA-perps post (`docs/posts/2026-08-07/rwa-perps.md`) — still the top unpublished narrative asset.
+2. Test portfolio agent with a real fund-holding wallet (known USYC/BUIDL holder).
+3. Fund Virtuals agent wallet + ACP event listener; fund mainnet wallets → `X402_NETWORK=8453`.
+4. Add `outputSchema` to the OpenAPI spec + regenerate `openapi.json` for the MCP server.
+5. Follow up on Circle Marketplace + Cloudflare waitlist.
+
 ## Most recent session: 2026-08-08 (session 22) — 4 NEW AGENTS: VERIFIER + ROTATION + PORTFOLIO + STRATEGY
 
 **What was done:**

@@ -55,6 +55,12 @@ app.use("*", cors())
 
 const bySlug = (slug) => (f) => f.slug === slug
 
+function consensusCount(funds) {
+  const c = { ok: 0, single: 0, mismatch: 0, none: 0 }
+  for (const f of funds) for (const ch of f.chains ?? []) c[ch.consensus] = (c[ch.consensus] ?? 0) + 1
+  return c
+}
+
 app.get("/tg", (c) => c.text("tg ok"))
 app.post("/tg", (c) => webhook(c.req.raw))
 
@@ -82,6 +88,15 @@ app.get("/overview", async (c) => {
   const rep = reports().at(-1)
   if (!rep) return c.json({ date: null })
   const snap = snaps().at(-1)
+  if (c.req.query("summary") === "true")
+    return c.json({
+      date: rep.date,
+      generated_at: rep.generated_at,
+      signals: (rep.signals ?? []).map((s) => ({ ticker: s.ticker, action: s.action, confidence: s.confidence })),
+      scores: (rep.scores ?? []).slice(0, 3),
+      hit_rate: rep.hit_rate ?? null,
+      verified: await verifyReport(rep),
+    })
   return c.json({
     date: rep.date,
     generated_at: rep.generated_at,
@@ -94,6 +109,8 @@ app.get("/overview", async (c) => {
       confidence: s.confidence,
       reasons: s.reasons,
     })),
+    scores: rep.scores ?? null,
+    hit_rate: rep.hit_rate ?? null,
     macro: rep.macro_used,
     crypto: rep.crypto_used ?? null,
     chain: rep.chain_used ?? null,
@@ -143,6 +160,18 @@ app.get("/funds", (c) => {
           : null,
         date: last.date,
       }
+    })
+  if (c.req.query("summary") === "true")
+    return c.json({
+      date: last.date,
+      funds: funds.map((f) => ({
+        ticker: f.ticker,
+        name: f.name,
+        yield: f.yield,
+        tvl: f.tvl,
+        chg_7d_pct: f.chg_7d_pct,
+        onchain: f.onchain?.status ?? null,
+      })),
     })
   return c.json({
     date: last.date,
@@ -235,11 +264,46 @@ app.get("/alerts", (c) => {
   return c.json({ updated_at: j.updated_at ?? null, alerts: (j.alerts ?? []).slice(-40).reverse() })
 })
 
-app.get("/verification", (c) => c.json(latestJson(vdir) ?? { date: null }))
+app.get("/verification", (c) => {
+  const j = latestJson(vdir) ?? { date: null }
+  if (c.req.query("summary") === "true" && j.date)
+    return c.json({
+      date: j.date,
+      verified_at: j.verified_at,
+      summary: j.summary,
+      consensus: consensusCount(j.funds ?? []),
+      recon: (j.recon ?? []).filter((r) => !r.reconciled).map((r) => ({ ticker: r.ticker, delta_pct: r.delta_pct })),
+      funds: (j.funds ?? []).map((f) => ({ ticker: f.ticker, status: f.status, coverage: f.coverage })),
+    })
+  return c.json(j)
+})
 
-app.get("/rotation", (c) => c.json(latestJson(rdir) ?? { date: null }))
+app.get("/rotation", (c) => {
+  const j = latestJson(rdir) ?? { date: null }
+  if (c.req.query("summary") === "true" && j.date)
+    return c.json({
+      date: j.date,
+      signal: j.signal,
+      gap_pt: j.gap_pt,
+      best_eur: j.best_eur ? { ticker: j.best_eur.ticker, hedged: j.best_eur.hedged } : null,
+      best_usd: j.best_usd ? { ticker: j.best_usd.ticker, yield: j.best_usd.yield } : null,
+      note: j.note,
+    })
+  return c.json(j)
+})
 
-app.get("/strategy", (c) => c.json(latestJson(sdir) ?? { date: null }))
+app.get("/strategy", (c) => {
+  const j = latestJson(sdir) ?? { date: null }
+  if (c.req.query("summary") === "true" && j.date)
+    return c.json({
+      date: j.date,
+      signal: j.signal,
+      top: j.top,
+      ranking: (j.ranking ?? []).slice(0, 5),
+      note: j.note,
+    })
+  return c.json(j)
+})
 
 app.get("/portfolio", (c) => {
   const w = c.req.query("wallet")?.toLowerCase()
@@ -248,7 +312,19 @@ app.get("/portfolio", (c) => {
   const files = readdirSync(pdir).filter((f) => f.endsWith(".json"))
   for (const f of files) {
     const j = JSON.parse(readFileSync(join(pdir, f), "utf8"))
-    if (j.wallet === w) return c.json(j)
+    if (j.wallet === w) {
+      if (c.req.query("summary") === "true" && j.date)
+        return c.json({
+          wallet: j.wallet,
+          date: j.date,
+          signal: j.signal,
+          total: j.total,
+          net_yield_pct: j.net_yield_pct,
+          top: j.top ? { ticker: j.top.ticker, value: j.top.value } : null,
+          note: j.note,
+        })
+      return c.json(j)
+    }
   }
   return c.json({ wallet: w, date: null })
 })

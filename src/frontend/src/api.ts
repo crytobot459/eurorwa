@@ -127,6 +127,15 @@ export interface Verification {
   date: string
   verified_at: string
   summary: Record<string, number>
+  consensus?: Record<string, number>
+  recon?: {
+    ticker: string
+    reported: number
+    verified: number
+    delta_pct: number
+    reconciled: boolean
+    note: string
+  }[]
   funds: {
     ticker: string
     slug: string
@@ -154,6 +163,22 @@ export interface ChainData {
   eth: { tx_24h: number; blocks_24h: number }
 }
 
+export interface ScoreRow {
+  ticker: string
+  score: number
+  yield_p: number
+  momentum: number
+  flow: number
+  stability: number
+  confidence: string
+}
+
+export interface HitRate {
+  n: number
+  hits: number
+  rate: number | null
+}
+
 export interface Overview {
   date: string
   generated_at: string
@@ -161,6 +186,8 @@ export interface Overview {
   crypto_view: string | null
   chain_view: string | null
   signals: Signal[]
+  scores?: ScoreRow[]
+  hit_rate?: HitRate | null
   macro: {
     fear_greed: { value: number; label: string }
     btc: { usd: number; chg_24h: number }
