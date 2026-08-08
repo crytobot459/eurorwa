@@ -2,6 +2,26 @@
 
 > Updated after each opencode session. See `ROADMAP.md` for phase details.
 
+## Most recent session: 2026-08-08 (session 21) — PAID MCP TOOL LIVE + CIRCLE FORM SUBMITTED
+
+**What was done:**
+
+- **Paid MCP tool LIVE ✅** — `overview` tool in `/mcp` now charges $0.05 USDC via x402. Unpaid call → HTTP 402 JSON-RPC `-32002` with `PAYMENT-REQUIRED` base64 challenge + `X-Payment-*` headers; paid call verifies signature, settles (CDP facilitator→local fallback), returns result with `PAYMENT-RESPONSE`. `PAID_TOOLS = new Set(["overview"])`; free tools (funds/analytics/alerts) keep the AGENTICMARKET_SECRET gate. **Payment is the credential** for paid tools (secret bypassed only for paid calls). CORS headers extended. `openapi.json` updated (`/mcp` + `x-payment-info`). Deployed to production, verified 402 challenge via unit tests + typecheck clean. Commits: `aacaece` (paid MCP) + `e7155c8` (news scan).
+- **Paid endpoint verified on production** — unpaid `overview` call → HTTP 402, `payment-required` header (payTo `0x02B027…F846`, eip155:84532, amount 50000), `x-payment-network: base-sepolia`, `x-payment-address` present.
+- **Repo pushed to origin/main ✅** — rebased cleanly over pipeline bot commit `f4d043e` (conflict in `ready.md` resolved in favor of the hand-written quality post). 5 commits pushed: `4754945` translation+analytics+registration, `ac76ab2` quality post, `0ed6f74` post link, `e7155c8` news scan, `aacaece` paid MCP tool. All green.
+- **RWA-perps post draft written** — `docs/posts/2026-08-07/rwa-perps.md` (X + Reddit + LinkedIn, rides $347B/mo RWA-perps narrative, keeps verifiable-MMF-data differentiation). Commit `ea7fa6f`, pushed.
+- **Circle Agent Marketplace form SUBMITTED ✅** (2026-08-08) — user submitted the interest form (google form, email crytobot459@gmail.com). Service: EuroRWA, $0.05/call x402, 2 paid endpoints, OpenAPI spec uploaded as PDF (`openapi.json.pdf` — form doesn't accept .json, converted via headless Chrome). Awaiting manual review. Listing decision may take days; will check `agents.circle.com/services` periodically.
+- **Cloudflare Monetization Gateway waitlist** — NOT yet submitted (needs user to fill form: https://cfl.re/44Gw82m, fields: Email, Name, Title, Website, service description, interest level, feature requests).
+- **Virtuals ACP** — NOT started (needs wallet connection at app.virtuals.io/acp/join, role Provider).
+
+**Next (ranked):**
+
+1. Join **Cloudflare Monetization Gateway waitlist** — form: https://cfl.re/44Gw82m (user to fill).
+2. **Virtuals ACP** registration — needs wallet connect + Provider role (user), then scaffold offering via `acp offering create`.
+3. Publish **RWA-perps post** (draft in `docs/posts/2026-08-07/rwa-perps.md`), log link in PROGRESS.md.
+4. Fund mainnet wallets → `X402_NETWORK=8453` → x402scan + CDP Bazaar (unblocks real demand channels).
+5. Follow up on Circle Marketplace listing decision.
+
 ## Most recent session: 2026-08-07 (session 20) — 402 INDEX VERIFIED + POST PUBLISHED + NEWS SCAN
 
 **What was done:**
