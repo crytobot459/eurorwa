@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-09T02:37:09.177Z",
+  "updated_at": "2026-08-09T13:32:13.907Z",
   "alerts": [
     {
       "id": "yield-cohort-USYC-2026-08-06",
@@ -80,6 +80,15 @@
       "ticker": "CETES",
       "title": "CETES top of USD cohort",
       "detail": "CETES 4.56% vs cohort median 3.49% (+1.07pt)",
+      "date": "2026-08-09"
+    },
+    {
+      "id": "yield-breakout-USTBL-2026-08-09",
+      "type": "yield-breakout",
+      "severity": "warning",
+      "ticker": "USTBL",
+      "title": "USTBL yield broke out 0.43pt",
+      "detail": "USTBL yield 3.48% → 3.92% vs prior day (positive signal)",
       "date": "2026-08-09"
     }
   ]
