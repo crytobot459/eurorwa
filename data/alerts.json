@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-12T13:59:01.748Z",
+  "updated_at": "2026-08-13T03:09:08.704Z",
   "alerts": [
     {
       "id": "yield-cohort-USYC-2026-08-06",
@@ -171,6 +171,15 @@
       "title": "EUTBL yield broke out 0.37pt",
       "detail": "EUTBL yield 1.76% → 2.13% vs prior day (positive signal)",
       "date": "2026-08-12"
+    },
+    {
+      "id": "yield-cohort-CETES-2026-08-13",
+      "type": "yield-cohort",
+      "severity": "info",
+      "ticker": "CETES",
+      "title": "CETES top of USD cohort",
+      "detail": "CETES 4.56% vs cohort median 3.49% (+1.07pt)",
+      "date": "2026-08-13"
     }
   ]
 }
