@@ -1,74 +1,74 @@
 {
   "date": "2026-08-13",
-  "verified_at": "2026-08-13T03:09:10.921Z",
+  "verified_at": "2026-08-13T13:58:58.790Z",
   "summary": {
-    "ok": 3,
-    "warn": 11,
+    "ok": 4,
+    "warn": 10,
     "fail": 0,
     "na": 1
   },
   "recon": [
     {
       "ticker": "USYC",
-      "reported": 2651047061.7964272,
-      "verified": 2573937729.192755,
-      "delta_pct": -2.9086368821917663,
+      "reported": 2651072680.2994785,
+      "verified": 2651124672.841833,
+      "delta_pct": 0.0019611888704880926,
       "reconciled": true,
-      "note": "matches reported supply within 2.9%"
+      "note": "matches reported supply within 0.0%"
     },
     {
       "ticker": "BUIDL",
-      "reported": 2696713876.0204487,
-      "verified": 1015998702.540349,
-      "delta_pct": -62.32456429379663,
+      "reported": 2709359134.580449,
+      "verified": 1980763832.6104488,
+      "delta_pct": -26.891794914549973,
       "reconciled": false,
-      "note": "diverges from reported by -62.3%"
+      "note": "diverges from reported by -26.9%"
     },
     {
       "ticker": "USDY",
-      "reported": 1851864636.3884683,
-      "verified": 3272417.061991479,
-      "delta_pct": -99.82329069859159,
+      "reported": 1851871237.7117922,
+      "verified": 974077797.9096704,
+      "delta_pct": -47.40034954518438,
       "reconciled": false,
-      "note": "diverges from reported by -99.8%"
+      "note": "diverges from reported by -47.4%"
     },
     {
       "ticker": "eurSAFO",
-      "reported": 912249759.407777,
-      "verified": 189802184.2288,
-      "delta_pct": -79.19405488777355,
+      "reported": 920592008.7054408,
+      "verified": 190093410.65845,
+      "delta_pct": -79.35096015815257,
       "reconciled": false,
-      "note": "diverges from reported by -79.2%"
+      "note": "diverges from reported by -79.4%"
     },
     {
       "ticker": "EUTBL",
-      "reported": 750416777.4332325,
-      "verified": 349302556.42248,
-      "delta_pct": -53.45219257793596,
+      "reported": 748016266.4440844,
+      "verified": 350780365.84553003,
+      "delta_pct": -53.105248965631745,
       "reconciled": false,
-      "note": "diverges from reported by -53.5%"
+      "note": "diverges from reported by -53.1%"
     },
     {
       "ticker": "EURC",
-      "reported": 459485243.2343649,
-      "verified": 4112759.131566,
-      "delta_pct": -99.10492030111439,
+      "reported": 463167633.89001286,
+      "verified": 302898750.33156604,
+      "delta_pct": -34.60278133262339,
       "reconciled": false,
-      "note": "diverges from reported by -99.1%"
+      "note": "diverges from reported by -34.6%"
     },
     {
       "ticker": "USTBL",
-      "reported": 142142761.97496343,
+      "reported": 141912915.95283687,
       "verified": 91813703.60685,
-      "delta_pct": -35.40740145247651,
+      "delta_pct": -35.302785521394526,
       "reconciled": false,
-      "note": "diverges from reported by -35.4%"
+      "note": "diverges from reported by -35.3%"
     },
     {
       "ticker": "SAFO",
-      "reported": 135252635.00313497,
-      "verified": 68014872.26653,
-      "delta_pct": -49.71271926424685,
+      "reported": 135312615.6073131,
+      "verified": 68045302.90907,
+      "delta_pct": -49.712521183876646,
       "reconciled": false,
       "note": "diverges from reported by -49.7%"
     },
@@ -82,9 +82,9 @@
     },
     {
       "ticker": "UKTBL",
-      "reported": 12628601.675863748,
-      "verified": 1504568.4999100002,
-      "delta_pct": -88.08602457716607,
+      "reported": 12655207.334961457,
+      "verified": 1510185.2576300004,
+      "delta_pct": -88.06668893161522,
       "reconciled": false,
       "note": "diverges from reported by -88.1%"
     },
@@ -107,18 +107,18 @@
     {
       "ticker": "bIB01",
       "reported": 140769.09882100113,
-      "verified": 100339.02189263167,
-      "delta_pct": -28.720846597007377,
-      "reconciled": false,
-      "note": "diverges from reported by -28.7%"
+      "verified": 145665.82489263284,
+      "delta_pct": 3.478551836051944,
+      "reconciled": true,
+      "note": "matches reported supply within 3.5%"
     },
     {
       "ticker": "CETES",
-      "reported": 79150457.41706428,
-      "verified": 673051.331199,
-      "delta_pct": -99.14965579080292,
+      "reported": 79150457.42010477,
+      "verified": 1653687.2751759999,
+      "delta_pct": -97.91070408298619,
       "reconciled": false,
-      "note": "diverges from reported by -99.1%"
+      "note": "diverges from reported by -97.9%"
     },
     {
       "ticker": "EUROB",
@@ -133,11 +133,11 @@
     {
       "ticker": "USYC",
       "slug": "circle-usyc",
-      "supply": 2651047061.7964272,
-      "verified": 2573937729.192755,
-      "coverage": 0.9709136311780824,
+      "supply": 2651072680.2994785,
+      "verified": 2651124672.841833,
+      "coverage": 1.0000196118887048,
       "status": "ok",
-      "note": "97% of reported supply verified on-chain, no mismatch",
+      "note": "100% of reported supply verified on-chain, no mismatch",
       "chains": [
         {
           "network": "BNB Chain",
@@ -146,7 +146,7 @@
           "decimals": 6,
           "consensus": "single",
           "ok": true,
-          "fetched_at": "2026-08-13T03:09:10.895Z",
+          "fetched_at": "2026-08-13T13:58:58.767Z",
           "nodes": [
             "https://bsc-dataseed.binance.org"
           ]
@@ -154,16 +154,16 @@
         {
           "network": "Ethereum",
           "address": "0x136471a34f6ef19fe571effc1ca711fdb8e49f2b",
-          "supply": null,
-          "decimals": null,
-          "consensus": "none",
-          "ok": false,
-          "fetched_at": "2026-08-13T03:09:10.895Z",
+          "supply": 77186943.649078,
+          "decimals": 6,
+          "consensus": "ok",
+          "ok": true,
+          "fetched_at": "2026-08-13T13:58:58.767Z",
           "nodes": [
             "https://eth.drpc.org",
             "https://eth.merkle.io"
           ],
-          "error": "Error: http 408; Error: http 429"
+          "delta": 0
         }
       ],
       "hasEVM": true
@@ -171,25 +171,25 @@
     {
       "ticker": "BUIDL",
       "slug": "blackrock-usd-institutional-digital-liquidity-fund",
-      "supply": 2696713876.0204487,
-      "verified": 1015998702.540349,
-      "coverage": 0.3767543570620337,
+      "supply": 2709359134.580449,
+      "verified": 1980763832.6104488,
+      "coverage": 0.7310820508545003,
       "status": "warn",
-      "note": "only 38% of supply verified on-chain — rest on non-EVM or unrpc'd networks",
+      "note": "only 73% of supply verified on-chain — rest on non-EVM or unrpc'd networks",
       "chains": [
         {
           "network": "Ethereum",
           "address": "0x6a9da2d710bb9b700acde7cb81f10f1ff8c89041",
-          "supply": null,
-          "decimals": null,
-          "consensus": "none",
-          "ok": false,
-          "fetched_at": "2026-08-13T03:09:10.921Z",
+          "supply": 964765130.0701,
+          "decimals": 6,
+          "consensus": "ok",
+          "ok": true,
+          "fetched_at": "2026-08-13T13:58:58.750Z",
           "nodes": [
             "https://eth.drpc.org",
             "https://eth.merkle.io"
           ],
-          "error": "Error: http 408; Error: http 429"
+          "delta": 0
         },
         {
           "network": "Avalanche C-Chain",
@@ -198,7 +198,7 @@
           "decimals": 6,
           "consensus": "single",
           "ok": true,
-          "fetched_at": "2026-08-13T03:09:10.921Z",
+          "fetched_at": "2026-08-13T13:58:58.750Z",
           "nodes": [
             "https://api.avax.network/ext/bc/C/rpc"
           ]
@@ -208,13 +208,14 @@
           "address": "0x7712c34205737192402172409a8f7ccef8aa2aec",
           "supply": 225005043.140349,
           "decimals": 6,
-          "consensus": "single",
+          "consensus": "ok",
           "ok": true,
-          "fetched_at": "2026-08-13T03:09:10.921Z",
+          "fetched_at": "2026-08-13T13:58:58.750Z",
           "nodes": [
             "https://eth.drpc.org",
             "https://eth.merkle.io"
-          ]
+          ],
+          "delta": 0
         },
         {
           "network": "BNB Chain",
@@ -223,7 +224,7 @@
           "decimals": 6,
           "consensus": "single",
           "ok": true,
-          "fetched_at": "2026-08-13T03:09:10.921Z",
+          "fetched_at": "2026-08-13T13:58:58.750Z",
           "nodes": [
             "https://bsc-dataseed.binance.org"
           ]
@@ -235,7 +236,7 @@
           "decimals": 6,
           "consensus": "single",
           "ok": true,
-          "fetched_at": "2026-08-13T03:09:10.921Z",
+          "fetched_at": "2026-08-13T13:58:58.750Z",
           "nodes": [
             "https://mainnet.optimism.io"
           ]
@@ -247,7 +248,7 @@
           "decimals": null,
           "consensus": "none",
           "ok": false,
-          "fetched_at": "2026-08-13T03:09:10.921Z",
+          "fetched_at": "2026-08-13T13:58:58.750Z",
           "nodes": [],
           "error": "no rpc for Tempo"
         },
@@ -258,7 +259,7 @@
           "decimals": null,
           "consensus": "none",
           "ok": false,
-          "fetched_at": "2026-08-13T03:09:10.921Z",
+          "fetched_at": "2026-08-13T13:58:58.750Z",
           "nodes": [],
           "error": "no rpc for Aptos"
         },
@@ -269,7 +270,7 @@
           "decimals": 6,
           "consensus": "ok",
           "ok": true,
-          "fetched_at": "2026-08-13T03:09:10.921Z",
+          "fetched_at": "2026-08-13T13:58:58.750Z",
           "nodes": [
             "https://polygon.drpc.org",
             "https://polygon-bor-rpc.publicnode.com"
@@ -283,7 +284,7 @@
           "decimals": 6,
           "consensus": "single",
           "ok": true,
-          "fetched_at": "2026-08-13T03:09:10.921Z",
+          "fetched_at": "2026-08-13T13:58:58.750Z",
           "nodes": [
             "https://arb1.arbitrum.io/rpc"
           ]
@@ -294,25 +295,25 @@
     {
       "ticker": "USDY",
       "slug": "ondo-u-s-dollar-yield",
-      "supply": 1851864636.3884683,
-      "verified": 3272417.061991479,
-      "coverage": 0.0017670930140841132,
+      "supply": 1851871237.7117922,
+      "verified": 974077797.9096704,
+      "coverage": 0.5259965045481562,
       "status": "warn",
-      "note": "only 0% of supply verified on-chain — rest on non-EVM or unrpc'd networks",
+      "note": "only 53% of supply verified on-chain — rest on non-EVM or unrpc'd networks",
       "chains": [
         {
           "network": "Ethereum",
           "address": "0x96f6ef951840721adbf46ac996b59e0235cb985c",
-          "supply": null,
-          "decimals": null,
-          "consensus": "none",
-          "ok": false,
-          "fetched_at": "2026-08-13T03:09:10.904Z",
+          "supply": 970805366.4072033,
+          "decimals": 18,
+          "consensus": "ok",
+          "ok": true,
+          "fetched_at": "2026-08-13T13:58:58.763Z",
           "nodes": [
             "https://eth.drpc.org",
             "https://eth.merkle.io"
           ],
-          "error": "Error: http 408; Error: http 429"
+          "delta": 0
         },
         {
           "network": "SEI",
@@ -321,7 +322,7 @@
           "decimals": null,
           "consensus": "none",
           "ok": false,
-          "fetched_at": "2026-08-13T03:09:10.904Z",
+          "fetched_at": "2026-08-13T13:58:58.763Z",
           "nodes": [],
           "error": "no rpc for SEI"
         },
@@ -332,7 +333,7 @@
           "decimals": null,
           "consensus": "none",
           "ok": false,
-          "fetched_at": "2026-08-13T03:09:10.904Z",
+          "fetched_at": "2026-08-13T13:58:58.763Z",
           "nodes": [],
           "error": "no rpc for Mantle"
         },
@@ -343,7 +344,7 @@
           "decimals": 18,
           "consensus": "single",
           "ok": true,
-          "fetched_at": "2026-08-13T03:09:10.904Z",
+          "fetched_at": "2026-08-13T13:58:58.763Z",
           "nodes": [
             "https://arb1.arbitrum.io/rpc"
           ]
@@ -355,18 +356,18 @@
           "decimals": null,
           "consensus": "none",
           "ok": false,
-          "fetched_at": "2026-08-13T03:09:10.904Z",
+          "fetched_at": "2026-08-13T13:58:58.763Z",
           "nodes": [],
           "error": "no rpc for Aptos"
         },
         {
           "network": "BNB Chain",
           "address": "0x608593d17a2decbbc4399e4185be4922f97ed32e",
-          "supply": 80915.68245436839,
+          "supply": 80930.12292995324,
           "decimals": 18,
           "consensus": "single",
           "ok": true,
-          "fetched_at": "2026-08-13T03:09:10.904Z",
+          "fetched_at": "2026-08-13T13:58:58.763Z",
           "nodes": [
             "https://bsc-dataseed.binance.org"
           ]
@@ -378,23 +379,23 @@
           "decimals": null,
           "consensus": "none",
           "ok": false,
-          "fetched_at": "2026-08-13T03:09:10.904Z",
+          "fetched_at": "2026-08-13T13:58:58.763Z",
           "nodes": [],
           "error": "no rpc for Plume"
         },
         {
           "network": "Ethereum",
           "address": "0xe86845788d6e3e5c2393ade1a051ae617d974c09",
-          "supply": null,
-          "decimals": null,
-          "consensus": "none",
-          "ok": false,
-          "fetched_at": "2026-08-13T03:09:10.904Z",
+          "supply": 0,
+          "decimals": 18,
+          "consensus": "ok",
+          "ok": true,
+          "fetched_at": "2026-08-13T13:58:58.763Z",
           "nodes": [
             "https://eth.drpc.org",
             "https://eth.merkle.io"
           ],
-          "error": "Error: http 408; Error: http 429"
+          "delta": 0
         },
         {
           "network": "Sui",
@@ -403,7 +404,7 @@
           "decimals": null,
           "consensus": "none",
           "ok": false,
-          "fetched_at": "2026-08-13T03:09:10.904Z",
+          "fetched_at": "2026-08-13T13:58:58.763Z",
           "nodes": [],
           "error": "no rpc for Sui"
         }
@@ -413,20 +414,20 @@
     {
       "ticker": "eurSAFO",
       "slug": "spiko-amundi-overnight-swap-fund-eur",
-      "supply": 912249759.407777,
-      "verified": 189802184.2288,
-      "coverage": 0.2080594511222646,
+      "supply": 920592008.7054408,
+      "verified": 190093410.65845,
+      "coverage": 0.20649039841847427,
       "status": "warn",
       "note": "only 21% of supply verified on-chain — rest on non-EVM or unrpc'd networks",
       "chains": [
         {
           "network": "Arbitrum",
           "address": "0x1412632f2b89e87bfa20c1318a43ced25f1d7b76",
-          "supply": 69579039.55248,
+          "supply": 69749884.53115,
           "decimals": 5,
           "consensus": "single",
           "ok": true,
-          "fetched_at": "2026-08-13T03:09:09.081Z",
+          "fetched_at": "2026-08-13T13:58:58.630Z",
           "nodes": [
             "https://arb1.arbitrum.io/rpc"
           ]
@@ -434,11 +435,11 @@
         {
           "network": "Polygon",
           "address": "0x272ea767712cc4839f4a27ee35eb73116158c8a2",
-          "supply": 63888703.62771,
+          "supply": 64009085.07869,
           "decimals": 5,
           "consensus": "ok",
           "ok": true,
-          "fetched_at": "2026-08-13T03:09:09.081Z",
+          "fetched_at": "2026-08-13T13:58:58.630Z",
           "nodes": [
             "https://polygon.drpc.org",
             "https://polygon-bor-rpc.publicnode.com"
@@ -450,13 +451,14 @@
           "address": "0x0990b149e915cb08e2143a5c6f669c907eddc8b0",
           "supply": 56334441.04861,
           "decimals": 5,
-          "consensus": "single",
+          "consensus": "ok",
           "ok": true,
-          "fetched_at": "2026-08-13T03:09:09.081Z",
+          "fetched_at": "2026-08-13T13:58:58.630Z",
           "nodes": [
             "https://eth.drpc.org",
             "https://eth.merkle.io"
-          ]
+          ],
+          "delta": 0
         },
         {
           "network": "Base",
@@ -465,7 +467,7 @@
           "decimals": null,
           "consensus": "none",
           "ok": false,
-          "fetched_at": "2026-08-13T03:09:09.081Z",
+          "fetched_at": "2026-08-13T13:58:58.630Z",
           "nodes": [
             "https://mainnet.base.org"
           ],
@@ -477,20 +479,20 @@
     {
       "ticker": "EUTBL",
       "slug": "spiko-eu-t-bills-money-market-fund",
-      "supply": 750416777.4332325,
-      "verified": 349302556.42248,
-      "coverage": 0.46547807422064036,
+      "supply": 748016266.4440844,
+      "verified": 350780365.84553003,
+      "coverage": 0.4689475103436825,
       "status": "warn",
       "note": "only 47% of supply verified on-chain — rest on non-EVM or unrpc'd networks",
       "chains": [
         {
           "network": "Arbitrum",
           "address": "0xcbeb19549054cc0a6257a77736fc78c367216ce7",
-          "supply": 279552333.33132,
+          "supply": 280561483.10556,
           "decimals": 5,
           "consensus": "single",
           "ok": true,
-          "fetched_at": "2026-08-13T03:09:09.060Z",
+          "fetched_at": "2026-08-13T13:58:58.653Z",
           "nodes": [
             "https://arb1.arbitrum.io/rpc"
           ]
@@ -498,11 +500,11 @@
         {
           "network": "Polygon",
           "address": "0xa0769f7a8fc65e47de93797b4e21c073c117fc80",
-          "supply": 52313923.27303,
+          "supply": 52782582.92184,
           "decimals": 5,
           "consensus": "ok",
           "ok": true,
-          "fetched_at": "2026-08-13T03:09:09.060Z",
+          "fetched_at": "2026-08-13T13:58:58.653Z",
           "nodes": [
             "https://polygon.drpc.org",
             "https://polygon-bor-rpc.publicnode.com"
@@ -516,7 +518,7 @@
           "decimals": 5,
           "consensus": "ok",
           "ok": true,
-          "fetched_at": "2026-08-13T03:09:09.060Z",
+          "fetched_at": "2026-08-13T13:58:58.653Z",
           "nodes": [
             "https://eth.drpc.org",
             "https://eth.merkle.io"
@@ -530,7 +532,7 @@
           "decimals": null,
           "consensus": "none",
           "ok": false,
-          "fetched_at": "2026-08-13T03:09:09.060Z",
+          "fetched_at": "2026-08-13T13:58:58.653Z",
           "nodes": [
             "https://mainnet.base.org"
           ],
@@ -542,25 +544,25 @@
     {
       "ticker": "EURC",
       "slug": "eurc",
-      "supply": 459485243.2343649,
-      "verified": 4112759.131566,
-      "coverage": 0.008950796988856174,
+      "supply": 463167633.89001286,
+      "verified": 302898750.33156604,
+      "coverage": 0.6539721866737661,
       "status": "warn",
-      "note": "only 1% of supply verified on-chain — rest on non-EVM or unrpc'd networks",
+      "note": "only 65% of supply verified on-chain — rest on non-EVM or unrpc'd networks",
       "chains": [
         {
           "network": "Ethereum",
           "address": "0x1abaea1f7c830bd89acc67ec4af516284b1bc33c",
-          "supply": null,
-          "decimals": null,
-          "consensus": "none",
-          "ok": false,
-          "fetched_at": "2026-08-13T03:09:10.917Z",
+          "supply": 298242569.48,
+          "decimals": 6,
+          "consensus": "ok",
+          "ok": true,
+          "fetched_at": "2026-08-13T13:58:58.639Z",
           "nodes": [
             "https://eth.drpc.org",
             "https://eth.merkle.io"
           ],
-          "error": "Error: http 408; Error: http 429"
+          "delta": 0
         },
         {
           "network": "Base",
@@ -569,7 +571,7 @@
           "decimals": null,
           "consensus": "none",
           "ok": false,
-          "fetched_at": "2026-08-13T03:09:10.917Z",
+          "fetched_at": "2026-08-13T13:58:58.639Z",
           "nodes": [
             "https://mainnet.base.org"
           ],
@@ -578,11 +580,11 @@
         {
           "network": "Avalanche C-Chain",
           "address": "0xc891eb4cbdeff6e073e859e987815ed1505c2acd",
-          "supply": 4112759.131566,
+          "supply": 4656180.851566,
           "decimals": 6,
           "consensus": "single",
           "ok": true,
-          "fetched_at": "2026-08-13T03:09:10.917Z",
+          "fetched_at": "2026-08-13T13:58:58.639Z",
           "nodes": [
             "https://api.avax.network/ext/bc/C/rpc"
           ]
@@ -594,7 +596,7 @@
           "decimals": null,
           "consensus": "none",
           "ok": false,
-          "fetched_at": "2026-08-13T03:09:10.917Z",
+          "fetched_at": "2026-08-13T13:58:58.639Z",
           "nodes": [],
           "error": "no rpc for Tempo"
         }
@@ -604,9 +606,9 @@
     {
       "ticker": "USTBL",
       "slug": "spiko-us-t-bills-money-market-fund",
-      "supply": 142142761.97496343,
+      "supply": 141912915.95283687,
       "verified": 91813703.60685,
-      "coverage": 0.6459259854752349,
+      "coverage": 0.6469721447860548,
       "status": "warn",
       "note": "only 65% of supply verified on-chain — rest on non-EVM or unrpc'd networks",
       "chains": [
@@ -615,13 +617,14 @@
           "address": "0xe4880249745eac5f1ed9d8f7df844792d560e750",
           "supply": 53782226.27927,
           "decimals": 5,
-          "consensus": "single",
+          "consensus": "ok",
           "ok": true,
-          "fetched_at": "2026-08-13T03:09:10.876Z",
+          "fetched_at": "2026-08-13T13:58:58.654Z",
           "nodes": [
             "https://eth.drpc.org",
             "https://eth.merkle.io"
-          ]
+          ],
+          "delta": 0
         },
         {
           "network": "Arbitrum",
@@ -630,7 +633,7 @@
           "decimals": 5,
           "consensus": "single",
           "ok": true,
-          "fetched_at": "2026-08-13T03:09:10.876Z",
+          "fetched_at": "2026-08-13T13:58:58.654Z",
           "nodes": [
             "https://arb1.arbitrum.io/rpc"
           ]
@@ -642,7 +645,7 @@
           "decimals": 5,
           "consensus": "ok",
           "ok": true,
-          "fetched_at": "2026-08-13T03:09:10.876Z",
+          "fetched_at": "2026-08-13T13:58:58.654Z",
           "nodes": [
             "https://polygon.drpc.org",
             "https://polygon-bor-rpc.publicnode.com"
@@ -656,7 +659,7 @@
           "decimals": null,
           "consensus": "none",
           "ok": false,
-          "fetched_at": "2026-08-13T03:09:10.876Z",
+          "fetched_at": "2026-08-13T13:58:58.654Z",
           "nodes": [
             "https://mainnet.base.org"
           ],
@@ -668,9 +671,9 @@
     {
       "ticker": "SAFO",
       "slug": "spiko-amundi-overnight-swap-fund",
-      "supply": 135252635.00313497,
-      "verified": 68014872.26653,
-      "coverage": 0.5028728073575315,
+      "supply": 135312615.6073131,
+      "verified": 68045302.90907,
+      "coverage": 0.5028747881612335,
       "status": "warn",
       "note": "only 50% of supply verified on-chain — rest on non-EVM or unrpc'd networks",
       "chains": [
@@ -679,13 +682,14 @@
           "address": "0xcbade7d9bdee88411cb6cbcbb29952b742036992",
           "supply": 43026752.92863,
           "decimals": 5,
-          "consensus": "single",
+          "consensus": "ok",
           "ok": true,
-          "fetched_at": "2026-08-13T03:09:10.882Z",
+          "fetched_at": "2026-08-13T13:58:58.648Z",
           "nodes": [
             "https://eth.drpc.org",
             "https://eth.merkle.io"
-          ]
+          ],
+          "delta": 0
         },
         {
           "network": "Arbitrum",
@@ -694,7 +698,7 @@
           "decimals": 5,
           "consensus": "single",
           "ok": true,
-          "fetched_at": "2026-08-13T03:09:10.882Z",
+          "fetched_at": "2026-08-13T13:58:58.648Z",
           "nodes": [
             "https://arb1.arbitrum.io/rpc"
           ]
@@ -702,11 +706,11 @@
         {
           "network": "Polygon",
           "address": "0x6f64f47f95cf656f21b40e14798f6b49f80b3dc5",
-          "supply": 8748627.8049,
+          "supply": 8779058.44744,
           "decimals": 5,
           "consensus": "ok",
           "ok": true,
-          "fetched_at": "2026-08-13T03:09:10.882Z",
+          "fetched_at": "2026-08-13T13:58:58.648Z",
           "nodes": [
             "https://polygon.drpc.org",
             "https://polygon-bor-rpc.publicnode.com"
@@ -720,7 +724,7 @@
           "decimals": null,
           "consensus": "none",
           "ok": false,
-          "fetched_at": "2026-08-13T03:09:10.882Z",
+          "fetched_at": "2026-08-13T13:58:58.648Z",
           "nodes": [
             "https://mainnet.base.org"
           ],
@@ -745,7 +749,7 @@
           "decimals": 0,
           "consensus": "ok",
           "ok": true,
-          "fetched_at": "2026-08-13T03:09:09.083Z",
+          "fetched_at": "2026-08-13T13:58:58.651Z",
           "nodes": [
             "https://polygon.drpc.org",
             "https://polygon-bor-rpc.publicnode.com"
@@ -758,9 +762,9 @@
     {
       "ticker": "UKTBL",
       "slug": "spiko-uk-t-bills-money-market-fund",
-      "supply": 12628601.675863748,
-      "verified": 1504568.4999100002,
-      "coverage": 0.11913975422833925,
+      "supply": 12655207.334961457,
+      "verified": 1510185.2576300004,
+      "coverage": 0.11933311068384798,
       "status": "warn",
       "note": "only 12% of supply verified on-chain — rest on non-EVM or unrpc'd networks",
       "chains": [
@@ -771,7 +775,7 @@
           "decimals": 5,
           "consensus": "ok",
           "ok": true,
-          "fetched_at": "2026-08-13T03:09:10.875Z",
+          "fetched_at": "2026-08-13T13:58:58.789Z",
           "nodes": [
             "https://polygon.drpc.org",
             "https://polygon-bor-rpc.publicnode.com"
@@ -785,7 +789,7 @@
           "decimals": 5,
           "consensus": "single",
           "ok": true,
-          "fetched_at": "2026-08-13T03:09:10.875Z",
+          "fetched_at": "2026-08-13T13:58:58.789Z",
           "nodes": [
             "https://arb1.arbitrum.io/rpc"
           ]
@@ -797,7 +801,7 @@
           "decimals": null,
           "consensus": "none",
           "ok": false,
-          "fetched_at": "2026-08-13T03:09:10.875Z",
+          "fetched_at": "2026-08-13T13:58:58.789Z",
           "nodes": [
             "https://mainnet.base.org"
           ],
@@ -806,16 +810,16 @@
         {
           "network": "Ethereum",
           "address": "0xf695df6c0f3bb45918a7a82e83348fc59517734e",
-          "supply": null,
-          "decimals": null,
-          "consensus": "none",
-          "ok": false,
-          "fetched_at": "2026-08-13T03:09:10.875Z",
+          "supply": 5616.75772,
+          "decimals": 5,
+          "consensus": "ok",
+          "ok": true,
+          "fetched_at": "2026-08-13T13:58:58.789Z",
           "nodes": [
             "https://eth.drpc.org",
             "https://eth.merkle.io"
           ],
-          "error": "Error: http 408; Error: http 429"
+          "delta": 0
         }
       ],
       "hasEVM": true
@@ -836,7 +840,7 @@
           "decimals": null,
           "consensus": "none",
           "ok": false,
-          "fetched_at": "2026-08-13T03:09:08.740Z",
+          "fetched_at": "2026-08-13T13:58:58.311Z",
           "nodes": [],
           "error": "no rpc for XDC"
         }
@@ -857,13 +861,14 @@
           "address": "0x2f123cf3f37ce3328cc9b5b8415f9ec5109b45e7",
           "supply": 68426.302701,
           "decimals": 18,
-          "consensus": "single",
+          "consensus": "ok",
           "ok": true,
-          "fetched_at": "2026-08-13T03:09:10.875Z",
+          "fetched_at": "2026-08-13T13:58:58.661Z",
           "nodes": [
             "https://eth.drpc.org",
             "https://eth.merkle.io"
-          ]
+          ],
+          "delta": 0
         },
         {
           "network": "Polygon",
@@ -872,7 +877,7 @@
           "decimals": 18,
           "consensus": "ok",
           "ok": true,
-          "fetched_at": "2026-08-13T03:09:10.875Z",
+          "fetched_at": "2026-08-13T13:58:58.661Z",
           "nodes": [
             "https://polygon.drpc.org",
             "https://polygon-bor-rpc.publicnode.com"
@@ -886,7 +891,7 @@
           "decimals": null,
           "consensus": "none",
           "ok": false,
-          "fetched_at": "2026-08-13T03:09:10.875Z",
+          "fetched_at": "2026-08-13T13:58:58.661Z",
           "nodes": [
             "https://mainnet.base.org"
           ],
@@ -899,10 +904,10 @@
       "ticker": "bIB01",
       "slug": "backed-ibta-treasury-bond-0-1yr",
       "supply": 140769.09882100113,
-      "verified": 100339.02189263167,
-      "coverage": 0.7127915340299262,
-      "status": "warn",
-      "note": "only 71% of supply verified on-chain — rest on non-EVM or unrpc'd networks",
+      "verified": 145665.82489263284,
+      "coverage": 1.0347855183605195,
+      "status": "ok",
+      "note": "103% of reported supply verified on-chain, no mismatch",
       "chains": [
         {
           "network": "Arbitrum",
@@ -911,7 +916,7 @@
           "decimals": 18,
           "consensus": "single",
           "ok": true,
-          "fetched_at": "2026-08-13T03:09:10.872Z",
+          "fetched_at": "2026-08-13T13:58:58.655Z",
           "nodes": [
             "https://arb1.arbitrum.io/rpc"
           ]
@@ -919,16 +924,16 @@
         {
           "network": "Ethereum",
           "address": "0xca30c93b02514f86d5c86a6e375e3a330b435fb5",
-          "supply": null,
-          "decimals": null,
-          "consensus": "none",
-          "ok": false,
-          "fetched_at": "2026-08-13T03:09:10.872Z",
+          "supply": 45326.80300000116,
+          "decimals": 18,
+          "consensus": "ok",
+          "ok": true,
+          "fetched_at": "2026-08-13T13:58:58.655Z",
           "nodes": [
             "https://eth.drpc.org",
             "https://eth.merkle.io"
           ],
-          "error": "Error: http 408; Error: http 429"
+          "delta": 0
         },
         {
           "network": "Avalanche C-Chain",
@@ -937,7 +942,7 @@
           "decimals": 18,
           "consensus": "single",
           "ok": true,
-          "fetched_at": "2026-08-13T03:09:10.872Z",
+          "fetched_at": "2026-08-13T13:58:58.655Z",
           "nodes": [
             "https://api.avax.network/ext/bc/C/rpc"
           ]
@@ -949,7 +954,7 @@
           "decimals": null,
           "consensus": "none",
           "ok": false,
-          "fetched_at": "2026-08-13T03:09:10.872Z",
+          "fetched_at": "2026-08-13T13:58:58.655Z",
           "nodes": [
             "https://mainnet.base.org"
           ],
@@ -962,7 +967,7 @@
           "decimals": 18,
           "consensus": "ok",
           "ok": true,
-          "fetched_at": "2026-08-13T03:09:10.872Z",
+          "fetched_at": "2026-08-13T13:58:58.655Z",
           "nodes": [
             "https://polygon.drpc.org",
             "https://polygon-bor-rpc.publicnode.com"
@@ -976,7 +981,7 @@
           "decimals": 18,
           "consensus": "single",
           "ok": true,
-          "fetched_at": "2026-08-13T03:09:10.872Z",
+          "fetched_at": "2026-08-13T13:58:58.655Z",
           "nodes": [
             "https://rpc.gnosischain.com"
           ]
@@ -987,24 +992,23 @@
     {
       "ticker": "CETES",
       "slug": "etherfuse-cetes",
-      "supply": 79150457.41706428,
-      "verified": 673051.331199,
-      "coverage": 0.008503442091970714,
+      "supply": 79150457.42010477,
+      "verified": 1653687.2751759999,
+      "coverage": 0.02089295917013806,
       "status": "warn",
-      "note": "only 1% of supply verified on-chain — rest on non-EVM or unrpc'd networks",
+      "note": "only 2% of supply verified on-chain — rest on non-EVM or unrpc'd networks",
       "chains": [
         {
           "network": "Base",
           "address": "0x834df4c1d8f51be24322e39e4766697be015512f",
-          "supply": null,
-          "decimals": null,
-          "consensus": "none",
-          "ok": false,
-          "fetched_at": "2026-08-13T03:09:09.046Z",
+          "supply": 980635.943977,
+          "decimals": 6,
+          "consensus": "single",
+          "ok": true,
+          "fetched_at": "2026-08-13T13:58:58.534Z",
           "nodes": [
             "https://mainnet.base.org"
-          ],
-          "error": "Error: http 429"
+          ]
         },
         {
           "network": "Polygon",
@@ -1013,7 +1017,7 @@
           "decimals": 6,
           "consensus": "ok",
           "ok": true,
-          "fetched_at": "2026-08-13T03:09:09.046Z",
+          "fetched_at": "2026-08-13T13:58:58.534Z",
           "nodes": [
             "https://polygon.drpc.org",
             "https://polygon-bor-rpc.publicnode.com"
@@ -1027,7 +1031,7 @@
           "decimals": null,
           "consensus": "none",
           "ok": false,
-          "fetched_at": "2026-08-13T03:09:09.046Z",
+          "fetched_at": "2026-08-13T13:58:58.534Z",
           "nodes": [],
           "error": "no rpc for Monad"
         }
@@ -1050,7 +1054,7 @@
           "decimals": 6,
           "consensus": "ok",
           "ok": true,
-          "fetched_at": "2026-08-13T03:09:09.018Z",
+          "fetched_at": "2026-08-13T13:58:58.541Z",
           "nodes": [
             "https://polygon.drpc.org",
             "https://polygon-bor-rpc.publicnode.com"
@@ -1064,7 +1068,7 @@
           "decimals": null,
           "consensus": "none",
           "ok": false,
-          "fetched_at": "2026-08-13T03:09:09.018Z",
+          "fetched_at": "2026-08-13T13:58:58.541Z",
           "nodes": [
             "https://mainnet.base.org"
           ],
@@ -1077,7 +1081,7 @@
           "decimals": null,
           "consensus": "none",
           "ok": false,
-          "fetched_at": "2026-08-13T03:09:09.018Z",
+          "fetched_at": "2026-08-13T13:58:58.541Z",
           "nodes": [],
           "error": "no rpc for Monad"
         }
