@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-14T03:08:44.878Z",
+  "updated_at": "2026-08-14T13:55:13.196Z",
   "alerts": [
     {
       "id": "yield-cohort-USYC-2026-08-06",
@@ -188,6 +188,24 @@
       "ticker": "CETES",
       "title": "CETES top of USD cohort",
       "detail": "CETES 4.56% vs cohort median 3.49% (+1.07pt)",
+      "date": "2026-08-14"
+    },
+    {
+      "id": "tvl-spike-USTBL-2026-08-14",
+      "type": "tvl-spike",
+      "severity": "warning",
+      "ticker": "USTBL",
+      "title": "USTBL TVL plunged -5.25%",
+      "detail": "USTBL TVL $155.1M → $146.9M (outflows)",
+      "date": "2026-08-14"
+    },
+    {
+      "id": "yield-cohort-EUROB-2026-08-14",
+      "type": "yield-cohort",
+      "severity": "info",
+      "ticker": "EUROB",
+      "title": "EUROB bottom of EUR cohort",
+      "detail": "EUROB 1.46% vs cohort median 2.21% (-0.75pt)",
       "date": "2026-08-14"
     }
   ]
