@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-13T13:58:58.270Z",
+  "updated_at": "2026-08-14T03:08:44.878Z",
   "alerts": [
     {
       "id": "yield-cohort-USYC-2026-08-06",
@@ -180,6 +180,15 @@
       "title": "CETES top of USD cohort",
       "detail": "CETES 4.56% vs cohort median 3.49% (+1.07pt)",
       "date": "2026-08-13"
+    },
+    {
+      "id": "yield-cohort-CETES-2026-08-14",
+      "type": "yield-cohort",
+      "severity": "info",
+      "ticker": "CETES",
+      "title": "CETES top of USD cohort",
+      "detail": "CETES 4.56% vs cohort median 3.49% (+1.07pt)",
+      "date": "2026-08-14"
     }
   ]
 }
