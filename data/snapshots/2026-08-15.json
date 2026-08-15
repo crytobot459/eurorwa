@@ -1,0 +1,692 @@
+{
+  "date": "2026-08-15",
+  "fetched_at": "2026-08-15T01:57:41.587Z",
+  "source": "rwa.xyz-web",
+  "funds": [
+    {
+      "ticker": "USYC",
+      "slug": "circle-usyc",
+      "name": "Circle USYC",
+      "issuer": "Circle International",
+      "asset_class": "US Treasury Debt",
+      "tvl": 3006215418.727964,
+      "tvl_7d": 3004483346.0102615,
+      "chg_7d_pct": 0.05764960288438467,
+      "chg_30d_pct": 0.09886986789046973,
+      "chg_90d_pct": 1.1534662683575403,
+      "yield": 3.1609706879536397,
+      "yield_30d": 3.1415083537222577,
+      "yield_chg_30d_pct": 0.6195219633371909,
+      "yield_chg_90d_pct": 0.8415625784965247,
+      "holders": 37,
+      "holders_7d_pct": 0,
+      "holders_30d_pct": -21.27659574468085,
+      "supply": 2651098168.023102,
+      "networks": [
+        "BNB Chain",
+        "Ethereum",
+        "Solana"
+      ],
+      "tokens": [
+        {
+          "network": "BNB Chain",
+          "address": "0x8d0fa28f221eb5735bc71d3a0da67ee5bc821311"
+        },
+        {
+          "network": "Ethereum",
+          "address": "0x136471a34f6ef19fe571effc1ca711fdb8e49f2b"
+        }
+      ]
+    },
+    {
+      "ticker": "BUIDL",
+      "slug": "blackrock-usd-institutional-digital-liquidity-fund",
+      "name": "BlackRock USD Institutional Digital Liquidity Fund",
+      "issuer": "BlackRock USD Institutional Digital Liquidity Fund",
+      "asset_class": "US Treasury Debt",
+      "tvl": 2712219641.4804487,
+      "tvl_7d": 2680007532.4304485,
+      "chg_7d_pct": 1.201940989351908,
+      "chg_30d_pct": 4.5033758800359625,
+      "chg_90d_pct": 1.1077053883461376,
+      "yield": 3.4178321570029873,
+      "yield_30d": 3.3895044746892853,
+      "yield_chg_30d_pct": 0.8357470103738028,
+      "yield_chg_90d_pct": -3.7636515238324657,
+      "holders": 115,
+      "holders_7d_pct": 0,
+      "holders_30d_pct": 2.6785714285714284,
+      "supply": 2712219641.4804487,
+      "networks": [
+        "Ethereum",
+        "Solana",
+        "Avalanche C-Chain",
+        "Ethereum",
+        "BNB Chain",
+        "Optimism",
+        "Tempo",
+        "Aptos",
+        "Polygon",
+        "Arbitrum"
+      ],
+      "tokens": [
+        {
+          "network": "Ethereum",
+          "address": "0x6a9da2d710bb9b700acde7cb81f10f1ff8c89041"
+        },
+        {
+          "network": "Avalanche C-Chain",
+          "address": "0x53fc82f14f009009b440a706e31c9021e1196a2f"
+        },
+        {
+          "network": "Ethereum",
+          "address": "0x7712c34205737192402172409a8f7ccef8aa2aec"
+        },
+        {
+          "network": "BNB Chain",
+          "address": "0x2d5bdc96d9c8aabbdb38c9a27398513e7e5ef84f"
+        },
+        {
+          "network": "Optimism",
+          "address": "0xa1cdab15bba75a80df4089cafba013e376957cf5"
+        },
+        {
+          "network": "Tempo",
+          "address": "0xb5ff12bd8010baef823d1bfa2ce6bdc0109cbb24"
+        },
+        {
+          "network": "Aptos",
+          "address": "0x50038be55be5b964cfa32cf128b5cf05f123959f286b4cc02b86cafd48945f89"
+        },
+        {
+          "network": "Polygon",
+          "address": "0x2893ef551b6dd69f661ac00f11d93e5dc5dc0e99"
+        },
+        {
+          "network": "Arbitrum",
+          "address": "0xa6525ae43edcd03dc08e775774dcabd3bb925872"
+        }
+      ]
+    },
+    {
+      "ticker": "USDY",
+      "slug": "ondo-u-s-dollar-yield",
+      "name": "Ondo U.S. Dollar Yield",
+      "issuer": "Ondo USDY",
+      "asset_class": "US Treasury Debt",
+      "tvl": 2116317014.5781004,
+      "tvl_7d": 2115894956.985135,
+      "chg_7d_pct": 0.01994700122385752,
+      "chg_30d_pct": -0.30637871578746734,
+      "chg_90d_pct": 0.526294482309165,
+      "yield": 3.489697824263069,
+      "yield_30d": 3.489690086468981,
+      "yield_chg_30d_pct": 0.00022173298764090754,
+      "yield_chg_90d_pct": 0.0005079382548991238,
+      "holders": 15409,
+      "holders_7d_pct": 0.25374105400130126,
+      "holders_30d_pct": 1.0161269175298282,
+      "supply": 1851907560.6531606,
+      "networks": [
+        "Ethereum",
+        "Stellar",
+        "SEI",
+        "Solana",
+        "Mantle",
+        "Arbitrum",
+        "Aptos",
+        "MANTRA",
+        "BNB Chain",
+        "Plume",
+        "Ethereum",
+        "Sui",
+        "Noble"
+      ],
+      "tokens": [
+        {
+          "network": "Ethereum",
+          "address": "0x96f6ef951840721adbf46ac996b59e0235cb985c"
+        },
+        {
+          "network": "SEI",
+          "address": "0x54cd901491aef397084453f4372b93c33260e2a6"
+        },
+        {
+          "network": "Mantle",
+          "address": "0x5be26527e817998a7206475496fde1e68957c5a6"
+        },
+        {
+          "network": "Arbitrum",
+          "address": "0x35e050d3c0ec2d29d269a8ecea763a183bdf9a9d"
+        },
+        {
+          "network": "Aptos",
+          "address": "0xf0876baf6f8c37723f0e9d9c1bbad1ccb49324c228bcc906e2f1f5a9e139eda1"
+        },
+        {
+          "network": "BNB Chain",
+          "address": "0x608593d17a2decbbc4399e4185be4922f97ed32e"
+        },
+        {
+          "network": "Plume",
+          "address": "0xd2b65e851be3d80d3c2ce795eb2e78f16cb088b2"
+        },
+        {
+          "network": "Ethereum",
+          "address": "0xe86845788d6e3e5c2393ade1a051ae617d974c09"
+        },
+        {
+          "network": "Sui",
+          "address": "0x960b531667636f39e85867775f52f6b1f220a058c4de786905bdf761e06a56bb::usdy::USDY"
+        }
+      ]
+    },
+    {
+      "ticker": "eurSAFO",
+      "slug": "spiko-amundi-overnight-swap-fund-eur",
+      "name": "Spiko Amundi Overnight Swap Fund (EUR)",
+      "issuer": "Spiko",
+      "asset_class": "Active Strategies",
+      "tvl": 1083938256.149338,
+      "tvl_7d": 1015870652.3598448,
+      "chg_7d_pct": 6.7004203371141475,
+      "chg_30d_pct": 30.175427393564558,
+      "chg_90d_pct": 170.26582377145337,
+      "yield": 2.556075565614435,
+      "yield_30d": 2.4785382840494252,
+      "yield_chg_30d_pct": 3.128347141700384,
+      "yield_chg_90d_pct": 2.516633590059143,
+      "holders": 7942,
+      "holders_7d_pct": 3.022441302373849,
+      "holders_30d_pct": 23.03640588690937,
+      "supply": 930176643.5914837,
+      "networks": [
+        "Stellar",
+        "Arbitrum",
+        "Polygon",
+        "Ethereum",
+        "Base"
+      ],
+      "tokens": [
+        {
+          "network": "Arbitrum",
+          "address": "0x1412632f2b89e87bfa20c1318a43ced25f1d7b76"
+        },
+        {
+          "network": "Polygon",
+          "address": "0x272ea767712cc4839f4a27ee35eb73116158c8a2"
+        },
+        {
+          "network": "Ethereum",
+          "address": "0x0990b149e915cb08e2143a5c6f669c907eddc8b0"
+        },
+        {
+          "network": "Base",
+          "address": "0xd879846cbe20751bde8a9342a3cca00a3e56ca47"
+        }
+      ]
+    },
+    {
+      "ticker": "EUTBL",
+      "slug": "spiko-eu-t-bills-money-market-fund",
+      "name": "Spiko EU T-Bills Money Market Fund",
+      "issuer": "Spiko",
+      "asset_class": "non-US Government Debt",
+      "tvl": 914117465.120253,
+      "tvl_7d": 924116539.9004128,
+      "chg_7d_pct": -1.0820144806884833,
+      "chg_30d_pct": -6.049965573959897,
+      "chg_90d_pct": -8.763017173431376,
+      "yield": 2.2062704300258744,
+      "yield_30d": 1.9975397181361942,
+      "yield_chg_30d_pct": 10.449389816610832,
+      "yield_chg_90d_pct": 3.6736598678132677,
+      "holders": 3844,
+      "holders_7d_pct": -0.05200208008320333,
+      "holders_30d_pct": 4.314789687924017,
+      "supply": 749850604.0356225,
+      "networks": [
+        "Stellar",
+        "Arbitrum",
+        "Polygon",
+        "Ethereum",
+        "Base"
+      ],
+      "tokens": [
+        {
+          "network": "Arbitrum",
+          "address": "0xcbeb19549054cc0a6257a77736fc78c367216ce7"
+        },
+        {
+          "network": "Polygon",
+          "address": "0xa0769f7a8fc65e47de93797b4e21c073c117fc80"
+        },
+        {
+          "network": "Ethereum",
+          "address": "0xa0769f7a8fc65e47de93797b4e21c073c117fc80"
+        },
+        {
+          "network": "Base",
+          "address": "0xa0769f7a8fc65e47de93797b4e21c073c117fc80"
+        }
+      ]
+    },
+    {
+      "ticker": "EURC",
+      "slug": "eurc",
+      "name": "EURC",
+      "issuer": "Circle",
+      "asset_class": "Stablecoins",
+      "tvl": 533317977.666383,
+      "tvl_7d": 528256818.4679003,
+      "chg_7d_pct": 0.958086866377153,
+      "chg_30d_pct": 6.307633523097382,
+      "chg_90d_pct": 3.1891339311946774,
+      "yield": 0,
+      "yield_30d": 0,
+      "yield_chg_30d_pct": 0,
+      "yield_chg_90d_pct": 0,
+      "holders": 133169,
+      "holders_7d_pct": 0.8199203549202791,
+      "holders_30d_pct": 3.8031023462467846,
+      "supply": 462366420.5536027,
+      "networks": [
+        "Ethereum",
+        "Solana",
+        "Base",
+        "Avalanche C-Chain",
+        "Stellar",
+        "Tempo"
+      ],
+      "tokens": [
+        {
+          "network": "Ethereum",
+          "address": "0x1abaea1f7c830bd89acc67ec4af516284b1bc33c"
+        },
+        {
+          "network": "Base",
+          "address": "0x60a3e35cc302bfa44cb288bc5a4f316fdb1adb42"
+        },
+        {
+          "network": "Avalanche C-Chain",
+          "address": "0xc891eb4cbdeff6e073e859e987815ed1505c2acd"
+        },
+        {
+          "network": "Tempo",
+          "address": "0x20c0000000000000000000001621e21f71cf12fb"
+        }
+      ]
+    },
+    {
+      "ticker": "USTBL",
+      "slug": "spiko-us-t-bills-money-market-fund",
+      "name": "Spiko US T-Bills Money Market Fund",
+      "issuer": "Spiko",
+      "asset_class": "US Treasury Debt",
+      "tvl": 146910097.1873656,
+      "tvl_7d": 145702596.61586767,
+      "chg_7d_pct": 0.8287433440060017,
+      "chg_30d_pct": 0.6532094511306401,
+      "chg_90d_pct": -6.121610122096156,
+      "yield": 3.6481000274852162,
+      "yield_30d": 2.7391537880436325,
+      "yield_chg_30d_pct": 33.183468683252514,
+      "yield_chg_90d_pct": 10.895319111025591,
+      "holders": 929,
+      "holders_7d_pct": 0.5411255411255411,
+      "holders_30d_pct": 3.6830357142857144,
+      "supply": 134439367.05955425,
+      "networks": [
+        "Ethereum",
+        "Stellar",
+        "Arbitrum",
+        "Polygon",
+        "Base"
+      ],
+      "tokens": [
+        {
+          "network": "Ethereum",
+          "address": "0xe4880249745eac5f1ed9d8f7df844792d560e750"
+        },
+        {
+          "network": "Arbitrum",
+          "address": "0x021289588cd81dc1ac87ea91e91607eef68303f5"
+        },
+        {
+          "network": "Polygon",
+          "address": "0xe4880249745eac5f1ed9d8f7df844792d560e750"
+        },
+        {
+          "network": "Base",
+          "address": "0xe4880249745eac5f1ed9d8f7df844792d560e750"
+        }
+      ]
+    },
+    {
+      "ticker": "SAFO",
+      "slug": "spiko-amundi-overnight-swap-fund",
+      "name": "Spiko Amundi Overnight Swap Fund",
+      "issuer": "Spiko",
+      "asset_class": "Active Strategies",
+      "tvl": 137692020.64524412,
+      "tvl_7d": 136400633.83163133,
+      "chg_7d_pct": 0.946760126647825,
+      "chg_30d_pct": -5.321674762580959,
+      "chg_90d_pct": 16.452302047435055,
+      "yield": 4.0223393327319314,
+      "yield_30d": 3.9015946941584057,
+      "yield_chg_30d_pct": 3.0947509425904385,
+      "yield_chg_90d_pct": -9.521447416851,
+      "holders": 484,
+      "holders_7d_pct": 3.418803418803419,
+      "holders_30d_pct": 18.627450980392158,
+      "supply": 135376007.90205574,
+      "networks": [
+        "Stellar",
+        "Ethereum",
+        "Arbitrum",
+        "Polygon",
+        "Base"
+      ],
+      "tokens": [
+        {
+          "network": "Ethereum",
+          "address": "0xcbade7d9bdee88411cb6cbcbb29952b742036992"
+        },
+        {
+          "network": "Arbitrum",
+          "address": "0x0c709396739b9cfb72bcea6ac691ce0ddf66479c"
+        },
+        {
+          "network": "Polygon",
+          "address": "0x6f64f47f95cf656f21b40e14798f6b49f80b3dc5"
+        },
+        {
+          "network": "Base",
+          "address": "0x0bb754d8940e283d9ff6855ab5dafbc14165c059"
+        }
+      ]
+    },
+    {
+      "ticker": "NRW1",
+      "slug": "nrw1",
+      "name": "NRW1",
+      "issuer": "NRW.BANK",
+      "asset_class": "non-US Government Debt",
+      "tvl": 115345309.25230864,
+      "tvl_7d": 115592599.99999934,
+      "chg_7d_pct": -0.2139330265870902,
+      "chg_30d_pct": 0.5590116240907925,
+      "chg_90d_pct": -0.7667901054325278,
+      "yield": 0,
+      "yield_30d": 0,
+      "yield_chg_30d_pct": 0,
+      "yield_chg_90d_pct": 0,
+      "holders": 1,
+      "holders_7d_pct": 0,
+      "holders_30d_pct": 0,
+      "supply": 1000,
+      "networks": [
+        "Polygon"
+      ],
+      "tokens": [
+        {
+          "network": "Polygon",
+          "address": "0x167eb1757f9feb8e665a1094cfc3dbc10b309322"
+        }
+      ]
+    },
+    {
+      "ticker": "UKTBL",
+      "slug": "spiko-uk-t-bills-money-market-fund",
+      "name": "Spiko UK T-Bills Money Market Fund",
+      "issuer": "Spiko",
+      "asset_class": "non-US Government Debt",
+      "tvl": 17577268.10717104,
+      "tvl_7d": 18029373.32768459,
+      "chg_7d_pct": -2.507603632674958,
+      "chg_30d_pct": -16.952688275607763,
+      "chg_90d_pct": -28.675734127762897,
+      "yield": 3.3226670029552965,
+      "yield_30d": 2.481166348486782,
+      "yield_chg_30d_pct": 33.915527468834576,
+      "yield_chg_90d_pct": 2.7226996757703286,
+      "holders": 443,
+      "holders_7d_pct": 0.45351473922902497,
+      "holders_30d_pct": 4.235294117647059,
+      "supply": 12687293.211038888,
+      "networks": [
+        "Stellar",
+        "Polygon",
+        "Arbitrum",
+        "Base",
+        "Ethereum"
+      ],
+      "tokens": [
+        {
+          "network": "Polygon",
+          "address": "0x970e2adc2fdf53aea6b5fa73ca6dc30eafedfe3d"
+        },
+        {
+          "network": "Arbitrum",
+          "address": "0x903d5990119bc799423e9c25c56518ba7dd19474"
+        },
+        {
+          "network": "Base",
+          "address": "0xa8de1f55aa0e381cb456e1dcc9ff781ea0079068"
+        },
+        {
+          "network": "Ethereum",
+          "address": "0xf695df6c0f3bb45918a7a82e83348fc59517734e"
+        }
+      ]
+    },
+    {
+      "ticker": "AAULF",
+      "slug": "abrdn-liquidity-fund-lux-us-dollar-fund",
+      "name": "abrdn Liquidity Fund (Lux) – US Dollar Fund",
+      "issuer": "abrdn Liquidity Fund",
+      "asset_class": "US Treasury Debt",
+      "tvl": 16232449.459999997,
+      "tvl_7d": 16132325.259999998,
+      "chg_7d_pct": 0.6206433256602915,
+      "chg_30d_pct": -0.9249219104679447,
+      "chg_90d_pct": -0.15634424187128848,
+      "yield": 0,
+      "yield_30d": 0,
+      "yield_chg_30d_pct": 0,
+      "yield_chg_90d_pct": 0,
+      "holders": 13,
+      "holders_7d_pct": 0,
+      "holders_30d_pct": 0,
+      "supply": 16232449.459999997,
+      "networks": [
+        "Hedera",
+        "XRP Ledger",
+        "XDC",
+        "XRP Ledger"
+      ],
+      "tokens": [
+        {
+          "network": "XDC",
+          "address": "0x8771d782da59c0469cea87143dd219d72525abdb"
+        }
+      ]
+    },
+    {
+      "ticker": "bC3M",
+      "slug": "backed-govies-0-6-months-euro-investment-grade",
+      "name": "Backed GOVIES 0-6 Months Euro Investment Grade",
+      "issuer": "Backed Assets",
+      "asset_class": "non-US Government Debt",
+      "tvl": 9954786.95420226,
+      "tvl_7d": 9951815.61915201,
+      "chg_7d_pct": 0.0298572156474953,
+      "chg_30d_pct": 0.9040165448169624,
+      "chg_90d_pct": -0.8140990613998141,
+      "yield": 0,
+      "yield_30d": 0,
+      "yield_chg_30d_pct": 0,
+      "yield_chg_90d_pct": 0,
+      "holders": 3,
+      "holders_7d_pct": 0,
+      "holders_30d_pct": 0,
+      "supply": 68426.30270100001,
+      "networks": [
+        "Ethereum",
+        "Polygon",
+        "Base"
+      ],
+      "tokens": [
+        {
+          "network": "Ethereum",
+          "address": "0x2f123cf3f37ce3328cc9b5b8415f9ec5109b45e7"
+        },
+        {
+          "network": "Polygon",
+          "address": "0x2f123cf3f37ce3328cc9b5b8415f9ec5109b45e7"
+        },
+        {
+          "network": "Base",
+          "address": "0x2f123cf3f37ce3328cc9b5b8415f9ec5109b45e7"
+        }
+      ]
+    },
+    {
+      "ticker": "bIB01",
+      "slug": "backed-ibta-treasury-bond-0-1yr",
+      "name": "Backed IBTA $ Treasury Bond 0-1yr",
+      "issuer": "Backed Assets",
+      "asset_class": "US Treasury Debt",
+      "tvl": 9843293.025147222,
+      "tvl_7d": 9839312.795981672,
+      "chg_7d_pct": 0.0404523084902416,
+      "chg_30d_pct": 0.2567525621797292,
+      "chg_90d_pct": 0.7126722226183889,
+      "yield": 0,
+      "yield_30d": 0,
+      "yield_chg_30d_pct": 0,
+      "yield_chg_90d_pct": 0,
+      "holders": 85,
+      "holders_7d_pct": 0,
+      "holders_30d_pct": 1.1904761904761905,
+      "supply": 140769.09882100113,
+      "networks": [
+        "Arbitrum",
+        "Ethereum",
+        "Avalanche C-Chain",
+        "Base",
+        "Polygon",
+        "Gnosis"
+      ],
+      "tokens": [
+        {
+          "network": "Arbitrum",
+          "address": "0xca30c93b02514f86d5c86a6e375e3a330b435fb5"
+        },
+        {
+          "network": "Ethereum",
+          "address": "0xca30c93b02514f86d5c86a6e375e3a330b435fb5"
+        },
+        {
+          "network": "Avalanche C-Chain",
+          "address": "0xca30c93b02514f86d5c86a6e375e3a330b435fb5"
+        },
+        {
+          "network": "Base",
+          "address": "0xca30c93b02514f86d5c86a6e375e3a330b435fb5"
+        },
+        {
+          "network": "Polygon",
+          "address": "0xca30c93b02514f86d5c86a6e375e3a330b435fb5"
+        },
+        {
+          "network": "Gnosis",
+          "address": "0xca30c93b02514f86d5c86a6e375e3a330b435fb5"
+        }
+      ]
+    },
+    {
+      "ticker": "CETES",
+      "slug": "etherfuse-cetes",
+      "name": "Etherfuse CETES",
+      "issuer": "Etherfuse",
+      "asset_class": "non-US Government Debt",
+      "tvl": 5465941.296379972,
+      "tvl_7d": 5429219.461983,
+      "chg_7d_pct": 0.6763741022832005,
+      "chg_30d_pct": 2.8502577137899454,
+      "chg_90d_pct": 3.774731291551528,
+      "yield": 4.556720352630265,
+      "yield_30d": 4.676848956998191,
+      "yield_chg_30d_pct": -2.568579945011301,
+      "yield_chg_90d_pct": -9.639144293505169,
+      "holders": 5145,
+      "holders_7d_pct": 0.09727626459143969,
+      "holders_30d_pct": 0.2728512960436562,
+      "supply": 79150457.42010477,
+      "networks": [
+        "Stellar",
+        "Solana",
+        "Base",
+        "Polygon",
+        "Monad"
+      ],
+      "tokens": [
+        {
+          "network": "Base",
+          "address": "0x834df4c1d8f51be24322e39e4766697be015512f"
+        },
+        {
+          "network": "Polygon",
+          "address": "0x834df4c1d8f51be24322e39e4766697be015512f"
+        },
+        {
+          "network": "Monad",
+          "address": "0x834df4c1d8f51be24322e39e4766697be015512f"
+        }
+      ]
+    },
+    {
+      "ticker": "EUROB",
+      "slug": "etherfuse-eurob",
+      "name": "Etherfuse EUROB",
+      "issuer": "Etherfuse",
+      "asset_class": "non-US Government Debt",
+      "tvl": 402.1909469036831,
+      "tvl_7d": 402.9833079336896,
+      "chg_7d_pct": -0.19662378426277496,
+      "chg_30d_pct": 0.9256072961845863,
+      "chg_90d_pct": -0.16864615237690522,
+      "yield": 1.4559163322387698,
+      "yield_30d": 1.5439517679268926,
+      "yield_chg_30d_pct": -5.701955042697378,
+      "yield_chg_90d_pct": -0.704290134782658,
+      "holders": 36,
+      "holders_7d_pct": 0,
+      "holders_30d_pct": 2.857142857142857,
+      "supply": 339.1523639999944,
+      "networks": [
+        "Solana",
+        "Stellar",
+        "Polygon",
+        "Base",
+        "Monad"
+      ],
+      "tokens": [
+        {
+          "network": "Polygon",
+          "address": "0xc6221856e45ed806f8325a084bed3d69d32c526d"
+        },
+        {
+          "network": "Base",
+          "address": "0xc6221856e45ed806f8325a084bed3d69d32c526d"
+        },
+        {
+          "network": "Monad",
+          "address": "0xc6221856e45ed806f8325a084bed3d69d32c526d"
+        }
+      ]
+    }
+  ]
+}

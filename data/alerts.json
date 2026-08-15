@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-14T13:55:13.196Z",
+  "updated_at": "2026-08-15T01:58:18.417Z",
   "alerts": [
     {
       "id": "yield-cohort-USYC-2026-08-06",
@@ -207,6 +207,24 @@
       "title": "EUROB bottom of EUR cohort",
       "detail": "EUROB 1.46% vs cohort median 2.21% (-0.75pt)",
       "date": "2026-08-14"
+    },
+    {
+      "id": "yield-cohort-CETES-2026-08-15",
+      "type": "yield-cohort",
+      "severity": "info",
+      "ticker": "CETES",
+      "title": "CETES top of USD cohort",
+      "detail": "CETES 4.56% vs cohort median 3.65% (+0.91pt)",
+      "date": "2026-08-15"
+    },
+    {
+      "id": "yield-cohort-EUROB-2026-08-15",
+      "type": "yield-cohort",
+      "severity": "info",
+      "ticker": "EUROB",
+      "title": "EUROB bottom of EUR cohort",
+      "detail": "EUROB 1.46% vs cohort median 2.21% (-0.75pt)",
+      "date": "2026-08-15"
     }
   ]
 }
