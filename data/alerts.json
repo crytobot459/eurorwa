@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-16T02:07:30.387Z",
+  "updated_at": "2026-08-16T13:10:40.519Z",
   "alerts": [
     {
       "id": "yield-cohort-USYC-2026-08-06",
@@ -287,6 +287,24 @@
       "ticker": "bIB01",
       "title": "Holders surged +20.00% on bIB01",
       "detail": "bIB01 holders 102 (7d +20.00%) — institutions entering",
+      "date": "2026-08-16"
+    },
+    {
+      "id": "yield-cohort-USYC-2026-08-16",
+      "type": "yield-cohort",
+      "severity": "info",
+      "ticker": "USYC",
+      "title": "USYC bottom of USD cohort",
+      "detail": "USYC 3.16% vs cohort median 4.02% (-0.87pt)",
+      "date": "2026-08-16"
+    },
+    {
+      "id": "yield-breakout-USTBL-2026-08-16",
+      "type": "yield-breakout",
+      "severity": "warning",
+      "ticker": "USTBL",
+      "title": "USTBL yield broke out 0.45pt",
+      "detail": "USTBL yield 3.65% → 4.10% vs prior day (positive signal)",
       "date": "2026-08-16"
     }
   ]
