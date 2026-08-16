@@ -1,0 +1,152 @@
+{
+  "date": "2026-08-16",
+  "generated_at": "2026-08-16T02:07:31.989Z",
+  "benchmarks": {
+    "estr": 2.188,
+    "sofr": 3.62,
+    "tbill": 3.6481000274852162
+  },
+  "rows": [
+    {
+      "ticker": "USYC",
+      "bucket": "usd",
+      "yield": 3.156093855191413,
+      "tvl": 2995274835.0869756,
+      "holders": 36,
+      "coverage": 1.000010035060164,
+      "collateral": 0.7292576449832777,
+      "carry": -0.46390614480858705
+    },
+    {
+      "ticker": "BUIDL",
+      "bucket": "usd",
+      "yield": 3.4130968226033307,
+      "tvl": 2712480899.130449,
+      "holders": 106,
+      "coverage": 0.7312635563134547,
+      "collateral": 0.6660040949523703,
+      "carry": -0.2069031773966694
+    },
+    {
+      "ticker": "USDY",
+      "bucket": "usd",
+      "yield": 3.4896382174165943,
+      "tvl": 2117722176.3633866,
+      "holders": 17235,
+      "coverage": 0.5263516426668559,
+      "collateral": 0.6011923409570227,
+      "carry": -0.1303617825834058
+    },
+    {
+      "ticker": "USTBL",
+      "bucket": "usd",
+      "yield": 3.6481000274852162,
+      "tvl": 146929406.91761404,
+      "holders": 927,
+      "coverage": 0.6897682672021888,
+      "collateral": 0.5060418680938227,
+      "carry": 0.028100027485216117
+    },
+    {
+      "ticker": "SAFO",
+      "bucket": "usd",
+      "yield": 4.0223393327319314,
+      "tvl": 140120806.5343861,
+      "holders": 491,
+      "coverage": 0.49487224438685407,
+      "collateral": 0.48947884443756395,
+      "carry": 0.40233933273193134
+    },
+    {
+      "ticker": "CETES",
+      "bucket": "usd",
+      "yield": 4.521390400335248,
+      "tvl": 5471357.603807361,
+      "holders": 4991,
+      "coverage": 0.008503442091644062,
+      "collateral": 0.4081316334110541,
+      "carry": 0.9013904003352478
+    },
+    {
+      "ticker": "EUTBL",
+      "bucket": "eur",
+      "yield": 2.2062704300258744,
+      "tvl": 914735880.869245,
+      "holders": 3789,
+      "coverage": 0.4714999473329917,
+      "collateral": 0.37842074411621623,
+      "carry": 0.01827043002587425
+    },
+    {
+      "ticker": "eurSAFO",
+      "bucket": "eur",
+      "yield": 2.556075565614435,
+      "tvl": 1096635381.9434922,
+      "holders": 7859,
+      "coverage": 0.20755962044479895,
+      "collateral": 0.3601277108783515,
+      "carry": 0.368075565614435
+    },
+    {
+      "ticker": "UKTBL",
+      "bucket": "gbp",
+      "yield": 3.3226670029552965,
+      "tvl": 17194731.133915685,
+      "holders": 442,
+      "coverage": 0.12191142395543528,
+      "collateral": 0.32607639905655117,
+      "carry": -0.2973329970447036
+    },
+    {
+      "ticker": "EUROB",
+      "bucket": "eur",
+      "yield": 1.4609110403570287,
+      "tvl": 403.38530857192825,
+      "holders": 36,
+      "coverage": 0.002211395465903379,
+      "collateral": 0.12983796610541118,
+      "carry": -0.7270889596429715
+    }
+  ],
+  "ranking": [
+    "USYC",
+    "BUIDL",
+    "USDY",
+    "USTBL",
+    "SAFO",
+    "CETES",
+    "EUTBL",
+    "eurSAFO",
+    "UKTBL",
+    "EUROB"
+  ],
+  "pairs": [
+    {
+      "a": "eurSAFO",
+      "b": "SAFO",
+      "spread_pt": -1.4662637671174963,
+      "long": "SAFO",
+      "short": "eurSAFO",
+      "note": "Spiko EUR money market vs USD — carry 1.47pt"
+    },
+    {
+      "a": "EUTBL",
+      "b": "USTBL",
+      "spread_pt": -1.4418295974593418,
+      "long": "USTBL",
+      "short": "EUTBL",
+      "note": "Spiko EUR T-bill vs USD T-bill — carry 1.44pt"
+    },
+    {
+      "a": "EUROB",
+      "b": "USDY",
+      "spread_pt": -2.0287271770595656,
+      "long": "USDY",
+      "short": "EUROB",
+      "note": "European bond fund vs Ondo USD yield — carry 2.03pt"
+    }
+  ],
+  "top": "USYC",
+  "signal": "PARK",
+  "note": "no positive carry — USYC at 3.16% vs benchmark — plain T-bill or treasury better"
+}
