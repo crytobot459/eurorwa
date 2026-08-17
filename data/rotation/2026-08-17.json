@@ -1,10 +1,10 @@
 {
   "date": "2026-08-17",
-  "generated_at": "2026-08-17T02:05:50.827Z",
+  "generated_at": "2026-08-17T13:22:21.655Z",
   "benchmarks": {
-    "estr": 2.188,
+    "estr": 2.189,
     "sofr": 3.62,
-    "tbill": 4.0969500308662505,
+    "tbill": 2.0810957804913,
     "src": "ecb+fred"
   },
   "rows": [
@@ -17,71 +17,71 @@
     {
       "ticker": "BUIDL",
       "bucket": "usd",
-      "yield": 3.4145091222594113,
+      "yield": 3.415921421915491,
       "hedged": null
     },
     {
       "ticker": "USDY",
       "bucket": "usd",
-      "yield": 3.4896699219968568,
+      "yield": 3.4897015899696724,
       "hedged": null
     },
     {
       "ticker": "eurSAFO",
       "bucket": "eur",
-      "yield": 2.556075565614435,
-      "hedged": 3.988075565614435
+      "yield": 2.1939954463891125,
+      "hedged": 3.6249954463891125
     },
     {
       "ticker": "EUTBL",
       "bucket": "eur",
-      "yield": 2.2062704300258744,
-      "hedged": 3.6382704300258744
+      "yield": 2.2058737040469807,
+      "hedged": 3.6368737040469807
     },
     {
       "ticker": "USTBL",
       "bucket": "usd",
-      "yield": 4.0969500308662505,
+      "yield": 2.0810957804913,
       "hedged": null
     },
     {
       "ticker": "SAFO",
       "bucket": "usd",
-      "yield": 4.0223393327319314,
+      "yield": 3.441072053799923,
       "hedged": null
     },
     {
       "ticker": "UKTBL",
       "bucket": "gbp",
-      "yield": 3.3226670029552965,
+      "yield": 2.1229254098599375,
       "hedged": null
     },
     {
       "ticker": "CETES",
       "bucket": "usd",
-      "yield": 4.520705654762813,
+      "yield": 4.520021116563498,
       "hedged": null
     },
     {
       "ticker": "EUROB",
       "bucket": "eur",
-      "yield": 1.4709804122658037,
-      "hedged": 2.9029804122658036
+      "yield": 1.4658282141324523,
+      "hedged": 2.8968282141324524
     }
   ],
   "best_eur": {
-    "ticker": "eurSAFO",
+    "ticker": "EUTBL",
     "bucket": "eur",
-    "yield": 2.556075565614435,
-    "hedged": 3.988075565614435
+    "yield": 2.2058737040469807,
+    "hedged": 3.6368737040469807
   },
   "best_usd": {
     "ticker": "CETES",
     "bucket": "usd",
-    "yield": 4.520705654762813,
+    "yield": 4.520021116563498,
     "hedged": null
   },
   "signal": "ROTATE_USD",
-  "gap_pt": -0.5326300891483782,
-  "note": "best hedged EUR eurSAFO 3.99% vs best USD CETES 4.52% (gap -0.53pt) — stay USD — EUR carry unattractive after hedging"
+  "gap_pt": -0.8831474125165175,
+  "note": "best hedged EUR EUTBL 3.64% vs best USD CETES 4.52% (gap -0.88pt) — stay USD — EUR carry unattractive after hedging"
 }

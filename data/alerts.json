@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-17T02:05:47.564Z",
+  "updated_at": "2026-08-17T13:22:18.427Z",
   "alerts": [
     {
       "id": "yield-cohort-USYC-2026-08-06",
@@ -341,6 +341,60 @@
       "ticker": "bIB01",
       "title": "Holders surged +20.00% on bIB01",
       "detail": "bIB01 holders 102 (7d +20.00%) — institutions entering",
+      "date": "2026-08-17"
+    },
+    {
+      "id": "yield-breakout-eurSAFO-2026-08-17",
+      "type": "yield-breakout",
+      "severity": "warning",
+      "ticker": "eurSAFO",
+      "title": "eurSAFO yield dropped 0.36pt",
+      "detail": "eurSAFO yield 2.56% → 2.19% vs prior day (watch outflows)",
+      "date": "2026-08-17"
+    },
+    {
+      "id": "yield-breakout-USTBL-2026-08-17",
+      "type": "yield-breakout",
+      "severity": "warning",
+      "ticker": "USTBL",
+      "title": "USTBL yield dropped 2.02pt",
+      "detail": "USTBL yield 4.10% → 2.08% vs prior day (watch outflows)",
+      "date": "2026-08-17"
+    },
+    {
+      "id": "yield-cohort-USTBL-2026-08-17",
+      "type": "yield-cohort",
+      "severity": "info",
+      "ticker": "USTBL",
+      "title": "USTBL bottom of USD cohort",
+      "detail": "USTBL 2.08% vs cohort median 3.44% (-1.36pt)",
+      "date": "2026-08-17"
+    },
+    {
+      "id": "yield-breakout-SAFO-2026-08-17",
+      "type": "yield-breakout",
+      "severity": "warning",
+      "ticker": "SAFO",
+      "title": "SAFO yield dropped 0.58pt",
+      "detail": "SAFO yield 4.02% → 3.44% vs prior day (watch outflows)",
+      "date": "2026-08-17"
+    },
+    {
+      "id": "yield-breakout-UKTBL-2026-08-17",
+      "type": "yield-breakout",
+      "severity": "warning",
+      "ticker": "UKTBL",
+      "title": "UKTBL yield dropped 1.20pt",
+      "detail": "UKTBL yield 3.32% → 2.12% vs prior day (watch outflows)",
+      "date": "2026-08-17"
+    },
+    {
+      "id": "yield-cohort-CETES-2026-08-17",
+      "type": "yield-cohort",
+      "severity": "info",
+      "ticker": "CETES",
+      "title": "CETES top of USD cohort",
+      "detail": "CETES 4.52% vs cohort median 3.44% (+1.08pt)",
       "date": "2026-08-17"
     }
   ]
