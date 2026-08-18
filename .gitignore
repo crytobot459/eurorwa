@@ -1,9 +1,6 @@
 .env*
 !.env.example
 node_modules/
-public/
-!src/frontend/public/
-src/frontend/dist/
 data/rwa.db
 data/rwa.db-*
 data/agent.key
@@ -11,5 +8,4 @@ data/buyer*.key
 data/freelance/
 data/tg-bots.json
 data/agent-wallets.json
-.vercel
 data/cron.log

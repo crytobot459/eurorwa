@@ -22,5 +22,4 @@ bun run src/analyst/strategy.ts || echo "[$(date -Iseconds)] strategy FAILED" >>
 if [ -n "$PORTFOLIO_WALLET" ]; then
   bun run src/analyst/portfolio.ts || echo "[$(date -Iseconds)] portfolio FAILED" >> data/cron.log
 fi
-bun run src/posts.ts
-bun run src/visual.ts
+

@@ -62,10 +62,3 @@ jobs:
             git push
             echo "pushed=true" >> "$GITHUB_OUTPUT"
           fi
-
-      - name: redeploy
-        if: steps.commit.outputs.pushed == 'true'
-        env:
-          VERCEL_DEPLOY_HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}
-        run: |
-          curl -fsSL -X POST "$VERCEL_DEPLOY_HOOK" && echo "deploy triggered"

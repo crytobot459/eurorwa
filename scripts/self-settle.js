@@ -10,7 +10,7 @@ if (!PAYTO) throw new Error("SELF_SETTLE_PAYTO not set")
 if (!process.env.CDP_API_KEY_ID || !process.env.CDP_API_KEY_SECRET) {
   throw new Error("CDP_API_KEY_ID / CDP_API_KEY_SECRET not set")
 }
-const API = process.env.SELF_SETTLE_API ?? "https://rwa-dashboard-gamma.vercel.app"
+const API = process.env.SELF_SETTLE_API ?? "http://localhost:3000"
 const CHAIN = CHAIN_ID === 8453 ? base : baseSepolia
 const KEY_FILE = new URL(`../data/buyer-${NETWORK}.key`, import.meta.url).pathname
 const client = createPublicClient({ chain: CHAIN, transport: http() })

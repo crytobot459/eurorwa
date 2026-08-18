@@ -365,7 +365,7 @@ app.get("/portfolio", (c) => {
 app.post("/analyst", async (c) => {
   const rep = reports().at(-1)
   if (!rep) return c.json({ ok: false, error: "no report yet" }, 503)
-  const origin = new URL(c.req.url).origin || "https://rwa-dashboard-gamma.vercel.app"
+  const origin = new URL(c.req.url).origin || ""
   const resource = {
     url: `${origin}/api/analyst`,
     description:

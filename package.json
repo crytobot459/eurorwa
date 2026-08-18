@@ -18,7 +18,6 @@
     "rotation": "bun run src/analyst/rotation.ts",
     "portfolio": "bun run src/analyst/portfolio.ts",
     "strategy": "bun run src/analyst/strategy.ts",
-    "frontend": "cd src/frontend && bun run dev",
     "freelance": "bun --env-file=.env.local run scripts/freelance-bot.js",
     "freelance-test": "bun run scripts/freelance-test.js",
     "x402-test": "bun run scripts/x402-test.js",

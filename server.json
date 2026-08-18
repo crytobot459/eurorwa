@@ -8,10 +8,5 @@
     "source": "github"
   },
   "version": "1.0.0",
-  "remotes": [
-    {
-      "type": "streamable-http",
-      "url": "https://rwa-dashboard-gamma.vercel.app/mcp"
-    }
-  ]
+  "remotes": []
 }

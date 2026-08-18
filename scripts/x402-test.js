@@ -113,7 +113,7 @@ const fakePayload = {
   payload: { signature: "0x" + "ab".repeat(65), authorization: { from: acct.address, to: acct.address } },
 }
 const fakeResource = {
-  url: "https://rwa-dashboard-gamma.vercel.app/api/analyst",
+  url: "http://localhost:3000/api/analyst",
   description: "Latest EuroRWA analyst report",
   mimeType: "application/json",
 }

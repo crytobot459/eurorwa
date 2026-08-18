@@ -91,23 +91,9 @@ European Tokenized Money Market Funds, with an **on-chain AI agent** integrated.
 
 ---
 
-## PHASE 4 — Frontend dashboard (weeks 5-6)
+## PHASE 4 — Frontend dashboard (removed)
 
-### Tasks
-
-1. Write `src/frontend/` (React + Vite + Recharts):
-   - Main page: table of 11+ EU/US funds (TVL, APY, 7d change, holders)
-   - Detail page: net flows + yield charts by day
-   - "New Funds" page: new fund alerts (from rwa.xyz new-asset-monitor + RPC events)
-2. Build static → deploy **Vercel free** (or GitHub Pages)
-3. Vercel config: frontend + serverless API (each function reads SQLite)
-
-### Completion criteria (Done)
-
-- [x] Public URL showing daily-updated data table — **https://rwa-dashboard-gamma.vercel.app**
-- [x] Flows/yield charts render (detail chart TVL+APY, tabs yields bars + flows table — localhost OK)
-
-> Deploy: `api/app.js` (pure JS, reads snapshot JSON — Vercel functions are Node, `.ts` helpers aren't compiled), `api/main.ts` (strips `/api` prefix), vercel.json `build.env VITE_API=/api` + rewrites `/api/:path*` → `/api/main`. Fixed 3 routing/bundling bugs + build env.
+> The public web dashboard was removed to comply with Vietnamese law (prohibition on crypto/coin advertising and registration, effective 1 Sep 2026). The data pipeline, on-chain attestation, API and MCP server remain.
 
 ---
 
@@ -201,7 +187,7 @@ Agent automatically publishes RWA data to the blockchain so anyone can verify it
 - [x] P1: environment setup (real web data, no API key needed)
 - [x] P2: fetch + ingest + SQLite history — real web data
 - [x] P3: API 4 endpoints — real data
-- [x] P4: frontend + public deploy — rwa-dashboard-gamma.vercel.app
+- [x] P4: frontend + public deploy (removed — see README note re: VN crypto-ad law)
 - [~] P5: attest.ts + verify.ts done (missing: bonus Sepolia contract)
 - [ ] P6: 5 posts + public repo
 - [ ] P7: first customer / grant

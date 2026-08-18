@@ -10,10 +10,11 @@
 </p>
 
 <p align="center">
-  <a href="https://rwa-dashboard-gamma.vercel.app">Live dashboard</a> ·
   <a href="https://sepolia.etherscan.io/address/0xd482a715cdef4073593f4a3208abd328f6d71725">On-chain attestation</a> ·
   <a href="https://registry.modelcontextprotocol.io/servers?search=eurorwa">MCP Registry</a>
 </p>
+
+> **Note:** the public web dashboard has been removed to comply with Vietnamese law (prohibition on crypto/coin advertising and registration, effective 1 Sep 2026). The data pipeline, on-chain attestation, API and MCP server remain.
 
 ---
 
@@ -33,7 +34,6 @@ Anyone can re-hash the data and verify the on-chain signature — no "trust me" 
 
 | Interface   | How to use                                                                                      |
 | ----------- | ----------------------------------------------------------------------------------------------- |
-| Dashboard   | https://rwa-dashboard-gamma.vercel.app — charts for TVL, yields, flows, holders                 |
 | Open API    | `GET /api/overview`, `/api/funds`, `/api/yields`, `/api/flows`, `/api/analytics`, `/api/alerts` |
 | Paid report | `POST /api/analyst` — pay-per-call via x402 ($0.05 USDC on Base)                                |
 | MCP server  | Streamable HTTP at `/mcp` — 4 tools + 2 resources, published on the MCP Registry                |
@@ -50,6 +50,7 @@ Anyone can re-hash the data and verify the on-chain signature — no "trust me" 
 | Frontend | React · Vite · Recharts           |
 | AI       | Google Gemini                     |
 | Bots     | Telegram (long-polling + webhook) |
+| Web      | removed (see note above)          |
 
 ## Repo layout
 
@@ -58,7 +59,6 @@ src/fetch.ts          # snapshot scraper (rwa.xyz)
 src/ingest.ts         # snapshot → SQLite
 src/analyst/          # AI agent: news / flow / macro + BUY-HOLD-SELL
 src/agent/            # on-chain attestation (deploy / sign / verify / publish)
-src/frontend/         # dashboard web app
 api/                  # Hono API (REST + x402 + MCP) + Telegram bot entrypoints
 scripts/              # cron pipeline, settlement, LinkedIn assets, NFT mint
 data/                 # snapshots, agent wallet, attestation store
@@ -80,7 +80,6 @@ Verifies the payload hash matches the published keccak-256 and that the recovere
 - [x] On-chain attestation on Sepolia
 - [x] AI analyst with 30/90d trend awareness
 - [x] Telegram delivery
-- [x] Live dashboard + on-chain verified NFT avatar
 - [x] Pay-per-call report API (x402 v2, CDP facilitator settlement)
 - [x] MCP server published on the MCP Registry
 - [ ] Public Telegram data bot (in progress)

@@ -21,15 +21,12 @@ guard.ts   → checks on-chain: is this date already attested?
               └─ not attested  → attest.ts + publish.ts
 attest.ts  → hashes snapshot (keccak-256) + signs with agent wallet → data/attestations/<date>.json
 publish.ts → sends hash + signature to the Sepolia contract → writes published.tx into attestation file
-posts.ts   → generates ready.md (X/Reddit/LinkedIn posts) into docs/posts/<date>/
-visual.ts  → builds chart HTML → screenshots PNG with headless Chrome → docs/posts/<date>/visual.png
 ```
 
 Then (GitHub Actions only):
 
 ```
-commit + push → if there are changes: commit snapshot + posts + image back to repo main
-redeploy      → if there's a new commit: call Vercel Deploy Hook → site auto-updates
+commit + push → if there are changes: commit snapshot back to repo main
 ```
 
 ## 3. Agent wallet & security
@@ -50,10 +47,10 @@ The contract only accepts **1 attestation/day** (`require date already attested`
 
 ## 5. Data & deploy
 
-- Vercel API reads `data/snapshots/*.json` directly (no SQLite needed)
-- Snapshot is committed to the repo → Deploy Hook → Vercel rebuild → dashboard shows new data
-- Dashboard: https://rwa-dashboard-gamma.vercel.app
+- Snapshot is committed to the repo (`data/snapshots/*.json`)
 - Repo: https://github.com/crytobot459/eurorwa
+
+> The public web dashboard has been removed to comply with Vietnamese law (prohibition on crypto/coin advertising and registration, effective 1 Sep 2026). The API and MCP server remain deployable; the Vercel web dashboard is gone.
 
 ## 6. When something breaks — where to look
 
@@ -61,7 +58,7 @@ The contract only accepts **1 attestation/day** (`require date already attested`
 | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
 | No file in `docs/posts/<date>/` today | `data/cron.log` (local) or GitHub → Actions → pipeline                                                                                |
 | Attestation not published             | `data/attestations/<date>.json` missing `published.tx` → check tx error on Sepolia scan                                               |
-| Site doesn't show new data            | Did GitHub Actions commit? Did the Vercel hook run?                                                                                   |
+| Snapshot not updated                  | Did GitHub Actions commit the new snapshot?                                                                                           |
 | Image not generated                   | Chrome busy (many tabs open) — visual.ts has its own `--user-data-dir` + 30s timeout, errors only warn, they don't block the pipeline |
 
 ## 7. Manual run for testing
@@ -76,9 +73,9 @@ bun run scripts/bot-test.js  # test bot logic (no token needed)
 
 ## 8. Telegram bot (agent chats with customers)
 
-- Endpoint: `POST /api/tg` (Telegram webhook on Vercel) — `api/tg.ts` + `api/tgbot.js`
-- Answers from `data/snapshots/*.json` + `data/attestations/*.json` (fresh data each time the pipeline redeploys)
+- Endpoint: `POST /api/tg` (Telegram webhook) — `api/tg.ts` + `api/tgbot.js`
+- Answers from `data/snapshots/*.json` + `data/attestations/*.json`
 - Commands: `/today`, `/funds`, `/yields`, `/movers`, `/proof`, `/suggest <comment>`, or just type a fund name / question
-- Token: read from env `TG_TOKEN` (set in Vercel → Settings → Environment Variables)
-- Register webhook: `TG_TOKEN=... bun run scripts/tg-webhook.js https://rwa-dashboard-gamma.vercel.app/api/tg`
+- Token: read from env `TG_TOKEN`
+- Register webhook: `TG_TOKEN=... bun run scripts/tg-webhook.js http://localhost:3000/api/tg`
 - Test locally: `bun run scripts/bot-test.js`

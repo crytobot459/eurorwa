@@ -1,6 +1,0 @@
-# Allow all crawlers and AI agents to index.
-User-agent: *
-Allow: /
-
-# Sitemap (when published).
-# Sitemap: https://rwa-dashboard-gamma.vercel.app/sitemap.xml

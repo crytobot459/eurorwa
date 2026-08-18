@@ -3,7 +3,7 @@ import { dirname, join } from "node:path"
 import { fileURLToPath } from "node:url"
 import { quickQuote } from "./_freelance.js"
 
-const urlSite = "https://rwa-dashboard-gamma.vercel.app"
+const urlSite = ""
 const here = dirname(fileURLToPath(import.meta.url))
 const cwd = process.cwd()
 const snapCands = [

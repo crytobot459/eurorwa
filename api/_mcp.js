@@ -199,7 +199,7 @@ function promptBody(name, args) {
 }
 
 const PAID_TOOLS = new Set(["overview"])
-const MCP_ORIGIN = "https://rwa-dashboard-gamma.vercel.app"
+const MCP_ORIGIN = ""
 
 const API_PATH = {
   verify: "verification",
