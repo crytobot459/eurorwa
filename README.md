@@ -1,18 +1,29 @@
-> ⚠️ **Archived / Decommissioned.** The public web dashboard and all coin advertising/registration have been removed to comply with Vietnamese law (prohibition on crypto/coin advertising and registration, effective 1 Sep 2026). This repository is kept as an archived technical reference. The data pipeline, on-chain attestation, API and MCP server code remain; no hosted service or public bot is operated.
+# EuroRWA — Research Project
 
-## What it was
+> Independent research into **public data transparency and verifiable snapshots** for tokenized money-market funds (MMFs).
 
-A data pipeline that snapshots EU + US tokenized money-market-fund data (rwa.xyz), computes TVL / APY / holder counts / flows into SQLite, and publishes a keccak-256 hash of each snapshot to an on-chain attestation contract on Sepolia. An AI analyst layer produced BUY / HOLD / SELL signals from news, on-chain flows and macro context.
+This repository is a **research project**. It studies how publicly available tokenized-MMF data can be collected, stored, and independently verified. It is provided as code and methodology for studying open financial data — not a product, service, or offering, and no hosted service, dashboard, or bot is operated here.
 
-Anyone can re-hash the data and verify the on-chain signature — no "trust me" dashboards.
+## Research questions
 
-## Components (code only — no hosted service)
+- How can a daily fund snapshot be made **independently verifiable** (keccak-256 hash → signed → published on-chain)?
+- What does public tokenized-MMF data look like across EU + US issuers (TVL, yield, flows, holders)?
+- Can an analyst layer produce **reproducible, explainable** signals from that data?
+
+## What the code does
+
+1. **Collect** public fund data (rwa.xyz) → SQLite snapshots.
+2. **Attest** each snapshot: hash it (keccak-256), sign with a dedicated key, and publish the signature to a Sepolia contract.
+3. **Analyze**: deterministic scoring plus an analyst layer over news / on-chain flows / macro context.
+4. **Verify**: anyone can re-hash the data and check the on-chain signature.
+
+## Components
 
 | Component            | Path            |
 | -------------------- | --------------- |
-| Snapshot scraper     | `src/fetch.ts`  |
-| Ingest → SQLite      | `src/ingest.ts` |
-| AI analyst           | `src/analyst/`  |
+| Snapshot collector   | `src/fetch.ts`  |
+| Store (SQLite)       | `src/ingest.ts` |
+| Analyst              | `src/analyst/`  |
 | On-chain attestation | `src/agent/`    |
 | API (REST + MCP)     | `api/`          |
 | Pipeline scripts     | `scripts/`      |
@@ -25,5 +36,9 @@ bun run verify -- 2026-08-06   # a specific date
 ```
 
 Verifies the payload hash matches the published keccak-256 and that the recovered signer is the agent wallet.
+
+## Status
+
+Research code, provided as-is for study. No hosted service is operated.
 
 MIT © 2026 — data sourced from rwa.xyz public APIs. Not financial advice.
