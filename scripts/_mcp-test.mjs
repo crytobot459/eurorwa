@@ -35,7 +35,7 @@ const tools = await rpc({ jsonrpc: "2.0", id: 3, method: "tools/list" })
 check(
   "tools/list names",
   tools.json?.result?.tools.map((t) => t.name),
-  ["overview", "funds", "analytics", "alerts"],
+  ["overview", "funds", "analytics", "alerts", "verify", "rotation", "strategy", "portfolio"],
 )
 
 for (const name of ["overview", "funds", "analytics", "alerts"]) {

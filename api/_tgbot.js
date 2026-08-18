@@ -1,9 +1,7 @@
 import { existsSync, readFileSync, readdirSync } from "node:fs"
 import { dirname, join } from "node:path"
 import { fileURLToPath } from "node:url"
-import { quickQuote } from "./_freelance.js"
 
-const urlSite = ""
 const here = dirname(fileURLToPath(import.meta.url))
 const cwd = process.cwd()
 const snapCands = [
@@ -57,7 +55,6 @@ Commands:
 /yields — top yields
 /movers — 7-day movers
 /proof — on-chain proof
-/suggest <comment> — get reply drafts for a LinkedIn comment
 
 Type a fund name (e.g. usyc) or ask a question (e.g. "top yield?") directly.`
 }
@@ -84,8 +81,7 @@ function today() {
 ${fmt(total)} across ${funds.length} EU/US funds:
 ${top5}
 
-Top yields: ${ylds}
-Live: ${urlSite}${proof}`
+Top yields: ${ylds}${proof}`
 }
 
 function fundsList() {
@@ -160,40 +156,7 @@ Yield: ${f.yield > 0 ? f.yield.toFixed(2) + "%" : "n/a"}
 Holders: ${(f.holders || 0).toLocaleString()}
 Supply: ${(f.supply || 0).toLocaleString()}
 
-Onchain-verified: ${urlSite}`
-}
-
-function suggest(comment) {
-  const s = lastSnap()
-  if (!s) return "No data yet — try again later."
-  const { date, funds } = s
-  const total = funds.reduce((a, f) => a + f.tvl, 0)
-  const low = comment.toLowerCase()
-  const hit = findFund(low)
-  const att = attest(date)
-  const txShort = att?.published?.tx ? att.published.tx.slice(0, 10) : null
-  const movers = [...funds].filter((f) => f.chg_7d_pct).sort((a, b) => Math.abs(b.chg_7d_pct) - Math.abs(a.chg_7d_pct))
-  const gainer = movers.find((f) => f.chg_7d_pct > 0)
-  const loser = movers.find((f) => f.chg_7d_pct < 0)
-  const dateline = `On today's snapshot (${date}) ${fmt(total)} sits across 15 EU/US tokenized MMFs.`
-  const d1 = hit
-    ? `Thanks for the comment! ${dateline} ${hit.ticker} specifically: ${fmt(hit.tvl)} TVL at ${hit.yield.toFixed(2)}%. Full breakdown: ${urlSite}`
-    : `Thanks for the comment! ${dateline} Full breakdown: ${urlSite}`
-  const d2 = gainer
-    ? `Great point. FWIW the standout right now is ${gainer.ticker} (${pct(gainer.chg_7d_pct)} over 7d)${
-        loser ? ` while ${loser.ticker} cooled off (${pct(loser.chg_7d_pct)})` : ""
-      } — the EUR/USD rotation is the story to watch. Live: ${urlSite}`
-    : `Great point. Live, refreshable, onchain-verified data: ${urlSite}`
-  const d3 = txShort
-    ? `Love this take. Adding what I can't get elsewhere: every snapshot is hashed + signed onchain (tx ${txShort}…) so anyone can verify it. What's the one fund you'd add?`
-    : `Love this take. We verify every snapshot on-chain — no "trust me bro" dashboards. What's the one fund you'd add? ${urlSite}`
-  return `💬 3 reply drafts (edit to your taste, then post):
-
-1) ${d1}
-
-2) ${d2}
-
-3) ${d3}`
+Onchain-verified.`
 }
 
 export function replyFor(text) {
@@ -205,7 +168,6 @@ export function replyFor(text) {
   if (low === "/yields" || low === "/apy") return yieldsList()
   if (low === "/movers" || low === "/flows" || low === "/7d") return moversText()
   if (low === "/proof" || low === "/verify") return proofText()
-  if (low.startsWith("/suggest")) return suggest(t.slice("/suggest".length).trim() || "What do you think?")
   const fund = findFund(low)
   if (fund) return fundText(fund)
   if (low.includes("yield") || low.includes("apy")) return yieldsList()
@@ -227,63 +189,12 @@ export async function sendMessage(chatId, text) {
   })
 }
 
-const buildWords = [
-  "build",
-  "make me",
-  "custom",
-  "hire",
-  "freelance",
-  "contract work",
-  "develop",
-  "create a",
-  "tôi cần",
-  "làm giúp",
-  "làm cho",
-  "đặt hàng",
-  "báo giá",
-  "nhận task",
-  "làm bot",
-  "làm dashboard",
-  "xây dựng",
-  "xây",
-  "code cho",
-  "code giúp",
-  "giúp tôi xây",
-]
-
-export function detectBuild(text) {
-  const low = text.toLowerCase()
-  return buildWords.some((w) => low.includes(w))
-}
-
-function buildOffer(text) {
-  const q = quickQuote(text)
-  const bot = process.env.BUILD_BOT_USERNAME
-  if (!bot) return null
-  const link = `https://t.me/${bot}?start=build`
-  return `\n\n🔧 ${q.cat}: $${q.lo}-${q.hi}. Want a custom task? Chat with the build bot: ${link}`
-}
-
-async function postLead(msg) {
-  const group = process.env.GROUP_CHAT_ID
-  if (!group) return
-  const name = `${msg.from?.first_name ?? ""} ${msg.from?.last_name ?? ""}`.trim() || "?"
-  const user = msg.from?.username ? `@${msg.from.username}` : ""
-  const text = `#[lead] ${msg.chat.id}|${name} ${user}|${(msg.text || "").slice(0, 120)}`
-  await sendMessage(group, text)
-}
-
 export async function webhook(request) {
   const upd = await request.json()
   const msg = upd.message
   if (!msg?.text) return new Response("ok", { status: 200 })
   if (msg.chat.type !== "private") return new Response("ok", { status: 200 })
-  let reply = replyFor(msg.text)
-  if (detectBuild(msg.text)) {
-    const offer = buildOffer(msg.text)
-    if (offer) reply += offer
-    await postLead(msg)
-  }
+  const reply = replyFor(msg.text)
   await sendMessage(msg.chat.id, reply)
   return new Response("ok", { status: 200 })
 }

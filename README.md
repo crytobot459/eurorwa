@@ -4,6 +4,8 @@
 
 This repository is a **research project**. It studies how publicly available tokenized-MMF data can be collected, stored, and independently verified. It is provided as code and methodology for studying open financial data — not a product, service, or offering, and no hosted service, dashboard, or bot is operated here.
 
+**Free and open.** The code is MIT-licensed and free to fork and use. There is **no paywall, no API key, and no advertising** — every endpoint (REST + MCP) is open, and the pipeline runs with no credentials. Monetization and freelance/lead-generation features that previously existed here have been removed.
+
 ## Research questions
 
 - How can a daily fund snapshot be made **independently verifiable** (keccak-256 hash → signed → published on-chain)?
@@ -39,6 +41,10 @@ Verifies the payload hash matches the published keccak-256 and that the recovere
 
 ## Status
 
-Research code, provided as-is for study. No hosted service is operated.
+Research code, provided as-is for study. No hosted service is operated, and no keys are required to run it.
+
+## Compliance
+
+Per Vietnamese law (prohibition on crypto/coin advertising and registration, effective 1 Sep 2026), this repository contains **no public web dashboard and no advertising**. It is distributed solely as open research code.
 
 MIT © 2026 — data sourced from rwa.xyz public APIs. Not financial advice.

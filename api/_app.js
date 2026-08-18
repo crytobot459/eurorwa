@@ -6,7 +6,6 @@ import { cors } from "hono/cors"
 import { webhook } from "./_tgbot.js"
 import { verifyReport, verifyAttestation, verifySnapshot, lagOf } from "./_verify.js"
 import { institutionMetrics } from "./_analytics.js"
-import { paymentRequired, verifyPayment, settlePayment, paymentResponseHeader } from "./_x402.js"
 
 const cwd = process.cwd()
 const here = dirname(fileURLToPath(import.meta.url))
@@ -86,7 +85,7 @@ app.get("/", (c) =>
       "/rotation",
       "/strategy",
       "/portfolio?wallet=0x...",
-      "/analyst (x402 paid)",
+      "/analyst",
     ],
   }),
 )
@@ -365,18 +364,5 @@ app.get("/portfolio", (c) => {
 app.post("/analyst", async (c) => {
   const rep = reports().at(-1)
   if (!rep) return c.json({ ok: false, error: "no report yet" }, 503)
-  const origin = new URL(c.req.url).origin || ""
-  const resource = {
-    url: `${origin}/api/analyst`,
-    description:
-      "Latest EuroRWA analyst report — BUY/HOLD/SELL signals, market view, crypto & on-chain briefs, hashed + signed + attested on-chain",
-    mimeType: "application/json",
-    serviceName: "EuroRWA Analyst",
-  }
-  const raw = c.req.header("PAYMENT-SIGNATURE") || c.req.header("X-PAYMENT")
-  if (!raw) return paymentRequired(c, resource)
-  const v = await verifyPayment(raw)
-  if (!v.ok) return paymentRequired(c, resource, v.reason)
-  const settlement = await settlePayment(v.payload, resource)
-  return c.json(rep, 200, { "PAYMENT-RESPONSE": paymentResponseHeader(settlement) })
+  return c.json(rep)
 })
